@@ -2,7 +2,7 @@
 
 # **Intro**
 
-As described in the previous version of the Enterprise Landing Zone v1, the new Oracle Enterprise Scale Baseline Landing Zone v2.0 (ESBLZ v2.0)  is a set of foundational services and components that are deployed in a customer's OCI tenancy to establish a secure and scalable network foundation for running enterprise workloads.
+As described in the previous version of the Oracle Enterprise Scale Baseline Landing Zone v1, the new Oracle Enterprise Scale Baseline Landing Zone v2.0 (ESBLZ v2.0)  is a set of foundational services and components that are deployed in a customer's OCI tenancy to establish a secure and scalable network foundation for running enterprise workloads.
 
 The new version of Oracle Cloud Infrastructure (OCI) Enterprise Scale Baseline Landing Zone is a set of Terraform modules that are designed to make it easy to set up a secure and compliant multi-account infrastructure on OCI. Some common use cases for OCI Enterprise Scale Baseline Landing Zone include:
 
