@@ -1,0 +1,13 @@
+
+# To run tests manually, you should edit and _source_ this file.
+
+# Change if using different region. 
+export TF_VAR_region="us-ashburn-1"
+
+export TF_VAR_tenancy_ocid="... your tenancy OCID ..." 
+export TF_VAR_current_user_ocid="... your user OCID ... "
+export TF_VAR_api_fingerprint="... your OCI API key fingerprint ... "
+export TF_VAR_api_private_key_path="... location of your OCI API key file ... "
+
+# Change if your ssh pubkey has a different filenane. 
+export TF_VAR_ssh_public_key_list="[\"$(cat ~/.ssh/id_rsa.pub)\"]"

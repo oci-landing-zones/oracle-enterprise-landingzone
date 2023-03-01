@@ -1,0 +1,86 @@
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+
+stages:          # List of stages for jobs, and their order of execution
+  - test-unit
+  - TF-Plan-e2e
+  - TF-Apply-e2e
+  - TF-Destroy-e2e
+
+
+.testing_pipeline:
+  before_script:
+    - export http_proxy=http://www-proxy-hqdc.us.oracle.com:80
+    - export https_proxy=$http_proxy
+    - curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+    - unzip terraform.zip -d /bin
+    - terraform --version
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-add -l 
+    - pip install -r test/requirements.txt
+  image: lab-runner
+  tags: [LZ]
+
+unit-test-job:   # This job runs in the test stage.
+  extends: .testing_pipeline
+  stage: test-unit
+  script:
+    - pytest  -m unit --junit-xml=pytest.xml test
+  # # Orahub's artifact upload seems broken. Possibly a config issue...  
+  # artifacts:
+  #   when: always
+  #   paths:
+  #     - pytest.xml
+  #   reports:
+  #     junit: pytest.xml
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+
+e2e-full-plan-job:   # This job runs terraform plan.
+  extends: .testing_pipeline
+  stage: TF-Plan-e2e
+  when: on_success
+  script:
+    - cd templates/enterprise-landing-zone
+    - ./BackEnd.sh
+    - cat backend.tf
+    - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+    - terraform validate
+    - terraform plan -var-file=$ENV_TFVARS_FILE_NAME
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
+
+e2e-full-deploy-job:   # This job runs terraform apply.
+  extends: .testing_pipeline
+  stage: TF-Apply-e2e
+  when: on_success
+  script:
+    - cd templates/enterprise-landing-zone
+    - ./BackEnd.sh
+    - cat backend.tf
+    - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+    - terraform validate
+    - terraform apply -var-file=$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understan gitlab artifiacts issue
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
+  retry: 1
+
+e2e-full-destroy-job:   # This job runs terraform destroy.
+  extends: .testing_pipeline
+  stage: TF-Destroy-e2e
+  when: manual
+  allow_failure: true
+  script:
+    - cd templates/enterprise-landing-zone
+    - ./BackEnd.sh
+    - cat backend.tf
+    - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+    - terraform validate
+    - terraform destroy -var-file=$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understand gitlab artifiacts issue
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")

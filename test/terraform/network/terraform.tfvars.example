@@ -1,0 +1,9 @@
+# ======= Network test values.
+
+# compartment_ocid = "comapartment OCID here..." # defaults to tenancy root
+# test_instance_shape = "VM.Standard.E4.Flex"
+
+# environment_prefix = "P"
+# vcn_cidr_block = "10.0.0.0/16"
+# public_subnet_cidr_block = "10.0.0.0/24"
+# private_subnet_cidr_block = "10.0.1.0/24"
