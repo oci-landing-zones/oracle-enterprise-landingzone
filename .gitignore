@@ -1,38 +1,30 @@
-# Local .terraform directories
-**/.terraform/*
-
-# .tfstate files
-*.tfstate
-*.tfstate.*
-*.zip*
-*.tfvars
-
-# Local .terraform lock files
-*.lock.*
-
-# General
+*.exe
 .DS_Store
-.AppleDouble
-.LSOverride
 
-# Icon must end with two \r
-Icon
+*.log
+*.bak
+*.backup
+*~
+.*.swp
 
-# Thumbnails
-._*
+bin/
+modules-dev/
+pkg/
+vendor/
+__pycache__/
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
+.idea
+.vscode
 
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
+.env
+./*.tfstate
+.terraform
+terraform.tfplan
+terraform.tfstate
+terraform.tfvars
+.terraform.tfstate.lock.info
+
+.tfcache
+**/.terraform.lock.hcl
+**/tf_resources.json
+**/var.tfvars
