@@ -7,11 +7,13 @@ variable "enable_vpn_or_fastconnect" {
 variable "prod_enable_vpn" {
   type        = bool
   description = "Enable VPN in prod environment"
+  default     = false
 }
 
 variable "nonprod_enable_vpn" {
   type        = bool
   description = "Enable VPN in non prod environment"
+  default     = false
 }
 
 variable "prod_cpe_display_name" {

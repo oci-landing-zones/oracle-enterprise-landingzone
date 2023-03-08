@@ -1,7 +1,53 @@
 locals {
   availability_domains = data.oci_identity_availability_domains.ad.availability_domains
   test_compartment_ocid = var.compartment_ocid != "" ? var.compartment_ocid : var.tenancy_ocid
+  network_compartment_name = "Test_net_compartment"
+  workload_compartment_name = "Test_wrk_compartment"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Create compartments
+# ---------------------------------------------------------------------------------------------------------------------
+
+module "environment_compartment" {
+  source = "./compartment"
+
+  compartment_parent_id     = local.test_compartment_ocid
+  compartment_name          = "Test_net_env_compartment"
+  compartment_description   = "Test environment comaprtment for network tests"
+  compartment_replication_delay = var.compartment_replication_delay
+
+  providers = {
+    oci = oci.home_region
+  }
+} 
+
+module "network_compartment" {
+  source = "./compartment"
+
+  compartment_parent_id     = module.environment_compartment.compartment_id
+  compartment_name          = local.network_compartment_name
+  compartment_description   = "Test Network comaprtment for Net tests"
+  compartment_replication_delay = var.compartment_replication_delay
+
+  providers = {
+    oci = oci.home_region
+  }
+}
+
+module "workload_compartment" {
+  source = "./compartment"
+
+  compartment_parent_id     = module.environment_compartment.compartment_id
+  compartment_name          = local.workload_compartment_name
+  compartment_description   = "Test Workload comaprtment for Net tests"
+  compartment_replication_delay = var.compartment_replication_delay
+
+  providers = {
+    oci = oci.home_region
+  }
+}
+
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Call network module to set up hub and spoke network here:
@@ -13,11 +59,12 @@ module "network" {
   tenancy_ocid = var.tenancy_ocid
   region = var.region
   environment_prefix = var.environment_prefix
-  enable_internet_gateway = true
-  enable_nat_gateway = true
-  enable_service_gateway = true
 
-  network_compartment_id = local.test_compartment_ocid
+  enable_internet_gateway_hub = "true"
+  enable_nat_gateway_hub = "true"
+  enable_service_gateway_hub = "true"
+
+  network_compartment_id = module.network_compartment.compartment_id
 
   vcn_cidr_block = var.vcn_cidr_block
   public_subnet_cidr_block = var.public_subnet_cidr_block
@@ -36,6 +83,17 @@ module "network" {
   enable_vpn_on_environment = false
   enable_fastconnect_on_environment = false
   
+  nat_gw_hub_check = [""]
+  service_gw_hub_check = [""]
+  nat_gw_spoke_check = [""]
+  igw_hub_check = [""]
+  service_gw_spoke_check = [""]
+
+
+  workload_compartment_name = local.workload_compartment_name
+  workload_compartment_id = module.workload_compartment.compartment_id
+  network_compartment_name = local.network_compartment_name
+
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
@@ -61,7 +119,7 @@ locals {
 # ---------------------------------------------------------------------------------------------------------------------
 module "bastion" {
   source               = "./test_instance"
-  compartment_ocid     = local.test_compartment_ocid
+  compartment_ocid     = module.workload_compartment.compartment_id
   hostname             = "hub-bastion"
   ssh_public_keys      = join("\n", var.ssh_public_key_list)
   subnet_id            = local.pub_subnet
@@ -77,7 +135,7 @@ module "bastion" {
 module "test_nodes" {
   source               = "./test_instance"
   count                = length(local.priv_subnets)
-  compartment_ocid     = local.test_compartment_ocid
+  compartment_ocid     = module.workload_compartment.compartment_id
 
   hostname             = "spoke-${count.index + 1}-test"
   ssh_public_keys      = join("\n", var.ssh_public_key_list)
