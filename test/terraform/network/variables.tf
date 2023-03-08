@@ -11,6 +11,12 @@ variable "compartment_ocid" {
   default = ""
 }
 
+variable "compartment_replication_delay" {
+  type         = string
+  description  =  "delay to allow compartments to replicate"
+  default      = "90s"
+}
+
 variable "ssh_public_key_list" {
   type        = list(string)
   description = "The list of ssh public keys"
