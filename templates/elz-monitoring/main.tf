@@ -342,7 +342,7 @@ locals {
     ]
   }
 
-  security_alarms = {
+/*  security_alarms = {
 
     metric_compartment_id_in_subtree = false
     is_enabled                       = var.enable_security_monitoring_alarms
@@ -614,7 +614,7 @@ locals {
       }
     }
   }
-}
+} */
 
 module "workload_critical_topic" {
   source                = "../../modules/notification-topic"
