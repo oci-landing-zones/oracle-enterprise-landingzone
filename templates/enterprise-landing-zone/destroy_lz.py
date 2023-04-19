@@ -1,24 +1,17 @@
 import argparse
-import os
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
-from typing import List, Dict
-import subprocess
+from typing import Dict, List
 
 import oci
 from tqdm import tqdm
 
 
 class DestroyLandingZone:
-    def __init__(self, parent_cmp: str, region_key: str, env_prefixes: List[str],  oci_config: str, profile_name: str):
-        '''
-        Inputs include parent compartment as its name can be overridden via tfvar.
-        Region key and Environment prefix are variables used in compartment naming as well.
-        '''
+    def __init__(self, parent_cmp: str, region_key: str, resource_label: str, oci_config: str = "~/.oci/config", profile_name: str = "DEFAULT"):
 
-        self._conf_file = oci_config
         self.config = oci.config.from_file(
-            file_location=self.config_filename,
+            file_location=oci_config,
             profile_name=profile_name
         )
 
@@ -27,22 +20,22 @@ class DestroyLandingZone:
         self.log_analytics_client = oci.log_analytics.LogAnalyticsClient(
             self.config)
         self.identity_client = oci.identity.IdentityClient(self.config)
-        self.key_management_client = oci.key_management.KmsVaultClient(
+        self.kms_vault_client = oci.key_management.KmsVaultClient(
             self.config)
-        print("finished initializing oci clients")
+        self.sch_client = oci.sch.ServiceConnectorClient(self.config)
 
         self.tenancy_id = self.config["tenancy"]
-        self.parent_cmp = parent_cmp
         self.os_namespace = self.get_os_namespace()
+
+        self.parent_cmp = parent_cmp
         self.region_key = region_key
-        self.env_prefixes = env_prefixes
+        self.resource_label = resource_label
 
-    @property
-    def config_filename(self):
-        fn = os.path.join(os.environ["HOME"], self._conf_file)
-        return fn
+    def get_os_namespace(self) -> str:
+        os_namespace = self.os_client.get_namespace()
+        return os_namespace.data
 
-    def get_cmps(self, env_prefix: str) -> Dict[str, str]:
+    def get_elz_cmps(self, env_prefix: str) -> Dict[str, str]:
         parent_cmps_response = self.identity_client.list_compartments(
             compartment_id=self.tenancy_id,
             name=self.parent_cmp
@@ -87,9 +80,62 @@ class DestroyLandingZone:
 
         return cmp_map
 
-    def get_os_namespace(self):
-        os_namespace = self.os_client.get_namespace()
-        return os_namespace.data
+    def get_scca_cmps(self) -> Dict[str, str]:
+        parent_cmps_response = self.identity_client.list_compartments(
+            compartment_id=self.tenancy_id,
+            name=self.parent_cmp
+        )
+        parent_cmp_id = parent_cmps_response.data[0].id
+
+        vdms_cmp_name = f"OCI-SCCA-LZ-VDMS-{self.region_key}-{self.resource_label}"
+        vdms_cmps_response = self.identity_client.list_compartments(
+            compartment_id=parent_cmp_id,
+            name=vdms_cmp_name
+        )
+        vdms_cmp_id = vdms_cmps_response.data[0].id
+
+        vdss_cmp_name = f"OCI-SCCA-LZ-VDSS-{self.region_key}-{self.resource_label}"
+        vdss_cmps_response = self.identity_client.list_compartments(
+            compartment_id=parent_cmp_id,
+            name=vdss_cmp_name
+        )
+        vdss_cmp_id = vdss_cmps_response.data[0].id
+
+        log_cmp_name = f"OCI-SCCA-LZ-Logging-{self.region_key}-{self.resource_label}"
+        log_cmps_response = self.identity_client.list_compartments(
+            compartment_id=parent_cmp_id,
+            name=log_cmp_name
+        )
+        log_cmp_id = log_cmps_response.data[0].id
+
+        iac_cmp_name = f"OCI-SCCA-LZ-IAC-TF-Configbackup-{self.resource_label}"
+        iac_cmps_response = self.identity_client.list_compartments(
+            compartment_id=parent_cmp_id,
+            name=iac_cmp_name
+        )
+        iac_cmp_id = iac_cmps_response.data[0].id
+
+        cmp_map = {
+            "parent": parent_cmp_id,
+            "vdms": vdms_cmp_id,
+            "vdss": vdss_cmp_id,
+            "log": log_cmp_id,
+            "iac": iac_cmp_id
+        }
+
+        return cmp_map
+
+    def get_sch_ids(self, cmp_id: str) -> List[str]:
+        list_service_connectors_response = self.sch_client.list_service_connectors(
+            compartment_id=cmp_id
+        )
+        sch_ids = [d.id for d in list_service_connectors_response.data.items]
+        return sch_ids
+
+    def delete_sch(self, sch_id: str):
+        delete_service_connector_response = self.sch_client.delete_service_connector(
+            service_connector_id=sch_id
+        )
 
     def get_bucket_names(self, cmp_id: str) -> List[str]:
         buckets_response = self.os_client.list_buckets(
@@ -152,20 +198,20 @@ class DestroyLandingZone:
             namespace_name=self.os_namespace,
             purge_storage_data_details=oci.log_analytics.models.PurgeStorageDataDetails(
                 compartment_id=cmp_id,
-                time_data_ended=datetime.now().strftime(
-                    "%Y-%m-%dT%H:%M:%S.%fZ"),
-                compartment_id_in_subtree=True),
-            # wait_for_states=["SUCCEEDED"]
+                time_data_ended=datetime.now().strftime("%Y-%m-%d") + "T23:59",
+                purge_query_string="*",
+                compartment_id_in_subtree=True
+            ),
         )
-        # purge_storage_data_response = oci.log_analytics.LogAnalyticsClientCompositeOperations(self.log_analytics_client).purge_storage_data_and_wait_for_state(
-        #     namespace_name=self.os_namespace,
-        #     purge_storage_data_details=oci.log_analytics.models.PurgeStorageDataDetails(
-        #         compartment_id=cmp_id,
-        #         time_data_ended=datetime.now().strftime(
-        #             "%Y-%m-%dT%H:%M:%S.%fZ"),
-        #         compartment_id_in_subtree=True),
-        #     wait_for_states=["SUCCEEDED"]
-        # )
+
+        wait_for_resource_id = purge_storage_data_response.headers['opc-work-request-id']
+        waiter_result = oci.wait_until(
+            self.log_analytics_client,
+            self.log_analytics_client.get_storage_work_request(
+                wait_for_resource_id, self.os_namespace),
+            "status",
+            "SUCCEEDED"
+        )
 
     def delete_log_analytics_group(self, cmp_id: str):
         list_log_analytics_log_groups_response = self.log_analytics_client.list_log_analytics_log_groups(
@@ -181,36 +227,50 @@ class DestroyLandingZone:
             )
             print(delete_log_analytics_log_group_response.data)
 
-    def move_vaults(self, cmp_id):
-        list_vaults_response = self.key_management_client.list_vaults(
+    def move_vaults(self, cmp_id: str):
+        list_vaults_response = self.kms_vault_client.list_vaults(
             compartment_id=cmp_id
         )
         vaults = list_vaults_response.data
 
         for vault in vaults:
-            if vault.lifecycle_state != "CREATED":
+            if vault.lifecycle_state != "ACTIVE":
                 print(
                     f"ignoring vault {vault.display_name} not in created state")
                 continue
 
-            change_vault_compartment_response = self.key_management_client.change_vault_compartment(
+            self.move_keys(cmp_id, vault.management_endpoint)
+
+            change_vault_compartment_response = self.kms_vault_client.change_vault_compartment(
                 vault_id=vault.id,
                 change_vault_compartment_details=oci.key_management.models.ChangeVaultCompartmentDetails(
                     compartment_id=self.tenancy_id
                 )
             )
 
-    def update_terraform_state(self):
-        process = subprocess.run(["terraform state rm module.nonprod_environment.module.security.module.vault.oci_kms_vault.vault"],
-                                 stdout=subprocess.PIPE,
-                                 universal_newlines=True,
-                                 shell=True)
-        process = subprocess.run(["terraform state rm module.prod_environment.module.security.module.vault.oci_kms_vault.vault"],
-                                 stdout=subprocess.PIPE,
-                                 universal_newlines=True,
-                                 shell=True)
+    def move_keys(self, cmp_id, vault_endpoint):
+        kms_key_client = oci.key_management.KmsManagementClient(
+            self.config, vault_endpoint)
 
-    def deactivate_domains(self, cmp_id):
+        list_keys_response = kms_key_client.list_keys(
+            compartment_id=cmp_id
+        )
+        keys = list_keys_response.data
+
+        for key in keys:
+            if key.lifecycle_state != "ENABLED":
+                print(
+                    f"ignoring key {key.display_name} not in created state")
+                continue
+
+            change_key_compartment_response = kms_key_client.change_key_compartment(
+                key_id=key.id,
+                change_key_compartment_details=oci.key_management.models.ChangeKeyCompartmentDetails(
+                    compartment_id=self.tenancy_id
+                )
+            )
+
+    def deactivate_domains(self, cmp_id: str):
         list_domains_response = self.identity_client.list_domains(
             compartment_id=cmp_id
         )
@@ -225,40 +285,82 @@ class DestroyLandingZone:
         print(f"beginning env {env_prefix} destroy")
 
         print("fetching compartment ids")
-        compartments = self.get_cmps(env_prefix)
-        bucket_cmps = [compartments["parent"], compartments["log"]]
+        compartments = self.get_elz_cmps(env_prefix)
+
+        # delete sc hubs to stop logs flowing into buckets and log groups
+        print("beginning service connector destroy")
+        sch_ids = self.get_sch_ids(compartments["security"])
+        for sch in sch_ids:
+            self.delete_sch(sch)
 
         print("beginning bucket destroy")
+        bucket_cmps = [compartments["parent"], compartments["log"]]
         bucket_names = []
         for cmp in bucket_cmps:
             bucket_names += self.get_bucket_names(cmp)
 
-        print(bucket_names)
-        with ThreadPoolExecutor(max_workers=4) as p:
+        with ThreadPoolExecutor(max_workers=3) as p:
             p.map(self.delete_bucket_all, bucket_names)
 
+        # log analytics errors out in certain tenancies - fix unknown
         print("beginning log analytics destroy")
         self.purge_log_analytics(compartments["security"])
         self.delete_log_analytics_group(compartments["security"])
 
-        print("beginning vault move")
-        self.move_vaults(compartments["security"])
-        # self.update_terraform_state()
-
         print("deactivating domains")
         self.deactivate_domains(compartments["security"])
 
+        # vault only needs to be moved out of the landing zone compartments
+        # - once you run destroy, terraform will destroy it where it is
+        # also note vault can only be moved in an ACTIVE state
+        print("beginning vault move")
+        self.move_vaults(compartments["security"])
+
         print("finished destroying ___\n\n")
 
-    def run_all(self):
-        for env in self.env_prefixes:
-            self.delete_environment(env)
+    def destroy_scca(self):
+        print("beginning elz destroy")
+
+        print("fetching compartment ids")
+        compartments = self.get_scca_cmps()
+
+        print("beginning service connector destroy")
+        sch_ids = self.get_sch_ids(compartments["vdms"])
+        for sch in sch_ids:
+            self.delete_sch(sch)
+
+        print("beginning bucket destroy")
+        bucket_cmps = [compartments["iac"], compartments["log"]]
+        bucket_names = []
+        for cmp in bucket_cmps:
+            bucket_names += self.get_bucket_names(cmp)
+
+        with ThreadPoolExecutor(max_workers=3) as p:
+            p.map(self.delete_bucket_all, bucket_names)
+
+        print("beginning log analytics destroy")
+        self.purge_log_analytics(compartments["vdms"])
+        self.delete_log_analytics_group(compartments["vdms"])
+
+        print("deactivating domains")
+        self.deactivate_domains(compartments["vdms"])
+
+        print("beginning vault move")
+        self.move_vaults(compartments["vdms"])
+
+        print("finished destroying ___\n\n")
 
 
 if __name__ == "__main__":
+    '''
+    The script cleans up lingering resources that block terraform destroy.  Once the
+    script has been run, service connectors, buckets, and log analytics log groups 
+    will be deleted, identity domains deactivated, and vaults moved to the root
+    compartment. Terraform destroy will need to be run after.
+    '''
+
     parser = argparse.ArgumentParser(
-        description="Destroy Landing Zone Lingering Resources",
-        epilog="python destroy_lz.py -r IAD -e P N")
+        description="Destroy Landing Zone Lingering Resources")
 
     parser.add_argument("-c", "--cmp",
                         default="OCI-ELZ-CMP-HOME",
@@ -267,24 +369,40 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--region_key",
                         help="Region Key used in compartment naming eg. IAD, PHX")
 
-    parser.add_argument("-e", "--env_prefixes", nargs="+",
+    parser.add_argument("-e", "--elz_envs", nargs="+",
                         default=["P", "N"],
-                        help="Environment prefix used in compartment naming")
+                        help="Delete ELZ Landing Zone Environments by prefix eg. P, N")
+
+    parser.add_argument("-l", "--scca_label",
+                        help="Delete SCCA Landing Zone with specified resource label")
+
+    parser.add_argument("--delete_buckets", nargs="+",
+                        help="Delete buckets by bucket name")
 
     parser.add_argument("--profile",
                         default="DEFAULT",
                         help="OCI profile you want to use in the specified region")
 
     parser.add_argument("--oci_config",
-                        default=".oci/config",
+                        default="~/.oci/config",
                         help="Path to the OCI Configuration file")
 
     args = parser.parse_args()
-    generate_schema = DestroyLandingZone(
+    destroy_lz = DestroyLandingZone(
         parent_cmp=args.cmp,
         region_key=args.region_key,
-        env_prefixes=args.env_prefixes,
+        resource_label=args.scca_label,
         oci_config=args.oci_config,
         profile_name=args.profile
     )
-    generate_schema.run_all()
+
+    if args.delete_buckets:
+        for bucket in args.delete_buckets:
+            destroy_lz.delete_bucket_all(bucket)
+    elif args.scca_label:
+        destroy_lz.destroy_scca()
+    elif args.elz_envs:
+        for env in args.elz_envs:
+            destroy_lz.delete_environment(env)
+    else:
+        print("Select only one of the following flags: delete_buckets, scca_label, or elz_envs.")

@@ -89,10 +89,9 @@ module "network" {
   igw_hub_check = [""]
   service_gw_spoke_check = [""]
 
-
-  workload_compartment_name = local.workload_compartment_name
   workload_compartment_id = module.workload_compartment.compartment_id
-  network_compartment_name = local.network_compartment_name
+  additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
+  workload_compartment_name = local.workload_compartment_name
 
   providers = {
     oci             = oci

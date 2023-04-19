@@ -17,50 +17,64 @@ variable "environment_prefix" {
 }
 
 # -----------------------------------------------------------------------------
-# Policy Variables
+# Domain Variables
 # -----------------------------------------------------------------------------
 variable "domain_admin_email" {
   type        = string
   description = "The email address for the identity domain admin."
 }
 
+# -----------------------------------------------------------------------------
+# Policy Variables
+# -----------------------------------------------------------------------------
 variable "environment_compartment_name" {
   type = string
-
 }
 
 variable "environment_compartment_id" {
   type = string
+}
 
+variable "shared_compartment_name" {
+  type = string
+}
+
+variable "shared_compartment_id" {
+  type = string
 }
 
 variable "network_compartment_id" {
   type = string
-
 }
 
 variable "network_compartment_name" {
   type = string
-
-}
-
-variable "network_admin_group_name" {
-  type        = string
-  default     = ""
-  description = "The group name for the OCI Landing Zone Network Administrators Group"
 }
 
 variable "security_compartment_id" {
   type = string
+}
 
+variable "security_compartment_name" {
+  type = string
 }
 variable "workload_compartment_id" {
   type = string
 
 }
-variable "security_compartment_name" {
-  type = string
+variable "workload_compartment_names" {
+  type        = list(string)
+  default     = []
+  description = "The names of the workload compartments to update policies for the Admin Groups"
+}
 
+# -----------------------------------------------------------------------------
+# Group Variables
+# -----------------------------------------------------------------------------
+variable "network_admin_group_name" {
+  type        = string
+  default     = ""
+  description = "The group name for the OCI Landing Zone Network Administrators Group"
 }
 
 variable "security_admin_group_name" {
@@ -109,4 +123,8 @@ variable "workload_compartment_name" {
   type        = string
   description = "The name of the workload compartment by default OCI-ELZ-<Workload Name>-<Region>."
   default     = ""
+}
+variable "domain_license_type" {
+  type        = string
+  description = "Identity Domain License Type"
 }

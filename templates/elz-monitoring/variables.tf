@@ -122,3 +122,7 @@ variable "enable_workload_monitoring_alarms" {
   type        = bool
   description = "Enable Workload Monitoring Alarms in Workload Compartment"
 }
+variable "is_create_alarms" {
+  type        = bool
+  description = "Enable Alarms Creation in all Compartment"
+}

@@ -14,3 +14,29 @@ output "dynamic_group_detail" {
 output "workload_compartment_id" {
   value = module.prod_environment.workload_compartment_id
 }
+
+output "prod_environment" {
+  value = {
+    environment_prefix = local.prod_environment.environment_prefix
+    compartments = module.prod_environment.compartment
+    subnets = module.prod_environment.subnets
+    hub_vcn = module.prod_environment.vcn
+    hub_public_subnet_cidr = module.prod_environment.hub_public_subnet_cidr
+    hub_private_subnet_cidr = module.prod_environment.hub_private_subnet_cidr
+    drg_id = module.prod_environment.drg_id
+    identity_domain = module.prod_environment.identity_domain
+  }
+}
+
+output "nonprod_environment" {
+  value = {
+    environment_prefix = local.nonprod_environment.environment_prefix
+    compartments = module.nonprod_environment.compartment
+    subnets = module.nonprod_environment.subnets
+    hub_vcn = module.nonprod_environment.vcn
+    hub_public_subnet_cidr = module.nonprod_environment.hub_public_subnet_cidr
+    hub_private_subnet_cidr = module.nonprod_environment.hub_private_subnet_cidr
+    drg_id = module.nonprod_environment.drg_id
+    identity_domain = module.nonprod_environment.identity_domain
+  }
+}

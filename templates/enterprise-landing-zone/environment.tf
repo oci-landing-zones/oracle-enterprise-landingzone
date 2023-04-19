@@ -26,6 +26,7 @@ module "prod_environment" {
   platform_admin_group_name         = var.prod_platform_admin_group_name
   ops_admin_group_name              = var.prod_ops_admin_group_name
   security_admin_group_name         = var.prod_security_admin_group_name
+  workload_compartment_names        = var.prod_workload_compartment_names
 
   workload_admin_group_name         = var.prod_workload_admin_group_name
   application_admin_group_name      = var.prod_application_admin_group_name
@@ -38,6 +39,9 @@ module "prod_environment" {
   budget_alert_rule_recipients      = var.prod_budget_alert_rule_recipients
   enable_cloud_guard                = var.enable_cloud_guard
   cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
+  is_create_alarms                    = var.is_create_alarms
+  domain_license_type                 = var.domain_license_type
+
   home_compartment_name             = var.home_compartment_name
   enable_vpn_or_fastconnect         = var.enable_vpn_or_fastconnect
   cpe_ip_address                    = var.prod_cpe_ip_address
@@ -115,6 +119,7 @@ module "prod_environment" {
   enable_network_monitoring_alarms    = var.prod_enable_network_monitoring_alarms
   enable_workload_monitoring_alarms   = var.prod_enable_workload_monitoring_alarms
 
+  additional_workload_subnets_cidr_blocks = var.prod_additional_workload_subnets_cidr_blocks
 
   providers = {
     oci             = oci
@@ -130,7 +135,7 @@ module "prod_environment" {
 }
 
 # -----------------------------------------------------------------------------
-# Prod Enviroment Resources 
+# Non-Prod Enviroment Resources
 # -----------------------------------------------------------------------------
 locals {
   nonprod_environment = {
@@ -157,6 +162,7 @@ module "nonprod_environment" {
   platform_admin_group_name         = var.nonprod_platform_admin_group_name
   ops_admin_group_name              = var.nonprod_ops_admin_group_name
   security_admin_group_name         = var.nonprod_security_admin_group_name
+  workload_compartment_names        = var.nonprod_workload_compartment_names
 
   workload_admin_group_name         = var.nonprod_workload_admin_group_name
   application_admin_group_name      = var.nonprod_application_admin_group_name
@@ -167,6 +173,8 @@ module "nonprod_environment" {
   budget_alert_rule_threshold       = var.nonprod_budget_alert_rule_threshold
   budget_alert_rule_message         = var.nonprod_budget_alert_rule_message
   budget_alert_rule_recipients      = var.nonprod_budget_alert_rule_recipients
+  is_create_alarms                  = var.is_create_alarms
+  domain_license_type               = var.domain_license_type
   enable_cloud_guard                = var.enable_cloud_guard
   cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
   home_compartment_name             = var.home_compartment_name
@@ -251,6 +259,8 @@ module "nonprod_environment" {
 
   remote_peering_connection_peer_id          = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? module.prod_environment.rpc_id : null
   remote_peering_connection_peer_region_name = var.region
+
+  additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
 
   providers = {
     oci             = oci

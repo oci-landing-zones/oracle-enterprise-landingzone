@@ -77,3 +77,8 @@ variable "spoke_vcn_cidr" {
   type    = string
   default = "10.1.0.0/16"
 }
+
+variable "additional_workload_subnets_cidr_blocks" {
+  type    = list(string)
+  default = []
+}

@@ -53,6 +53,7 @@ locals {
 module "cloud_guard" {
   source = "../../modules/cloud-guard"
   count                                      = var.enable_cloud_guard ? 1 : 0
+  
   tenancy_ocid                               = var.tenancy_ocid
   region                                     = var.region
   status                                     = local.cloud_guard.status

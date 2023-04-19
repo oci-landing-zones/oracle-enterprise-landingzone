@@ -73,12 +73,3 @@ variable "domain_replica_region" {
   default     = ""
   description = "A region for which domain replication is requested for."
 }
-
-# -----------------------------------------------------------------------------
-# Group Variables 
-# -----------------------------------------------------------------------------
-variable "group_names" {
-  type        = list(string)
-  default     = []
-  description = "The list of user group names."
-}

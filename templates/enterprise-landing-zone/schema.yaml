@@ -90,6 +90,8 @@ variableGroups:
       - nonprod_spoke_subnet_web_cidr_block
       - nonprod_spoke_subnet_app_cidr_block
       - nonprod_spoke_subnet_db_cidr_block
+      - prod_additional_workload_subnets_cidr_blocks
+      - nonprod_additional_workload_subnets_cidr_blocks
   - title: Tagging Variables
     visible: true
     variables:
@@ -872,6 +874,20 @@ variables:
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
     title: Database Subnet CIDR Block in Non-Prod Spoke
+  prod_additional_workload_subnets_cidr_blocks:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Additional Workload Subnets CIDR Blocks in Prod
+    description: "A list of subnets cidr blocks in additional workload expansion stack in Prod"
+  nonprod_additional_workload_subnets_cidr_blocks:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Additional Workload Subnets CIDR Blocks in Non-Prod
+    description: "A list of subnets cidr blocks in additional workload expansion stack in Non-Prod"
 
   # Network Extension Variables
   enable_vpn_or_fastconnect:

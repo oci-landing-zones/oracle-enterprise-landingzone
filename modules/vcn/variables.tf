@@ -3,8 +3,8 @@
 #  description = "The OCID of the compartment to contain the VCN."
 #}
 
-variable "vcn_cidr_block" {
-  type        = string
+variable "vcn_cidrs" {
+  type        = list(string)
   description = "The CIDR block of VCN"
 }
 
@@ -23,7 +23,7 @@ variable "enable_ipv6" {
   default     = false
   description = "Compartment : Option to enable ipv6"
 }
-variable "network_compartment_id" {
+variable "compartment_ocid_id" {
   type        = string
   description = "the OCID of the compartment where the environment will be created."
 }

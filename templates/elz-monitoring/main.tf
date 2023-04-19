@@ -188,6 +188,8 @@ locals {
 }
 
 module "network_critical_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.network_compartment_id
   topic_name            = local.network_critical_topic.topic_name
@@ -197,6 +199,8 @@ module "network_critical_topic" {
 }
 
 module "network_warning_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.network_compartment_id
   topic_name            = local.network_warning_topic.topic_name
@@ -207,6 +211,8 @@ module "network_warning_topic" {
 }
 
 module "security_critical_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.security_compartment_id
   topic_name            = local.security_critical_topic.topic_name
@@ -217,6 +223,8 @@ module "security_critical_topic" {
 }
 
 module "security_warning_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.security_compartment_id
   topic_name            = local.security_warning_topic.topic_name
@@ -227,6 +235,8 @@ module "security_warning_topic" {
 }
 
 module "budget_warning_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.environment_compartment_id
   topic_name            = local.budget_warning_topic.topic_name
@@ -237,6 +247,8 @@ module "budget_warning_topic" {
 }
 
 module "iam_warning_topic" {
+  count                 = var.is_create_alarms   ? 1 : 0
+
   source                = "../../modules/notification-topic"
   compartment_id        = var.environment_compartment_id
   topic_name            = local.iam_warning_topic.topic_name
@@ -247,9 +259,11 @@ module "iam_warning_topic" {
 }
 
 module "announcement_subscription" {
+  count                     = var.is_create_alarms   ? 1 : 0
+
   source                    = "../../modules/announcement-subscription"
-  compartment_id            = var.security_compartment_id
-  notification_topic_id     = module.security_critical_topic.topic_id
+  compartment_id            = var.security_compartment_id 
+  notification_topic_id     = var.is_create_alarms == true ? module.security_critical_topic[0].topic_id : " "
   subscription_display_name = local.announcement_subscription.subscription_display_name
   filter_groups             = local.announcement_subscription.filter_groups
 }
@@ -280,6 +294,7 @@ resource "time_sleep" "log_delay" {
 }
 
 module "logging_analytics_default" {
+  count                                   = var.is_create_alarms   ? 1 : 0
   source                                  = "../../modules/log-analytics"
   tenancy_ocid                            = var.tenancy_ocid
   compartment_id                          = var.security_compartment_id
@@ -295,6 +310,7 @@ module "logging_analytics_default" {
 }
 
 module "logging_analytics_audit" {
+  count                                   = var.is_create_alarms   ? 1 : 0
   source                                  = "../../modules/log-analytics"
   tenancy_ocid                            = var.tenancy_ocid
   compartment_id                          = var.security_compartment_id
@@ -616,29 +632,32 @@ locals {
   }
 }
 
-module "workload_critical_topic" {
-  source                = "../../modules/notification-topic"
-  compartment_id        = var.workload_compartment_id
-  topic_name            = local.workload_critical_topic.topic_name
-  topic_description     = local.workload_critical_topic.topic_description
-  subscription_endpoint = var.workload_topic_endpoints
-  subscription_protocol = local.workload_critical_topic.subscription_protocol
-}
+#module "workload_critical_topic" {
+#   count                 = var.is_create_alarms   ? 1 : 0
+#  source                = "../../modules/notification-topic"
+#  compartment_id        = var.workload_compartment_id
+#  topic_name            = local.workload_critical_topic.topic_name
+#  topic_description     = local.workload_critical_topic.topic_description
+#  subscription_endpoint = var.workload_topic_endpoints
+#  subscription_protocol = local.workload_critical_topic.subscription_protocol
+#}
 
-module "workload_warning_topic" {
-  source                = "../../modules/notification-topic"
-  compartment_id        = var.workload_compartment_id
-  topic_name            = local.workload_warning_topic.topic_name
-  topic_description     = local.workload_warning_topic.topic_description
-  subscription_endpoint = var.workload_topic_endpoints
-  subscription_protocol = local.workload_warning_topic.subscription_protocol
-}
+#module "workload_warning_topic" {
+#   count                 = var.is_create_alarms   ? 1 : 0
+#  source                = "../../modules/notification-topic"
+#  compartment_id        = var.workload_compartment_id
+#  topic_name            = local.workload_warning_topic.topic_name
+#  topic_description     = local.workload_warning_topic.topic_description
+#  subscription_endpoint = var.workload_topic_endpoints
+#  subscription_protocol = local.workload_warning_topic.subscription_protocol
+#}
 
 module "security_alarms_warning" {
-  source = "../../modules/alarms"
+  count                 = var.is_create_alarms   ? 1 : 0
+  source                = "../../modules/alarms"
 
   compartment_id                   = var.security_compartment_id
-  notification_topic_id            = module.security_warning_topic.topic_id
+  notification_topic_id            = var.is_create_alarms == true ? module.security_warning_topic[0].topic_id : " "
   is_enabled                       = local.security_alarms.is_enabled
   message_format                   = local.security_alarms.message_format
   pending_duration                 = local.security_alarms.pending_duration
@@ -648,10 +667,11 @@ module "security_alarms_warning" {
 }
 
 module "security_alarms_critical" {
-  source = "../../modules/alarms"
+  count                 = var.is_create_alarms   ? 1 : 0
+  source                = "../../modules/alarms"
 
   compartment_id                   = var.security_compartment_id
-  notification_topic_id            = module.security_critical_topic.topic_id
+  notification_topic_id            = var.is_create_alarms == true ? module.security_critical_topic[0].topic_id : " "
   is_enabled                       = local.security_alarms.is_enabled
   message_format                   = local.security_alarms.message_format
   pending_duration                 = local.security_alarms.pending_duration
@@ -661,10 +681,11 @@ module "security_alarms_critical" {
 }
 
 module "network_alarms_warning" {
-  source = "../../modules/alarms"
+  count                 = var.is_create_alarms   ? 1 : 0
+  source                = "../../modules/alarms"
 
   compartment_id                   = var.network_compartment_id
-  notification_topic_id            = module.network_warning_topic.topic_id
+  notification_topic_id            = var.is_create_alarms == true ? module.network_warning_topic[0].topic_id : " "
   is_enabled                       = local.network_alarms.is_enabled
   message_format                   = local.network_alarms.message_format
   pending_duration                 = local.network_alarms.pending_duration
@@ -673,10 +694,11 @@ module "network_alarms_warning" {
 }
 
 module "network_alarms_critical" {
-  source = "../../modules/alarms"
+  count                 = var.is_create_alarms   ? 1 : 0
+  source                = "../../modules/alarms"
 
   compartment_id                   = var.network_compartment_id
-  notification_topic_id            = module.network_critical_topic.topic_id
+  notification_topic_id            = var.is_create_alarms == true ? module.network_critical_topic[0].topic_id : " "
   is_enabled                       = local.network_alarms.is_enabled
   message_format                   = local.network_alarms.message_format
   pending_duration                 = local.network_alarms.pending_duration
@@ -684,32 +706,9 @@ module "network_alarms_critical" {
   alarm_map                        = local.network_alarms.network_alarms_critical_map
 }
 
-module "workload_alarms_warning" {
-  source = "../../modules/alarms"
-
-  compartment_id                   = var.workload_compartment_id
-  notification_topic_id            = module.workload_warning_topic.topic_id
-  is_enabled                       = local.workload_alarms.is_enabled
-  message_format                   = local.workload_alarms.message_format
-  pending_duration                 = local.workload_alarms.pending_duration
-  metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
-  alarm_map                        = local.workload_alarms.workload_alarms_warning_map
-}
-
-module "workload_alarms_critical" {
-  source = "../../modules/alarms"
-
-  compartment_id                   = var.workload_compartment_id
-  notification_topic_id            = module.workload_critical_topic.topic_id
-  is_enabled                       = local.workload_alarms.is_enabled
-  message_format                   = local.workload_alarms.message_format
-  pending_duration                 = local.workload_alarms.pending_duration
-  metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
-  alarm_map                        = local.workload_alarms.workload_alarms_critical_map
-}
-
 module "alarm_policy" {
-  source = "../../modules/policies"
+  count                 = var.is_create_alarms   ? 1 : 0
+  source                = "../../modules/policies"
 
   compartment_ocid = var.environment_compartment_id
   policy_name      = local.alarm_policy.name
