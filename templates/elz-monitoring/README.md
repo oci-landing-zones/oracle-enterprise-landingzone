@@ -11,6 +11,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 4.96.0 |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
@@ -30,15 +31,12 @@
 | <a name="module_security_alarms_warning"></a> [security\_alarms\_warning](#module\_security\_alarms\_warning) | ../../modules/alarms | n/a |
 | <a name="module_security_critical_topic"></a> [security\_critical\_topic](#module\_security\_critical\_topic) | ../../modules/notification-topic | n/a |
 | <a name="module_security_warning_topic"></a> [security\_warning\_topic](#module\_security\_warning\_topic) | ../../modules/notification-topic | n/a |
-| <a name="module_workload_alarms_critical"></a> [workload\_alarms\_critical](#module\_workload\_alarms\_critical) | ../../modules/alarms | n/a |
-| <a name="module_workload_alarms_warning"></a> [workload\_alarms\_warning](#module\_workload\_alarms\_warning) | ../../modules/alarms | n/a |
-| <a name="module_workload_critical_topic"></a> [workload\_critical\_topic](#module\_workload\_critical\_topic) | ../../modules/notification-topic | n/a |
-| <a name="module_workload_warning_topic"></a> [workload\_warning\_topic](#module\_workload\_warning\_topic) | ../../modules/notification-topic | n/a |
 
 ## Resources
 
 | Name | Type |
 |------|------|
+| [time_sleep.log_delay](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs

@@ -25,30 +25,27 @@ variable "enable_compartment_delete" {
   default     = true
 }
 
-#variable "enviroment_compartment_id" {
-#  type        = string
-#  description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
-#}
+variable "environment_compartment_id" {
+  type        = string
+  description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
+}
 
 variable "security_compartment_id" {
   type        = string
   description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
+  default     = ""
 }
 
 variable "network_compartment_id" {
   type        = string
   description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
-}
-
-variable "workload_compartment_id" {
-  type        = string
   default     = ""
-  description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
 }
 
 variable "workload_name" {
   type        = string
   description = "The name of the workload."
+  default     = "W"
 }
 
 variable "workload_compartment_name" {
@@ -57,7 +54,9 @@ variable "workload_compartment_name" {
   default     = ""
 }
 
-
+# -----------------------------------------------------------------------------
+# Monitoring Variables
+# -----------------------------------------------------------------------------
 variable "workload_topic_endpoints" {
   type        = list(string)
   default     = []
@@ -70,6 +69,7 @@ variable "workload_topic_endpoints" {
     error_message = "Validation failed: invalid email address."
   }
 }
+
 variable "network_topic_endpoints" {
   type        = list(string)
   default     = []
@@ -95,19 +95,100 @@ variable "secops_topic_endpoints" {
     error_message = "Validation failed: invalid email address."
   }
 }
+variable "is_create_alarms" {
+  type        = bool
+  description = "Enable Alarms Creation in all Compartment"
+  default     = true
+}
+# -----------------------------------------------------------------------------
+# Workload Expansion Variables
+# -----------------------------------------------------------------------------
+variable "customer_onprem_ip_cidr" {
+  type    = list(string)
+  default = []
+}
+variable "enable_vpn_on_environment" {
+  type    = bool
+  default = false
+}
+variable "enable_vpn_or_fastconnect" {
+  type    = string
+  default = "NONE"
+}
+variable "ipsec_connection_static_routes" {
+  type        = list(string)
+  default     = [""]
+}
 
 variable "enable_security_monitoring_alarms" {
   type        = bool
   description = "Enable Security Monitoring Alarms in Security Compartment"
+  default     = false
+  validation {
+    condition     = can(regex("^([t][r][u][e]|[f][a][l][s][e])$", var.enable_security_monitoring_alarms))
+    error_message = "The workload_expansion_flag variable must be either true or false."
+  }
 }
+
 variable "enable_network_monitoring_alarms" {
   type        = bool
   description = "Enable Network Monitoring Alarms in Network Compartment"
+  default     = false
+  validation {
+    condition     = can(regex("^([t][r][u][e]|[f][a][l][s][e])$", var.enable_network_monitoring_alarms))
+    error_message = "The workload_expansion_flag variable must be either true or false."
+  }
 }
+
 variable "enable_workload_monitoring_alarms" {
   type        = bool
   description = "Enable Workload Monitoring Alarms in Workload Compartment"
+  default     = false
+  validation {
+    condition     = can(regex("^([t][r][u][e]|[f][a][l][s][e])$", var.enable_workload_monitoring_alarms))
+    error_message = "The workload_expansion_flag variable must be either true or false."
+  }
 }
-variable "environment_compartment_id" {
+
+# -----------------------------------------------------------------------------
+# Identity Variables
+# -----------------------------------------------------------------------------
+variable "security_compartment_name" {
   type        = string
+  description = "Security Compartment Name."
+  default     = ""
+}
+
+variable "identity_domain_id" {
+  type        = string
+  description = "the ocid of identity domain"
+  default     = "ocid1.domain."
+  validation {
+    condition     = can(regex("^domain$", split(".", var.identity_domain_id)[1]))
+    error_message = "Only Domain are OCID is allowed."
+  }
+}
+
+variable "identity_domain_name" {
+  type        = string
+  description = "identity domain name"
+  default     = ""
+}
+
+variable "workload_admin_group_name" {
+  type        = string
+  description = "the name of workload admin group"
+  default     = ""
+}
+
+variable "application_admin_group_name" {
+  type        = string
+  description = "the name of workload application admin group"
+  default     = ""
+}
+
+variable "database_admin_group_name" {
+  type        = string
+  description = "the name of workload database admin group"
+  default     = ""
 }

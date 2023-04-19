@@ -8,6 +8,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
+| <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
@@ -20,6 +21,7 @@ No modules.
 | [oci_identity_tag.tag](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag) | resource |
 | [oci_identity_tag_default.tag_default](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag_default) | resource |
 | [oci_identity_tag_namespace.tag_namespace](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag_namespace) | resource |
+| [time_sleep.tag_creation_delay](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 
 ## Inputs
 

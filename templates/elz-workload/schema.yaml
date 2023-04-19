@@ -1,0 +1,319 @@
+title: Oracle Enterprise Landing Zone v2 - Workload Expansion
+description: Oracle Enterprise Landing Zone v2 - Workload Expansion developed by OCI
+schemaVersion: 1.0.0
+version: "1.0.0"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: Compartment Variables
+    visible: true
+    variables:
+      - workload_expansion_flag
+      - workload_compartment_name
+      - environment_compartment_id
+      - environment_prefix
+      - workload_prefix
+      - enable_compartment_delete
+  - title: Monitoring Variables
+    visible: true
+    variables:
+      - enable_network_monitoring_alarms
+      - enable_security_monitoring_alarms
+      - enable_workload_monitoring_alarms
+      - workload_topic_endpoints
+      - workload_name
+  - title: Network Variables
+    visible: true
+    variables:
+      - workload_spoke_vcn_cidr
+      - vcn_display_name
+      - vcn_dns_label
+      - workload_private_spoke_subnet_web_cidr_block
+      - workload_private_spoke_subnet_db_cidr_block
+      - workload_private_spoke_subnet_app_cidr_block
+      - enable_nat_gateway_spoke
+      - enable_service_gateway_spoke
+      - hub_public_subnet_cidr_block
+      - hub_private_subnet_cidr_block
+      - workload_private_spoke_subnet_web_dns_label
+      - workload_private_spoke_subnet_app_dns_label
+      - workload_private_spoke_subnet_db_dns_label
+      - workload_private_spoke_subnet_web_display_name
+      - workload_private_spoke_subnet_app_display_name
+      - workload_private_spoke_subnet_db_display_name
+      - nat_gateway_display_name
+      - service_gateway_display_name
+      - route_table_display_name
+      - security_list_display_name
+      - drg_id
+  - title: IAM Policy Variables
+    visible: true
+    variables:
+      - identity_domain_id
+      - identity_domain_name
+      - workload_admin_group_name
+      - application_admin_group_name
+      - database_admin_group_name
+      - security_compartment_name
+      - security_compartment_id
+  - title: Invisible Variables
+    visible: false
+    variables:
+      - enable_internet_gateway_spoke
+      - nat_gw_spoke_check
+      - service_gw_spoke_check
+      - customer_onprem_ip_cidr
+      - enable_vpn_on_environment
+      - enable_vpn_or_fastconnect
+      - ipsec_connection_static_routes
+      - is_create_alarms
+      - network_compartment_id
+      - network_topic_endpoints
+      - secops_topic_endpoints
+
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: "the OCI region LZ is deployed to."
+    title: Region
+    required: true
+  tenancy_ocid:
+    type: string
+    description: "The OCID of tenancy"
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: "OCID of the current user"
+    title: Current User OCID
+  #Workload Variables
+  workload_expansion_flag:
+    type: boolean
+    description: "Set true to enable workload expansion"
+    default: true
+    title: Enable Workload Expansion
+    required: true
+  workload_compartment_name:
+    type: string
+    description: "The name of workload compartment is going to create."
+    title: Workload Compartment Name
+    required: true
+  environment_compartment_id:
+    type: string
+    description: "The OCID of the environment compartment that the workload is created in."
+    title: Environment Compartment OCID
+    required: true
+  environment_prefix:
+    type: string
+    description: "The unique prefix of environment compartment used in baseline stack."
+    title: Environment Prefix
+    required: true
+  workload_prefix:
+    type: string
+    description: "The unique prefix of the workload is going to create, using for avoid naming conflict."
+    title: Workload Prefix
+    required: true
+  enable_compartment_delete:
+    type: boolean
+    description: "Set to true to allow the compartments to delete on terraform destroy."
+    required: true
+    title: Enable Compartment Delete
+  enable_network_monitoring_alarms:
+    type: boolean
+    description: "Enable Network Monitoring Alarms in Workload Expansion."
+    default: false
+    required: true
+    title: Enable Network Monitoring Alarms in Workload Expansion
+  enable_security_monitoring_alarms:
+    type: boolean
+    description: "Enable Security Monitoring Alarms in Workload Expansion."
+    default: false
+    required: true
+    title: Enable Security Monitoring Alarms in Workload Expansion
+  enable_workload_monitoring_alarms:
+    type: boolean
+    description: "Enable Workload Monitoring Alarms in Workload Expansion."
+    default: false
+    required: true
+    title: Enable Workload Monitoring Alarms in Workload Expansion
+  workload_spoke_vcn_cidr:
+    type: string
+    description: "Vcn CIDR block in Workload Expansion Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: VCN CIDR Block in Workload Expansion Spoke
+  vcn_display_name:
+    type: string
+    description: "Vcn display name in Workload Expansion Spoke"
+    required: true
+    title: VCN Display Name in Workload Expansion Spoke
+  vcn_dns_label:
+    type: string
+    description: "Vcn DNS label in Workload Expansion Spoke"
+    required: true
+    title: VCN DNS Label in Workload Expansion Spoke
+  workload_private_spoke_subnet_web_cidr_block:
+    type: string
+    description: "Web subnet CIDR block in Workload Expansion Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Web Subnet CIDR Block in Workload Expansion Spoke
+  workload_private_spoke_subnet_app_cidr_block:
+    type: string
+    description: "App subnet CIDR block in Workload Expansion Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: App Subnet CIDR Block in Workload Expansion Spoke
+  workload_private_spoke_subnet_db_cidr_block:
+    type: string
+    description: "Database subnet CIDR block in Workload Expansion Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Database Subnet CIDR Block in Workload Expansion Spoke
+  enable_nat_gateway_spoke:
+    type: boolean
+    description: "Option to enable nat gateway in Workload Expansion spoke"
+    default: true
+    required: true
+    title: Enable NAT Gateway in Workload Expansion Spoke
+  enable_service_gateway_spoke:
+    type: boolean
+    description: "Option to enable service gateway in Workload Expansion spoke"
+    default: true
+    required: true
+    title: Enable Service Gateway in Workload Expansion Spoke
+  hub_public_subnet_cidr_block:
+    type: string
+    description: "the CIDR block of HUB public subnet in baseline stack"
+    required: true
+    title: HUB Public Subnet CIDR Block
+  hub_private_subnet_cidr_block:
+    type: string
+    description: "the CIDR block of HUB private subnet in baseline stack"
+    required: true
+    title: HUB Private Subnet CIDR Block
+  workload_private_spoke_subnet_web_dns_label:
+    type: string
+    description: "the DNS label for web subnet in workload expansion spoke."
+    required: true
+    title: Web Subnet DNS Label in Workload Expansion Spoke
+  workload_private_spoke_subnet_app_dns_label:
+    type: string
+    description: "the DNS label for App subnet in workload expansion spoke."
+    required: true
+    title: App Subnet DNS Label in Workload Expansion Spoke
+  workload_private_spoke_subnet_db_dns_label:
+    type: string
+    description: "the DNS label for Database subnet in workload expansion spoke."
+    required: true
+    title: Database Subnet DNS Label in Workload Expansion Spoke
+  workload_private_spoke_subnet_web_display_name:
+    type: string
+    description: "the display name for Web subnet in workload expansion spoke."
+    required: true
+    title: Web Subnet Display Name in Workload Expansion Spoke
+  workload_private_spoke_subnet_app_display_name:
+    type: string
+    description: "the display name for App subnet in workload expansion spoke."
+    required: true
+    title: App Subnet Display Name in Workload Expansion Spoke
+  workload_private_spoke_subnet_db_display_name:
+    type: string
+    description: "the display name for Database subnet in workload expansion spoke."
+    required: true
+    title: Database Subnet Display Name in Workload Expansion Spoke
+  nat_gateway_display_name:
+    type: string
+    description: "the display name of NAT Gateway"
+    title: NAT Gateway Display Name
+    default: "ngw"
+    required: true
+  service_gateway_display_name:
+    type: string
+    description: "the display name of Service Gateway"
+    title: Service Gateway Display Name
+    default: "sgw"
+    required: true
+  route_table_display_name:
+    type: string
+    description: "the display name of route table in workload expansion spoke"
+    title: Route Table Display Name
+    required: true
+  security_list_display_name:
+    type: string
+    description: "the display name of security list in workload expansion spoke"
+    title: Security List Display Name
+    required: true
+  drg_id:
+    type: string
+    description: "the OCID of DRG created in baseline stack"
+    title: DRG OCID
+    required: true
+  # IAM
+  identity_domain_id:
+    type: string
+    description: "the OCID of identity domain that the workload expansion is going to create in"
+    title: Identity Domain OCID
+    required: true
+  identity_domain_name:
+    type: string
+    description: "the name of identity domain that the workload expansion is going to create in"
+    title: Identity Domain Name
+    required: true
+  workload_admin_group_name:
+    type: string
+    description: "the name of workload admin"
+    title: Workload Admin Group Name
+    required: true
+  application_admin_group_name:
+    type: string
+    description: "the name of application admin"
+    title: Application Admin Group Name
+    required: true
+  database_admin_group_name:
+    type: string
+    description: "the name of database admin"
+    title: Databse Admin Group Name
+    required: true
+  security_compartment_name:
+    type: string
+    description: "the name of the security compartment that is in the same environment of workload expansion and created in baseline stack"
+    title: Security Compartment Name
+    required: true
+  security_compartment_id:
+    type: string
+    description: "the ocid of the security compartment that is in the same environment of workload expansion and created in baseline stack"
+    title: Security Compartment OCID
+    required: true
+  workload_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Workload Warning and Critical notifications."
+    required: false
+    default: [ ]
+    title: Workload Warning and Critical Notification Recipient Email List in Workload Expansion
+  workload_name:
+    type: string
+    required: true
+    default: "W"
+    description: Prefix Name of Workload Expansion Topics to avoid name conflicts
+    title: Prefix Name of Workload Expansion Topics

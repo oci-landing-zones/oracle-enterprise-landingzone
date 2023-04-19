@@ -284,6 +284,36 @@ The steps to clean up these resources is as follows:
 
 Once these resources have been removed, you will be able to use Terraform to delete the rest of the Enterprise Scale Baseline Landing Zone. If using terraform CLI: run `terraform destroy` to remove other resources. If using ORM: navigate to the corresponding stack created and click  `Destroy`.
 
+#### Cleanup Script
+A clean up script is provided to assist in cleaning up lingering resources that block terraform destroy.
+It can be found at `./destroy_lz.py`
+
+Once the script has been run, service connectors, buckets, and log analytics log groups will be deleted, identity domains deactivated, and vaults moved to the root compartment. 
+Terraform destroy will need to be run after.
+
+1. To run the script ensure you have **python3** installed as well as an **oci api key**.
+   * install python [here](https://www.python.org/downloads/)
+   * set up api keys [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm)
+
+2. Verify the profile name(eg. DEFAULT) by checking the config file found at `~/.oci/config` (if the profile you want to use is not DEFAULT use the `--profile` flag to indicate).
+
+3. Install dependencies using the command: 
+    ```
+    pip install oci tqdm
+    ```
+
+4. Run the command (from the templates/enterprise-landing-zone directory)
+    ```
+    python destroy_lz.py -r IAD -e P N -c OCI-ELZ-CMP-HOME 
+    ```
+
+The `-r` flag indicates the 3 letter region key, the `-e` indicates the environment prefix, such as production and non-production, and the `-c` indicating the home compartment. 
+
+For more information on flag usage for the script use the `--help` flag.
+```
+python destroy_lz.py  --help
+```
+
 ## Known Issues
 
 ---

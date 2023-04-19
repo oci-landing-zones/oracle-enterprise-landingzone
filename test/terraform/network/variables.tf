@@ -11,6 +11,12 @@ variable "compartment_ocid" {
   default = ""
 }
 
+variable "compartment_replication_delay" {
+  type         = string
+  description  =  "delay to allow compartments to replicate"
+  default      = "90s"
+}
+
 variable "ssh_public_key_list" {
   type        = list(string)
   description = "The list of ssh public keys"
@@ -70,4 +76,9 @@ variable "private_spoke_subnet_db_cidr_block" {
 variable "spoke_vcn_cidr" {
   type    = string
   default = "10.1.0.0/16"
+}
+
+variable "additional_workload_subnets_cidr_blocks" {
+  type    = list(string)
+  default = []
 }

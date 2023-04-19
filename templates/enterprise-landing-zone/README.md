@@ -110,7 +110,7 @@ Version 2 of Enterprise Scale Baseline Landing Zone
 | <a name="input_nonprod_enable_service_gateway_spoke"></a> [nonprod\_enable\_service\_gateway\_spoke](#input\_nonprod\_enable\_service\_gateway\_spoke) | Option to enable TRUE and Disable false. | `string` | `"false"` | no |
 | <a name="input_nonprod_enable_tagging"></a> [nonprod\_enable\_tagging](#input\_nonprod\_enable\_tagging) | Option to enable Tagging gateway in Non-Production environment | `bool` | `false` | no |
 | <a name="input_nonprod_enable_vault_replication"></a> [nonprod\_enable\_vault\_replication](#input\_nonprod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
-| <a name="input_nonprod_enable_vpn"></a> [nonprod\_enable\_vpn](#input\_nonprod\_enable\_vpn) | Enable VPN in non prod environment | `bool` | n/a | yes |
+| <a name="input_nonprod_enable_vpn"></a> [nonprod\_enable\_vpn](#input\_nonprod\_enable\_vpn) | Enable VPN in non prod environment | `bool` | `false` | no |
 | <a name="input_nonprod_enable_workload_monitoring_alarms"></a> [nonprod\_enable\_workload\_monitoring\_alarms](#input\_nonprod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Non-Production Workload Compartment | `bool` | `false` | no |
 | <a name="input_nonprod_geo_location_tagging"></a> [nonprod\_geo\_location\_tagging](#input\_nonprod\_geo\_location\_tagging) | Non-Production Geo Location. | `string` | n/a | yes |
 | <a name="input_nonprod_hub_private_subnet_cidr_block"></a> [nonprod\_hub\_private\_subnet\_cidr\_block](#input\_nonprod\_hub\_private\_subnet\_cidr\_block) | Non-Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |
@@ -172,7 +172,7 @@ Version 2 of Enterprise Scale Baseline Landing Zone
 | <a name="input_prod_enable_service_gateway_spoke"></a> [prod\_enable\_service\_gateway\_spoke](#input\_prod\_enable\_service\_gateway\_spoke) | Option to enable TRUE and Disable false. | `string` | `"false"` | no |
 | <a name="input_prod_enable_tagging"></a> [prod\_enable\_tagging](#input\_prod\_enable\_tagging) | Option to enable Tagging gateway in Production environment | `bool` | `false` | no |
 | <a name="input_prod_enable_vault_replication"></a> [prod\_enable\_vault\_replication](#input\_prod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
-| <a name="input_prod_enable_vpn"></a> [prod\_enable\_vpn](#input\_prod\_enable\_vpn) | Enable VPN in prod environment | `bool` | n/a | yes |
+| <a name="input_prod_enable_vpn"></a> [prod\_enable\_vpn](#input\_prod\_enable\_vpn) | Enable VPN in prod environment | `bool` | `false` | no |
 | <a name="input_prod_enable_workload_monitoring_alarms"></a> [prod\_enable\_workload\_monitoring\_alarms](#input\_prod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Production Workload Compartment | `bool` | `false` | no |
 | <a name="input_prod_geo_location_tagging"></a> [prod\_geo\_location\_tagging](#input\_prod\_geo\_location\_tagging) | Production Geo Center. | `string` | n/a | yes |
 | <a name="input_prod_hub_private_subnet_cidr_block"></a> [prod\_hub\_private\_subnet\_cidr\_block](#input\_prod\_hub\_private\_subnet\_cidr\_block) | Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |

@@ -1,0 +1,579 @@
+title: Oracle-Enterprise-Landing-Zone-(OELZ)
+description: Oracle Enterprise Landing Zone (OELZ) developed by OCI
+schemaVersion: 1.0.0
+version: "1.0.0"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - api_private_key
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: IAM Variables
+    visible: true
+    variables:
+      - resource_label
+      - enable_compartment_delete
+      - home_compartment_name
+  - title: Identity
+    visible: true
+    variables:
+      - domain_license_type
+      - prod_domain_admin_email
+  - title: Security Variables
+    visible: true
+    variables:
+      - prod_enable_bastion
+      - prod_bastion_client_cidr_block_allow_list
+  - title: Budget Variables
+    visible: true
+    variables:
+      - prod_budget_alert_rule_message
+      - prod_enable_budget
+      - prod_budget_alert_rule_threshold
+      - prod_budget_amount
+  - title: Network Variables
+    visible: true
+    variables:
+      - prod_enable_internet_gateway_hub
+      - prod_enable_nat_gateway_hub
+      - prod_enable_service_gateway_hub
+      - prod_enable_nat_gateway_spoke
+      - prod_enable_service_gateway_spoke
+      - prod_hub_vcn_cidr_block
+      - prod_hub_public_subnet_cidr_block
+      - prod_hub_private_subnet_cidr_block
+      - prod_spoke_vcn_cidr
+      - prod_spoke_subnet_web_cidr_block
+      - prod_spoke_subnet_app_cidr_block
+      - prod_spoke_subnet_db_cidr_block
+  - title: Tagging Variables
+    visible: true
+    variables:
+      - prod_enable_tagging
+      - prod_cost_center_tagging
+      - prod_geo_location_tagging
+  - title: Logging Variables
+    visible: false
+    variables:
+      - archive_log_retention_policy_duration_amount
+      - archive_log_retention_policy_duration_time_unit
+      - prod_retention_policy_duration_amount
+      - prod_retention_policy_duration_time_unit
+  - title: Monitoring Variables
+    visible: false
+    variables:
+      - onboard_log_analytics
+      - is_create_alarms 
+      - prod_enable_security_monitoring_alarms
+      - prod_enable_network_monitoring_alarms
+      - prod_enable_workload_monitoring_alarms
+
+  - title: Invisible Variables
+    visible: false
+    variables:
+      - igw_hub_check
+      - nat_gw_hub_check
+      - nat_gw_spoke_check
+      - service_gw_hub_check
+      - service_gw_spoke_check
+      - prod_create_master_encryption_key
+      - prod_enable_vault_replication
+      - prod_vault_replica_region
+      - prod_vault_type
+      - prod_enable_fastconnect
+      - nonprod_retention_policy_duration_amount
+      - nonprod_retention_policy_duration_time_unit
+      - nonprod_application_admin_group_name
+      - nonprod_budget_alert_rule_message
+      - nonprod_budget_alert_rule_recipients
+      - nonprod_budget_alert_rule_threshold
+      - nonprod_budget_amount
+      - nonprod_database_admin_group_name
+      - nonprod_domain_admin_email
+      - nonprod_enable_budget
+      - nonprod_iam_admin_group_name
+      - nonprod_network_admin_group_name
+      - nonprod_ops_admin_group_name
+      - nonprod_platform_admin_group_name
+      - nonprod_security_admin_group_name
+      - nonprod_workload_admin_group_name
+      - prod_additional_workload_subnets_cidr_blocks
+      - bgp_md5auth_key
+      - customer_onprem_ip_cidr
+      - customer_primary_bgp_peering_ip
+      - customer_secondary_bgp_peering_ip
+      - fastconnect_provider
+      - oracle_primary_bgp_peering_ip
+      - oracle_secondary_bgp_peering_ip
+      - prod_bgp_cust_tunnela_ip
+      - prod_bgp_oci_tunnela_ip
+      - prod_cpe_display_name
+      - prod_cpe_ip_address
+      - prod_cpe_vendor
+      - prod_customer_bgp_asn
+      - prod_ipsec_connection_static_routes
+      - prod_ipsec_display_name
+      - prod_ipsec_routing_type
+      - prod_shared_secret
+      - prod_tunnel_a_display_name
+      - prod_tunnel_b_display_name
+      - provider_service_key_name
+      - virtual_circuit_bandwidth_shape
+      - virtual_circuit_customer_asn
+      - virtual_circuit_display_name
+      - virtual_circuit_type
+      - cloud_guard_target_tenancy
+      - enable_cloud_guard
+      - prod_application_admin_group_name
+      - prod_network_admin_group_name
+      - prod_security_admin_group_name
+      - prod_iam_admin_group_name
+      - prod_platform_admin_group_name
+      - prod_ops_admin_group_name
+      - prod_log_admin_group_name
+      - prod_workload_admin_group_name
+      - prod_database_admin_group_name
+      - enable_vpn_or_fastconnect
+      - prod_enable_vpn
+      - prod_budget_alert_rule_recipients
+      - prod_network_topic_endpoints
+      - prod_platform_topic_endpoints
+      - prod_secops_topic_endpoints
+      - prod_workload_topic_endpoints
+      - virtual_circuit_is_bfd_enabled
+      - fastconnect_routing_policy
+      - prod_identity_topic_endpoint
+      - break_glass_user_email_list
+      - prod_identity_topic_endpoints
+      - prod_budget_alert_rule_recipients
+
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: the OCI region LZ is deployed to.
+    title: Region
+    required: true
+  tenancy_ocid:
+    type: string
+    description: The OCID of tenancy
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: OCID of the current user
+    title: Current User OCID
+
+  # IAM variables
+  resource_label:
+    type: string
+    description: "The prefix used to avoid naming conflict"
+    default: "livelab"
+    required: true
+    title: Resource Label
+  home_compartment_name:
+    type: string
+    description: "The name of the Landing Zone home compartment"
+    default: "LIVELAB-OCI-CMP-HOME"
+    required: true
+    title: Home Compartment Name
+  domain_license_type:
+    type: string
+    description: "Identity Domain License Type"
+    default: "free"
+    required: false
+    title: Domain license type
+  prod_domain_admin_email:
+    type: string
+    description: "The email address for the prod identity domain admin"
+    required: true
+    title: Domain Admin Email in Prod
+  enable_compartment_delete:
+    type: boolean
+    description: "Set to true to allow the compartments to delete on terraform destroy."
+    required: true
+    title: Enable Compartment Delete
+  break_glass_user_email_list:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description:
+      "Unique list of break glass user email addresses that do not exist. These users are added to the Administrator group.
+      in the tenancy"
+    required: true
+    title: Break Glass User Email List
+  prod_network_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Network Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Network Admin Group Name in Prod
+  prod_security_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Security Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Security Admin Group Name in Prod
+  prod_iam_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone IAM Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: IAM Admin Group Name in Prod
+  prod_platform_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Platform Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Platform Admin Group Name in Prod
+  prod_ops_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Ops Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Ops Admin Group Name in Prod
+  prod_log_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Log Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Log Admin Group Name in Prod
+  prod_workload_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Workload Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Workload Admin Group Name in Prod
+  prod_application_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Application Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Application Admin Group Name in Prod
+  prod_database_admin_group_name:
+    type: string
+    description: "The group name for the OCI Landing Zone Database Administrators Group"
+    required: false
+    default: ""
+    visible: show_extra_group_names
+    pattern: ^([\w\.-]){1,100}$
+    title: Database Admin Group Name in Prod
+
+  # Security Variables
+  enable_cloud_guard:
+    type: boolean
+    description: "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
+    default: false
+    required: false
+    title: Enable Cloud Guard
+  cloud_guard_target_tenancy:
+    type: boolean
+    description: "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment."
+    default: false
+    required: false
+    title: Cloud Guard Target Tenancy
+  prod_enable_bastion:
+    type: boolean
+    description: "Option to enable bastion service in prod"
+    default: true
+    required: true
+    title: Enable Bastion in Prod
+  prod_bastion_client_cidr_block_allow_list:
+    type: array
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    description: "A list of address ranges in CIDR notation that bastion is allowed to connect"
+    required: true
+    default: "10.0.0.0/16,10.0.0.0/24"
+    visible: prod_enable_bastion
+    title: Bastion Client CIDR Block Allow List in Prod
+  # Budget Variables
+  prod_enable_budget:
+    type: boolean
+    description: "Option to enable budget service in prod."
+    default: true
+    required: true
+    title: Enable Budget Service in Prod
+  prod_budget_alert_rule_message:
+    type: string
+    description: "The alert message for budget alerts."
+    required: true
+    default: "LIVELAB-TEST"
+    visible: prod_enable_budget
+    title: Budget Alert Rule Message in Prod
+  prod_budget_alert_rule_recipients:
+    type: string
+    description: "The delimited list of email addresses to receive the alert when it triggers. Delimiter characters can be a comma, space, TAB, or semicolon"
+    required: false
+    default: ""
+    visible: prod_budget_alert_rule_recipients
+    title: Budget Alert Rule Recipients in Prod
+  prod_budget_alert_rule_threshold:
+    type: string
+    description: "The threshold for the budget alert."
+    required: true
+    default: "1000000"
+    visible: prod_budget_alert_rule_threshold
+    title: Budget Alert Rule Threshold in Prod
+  prod_budget_amount:
+    type: string
+    description: "The amount of the budget expressed as a whole number in the currency of the customer's rate card."
+    required: true
+    default: "10000000"
+    visible: prod_budget_amount
+    title: Budget Amount in Prod
+
+  # Tagging Variables
+  prod_enable_tagging:
+    type: boolean
+    description: "Option to enable tagging service in prod."
+    default: true
+    required: true
+    title: Enable Tagging Service in Prod
+  prod_cost_center_tagging:
+    type: string
+    default: "LIVELAB_COST_TAG"
+    description: "Cost center tagging in prod."
+    required: true
+    title: Cost Center Tagging in Prod
+  prod_geo_location_tagging:
+    type: string
+    default: "LIVELAB_GEO_TAG"
+    description: "Geo location tagging in prod."
+    required: true
+    title: Geo Location Tagging in Prod
+
+  # Logging Variables
+  archive_log_retention_policy_duration_amount:
+    type: string
+    description: "The timeAmount is interpreted in units defined by the timeUnit parameter, and is calculated in relation to each object's Last-Modified timestamp"
+    required: true
+    default: "1"
+    title: Retention Policy Duration Amount for Archive Log Bucket
+  archive_log_retention_policy_duration_time_unit:
+    type: string
+    description: "The unit that should be used to interpret timeAmount. Options: DAYS, YEARS"
+    required: true
+    default: "DAYS"
+    title: Retention Policy Duration Time Unit for Archive Log Bucket
+  prod_retention_policy_duration_amount:
+    type: string
+    description: "The timeAmount is interpreted in units defined by the timeUnit parameter, and is calculated in relation to each object's Last-Modified timestamp"
+    required: true
+    default: "1"
+    title: Retention Policy Duration Amount for Standard Log Bucket in Prod
+  prod_retention_policy_duration_time_unit:
+    type: string
+    description: "The unit that should be used to interpret timeAmount. Options: DAYS, YEARS"
+    required: true
+    default: "DAYS"
+    title: Retention Policy Duration Time Unit for Standard Log Bucket in Prod
+
+  # Monitoring Variables
+  onboard_log_analytics:
+    type: boolean
+    description: "Set to true to onboard log analytics service. Set to false if it's already onboarded"
+    default: false
+    required: false
+    title: Onboard Log Analytics
+  is_create_alarms:
+    type: boolean
+    description: "Set to true to enable Alarms"
+    default: false
+    required: false
+    title: To Create Alarms
+  prod_network_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Network Warning and Critical notifications."
+    required: false
+    default: []
+    title: Network Warning and Critical Notification Recipient Email List in Prod"
+  prod_secops_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for SecOps Warning and Critical notifications."
+    required: false
+    default: []
+    title: SecOps Warning and Critical Notification Recipient Email List in Prod"
+  prod_platform_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Platform notifications."
+    required: false
+    default: []
+    title: Platform Notification Recipient Email List in Prod"
+  prod_identity_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Identity notifications."
+    required: false
+    default: []
+    title: Identity Notification Recipient Email List in Prod"
+  prod_workload_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Workload notifications."
+    required: false
+    default: []
+    title: Workload Notification Recipient Email List in Prod"
+  prod_enable_security_monitoring_alarms:
+    type: boolean
+    description: "Enable Security Monitoring Alarms in Production Security Compartment."
+    default: false
+    required: false
+    title: Enable Security Monitoring Alarms in Prod
+  prod_enable_network_monitoring_alarms:
+    type: boolean
+    description: "Enable Network Monitoring Alarms in Production Network Compartment."
+    default: false
+    required: false
+    title: Enable Network Monitoring Alarms in Prod
+  prod_enable_workload_monitoring_alarms:
+    type: boolean
+    description: "Enable Workload Monitoring Alarms in Production Workload Compartment."
+    default: false
+    required: false
+    title: Enable Workload Monitoring Alarms in Prod
+
+  # Network Variables
+  prod_enable_internet_gateway_hub:
+    type: boolean
+    description: "Option to enable internet gateway in prod hub"
+    default: true
+    required: true
+    title: Enable Internet Gateway in Prod Hub
+  prod_enable_nat_gateway_hub:
+    type: boolean
+    description: "Option to enable nat gateway in prod hub"
+    default: true
+    required: true
+    title: Enable NAT Gateway in Prod Hub
+  prod_enable_service_gateway_hub:
+    type: boolean
+    description: "Option to enable service gateway in prod hub"
+    default: true
+    required: true
+    title: Enable Service Gateway in Prod Hub
+  prod_enable_nat_gateway_spoke:
+    type: boolean
+    description: "Option to enable nat gateway in prod spoke"
+    default: true
+    required: true
+    title: Enable NAT Gateway in Prod Spoke
+  prod_enable_service_gateway_spoke:
+    type: boolean
+    description: "Option to enable service gateway in prod spoke"
+    default: true
+    required: true
+    title: Enable Service Gateway in Prod Spoke
+  prod_hub_vcn_cidr_block:
+    type: string
+    description: "Vcn CIDR block in Prod Hub"
+    required: true
+    default: "10.1.0.0/16"
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Vcn CIDR Block in Prod Hub
+  prod_hub_public_subnet_cidr_block:
+    type: string
+    description: "Public subnet CIDR block in Prod Hub"
+    default: "10.1.1.0/24"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Public Subnet CIDR Block in Prod Hub
+  prod_hub_private_subnet_cidr_block:
+    type: string
+    default: "10.1.2.0/24"
+    description: "Private subnet CIDR block in Prod Hub"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Private Subnet CIDR Block in Prod Hub
+  prod_spoke_vcn_cidr:
+    type: string
+    default: "10.2.0.0/16"
+    description: "Vcn CIDR block in Prod Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Vcn CIDR Block in Prod Spoke
+  prod_spoke_subnet_web_cidr_block:
+    type: string
+    default: "10.2.1.0/24"
+    description: "Web subnet CIDR block in Prod Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Web Subnet CIDR Block in Prod Spoke
+  prod_spoke_subnet_app_cidr_block:
+    type: string
+    default: "10.2.2.0/24"
+    description: "App subnet CIDR block in Prod Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: App Subnet CIDR Block in Prod Spoke
+  prod_spoke_subnet_db_cidr_block:
+    default: "10.2.3.0/24"
+    type: string
+    description: "Database subnet CIDR block in Prod Spoke"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Database Subnet CIDR Block in Prod Spoke
+
+  # Network Extension Variables
+  enable_vpn_or_fastconnect:
+    type: enum
+    description: "Enable VPN or FASTCONNECT. Options: NONE, VPN, FASTCONNECT"
+    enum:
+      - "NONE"
+      - "VPN"
+      - "FASTCONNECT"
+    required: false
+    default: "NONE"
+    title: Enable VPN or Fastconnect
+  prod_enable_vpn:
+    type: boolean
+    description: "Enable VPN in prod environment"
+    required: false
+    default: false
+    visible: show_vpn_variables
+    title: Enable VPN in Prod

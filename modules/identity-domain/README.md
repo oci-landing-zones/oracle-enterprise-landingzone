@@ -13,7 +13,6 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_null"></a> [null](#provider\_null) | n/a |
 | <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
 
 ## Modules
@@ -24,7 +23,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [null_resource.groups](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [oci_identity_domain.domain](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_domain) | resource |
 | [oci_identity_domain_replication_to_region.test_domain_replication_to_region](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_domain_replication_to_region) | resource |
 
@@ -45,7 +43,6 @@ No modules.
 | <a name="input_domain_is_primary_email_required"></a> [domain\_is\_primary\_email\_required](#input\_domain\_is\_primary\_email\_required) | Indicate whether users in the domain are required to have a primary email address or not. | `bool` | `true` | no |
 | <a name="input_domain_license_type"></a> [domain\_license\_type](#input\_domain\_license\_type) | The license type of Domain | `string` | n/a | yes |
 | <a name="input_domain_replica_region"></a> [domain\_replica\_region](#input\_domain\_replica\_region) | A region for which domain replication is requested for. | `string` | `""` | no |
-| <a name="input_group_names"></a> [group\_names](#input\_group\_names) | The list of user group names. | `list(string)` | `[]` | no |
 
 ## Outputs
 

@@ -50,6 +50,11 @@ variable "onboard_log_analytics" {
   description = "Set to true to onboard the tenancy to logging analytics. "
   default     = true
 }
+variable "domain_license_type" {
+  type        = string
+  description = "Identity Domain License Type"
+  default     = "premium"
+}
 
 # -----------------------------------------------------------------------------
 # Prod Enviroment Variables
@@ -104,6 +109,12 @@ variable "prod_database_admin_group_name" {
   type        = string
   default     = ""
   description = "The group name for the OCI Database Logging Administrators Group. Defaults to OCI-ELZ-UGP-P-DB-ADMIN if blank or not provided."
+}
+
+variable "prod_workload_compartment_names" {
+  type        = list(string)
+  default     = []
+  description = "The names of the workload compartments to update policies for the Admin Groups"
 }
 
 variable "prod_enable_budget" {
@@ -186,6 +197,12 @@ variable "nonprod_database_admin_group_name" {
   type        = string
   default     = ""
   description = "The group name for the OCI Database Logging Administrators Group. Defaults to OCI-ELZ-UGP-N-DB-ADMIN if blank or not provided."
+}
+
+variable "nonprod_workload_compartment_names" {
+  type        = list(string)
+  default     = []
+  description = "The names of the workload compartments to update policies for the Admin Groups"
 }
 
 variable "nonprod_enable_budget" {
@@ -621,7 +638,11 @@ variable "nonprod_workload_topic_endpoints" {
     error_message = "Validation failed: invalid email address."
   }
 }
-
+variable "is_create_alarms" {
+  type        = bool
+  default     = true
+  description = "Enable Alarms Creation in all Compartment"
+}
 variable "prod_enable_security_monitoring_alarms" {
   type        = bool
   default     = false
@@ -651,4 +672,19 @@ variable "nonprod_enable_workload_monitoring_alarms" {
   type        = bool
   default     = false
   description = "Enable Workload Monitoring Alarms in Non-Production Workload Compartment"
+}
+
+# -----------------------------------------------------------------------------
+# Workload Network Variables
+# -----------------------------------------------------------------------------
+variable "prod_additional_workload_subnets_cidr_blocks" {
+  type        = list(string)
+  default     = []
+  description = "A list of subnets cidr blocks in additional workload stack in prod"
+}
+
+variable "nonprod_additional_workload_subnets_cidr_blocks" {
+  type        = list(string)
+  default     = []
+  description = "A list of subnets cidr blocks in additional workload stack in non-prod"
 }

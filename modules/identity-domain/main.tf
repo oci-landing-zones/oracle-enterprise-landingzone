@@ -26,24 +26,3 @@ resource "oci_identity_domain_replication_to_region" "test_domain_replication_to
   domain_id      = oci_identity_domain.domain.id
   replica_region = var.domain_replica_region
 }
-
-resource "null_resource" "groups" {
-  count = length(var.group_names) != 0 ? 1 : 0
-
-  triggers = {
-    domain_id   = oci_identity_domain.domain.id
-    group_names = "${join(",", var.group_names)}"
-  }
-
-  provisioner "local-exec" {
-    working_dir = path.module
-    command     = "pip3 install -r scripts/requirements.txt"
-    on_failure  = continue
-  }
-
-  provisioner "local-exec" {
-    working_dir = path.module
-    command     = "python3 scripts/manage_identity_domain.py -d ${oci_identity_domain.domain.id} -g ${join(" ", var.group_names)}"
-    on_failure  = continue
-  }
-}

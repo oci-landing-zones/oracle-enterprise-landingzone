@@ -72,3 +72,7 @@ nonprod_enable_tagging       = true
 
 # logging
 onboard_log_analytics = false
+
+# Workload Expansion
+prod_additional_workload_subnets_cidr_blocks = []
+nonprod_additional_workload_subnets_cidr_blocks = []

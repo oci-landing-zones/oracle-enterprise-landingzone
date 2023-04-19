@@ -16,8 +16,7 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_application_admin_policy"></a> [application\_admin\_policy](#module\_application\_admin\_policy) | ../../modules/policies | n/a |
-| <a name="module_db_admin_policy"></a> [db\_admin\_policy](#module\_db\_admin\_policy) | ../../modules/policies | n/a |
+| <a name="module_groups"></a> [groups](#module\_groups) | ../../modules/identity-domain-group | n/a |
 | <a name="module_iam_admin_policy"></a> [iam\_admin\_policy](#module\_iam\_admin\_policy) | ../../modules/policies | n/a |
 | <a name="module_iam_admin_root_policy"></a> [iam\_admin\_root\_policy](#module\_iam\_admin\_root\_policy) | ../../modules/policies | n/a |
 | <a name="module_identity_domain"></a> [identity\_domain](#module\_identity\_domain) | ../../modules/identity-domain | n/a |
@@ -29,7 +28,6 @@
 | <a name="module_security_admin_policy"></a> [security\_admin\_policy](#module\_security\_admin\_policy) | ../../modules/policies | n/a |
 | <a name="module_security_admin_root_policy"></a> [security\_admin\_root\_policy](#module\_security\_admin\_root\_policy) | ../../modules/policies | n/a |
 | <a name="module_security_admin_sec_policy"></a> [security\_admin\_sec\_policy](#module\_security\_admin\_sec\_policy) | ../../modules/policies | n/a |
-| <a name="module_workload_admin_policy"></a> [workload\_admin\_policy](#module\_workload\_admin\_policy) | ../../modules/policies | n/a |
 
 ## Resources
 

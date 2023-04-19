@@ -1,6 +1,0 @@
-environment_prefix           = "P"
-enable_budget                = true
-budget_amount                = "10000"
-budget_alert_rule_threshold  = "100"
-budget_alert_rule_message    = "testing prod"
-budget_alert_rule_recipients = "example@example.com"

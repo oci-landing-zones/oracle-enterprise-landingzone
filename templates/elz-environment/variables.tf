@@ -20,7 +20,11 @@ variable "resource_label" {
   type        = string
   description = "Prefix used to avoid naming conflict"
 }
-
+variable "workload_compartment_names" {
+  type        = list(string)
+  default     = []
+  description = "The names of the workload compartments to update policies for the Admin Groups"
+}
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------
@@ -102,17 +106,22 @@ variable "workload_admin_group_name" {
   default     = ""
   description = "The group name for the OCI Workload Administrators Group"
 }
+
 variable "application_admin_group_name" {
   type        = string
   default     = ""
   description = "The group name for the OCI Application Administrators Group"
 }
+
 variable "database_admin_group_name" {
   type        = string
   default     = ""
   description = "The group name for the OCI Database Logging Administrators Group"
 }
-
+variable "domain_license_type" {
+  type        = string
+  description = "Identity Domain License Type"
+}
 # -----------------------------------------------------------------------------
 # Budget Variables
 # -----------------------------------------------------------------------------
@@ -353,7 +362,10 @@ variable "workload_topic_endpoints" {
     error_message = "Validation failed: invalid email address."
   }
 }
-
+variable "is_create_alarms" {
+  type        = bool
+  description = "Enable Alarms Creation in all Compartment"
+}
 variable "enable_security_monitoring_alarms" {
   type        = bool
   description = "Enable Security Monitoring Alarms in Security Compartment"
@@ -365,4 +377,12 @@ variable "enable_network_monitoring_alarms" {
 variable "enable_workload_monitoring_alarms" {
   type        = bool
   description = "Enable Workload Monitoring Alarms in Workload Compartment"
+}
+
+# -----------------------------------------------------------------------------
+# Workload Network Variables
+# -----------------------------------------------------------------------------
+variable "additional_workload_subnets_cidr_blocks" {
+  type        = list(string)
+  description = "A list of subnets cidr blocks in additional workload stack"
 }

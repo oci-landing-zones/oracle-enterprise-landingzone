@@ -8,6 +8,7 @@ from test_helpers.oci import get_test_config
 #unit tests for vault/key portion of the security module
 @pytest.mark.skip(reason="Skipped until we can better deal with vault cleanup. ")
 @pytest.mark.unit
+@pytest.mark.expensive
 @terraform("security_vault", scope="session")
 def test_master_encryption_key_created(security_vault):
     conf = get_test_config()

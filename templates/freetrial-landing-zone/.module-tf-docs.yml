@@ -1,0 +1,13 @@
+formatter: "markdown table"
+
+recursive:
+  enabled: true
+  path: ../../modules
+
+output:
+  file: "README.md"
+  mode: insert
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
