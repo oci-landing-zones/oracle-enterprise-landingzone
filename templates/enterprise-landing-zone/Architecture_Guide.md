@@ -2,17 +2,17 @@
 
 # **Intro**
 
-As described in the previous version of the Oracle Enterprise Scale Baseline Landing Zone v1, the new Oracle Enterprise Scale Baseline Landing Zone v2.0 (ESBLZ v2.0)  is a set of foundational services and components that are deployed in a customer's OCI tenancy to establish a secure and scalable network foundation for running enterprise workloads.
+As described in the previous version of the Oracle Oracle Enterprise Landing Zone v1, the new Oracle Oracle Enterprise Landing Zone v2.0 (OELZ v2.0)  is a set of foundational services and components that are deployed in a customer's OCI tenancy to establish a secure and scalable network foundation for running enterprise workloads.
 
-The new version of Oracle Cloud Infrastructure (OCI) Enterprise Scale Baseline Landing Zone is a set of Terraform modules that are designed to make it easy to set up a secure and compliant multi-account infrastructure on OCI. Some common use cases for OCI Enterprise Scale Baseline Landing Zone include:
+The new version of Oracle Cloud Infrastructure (OCI) Oracle Enterprise Landing Zone is a set of Terraform modules that are designed to make it easy to set up a secure and compliant multi-account infrastructure on OCI. Some common use cases for OCI Oracle Enterprise Landing Zone include:
 
-- Multi-cloud architectures: The ESBLZv2 can be used to create a landing zone for connecting to other clouds, such as Azure, for a hybrid cloud architecture.
-- Governance and compliance: The ESBLZv2 provides a set of pre-built policies and guardrails that help ensure that your OCI environment is compliant with industry standards, such as ISO27001 and PCI DSS (these and other compliance standards will be part of ongoing releases).
+- Multi-cloud architectures: The OELZv2 can be used to create a landing zone for connecting to other clouds, such as Azure, for a hybrid cloud architecture.
+- Governance and compliance: The OELZv2 provides a set of pre-built policies and guardrails that help ensure that your OCI environment is compliant with industry standards, such as ISO27001 and PCI DSS (these and other compliance standards will be part of ongoing releases).
 - Automation and scalability: The Landing Zone can be used to automate the creation of new accounts, users, and resources on OCI, making it easy to scale your infrastructure as your organization grows.
 
 # **Primary Objectives**
 
-The primary objectives of the ESBLZv2 zone include the following items:
+The primary objectives of the OELZv2 zone include the following items:
 
 - Reduce time-to-start and deploy.
 - Provide an architecturally strong foundation.
@@ -20,7 +20,7 @@ The primary objectives of the ESBLZv2 zone include the following items:
 
 # **Key Design Principles**
 
-Key design principles for resiliency and security ensure that the ESBLZv2 zone deploys a strong foundation for your cloud environment.
+Key design principles for resiliency and security ensure that the OELZv2 zone deploys a strong foundation for your cloud environment.
 
 ## **_Resiliency_**
 
@@ -32,7 +32,7 @@ Resiliency depends on the nature, architecture, and implementation of the worklo
 
 ## **_Security_**
 
-The Enterprise Scale Baseline Landing Zone follows best practices for security design principles.
+The Oracle Enterprise Landing Zone follows best practices for security design principles.
 
 - Design for attackers
   - Limit permissions based on requirements
@@ -53,7 +53,7 @@ For more information, see the security design principles in [Best practices fram
 
 # **Architecture Overview**
 
-The ESBLZv2 creates an architectural framework that's ready for you to launch new projects and workloads on OCI.
+The OELZv2 creates an architectural framework that's ready for you to launch new projects and workloads on OCI.
 
 - [Compartments](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#compartments): Use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
 - [Tags](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#tags): Use tags to organize and list resources based on your business needs.
@@ -62,17 +62,17 @@ The ESBLZv2 creates an architectural framework that's ready for you to launch ne
 - [Networking and connectivity](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#networking-connectivity): Create a virtual cloud network (VCN), subnets, and other networking and connectivity resources that are required to run your workloads and connect to the internet or your on-premises network.
 - [Security](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#security): Enable a strong security posture by enabling OCI security services such as Oracle Cloud Guard, Oracle Vulnerability Scanning Service, and Oracle Cloud Infrastructure Bastion.
 
-The following diagram illustrates the ESBLZv2.0 reference architecture.
+The following diagram illustrates the OELZv2.0 reference architecture.
 
 ![](./images/enterprise-landing-zone-v2.svg)
 
 ## **_Network and Connectivity_**
 
-One of the key components of the Enterprise Scale Baseline Landing Zone v2.0 (ESBLZ v2.0) is the network architecture and its segmentation. With the adoption of the ESBLZ v2.0, you can have a highly segregated, functional environment to securely deploy your workloads. One of the key components of the network architecture is the use of the Hub & Spoke architecture the ESBLZ v2.0 will provide two distinct Hub & Spoke architectures (one for the Production environment and one for non-Production environments) that are segregated from each other.
+One of the key components of the Oracle Enterprise Landing Zone v2.0 (OELZ v2.0) is the network architecture and its segmentation. With the adoption of the OELZ v2.0, you can have a highly segregated, functional environment to securely deploy your workloads. One of the key components of the network architecture is the use of the Hub & Spoke architecture the OELZ v2.0 will provide two distinct Hub & Spoke architectures (one for the Production environment and one for non-Production environments) that are segregated from each other.
 
 In Oracle Cloud Infrastructure (OCI), the [Hub & Spoke architecture](https://docs.oracle.com/en/solutions/hub-spoke-network-drg/index.html#GUID-FB5990CB-A23B-482D-80F4-AE4A548DEC9C) is a network design pattern in which a central hub network is connected to multiple spoke networks. The hub network is typically used for shared resources, such as security appliances and core services, while the spoke networks are used for individual workloads or applications.
 
-The Hub & Spoke architecture deployed within the ESBLZ  can provide several benefits, including:
+The Hub & Spoke architecture deployed within the OELZ  can provide several benefits, including:
 
 1. Isolation: Each spoke is its own compartment, which provides an additional layer of isolation and security for resources. This allows for better management and control over access to resources and limits the blast radius of any security incident.
 2. Scalability: Spokes can be added or removed as needed to support different use cases or teams. This allows for a flexible and scalable architecture that can adapt to changing business needs.
@@ -83,17 +83,17 @@ The Hub & Spoke architecture deployed within the ESBLZ  can provide several bene
 
 It's important to notice that this architecture is really flexible, so some of the components in the hub, like load balancer, could be moved to the Spoke, depending on the use case or need.
 
-In ESBLZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation from each other.
+In OELZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation from each other.
 
-Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI and this is one of the main reasons why ESBLZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
+Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
 
 For more information on the network architecture components, please refer to the sections of the modules that compose it.
 
 ## **_Logging and Monitoring_**
 
-Two other key components of the ESBLZ are the monitoring and logging of the resources that will be part of it. These two areas are particularly important within the IT Governance and Operations of each enterprise.
+Two other key components of the OELZ are the monitoring and logging of the resources that will be part of it. These two areas are particularly important within the IT Governance and Operations of each enterprise.
 
-[Monitoring](https://docs.oracle.com/en-us/iaas/Content/Monitoring/Concepts/monitoringoverview.htm) and [logging](https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/loggingoverview.htm) are important in the ESBLZ v2.0 because they help you to understand the performance and availability of your cloud resources and applications. They can also help you to identify and troubleshoot issues and maintain compliance with regulatory requirements.
+[Monitoring](https://docs.oracle.com/en-us/iaas/Content/Monitoring/Concepts/monitoringoverview.htm) and [logging](https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/loggingoverview.htm) are important in the OELZ v2.0 because they help you to understand the performance and availability of your cloud resources and applications. They can also help you to identify and troubleshoot issues and maintain compliance with regulatory requirements.
 
 By monitoring your resources, you can ensure that they are performing as expected and that they have sufficient capacity to meet the demands of your applications. This can help you optimize your cloud environment's performance and cost efficiency.
 
@@ -131,31 +131,31 @@ We recommend that you create one or more [break-glass users](https://docs.oracle
 
 **Federating with Microsoft Active Directory**
 
-With the ESBLZv2, you can optionally federate with Microsoft Active Directory.
+With the OELZv2, you can optionally federate with Microsoft Active Directory.
 
-Use the same group names in Oracle Cloud Infrastructure as you use for Active Directory. To do this, pass the Active Directory group names as variables to the ESBLZv2 Terraform module. The groups will be created by the landing zone and mapped to your Active Directory groups.
+Use the same group names in Oracle Cloud Infrastructure as you use for Active Directory. To do this, pass the Active Directory group names as variables to the OELZv2 Terraform module. The groups will be created by the landing zone and mapped to your Active Directory groups.
 
 For more information about federating with Active Directory, see [Federating with Microsoft Active Directory](https://docs.oracle.com/iaas/Content/Identity/Tasks/federatingADFS.htm).
 
 ## _Compliance_
 
-ESBLZv2 includes a set of pre-built policies and guardrails that help ensure that your OCI environment has a strong security foundation to help your organization achieve your security compliance goals.  The security controls that have been implemented in ESBLZv2 include recommendations that help our customers attain [CIS 1.2](https://www.cisecurity.org/benchmark/oracle_cloud) compliance Level 1.
+OELZv2 includes a set of pre-built policies and guardrails that help ensure that your OCI environment has a strong security foundation to help your organization achieve your security compliance goals.  The security controls that have been implemented in OELZv2 include recommendations that help our customers attain [CIS 1.2](https://www.cisecurity.org/benchmark/oracle_cloud) compliance Level 1.
 
 The Center for Internet Security, Inc. (CIS®) is a community-driven non-profit, responsible for the CIS Controls® and CIS Benchmarks™, globally recognized best practices for securing IT systems and data. The goal of CIS is to prevent and mitigate new cyber threats that are identified in the industry today. For many OCI customers, this has been a go-to benchmark that guides their architecture to help them secure their workloads in Oracle Cloud Infrastructure (OCI).  Recognizing the importance of adhering to best practice guidance from both OCI teams and the industry, OCI Landing Zones continues to implement support for CIS Benchmarks today.
 
-For more information, please refer to ["CIS 1.2 Level 1"](./images/CIS1.2Level1.xlsx) for a list of security controls that are included in ESBLZv2.
+For more information, please refer to ["CIS 1.2 Level 1"](./images/CIS1.2Level1.xlsx) for a list of security controls that are included in OELZv2.
 
 # **Functional Modules**
 
-The ESBLZ is comprised out of different functional modules. Each of these modules is a set of terraform scripts that groups a functional area of the landing zone.
- These modules have been designed so they can be customized and run independently. This makes the ESBLZv2 more flexible and allows the customers to tweak it to their needs.
+The OELZ is comprised out of different functional modules. Each of these modules is a set of terraform scripts that groups a functional area of the landing zone.
+ These modules have been designed so they can be customized and run independently. This makes the OELZv2 more flexible and allows the customers to tweak it to their needs.
 
 Below is a detailed description of the different modules
 
-## **ESBLZ _Landing Zone Module_**
+## **OELZ _Landing Zone Module_**
 
 The Landing Zone Module is the module that brings everything together. It creates the entire Landing Zone by invoking the other modules.
- The ESBLZv2 deploys two isolated environments as depicted on the diagram above.
+ The OELZv2 deploys two isolated environments as depicted on the diagram above.
  This module invokes the environment module twice, each for a distinct isolated environment:
 
 - Environment Module to create the production environment
@@ -179,9 +179,9 @@ The module in its own doesn't create any additional resources. It only aggregate
 
 ## **_Budgets and Tagging Module_**
 
-Budget & Tagging are another two key components to achieve strong Governance within the ESBLZ v2.0.
+Budget & Tagging are another two key components to achieve strong Governance within the OELZ v2.0.
 
-Budgeting and tagging are important in the Oracle Cloud Infrastructure (OCI) ESBLZ v2.0 because they help you to manage and optimize the cost of your cloud resources.
+Budgeting and tagging are important in the Oracle Cloud Infrastructure (OCI) OELZ v2.0 because they help you to manage and optimize the cost of your cloud resources.
 
 Budgeting allows you to set limits on your cloud spending, and to receive notifications when your usage approaches or exceeds those limits. This can help you to avoid unexpected charges and to better control your cloud costs.
 
@@ -208,7 +208,7 @@ The main components that the Tagging module will have been as follows:
 
 You use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
 
-The ESBLZv2 creates a compartment structure for your organization. You control access to compartment by creating policies that specify what actions groups of users can take on the resources in those compartments. The following diagram shows the compartment structure that is created by the landing zone:
+The OELZv2 creates a compartment structure for your organization. You control access to compartment by creating policies that specify what actions groups of users can take on the resources in those compartments. The following diagram shows the compartment structure that is created by the landing zone:
 
 ![](./images/Compartment.png)
 
@@ -237,7 +237,7 @@ In order to isolate access between resources, groups are created together with p
 
 ## **_Logging Module_**
 
-The Logging Module implemented by ESBLZv2 will use the below services to help your organization meet your Security Policy and Compliance requirements.
+The Logging Module implemented by OELZv2 will use the below services to help your organization meet your Security Policy and Compliance requirements.
 
 - Vault (Key Management)
 - Log Archiving Storage Bucket
@@ -247,15 +247,15 @@ The Logging Module implemented by ESBLZv2 will use the below services to help yo
 
 **Log Archiving Storage Bucket (optional)**
 
-An optional immutable storage bucket will be deployed by default for the purposes of archiving logs and events within the defined retention period according to user input.  The ESBLZv2 is deployed with a 1 day retention duration to facilitate environment clean up and this should be revised accordingly to comply with the retention requirements of your organization's security policies.
+An optional immutable storage bucket will be deployed by default for the purposes of archiving logs and events within the defined retention period according to user input.  The OELZv2 is deployed with a 1 day retention duration to facilitate environment clean up and this should be revised accordingly to comply with the retention requirements of your organization's security policies.
 
 **Default Log Group**
 
-OCI generates service logs for supported services and accordingly, users can enable or disable logging for each supported service.  TheESBLZ default setting is to enable and store all service logs.  For more information regarding [Service Logs](https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/service_logs.htm).
+OCI generates service logs for supported services and accordingly, users can enable or disable logging for each supported service.  TheOELZ default setting is to enable and store all service logs.  For more information regarding [Service Logs](https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/service_logs.htm).
 
 **Streams & Events**
 
-OCI Streaming service is used for real-time ingestion of high-volume data streams.  It can be used where data is continually produced and published sequentially such as with log events.  The ESBLZv2 will utilize the OCI Streaming Service in conjunction with OCI events.   OCI services generate _events_ that provide notifications when there are any resource changes in your environment.
+OCI Streaming service is used for real-time ingestion of high-volume data streams.  It can be used where data is continually produced and published sequentially such as with log events.  The OELZv2 will utilize the OCI Streaming Service in conjunction with OCI events.   OCI services generate _events_ that provide notifications when there are any resource changes in your environment.
 
 Please refer to [Services Event Types](https://docs.oracle.com/en-us/iaas/Content/Events/Reference/eventsproducers.htm#Services_that_Produce_Events) for a full list and refer to these links for more information regarding [Streaming](https://docs.oracle.com/en-us/iaas/Content/Streaming/home.htm) and [Events](https://docs.oracle.com/en-us/iaas/Content/Events/home.htm).
 
@@ -267,14 +267,14 @@ For more details regarding [Service Connector Hub](https://docs.oracle.com/en-us
 
 ## **_Monitoring Module_**
 
-The following module will allow the customer to be able to monitor their resources and receive the correct alerts in case of malfunctioning ESBLZ v2.0 components/ OCI tenancy.
+The following module will allow the customer to be able to monitor their resources and receive the correct alerts in case of malfunctioning OELZ v2.0 components/ OCI tenancy.
 
 It provides a starting point that administrators can tweak according to their operational model.
 
 Services inside OCI provide metrics and events that can be monitored through the metrics dashboard. In addition to this, alerts can be created based on certain queries of these metrics and events. To organize these alerts, topics are created that will group certain alerts. In the landing zone, these topics are defined per the severity of the alert (critical and warning). Different topics are also created per compartment and environment (ex, PRD-Network, NPRD-Security and PRD-workload, etc.). Please refer to the next sub-paragraph for a detailed overview of these topics.
  Each of these topics will have different monitoring rules assigned to them for each environment.
 
-To avoid excessive costs and a lot of messages, the ESBLZ v2.0 deployment will have all these alerts disabled by default. Based on your operational model, you can enable the relevant alerts from the OCI console.
+To avoid excessive costs and a lot of messages, the OELZ v2.0 deployment will have all these alerts disabled by default. Based on your operational model, you can enable the relevant alerts from the OCI console.
 
 The monitoring structure contains following elements:
 
@@ -318,14 +318,14 @@ Admins of each compartment are able to subscribe to these topics so they will re
 
 **Monitoring Rules**
 
-The ESBLZ v2.0 will create many monitoring rules that can trigger alerts. These are disabled by default. You can enable the rules that apply to your operational needs from the OCI Console.
+The OELZ v2.0 will create many monitoring rules that can trigger alerts. These are disabled by default. You can enable the rules that apply to your operational needs from the OCI Console.
 
-For a complete list of events/alerts refer to the **ESBLZ v2.0 Deployment guide/ User Guide.**
+For a complete list of events/alerts refer to the **OELZ v2.0 Deployment guide/ User Guide.**
 
 ## **_Network Module_**
 
 The network module includes two main Functional Modules, the first will deploy a type of network called "Hub & Spoke" (H&P) that will allow the various workloads to interconnect with each other. The second one called "Network Extension Module" will extend connectivity with the on-premises network as well using the H&P created previously.
-By default, the ESBLZ v2.0 will deploy the H&P module within the " **L2 - OCI-ELZ-\<Environment Name\>**" compartment (for **PROD** and **NO-PROD** ). Also, the Network Extension Module will be an optional module and it will only be allowed to be deployed in the production environment. As a result, it will be shared between the two environments prod and non-prod.
+By default, the OELZ v2.0 will deploy the H&P module within the " **L2 - OCI-ELZ-\<Environment Name\>**" compartment (for **PROD** and **NO-PROD** ). Also, the Network Extension Module will be an optional module and it will only be allowed to be deployed in the production environment. As a result, it will be shared between the two environments prod and non-prod.
 
 The main components that the Hub module will have been as follows:
 
@@ -345,7 +345,7 @@ The main components that the Spoke module will have are as follows:
 - A **NAT Gateways** [Optional] which enables private resources in a VCN to access hosts on the internet, without exposing those resources to incoming internet connections, deployed in the **L3 - Workload compartment**
 - A **Service gateway** [Optional] which provides access from a VCN to other services, such as Oracle Cloud Infrastructure Object Storage. The traffic from the VCN to the Oracle service travels over the Oracle network fabric and never traverses the internet, deployed in the **L3 - Workload compartment.**
 
-**NOTE :** In a scenario in which the customer wishes to publish its Web Servers using the ESBLZ v2.0, an Public Load Balancer must be deployed within the public subnet in the HUB ( **L4 - Network Compartment** ), which will have as endpoints the Web Servers present in the subnet that will be part of the **L3 - Workload compartment.** Since connectivity is already configured via the Hub & Spoke architecture, all that needs to be done is to change the Security Lists associated with the subnets to enable traffic between the Load Balancer and the endpoints.
+**NOTE :** In a scenario in which the customer wishes to publish its Web Servers using the OELZ v2.0, an Public Load Balancer must be deployed within the public subnet in the HUB ( **L4 - Network Compartment** ), which will have as endpoints the Web Servers present in the subnet that will be part of the **L3 - Workload compartment.** Since connectivity is already configured via the Hub & Spoke architecture, all that needs to be done is to change the Security Lists associated with the subnets to enable traffic between the Load Balancer and the endpoints.
 
 The Network extension module consists of two sub-modules that will allow the customer to decide whether to deploy a Site-to-Site VPN in each environment rather than share Fast Connect between environments.
 
@@ -366,7 +366,7 @@ Using this module, you can decide during deployment to create a Site-to-Site VPN
 The main components that the Fast Connect module will have been as follows:
 
 - A **Fast Connect circuit** dedicated, private connection between your data center and Oracle Cloud Infrastructure, using your choice of Oracle partners deployed in the **L4 - Network compartment **
-- A **Remote Peering Connections (RPC) attachment** which will peer the DRGs of the two environments created during the ESBLZ v2.0 deployment.
+- A **Remote Peering Connections (RPC) attachment** which will peer the DRGs of the two environments created during the OELZ v2.0 deployment.
 
 Using this module, the customer can decide whether or not to deploy a Fast Connect circuit by sharing it between environments. This decision was made because the Fast Connect service is generally more expensive than a Site-to-Site VPN.
 
@@ -374,20 +374,20 @@ After deployment, if it is necessary to have other Fast Connect circuits, the cu
 
 . While enabling this module, environments will continue to be segregated as traffic will be allowed or denied by the security lists applied to each subnet.
 
-The security lists implemented during the ESBLZ v2.0 deployment are CIS 1.2.0 compliant, so all incoming traffic will be blocked except the ICMP protocol. For more information please refer to the CIS Benchmark 1.2.0 for Oracle Cloud Infrastructure: [CIS Oracle Cloud Infrastructure Benchmarks (cisecurity.org)](https://www.cisecurity.org/benchmark/oracle_cloud)
+The security lists implemented during the OELZ v2.0 deployment are CIS 1.2.0 compliant, so all incoming traffic will be blocked except the ICMP protocol. For more information please refer to the CIS Benchmark 1.2.0 for Oracle Cloud Infrastructure: [CIS Oracle Cloud Infrastructure Benchmarks (cisecurity.org)](https://www.cisecurity.org/benchmark/oracle_cloud)
 
 ## **_Security Module_**
 
 Oracle Cloud Infrastructure (OCI) is a Security-first Cloud Service that helps organizations reduce the risk of security threats for cloud workloads by putting our customers' Data Security and Privacy first.  This is achieved via the automation of security operations with simple, prescriptive, and integrated cloud-native security capabilities built into the OCI platform.  Oracle helps customers easily adopt OIC services and secure their cloud infrastructure, data, and applications.
 
-The ESBLZv2 further supports Oracle's Security-First Cloud strategy tenets:
+The OELZv2 further supports Oracle's Security-First Cloud strategy tenets:
 
 - Security should be simple—easy to use, deploy, and operate
 - Security tools should offer guidance to help customers achieve strong security more easily
 - Security should be integrated and automated, reducing manual security tasks and human errors
 - Cloud security should be economically attractive, improving the cost of securing cloud workloads
 
-The following OCI cloud-native services will be implemented by ESBLZv2 to help your organization meet your Security Policy and Compliance requirements.
+The following OCI cloud-native services will be implemented by OELZv2 to help your organization meet your Security Policy and Compliance requirements.
 
 - Cloud Guard
 - Vulnerability Scanning Service (VSS)
@@ -396,7 +396,7 @@ The following OCI cloud-native services will be implemented by ESBLZv2 to help y
 
 **Cloud Guard**
 
-Cloud Guard is the OCI native security service that helps our customers monitor, identify threats/configuration issues, achieve a strong security posture and maintain compliance with their security policies.  When issues are detected, Cloud Guard can recommend, assist or execute corrective actions based on how you configure Cloud Guard to respond.  The ESBLZv2 will enable Cloud Guard services by default, and it will use your organization's tenancy home region as its reporting region.  Cloud Guard is used in conjunction with VSS detector recipes.  The following default Oracle Managed Detector Recipes will be enabled to provide a strong secure baseline for your organization's OCI environment:
+Cloud Guard is the OCI native security service that helps our customers monitor, identify threats/configuration issues, achieve a strong security posture and maintain compliance with their security policies.  When issues are detected, Cloud Guard can recommend, assist or execute corrective actions based on how you configure Cloud Guard to respond.  The OELZv2 will enable Cloud Guard services by default, and it will use your organization's tenancy home region as its reporting region.  Cloud Guard is used in conjunction with VSS detector recipes.  The following default Oracle Managed Detector Recipes will be enabled to provide a strong secure baseline for your organization's OCI environment:
 
 - Configuration Detector Recipe - Set of rules designed specifically to detect resource configuration settings that could pose a security problem.
 - Threat Detector Recipe - Set of rules designed to specifically to detect rogue user activity and high-risk activity based on our Threat Intelligence Service.
@@ -422,7 +422,7 @@ For additional detail, please refer to our [Vulnerability Scanning Service (VSS)
 
 **Vault (Key Management)**
 
-OCI Vault is our cloud-native encryption management service that will be used in this Landing Zone to store and manage Master Encryption Keys and Secrets that are used to secure your OCI resources and will be used to encrypt your logs.  This ESBLZv2 landing zone will default to VIRTUAL.   A Master Encryption Key (MEK) AES 256 will be generated by default as part of your Landing Zone deployment.  This MEK will be used to encrypt your log object storage buckets.  Customers can choose to "bring your own key" (BYOK) and import key material from your on-premises or 3rd-party cloud environments.  In addition, OCI can provide a Hardware Security Module (HSM) dedicated vault service as an option.
+OCI Vault is our cloud-native encryption management service that will be used in this Landing Zone to store and manage Master Encryption Keys and Secrets that are used to secure your OCI resources and will be used to encrypt your logs.  This OELZv2 landing zone will default to VIRTUAL.   A Master Encryption Key (MEK) AES 256 will be generated by default as part of your Landing Zone deployment.  This MEK will be used to encrypt your log object storage buckets.  Customers can choose to "bring your own key" (BYOK) and import key material from your on-premises or 3rd-party cloud environments.  In addition, OCI can provide a Hardware Security Module (HSM) dedicated vault service as an option.
 
 Please refer to [Vault (Key Management)](https://docs.oracle.com/en-us/iaas/Content/KeyManagement/Concepts/keyoverview.htm) for more details.
 
@@ -431,3 +431,47 @@ Please refer to [Vault (Key Management)](https://docs.oracle.com/en-us/iaas/Cont
 OCI Bastions provides restricted and time-limited access to target resources that don't have public endpoints, letting authorized users connect from specific IP addresses to target resources using Secure Shell (SSH) sessions.  This Landing Zone deployment will also include the OCI Bastion service which allows privileged users to connect from specified IP Addresses to target resources over Secure Shell (SSH).   When connected via Bastion, users can interact with the target OCI resource by using any software or protocol supported by SSH. For example, you can use the Remote Desktop Protocol (RDP) to connect to a Windows host or use Oracle Net Services to connect to a database.  The Bastion Service is associated with a single VCN and there is a limit of 5 Bastions per region.
 
 For more information, please see [OCI Bastion](https://docs.oracle.com/en-us/iaas/Content/Bastion/Concepts/bastionoverview.htm).
+
+## **_Workload Module_**
+The workload expansion module is responsible for deploying the resources for an empty workload. It will deploy following resources:
+* Compartment
+* Network (Spoke)
+* Logging
+* Monitoring
+* Policies and workload group
+
+**Compartment**
+
+One workload compartment would be created in the L3 - Workload compartment.
+
+**Network (Spoke)**
+
+The main components that the Spoke module will have are as follows:
+
+- A **VCN** which will host the different subnets of the Spoke deployed in the **L3 - Workload compartment**
+- Three **private subnets** to host all components of your application using different tier such as Web, App and DB.
+- A **VCN Attachments** which will be connected to the DRG of the HUB.
+- A **NAT Gateways** [Optional] which enables private resources in a VCN to access hosts on the internet, without exposing those resources to incoming internet connections, deployed in the **L3 - Workload compartment**
+- A **Service gateway** [Optional] which provides access from a VCN to other services, such as Oracle Cloud Infrastructure Object Storage. The traffic from the VCN to the Oracle service travels over the Oracle network fabric and never traverses the internet, deployed in the **L3 - Workload compartment.**
+
+**Logging**
+
+The Logging service would be applied in the Landing Zone Home compartment level. Therefore, all the logs from
+Workload Expansion would also be captured.
+
+**Monitoring**
+
+Same as the default workload, the monitoring structure contains following elements:
+
+- Monitor Alert Channels - Create Notification Topics (Workload-Critical, Workload-Warning) and subscription (i.e. email)
+- Monitor OCI service incidents and action required from OCI maintenance by subscribing to Console Announcements
+- Monitor Cloud Guard status (e.g. problemthresholdreached) by subscribing Cloud Guard events
+- Monitor VSS and Cloud Guard detected problem by subscribing Cloud Guard events
+- Enable metrics-based monitoring of Network, Security, Logging and Workload compartments by creating sample alarm rules for the deployed service metrics namespaces
+
+**Policies and workload group**
+
+Three admin groups are created in the workload expansion:
+- workload admin group: User group that have access to the workload related resources inside your environment
+- application admin group: User group that have access to the application (volume family, object, file, instance, etc) resources inside your environment
+- database admin group: User group that have access to the database resources inside your environment

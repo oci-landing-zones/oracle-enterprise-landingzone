@@ -32,13 +32,13 @@ The tenancy you intend to deploy the OELZ to.
 
 The Logging Analytics service should be enabled for the tenancy.
 To check the current status of Logging Analytics for a tenancy, visit the [Logging Analytics home page][1].
-There will be a dark grey box at the top of the page. On the right hand side of that box, if Logging analytics has *not* been enabled, there will be a notice that Logging Analytics has not been enabled for the tenancy, and a blue button to enable it.  To enable it, click the blue button, and wait for the 3 onboarding steps to complete.  No further action will be required, as the Enterprise Scale Baseline Landing Zone will configure the needed datasources.
+There will be a dark grey box at the top of the page. On the right hand side of that box, if Logging analytics has *not* been enabled, there will be a notice that Logging Analytics has not been enabled for the tenancy, and a blue button to enable it.  To enable it, click the blue button, and wait for the 3 onboarding steps to complete.  No further action will be required, as the Oracle Enterprise Landing Zone will configure the needed datasources.
 
 ### Resource Limits
 
 Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 OELZ, with 1 environments and 1 workload each. 
 
-However, there are some resource limits that will need to be increased in order to deploy the Enterprise Scale Baseline Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Enterprise Scale Baseline Landing Zone:
+However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
 
 https://docs.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm
 
@@ -47,7 +47,7 @@ Requests to raise these limits can be done through the [request a service limit 
 [1]: https://cloud.oracle.com/loganalytics/home "Logging Analytics Home page."
 [2]: https://cloud.oracle.com/support/create?type=limit "Request a service Limit Increase."
 
-## Enterprise Scale Baseline Landing Zone Compartment Architecture
+## Oracle Enterprise Landing Zone Compartment Architecture
 
 ---
 ![Architecture](<../../images/LZ-v2.0.png> "Architecture")
@@ -56,9 +56,9 @@ This architecture diagram illustrates the compartments Enterprise LZ deployments
 
 ### Compartment Structure
 
-For the Enterprise Scale Baseline Landing Zone, we have the below compartment architecture:
+For the Oracle Enterprise Landing Zone, we have the below compartment architecture:
 
-* Enterprise Scale Baseline Landing Zone Home Compartment
+* Oracle Enterprise Landing Zone Home Compartment
   * Prod
     * Shared Infrastructure
       * Network
@@ -89,18 +89,18 @@ Environment will have its own identity domain with free tier identity domain. Th
 ---
 Each environment will have it's own independent network configuration. The network architecture is a "Hub and Spoke" design. It is built around OCI's Dynamic Routing Gateway (DRG), which acts as central router. It can connect together multiple virtual networks like hub and spoke vcn. 
 
-## Deployment of The Enterprise Scale Baseline Landing Zone
+## Deployment of The Oracle Enterprise Landing Zone
 
 ## For customers who already have Infrastructure in OCI
 
-If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Enterprise Scale Baseline Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Enterprise Scale Baseline Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
+If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Oracle Enterprise Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Oracle Enterprise Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
 
-Note that child tenancies have their own [resource limits](#resource-limits), which should be checked to confirm the Enterprise Scale Baseline Landing Zone can be deployed. 
+Note that child tenancies have their own [resource limits](#resource-limits), which should be checked to confirm the Oracle Enterprise Landing Zone can be deployed. 
 
 ## How to Deploy
 
 ---
-The Enterprise Scale Baseline Landing Zone can be launched through Oracle Resource Manager or from the Terraform CLI.
+The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manager or from the Terraform CLI.
 
 ## Terraform CLI
 
@@ -206,7 +206,7 @@ python destroy_lz.py  --help
 ## Known Issues
 
 ---
-These are some known temporary issues that can occur while deploying the Enterprise Scale Baseline Landing Zone. 
+These are some known temporary issues that can occur while deploying the Oracle Enterprise Landing Zone. 
 
 * 400-InvalidParameter Error in CreateServiceConnector operation:  This can occasionally happen due to logs taking longer than normal to create while setting up the logging infrastructure.  This will correct itself when the logs finish creating. Later Apply jobs in ORM or invocations of `terraform apply` should succeed. 
 * 429-TooManyRequests Error: A tenancy making a large number of OCI API requests in rapid succession may be throttled by the API.  The solution is to wait some period of time (a few minutes) and retry the terraform operation again.  This is rarely seen on `apply` but may occasionally be seen on `destroy` runs, as the delete operations are much faster than create, and Terraform makes many API calls. 

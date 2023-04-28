@@ -8,7 +8,6 @@
 #api_fingerprint      = ""
 #api_private_key_path = ""
 
-
 # iam
 resource_label             					 = "LIVELAB"
 enable_compartment_delete  					 = false
@@ -16,6 +15,7 @@ prod_domain_admin_email                      = ""
 # security
 enable_cloud_guard                           = false
 cloud_guard_target_tenancy                   = false
+is_service_connector_limit                   = true
 prod_enable_bastion                          = true
 prod_bastion_client_cidr_block_allow_list    = ["0.0.0.0/0"]
 

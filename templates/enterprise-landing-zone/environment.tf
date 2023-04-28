@@ -39,8 +39,9 @@ module "prod_environment" {
   budget_alert_rule_recipients      = var.prod_budget_alert_rule_recipients
   enable_cloud_guard                = var.enable_cloud_guard
   cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
-  is_create_alarms                    = var.is_create_alarms
-  domain_license_type                 = var.domain_license_type
+  is_create_alarms                  = var.is_create_alarms
+  is_service_connector_limit        = var.is_service_connector_limit
+  domain_license_type               = var.domain_license_type
 
   home_compartment_name             = var.home_compartment_name
   enable_vpn_or_fastconnect         = var.enable_vpn_or_fastconnect
@@ -174,6 +175,7 @@ module "nonprod_environment" {
   budget_alert_rule_message         = var.nonprod_budget_alert_rule_message
   budget_alert_rule_recipients      = var.nonprod_budget_alert_rule_recipients
   is_create_alarms                  = var.is_create_alarms
+  is_service_connector_limit        = var.is_service_connector_limit
   domain_license_type               = var.domain_license_type
   enable_cloud_guard                = var.enable_cloud_guard
   cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy

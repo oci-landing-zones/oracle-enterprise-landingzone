@@ -70,6 +70,9 @@ locals {
     AUDIT: "${var.resource_label}_${var.environment_prefix}_auditLogs_standard",
     SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
   }
+  buckets_map_service_conector_limit = {
+    SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
+  }
 
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-${var.environment_prefix}"
@@ -139,6 +142,7 @@ module "service_event_stream" {
 }
 
 module "audit_log_bucket" {
+  count                               = var.is_service_connector_limit   ? 0 : 1
   source                              = "../../modules/bucket"
   tenancy_ocid                        = var.tenancy_ocid
   compartment_id                      = var.logging_compartment_id
@@ -152,6 +156,7 @@ module "audit_log_bucket" {
 }
 
 module "default_log_bucket" {
+  count                               = var.is_service_connector_limit   ? 0 : 1
   source                              = "../../modules/bucket"
   tenancy_ocid                        = var.tenancy_ocid
   compartment_id                      = var.logging_compartment_id
@@ -178,6 +183,7 @@ module "service_event_log_bucket" {
 }
 
 module "audit_log_service_connector" {
+  count                 = var.is_service_connector_limit   ? 0 : 1
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
   compartment_id        = var.security_compartment_id
@@ -192,6 +198,7 @@ module "audit_log_service_connector" {
 }
 
 module "default_log_service_connector" {
+  count                 = var.is_service_connector_limit   ? 0 : 1
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
   compartment_id        = var.security_compartment_id
@@ -229,7 +236,8 @@ resource "time_sleep" "first_log_delay" {
 module "os_read_log" {
   source = "../../modules/service-log"
 
-  service_log_map     = local.buckets_map
+  #service_log_map     = local.buckets_map
+  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_read_log.log_display_name
   log_type            = local.os_read_log.log_type
   log_group_id        = module.default_log_group.log_group_id
@@ -243,7 +251,8 @@ module "os_read_log" {
 module "os_write_log" {
   source = "../../modules/service-log"
 
-  service_log_map     = local.buckets_map
+  #service_log_map     = local.buckets_map
+  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_write_log.log_display_name
   log_type            = local.os_write_log.log_type
   log_group_id        = module.default_log_group.log_group_id

@@ -1,27 +1,27 @@
-## Enterprise Scale Baseline Landing Zone Configuration Guide
+## Oracle Enterprise Landing Zone Configuration Guide
 
-This configuration guide will detail the required and available configurations needed to deploy an Enterprise Scale Baseline Landing Zone(ESBLZ) on Oracle Cloud Infrastructure. 
+This configuration guide will detail the required and available configurations needed to deploy an Oracle Enterprise Landing Zone(OELZ) on Oracle Cloud Infrastructure. 
 
 ## Prerequisites
 
-The Enterprise Scale Baseline Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the ESBLZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](Implementation.md)
+The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the OELZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](Implementation.md)
 
 
 ## Minimum Required Configuration
 
-Deployment of the ESBLZ is controlled by several Terraform [input variables](README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a ESBLZ:
+Deployment of the OELZ is controlled by several Terraform [input variables](README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ:
 
 ### Basic Terraform Connection Information
-The required provider variables for the ESBLZ:
+The required provider variables for the OELZ:
 
 | Name                                                                                                 | Description                                                  | Type     | Default | Required |
 | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------- | ------- | :------: |
-| <a name="input_current_user_ocid"></a> [current\_user\_ocid](#input\_current\_user\_ocid)            | The ID of user to deploy the ESBLZ.                   | `string` | `""`    |    no    |
+| <a name="input_current_user_ocid"></a> [current\_user\_ocid](#input\_current\_user\_ocid)            | The ID of user to deploy the OELZ.                   | `string` | `""`    |    no    |
 | <a name="input_api_fingerprint"></a> [api\_fingerprint](#input\_api\_fingerprint)                    | The API fingerprint which can be retrieved from the console. | `string` | `""`    |    no    |
 | <a name="input_api_private_key"></a> [api\_private\_key](#input\_api\_private\_key)                  | The API private key                                          | `string` | `""`    |    no    |
 | <a name="input_api_private_key_path"></a> [api\_private\_key\_path](#input\_api\_private\_key\_path) | The local path to the API private key                        | `string` | `""`    |    no    |
 | <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid)                             | The ID of tenancy                                            | `string` | n/a     |   yes    |
-| <a name="input_region"></a> [region](#input\_region)                                                 | The OCI region to deploy the ESBLZ resources to.      | `string` | n/a     |   yes    |
+| <a name="input_region"></a> [region](#input\_region)                                                 | The OCI region to deploy the OELZ resources to.      | `string` | n/a     |   yes    |
 | <a name="input_resource_label"></a> [resource\_label](#input\_resource\_label)                       | The prefix used to avoid naming conflict                     | `string` | n/a     |    no    |
 
 
@@ -31,13 +31,13 @@ This architecture diagram illustrates the compartments Enterprise LZ deploys.
 
 ![Architecture](<../../images/LZ-v2.0.png> "Architecture")
 
-The ESBLZ Home Compartment would be created in enterprise-landing-zone. The other
+The OELZ Home Compartment would be created in enterprise-landing-zone. The other
 compartments would be created in elz-environment and in elz-workload.
 
-The required arguments for ESBLZ Home Compartment:
-* **compartment_parent_id**: the OCID of compartment/tenancy that you create the ESBLZ in
-* **compartment_name**: the name of ESBLZ home compartment
-* **compartment_description**: the description of ESBLZ home compartment
+The required arguments for OELZ Home Compartment:
+* **compartment_parent_id**: the OCID of compartment/tenancy that you create the OELZ in
+* **compartment_name**: the name of OELZ home compartment
+* **compartment_description**: the description of OELZ home compartment
 * **enable_compartment_delete**: unless enable_delete is explicitly set to true, Terraform will not delete compartments on destroy
 
 To configure the compartment the required user inputs are:
@@ -45,15 +45,15 @@ To configure the compartment the required user inputs are:
 | Name                                                                                                              | Description                                                                               | Type     | Default              | Required |
 | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------- | -------------------- | :------: |
 | <a name="input_enable_compartment_delete"></a> [enable\_compartment\_delete](#input\_enable\_compartment\_delete) | Set to true to allow the compartments to delete on terraform destroy.                     | `bool`   | `true`               |    no    |
-| <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name)             | The name of the home compartment under which all ESBLZ resources will be deployed. | `string` | `"OCI-ELZ-CMP-HOME"` |    no    |
+| <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name)             | The name of the home compartment under which all OELZ resources will be deployed. | `string` | `"OCI-ELZ-CMP-HOME"` |    no    |
 
 ## Identity Module
 Each environment will have its own identity domain. The identity domain applies to all resources under the environment compartment.
-ESBLZ will only support the new identity domains in OCI(Henosis) and not the old IDCS domains.
+OELZ will only support the new identity domains in OCI(Henosis) and not the old IDCS domains.
 
 Required attributes:
 * Display Name: The display name of Identity Domain. Default: OCI-ELZ-<Env>-IDT
-* Description: The description of Identity Domain. Default: OCI ESBLZ <Environment> Identity Domain
+* Description: The description of Identity Domain. Default: OCI OELZ <Environment> Identity Domain
 * Domain Type: Premium
 * Domain Admin: Email address for the domain admin
 * Compartment: OCID for the compartment where the domain will be stored. This should be the L4-Security compartment
@@ -73,15 +73,15 @@ Required attributes:
 ## Groups and Policies 
 
 For control over users and user groups, a federate-able Identity Domain is created in the L4-Security Compartment for each environment. 
-To do so, the user deploying the ESBLZ will need set up federation after the ESBLZ has been deployed. 
+To do so, the user deploying the OELZ will need set up federation after the OELZ has been deployed. 
 
-The ESBLZ also will create 6 different User Groups, meant for managing individual deployed environments(by default 2, prod and non-prod). 
+The OELZ also will create 6 different User Groups, meant for managing individual deployed environments(by default 2, prod and non-prod). 
 
-* **Network Admin** : OCI ESBLZ Network Administrators Group - manages all network resources
-* **SecOps Admin**: OCI ESBLZ Security Administrators Group
-* **IAM Admin**: OCI ESBLZ IAM Group
-* **Ops Admin**:  OCI ESBLZ Ops Admin Group 
-* **Platform Admin**: OCI ESBLZ Platform Admin Group
+* **Network Admin** : OCI OELZ Network Administrators Group - manages all network resources
+* **SecOps Admin**: OCI OELZ Security Administrators Group
+* **IAM Admin**: OCI OELZ IAM Group
+* **Ops Admin**:  OCI OELZ Ops Admin Group 
+* **Platform Admin**: OCI OELZ Platform Admin Group
 
 While creating these user-groups the user inputs will be optional as there will be default value with group name, however if customer who want to setup federation, they will need to update the user-groups with the names as how those exist in their federated domain. 
 
@@ -91,23 +91,23 @@ While creating these user-groups the user inputs will be optional as there will 
 
     | Name                                                                                                                                 | Description                                                           | Type     | Default                         | Required |
     | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------- | -------- | ------------------------------- | :------: |
-    | <a name="input_prod_network_admin_group_name"></a> [prod\_network\_admin\_group\_name](#input\_prod\_network\_admin\_group\_name)    | The group name for the OCI ESBLZ Network Administrators Group  | `string` | `"OCI-ELZ-UGP-<Env>-NET-ADMIN"` |    no    |
-    | <a name="input_prod_ops_admin_group_name"></a> [prod\_ops\_admin\_group\_name](#input\_prod\_ops\_admin\_group\_name)                | The group name for the OCI ESBLZ Ops Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-OPS-ADMIN"` |    no    |
-    | <a name="input_prod_iam_admin_group_name"></a> [prod\_iam\_admin\_group\_name](#input\_prod\_iam\_admin\_group\_name)                | The group name for the OCI ESBLZ IAM Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-IAM-ADMIN"` |    no    |
-    | <a name="input_prod_security_admin_group_name"></a> [prod\_security\_admin\_group\_name](#input\_prod\_security\_admin\_group\_name) | The group name for the OCI ESBLZ Security Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-SEC-ADMIN"` |    no    |
-    | <a name="input_prod_platform_admin_group_name"></a> [prod\_platform\_admin\_group\_name](#input\_prod\_platform\_admin\_group\_name) | The group name for the OCI ESBLZ Platform Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-PLT-ADMIN"` |    no    |
+    | <a name="input_prod_network_admin_group_name"></a> [prod\_network\_admin\_group\_name](#input\_prod\_network\_admin\_group\_name)    | The group name for the OCI OELZ Network Administrators Group  | `string` | `"OCI-ELZ-UGP-<Env>-NET-ADMIN"` |    no    |
+    | <a name="input_prod_ops_admin_group_name"></a> [prod\_ops\_admin\_group\_name](#input\_prod\_ops\_admin\_group\_name)                | The group name for the OCI OELZ Ops Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-OPS-ADMIN"` |    no    |
+    | <a name="input_prod_iam_admin_group_name"></a> [prod\_iam\_admin\_group\_name](#input\_prod\_iam\_admin\_group\_name)                | The group name for the OCI OELZ IAM Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-IAM-ADMIN"` |    no    |
+    | <a name="input_prod_security_admin_group_name"></a> [prod\_security\_admin\_group\_name](#input\_prod\_security\_admin\_group\_name) | The group name for the OCI OELZ Security Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-SEC-ADMIN"` |    no    |
+    | <a name="input_prod_platform_admin_group_name"></a> [prod\_platform\_admin\_group\_name](#input\_prod\_platform\_admin\_group\_name) | The group name for the OCI OELZ Platform Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-PLT-ADMIN"` |    no    |
 
     2. NonProd Environment
 
     | Name                                                                                                                                          | Description                                                           | Type     | Default                         | Required |
     | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------- | ------------------------------- | :------: |
-    | <a name="input_nonprod_network_admin_group_name"></a> [nonprod\_network\_admin\_group\_name](#input\_nonprod\_network\_admin\_group\_name)    | The group name for the OCI ESBLZ Network Administrators Group  | `string` | `"OCI-ELZ-UGP-<Env>-NET-ADMIN"` |    no    |
-    | <a name="input_nonprod_ops_admin_group_name"></a> [nonprod\_ops\_admin\_group\_name](#input\_nonprod\_ops\_admin\_group\_name)                | The group name for the OCI ESBLZ Ops Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-OPS-ADMIN"` |    no    |
-    | <a name="input_nonprod_iam_admin_group_name"></a> [nonprod\_iam\_admin\_group\_name](#input\_nonprod\_iam\_admin\_group\_name)                | The group name for the OCI ESBLZ IAM Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-IAM-ADMIN"` |    no    |
-    | <a name="input_nonprod_security_admin_group_name"></a> [nonprod\_security\_admin\_group\_name](#input\_nonprod\_security\_admin\_group\_name) | The group name for the OCI ESBLZ Security Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-SEC-ADMIN"` |    no    |
-    | <a name="input_nonprod_platform_admin_group_name"></a> [nonprod\_platform\_admin\_group\_name](#input\_nonprod\_platform\_admin\_group\_name) | The group name for the OCI ESBLZ Platform Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-PLT-ADMIN"` |    no    |
+    | <a name="input_nonprod_network_admin_group_name"></a> [nonprod\_network\_admin\_group\_name](#input\_nonprod\_network\_admin\_group\_name)    | The group name for the OCI OELZ Network Administrators Group  | `string` | `"OCI-ELZ-UGP-<Env>-NET-ADMIN"` |    no    |
+    | <a name="input_nonprod_ops_admin_group_name"></a> [nonprod\_ops\_admin\_group\_name](#input\_nonprod\_ops\_admin\_group\_name)                | The group name for the OCI OELZ Ops Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-OPS-ADMIN"` |    no    |
+    | <a name="input_nonprod_iam_admin_group_name"></a> [nonprod\_iam\_admin\_group\_name](#input\_nonprod\_iam\_admin\_group\_name)                | The group name for the OCI OELZ IAM Administrators Group      | `string` | `"OCI-ELZ-UGP-<Env>-IAM-ADMIN"` |    no    |
+    | <a name="input_nonprod_security_admin_group_name"></a> [nonprod\_security\_admin\_group\_name](#input\_nonprod\_security\_admin\_group\_name) | The group name for the OCI OELZ Security Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-SEC-ADMIN"` |    no    |
+    | <a name="input_nonprod_platform_admin_group_name"></a> [nonprod\_platform\_admin\_group\_name](#input\_nonprod\_platform\_admin\_group\_name) | The group name for the OCI OELZ Platform Administrators Group | `string` | `"OCI-ELZ-UGP-<Env>-PLT-ADMIN"` |    no    |
 
-The ESBLZ deploys policies that will grant administrative privileges to members of each of those groups over resources in their respective compartments.
+The OELZ deploys policies that will grant administrative privileges to members of each of those groups over resources in their respective compartments.
 
 ## Budget and Tagging Module
 
@@ -117,7 +117,7 @@ The deployment mode of the modules will be the same for each additional environm
 ## Budget Module
 
 The budgets module is responsible for deploying the budget component in a single environment. 
-The ESBLZ should create following components:
+The OELZ should create following components:
 
 * 1 Budget per environment
     * **Budget scope**: Environment (Prod/Non-Prod)
@@ -157,7 +157,7 @@ The ESBLZ should create following components:
 
 The tags module is responsible for deploying Tags within the L2 Environment compartment. 
 
-The ESBLZ should create following components:
+The OELZ should create following components:
 
 
 * Tag namespace per environment containing the following defined tags and tag defaults
@@ -223,7 +223,7 @@ The monitoring module will enable you to actively and passively monitor resource
 Network Module will deploy Hub and Spoke distribution paradigm, VPN and Fastconnect on the LZ Environment. 
 
 ## Network Module Known Limitation 
-* CIDR ranges which can't be used during the ESBLZ deployment:
+* CIDR ranges which can't be used during the OELZ deployment:
     * 169.254.10.0-169.254.19.255
     * 169.254.100.0-169.254.109.255
     * 169.254.192.0-169.254.201.255
@@ -494,24 +494,24 @@ On Premise Subnet route will not propagate over the RPC connection to the second
 
 ## Security
 
-To provide for a secure environment, the ESBLZ deploys several Oracle security services, such as CloudGuard to monitor for insecure cloud resource deployments, Vulnerability Scanning Service to scan compute instances for open ports and known vulnerabilities, and OS Management Service to manage updates and patches. 
+To provide for a secure environment, the OELZ deploys several Oracle security services, such as CloudGuard to monitor for insecure cloud resource deployments, Vulnerability Scanning Service to scan compute instances for open ports and known vulnerabilities, and OS Management Service to manage updates and patches. 
 
-To provide secure storage and key management, the ESBLZ deploys a Vault and a creates a Master Encryption Key stored in that vault, which can be used to encrypt data in Object Storage. 
+To provide secure storage and key management, the OELZ deploys a Vault and a creates a Master Encryption Key stored in that vault, which can be used to encrypt data in Object Storage. 
 
-For secure storage and future analysis of logging data, the ESBLZ directs all logging data, including general log data, service events, and audit logs, to secure storage. This can be secure object storage buckets created by the ESBLZ, and encrypted with the Master Encryption Key stored in the central Vault.
+For secure storage and future analysis of logging data, the OELZ directs all logging data, including general log data, service events, and audit logs, to secure storage. This can be secure object storage buckets created by the OELZ, and encrypted with the Master Encryption Key stored in the central Vault.
 
-For secure access to workload resources, the ESBLZ deploys a Bastion in the L4 Security Compartment.
+For secure access to workload resources, the OELZ deploys a Bastion in the L4 Security Compartment.
 
 
 ### Security Services
 
-The ESBLZ deploys configurations for multiple security services. VSS (Vulnerability Scanning Service) will scan compute instances deployed in the ESBLZ (i.e. as part of workloads) for open ports, and known security vulnerabilities.  OSMS (OS Management Service) works with operating systems on deployed compute instances (such as Oracle Autonomous Linux) to manage patches and updates to ensure a secure environment.  
+The OELZ deploys configurations for multiple security services. VSS (Vulnerability Scanning Service) will scan compute instances deployed in the OELZ (i.e. as part of workloads) for open ports, and known security vulnerabilities.  OSMS (OS Management Service) works with operating systems on deployed compute instances (such as Oracle Autonomous Linux) to manage patches and updates to ensure a secure environment.  
 
 ### Cloud Guard Sub Module
 
-CloudGuard can monitor for a multitude of security conditions. The ESBLZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
+CloudGuard can monitor for a multitude of security conditions. The OELZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
 
-By default, CloudGuard is configured to monitor just the resources deployed in the ESBLZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](cloud_guard_target_tenancy) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the ESBLZ Home compartment. 
+By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](cloud_guard_target_tenancy) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
 
 Cloud Guard Target will be deployed in base compartment of both L2-Prod and L2-Non-Prod environments along with related IAM policies. All Oracle managed responder recipes will reside in L4 Security compartment of each environment.
 
@@ -530,7 +530,7 @@ For further details on CloudGuard, see the [Cloud Guard documentation](https://d
     | Name                                                                                                                   | Description                                                                                           | Type   | Default | Required |
     | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ | ------- | :------: |
     | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard)                           | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled.         | `bool` | `true`  |    no    |
-    | <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to ESBLZ home compartment | `bool` | `false` |    no    |
+    | <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to OELZ home compartment | `bool` | `false` |    no    |
 
 ### Bastion Sub Module
 
@@ -554,7 +554,7 @@ Bastion service is created in the L4 Security Compartment within the L2 prod Com
 
 ### VSS Sub Module
 
-VSS (Vulnerability Scanning Service) is part of many security services deployed under ESBLZ. It scans compute instances deployed in the ESBLZ (i.e. as part of workloads) for open ports, and other known security vulnerabilities.  
+VSS (Vulnerability Scanning Service) is part of many security services deployed under OELZ. It scans compute instances deployed in the OELZ (i.e. as part of workloads) for open ports, and other known security vulnerabilities.  
 
 **Key Features**:
 
@@ -613,7 +613,7 @@ OCI Vault service is a key management service that stores and manages master enc
 
 ### Logging
 
-The ESBLZ sets up secure storage of all log data generated by resources and services in the ESBLZ. For both environments in L2-Prod and L2-NonProd compartment a logging compartment **“L3-Logging Compartment”** is created. This compartment hosts the below listed 3 immutable storage buckets:
+The OELZ sets up secure storage of all log data generated by resources and services in the OELZ. For both environments in L2-Prod and L2-NonProd compartment a logging compartment **“L3-Logging Compartment”** is created. This compartment hosts the below listed 3 immutable storage buckets:
 
 * **AuditLogs_standard** (for audit logs)
 * **DefaultLogs_standard** (for general logging)
@@ -623,9 +623,9 @@ These buckets are encrypted with the Master Encryption Key(MEK) stored in the va
 
 Default Log group (Name: Default_Group) is created is L4-Security compartment and service logs for all supported services (VCN Flow logs, Object Storage etc.) are enabled and stored in L3-Logging compartment.
 
-All the events in ESBLZ environment are streamed to standard object storage. The Stream Pool is created in L4-Security compartment and encrypted with MEK and the service evens are stored in standard Object storage bucket in Logging compartment. 
+All the events in OELZ environment are streamed to standard object storage. The Stream Pool is created in L4-Security compartment and encrypted with MEK and the service evens are stored in standard Object storage bucket in Logging compartment. 
 
-Service connector is used to ship all the audit, service logs and events in ESBLZ to these buckets in logging compartment. All IAM Policies for Service Connector are created in the L2 level Home compartment of each environment. 
+Service connector is used to ship all the audit, service logs and events in OELZ to these buckets in logging compartment. All IAM Policies for Service Connector are created in the L2 level Home compartment of each environment. 
 
 * **Required Arguments/Parameters for Bucket Retention Policies**:
 
@@ -649,3 +649,22 @@ Service connector is used to ship all the audit, service logs and events in ESBL
     | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | -------- | :------: |
     | <a name="input_archive_log_retention_policy_duration_amount"></a> [archive\_log\_retention\_policy\_duration\_amount](#input\_archive\_log\_retention\_policy\_duration\_amount)            | The timeAmount is interpreted in units defined by the timeUnit parameter, and is calculated in relation to each object's Last-Modified timestamp. | `string` | `"1"`    |    no    |
     | <a name="input_archive_log_retention_policy_duration_time_unit"></a> [archive\_log\_retention\_policy\_duration\_time\_unit](#input\_archive\_log\_retention\_policy\_duration\_time\_unit) | The unit that should be used to interpret timeAmount.                                                                                             | `string` | `"DAYS"` |    no    |
+
+## Workload Expansion
+
+The variables used for rerun the baseline stack after deploying workload expansion stack.
+
+In Non-Prod:
+
+| Name                                                                                                              | Description                                                                                                   | Type           | Default         | Required |
+| ----------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------|----------------| --------------- | :------: |
+| <a name="nonprod_additional_workload_subnets_cidr_blocks"></a> [nonprod_additional_workload_subnets_cidr_blocks](#workload\_admin\_group\_name)             | List of 3 subnets CIDR Block used in workload expansion. (Do not include the cidr blocks created in baseline) | `list(string)` |  |    yes    |
+| <a name="nonprod_workload_compartment_names"></a> [nonprod_workload_compartment_names](#application\_admin\_group\_name)             | Workload compartment name. (Also include the workload name created in baseline)                               | `list(string)` |  |    yes    |
+
+In Prod:
+
+
+| Name                                                                                                              | Description                                                                      | Type           | Default         | Required |
+| ----------------------------------------------------------------------------------------------------------------- |----------------------------------------------------------------------------------|----------------| --------------- | :------: |
+| <a name="prod_additional_workload_subnets_cidr_blocks"></a> [prod_additional_workload_subnets_cidr_blocks](#workload\_admin\_group\_name)       | List of 3 subnets CIDR Block used in workload expansion.(Do not include the cidr blocks created in baseline)                         | `list(string)` |  |    yes    |
+| <a name="prod_workload_compartment_names"></a> [prod_workload_compartment_names](#application\_admin\_group\_name)             | Workload compartment name.  (Also include the workload name created in baseline) | `list(string)` |  |    yes    |

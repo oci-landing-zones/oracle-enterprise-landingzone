@@ -13,6 +13,10 @@ locals {
     database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-DB-ADMIN",
   }
 
+  base_group_names = {
+    network_admin_group_name : var.network_admin_group_name != "" ? var.network_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN",
+  }
+
   workload_expansion_policy = {
     name        = "OCI-ELZ-WRK-EXP-${var.workload_prefix}-POLICY"
     description = "OCI Workload Expansion Policy"
@@ -35,6 +39,7 @@ locals {
 
       "Allow group ${var.identity_domain_name}/${local.group_names["database_admin_group_name"]} to read autonomous-database-family in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${var.identity_domain_name}/${local.group_names["database_admin_group_name"]} to read database-family in compartment ${module.workload_compartment.compartment_name}",
+      "Allow group ${var.identity_domain_name}/${local.base_group_names["network_admin_group_name"]} to read metrics in compartment ${module.workload_compartment.compartment_name}",
     ]
   }
 

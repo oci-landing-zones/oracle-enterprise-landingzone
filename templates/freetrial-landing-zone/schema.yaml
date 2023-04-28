@@ -27,6 +27,9 @@ variableGroups:
   - title: Security Variables
     visible: true
     variables:
+      - enable_cloud_guard
+      - cloud_guard_target_tenancy
+      - is_service_connector_limit
       - prod_enable_bastion
       - prod_bastion_client_cidr_block_allow_list
   - title: Budget Variables
@@ -127,8 +130,6 @@ variableGroups:
       - virtual_circuit_customer_asn
       - virtual_circuit_display_name
       - virtual_circuit_type
-      - cloud_guard_target_tenancy
-      - enable_cloud_guard
       - prod_application_admin_group_name
       - prod_network_admin_group_name
       - prod_security_admin_group_name
@@ -293,16 +294,22 @@ variables:
   # Security Variables
   enable_cloud_guard:
     type: boolean
-    description: "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
+    description: "False for Free-Trial OCI Account"
     default: false
-    required: false
+    required: true
     title: Enable Cloud Guard
   cloud_guard_target_tenancy:
     type: boolean
-    description: "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment."
+    description: "False for Free-Trial OCI Account"
     default: false
-    required: false
+    required: true
     title: Cloud Guard Target Tenancy
+  is_service_connector_limit:
+    type: boolean
+    description: "True for Free-Trial OCI Account: As Service Connector Limit is 2"
+    default: true
+    required: true
+    title: Service Connector Limit
   prod_enable_bastion:
     type: boolean
     description: "Option to enable bastion service in prod"

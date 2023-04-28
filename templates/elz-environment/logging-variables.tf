@@ -7,3 +7,8 @@ variable "retention_policy_duration_time_unit" {
   type        = string
   description = "The unit that should be used to interpret timeAmount."
 }
+
+variable "is_service_connector_limit" {
+  type        = bool
+  description = "Restrict Number of Service Connector Deployment"
+}

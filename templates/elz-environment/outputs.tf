@@ -31,6 +31,17 @@ output "workload_compartment_id" {
   value = module.workload.compartment_id
 }
 
+output "workload_compartment_name" {
+  value = module.workload.compartment_name
+}
+
+output "workload_subnet_cidr_blocks" {
+  value = [var.private_spoke_subnet_app_cidr_block,
+           var.private_spoke_subnet_db_cidr_block,
+           var.private_spoke_subnet_web_cidr_block,
+  ]
+}
+
 output "stream_id" {
   value = module.logging.stream_id
 }
