@@ -57,3 +57,7 @@ variable "subnets_map" {
   type        = map(string)
   description = ""
 }
+variable "is_service_connector_limit" {
+  type        = bool
+  description = "Restrict Number of Service Connector Deployment"
+}

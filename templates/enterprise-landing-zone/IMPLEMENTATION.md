@@ -1,15 +1,15 @@
-# Enterprise Scale Baseline Landing Zone
+# Oracle Enterprise Landing Zone
 
 ## Prerequisites
 
-To deploy the Enterprise Scale Baseline Landing Zone from the terraform cli you will need the following prerequisites.
+To deploy the Oracle Enterprise Landing Zone from the terraform cli you will need the following prerequisites.
 - [Latest Version of Terrafom](https://developer.hashicorp.com/terraform/downloads)
 - [OCI Terraform provider](https://registry.terraform.io/providers/oracle/oci/latest/docs) v4.109.0 or later
 - [oci - cli](https://github.com/oracle/oci-cli)
 
 ## User
 
-The Enterprise Scale Baseline Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user need to have an api key entry defined as decribed [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble.
+The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user need to have an api key entry defined as decribed [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble.
 
 ```text
 [DEFAULT]
@@ -22,23 +22,23 @@ key_file=<path to your private keyfile> # TODO
 
 ## Region
 
-The Enterprise Scale Baseline Landing Zone should be deployed to the tenancy's Home Region.
+The Oracle Enterprise Landing Zone should be deployed to the tenancy's Home Region.
 
 ## Tenancy
 
-The tenancy you intend to deploy the Enterprise Scale Baseline Landing Zone to.
+The tenancy you intend to deploy the Oracle Enterprise Landing Zone to.
 
 ### Logging Analytics
 
 The Logging Analytics service should be enabled for the tenancy.
 To check the current status of Logging Analytics for a tenancy, visit the [Logging Analytics home page][1].
-There will be a dark grey box at the top of the page. On the right hand side of that box, if Logging analytics has *not* been enabled, there will be a notice that Logging Analytics has not been enabled for the tenancy, and a blue button to enable it.  To enable it, click the blue button, and wait for the 3 onboarding steps to complete.  No further action will be required, as the Enterprise Scale Baseline Landing Zone will configure the needed datasources.
+There will be a dark grey box at the top of the page. On the right hand side of that box, if Logging analytics has *not* been enabled, there will be a notice that Logging Analytics has not been enabled for the tenancy, and a blue button to enable it.  To enable it, click the blue button, and wait for the 3 onboarding steps to complete.  No further action will be required, as the Oracle Enterprise Landing Zone will configure the needed datasources.
 
 ### Resource Limits
 
-Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 Enterprise Scale Baseline Landing Zone, with 2 environments and 1 workload each. 
+Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 Oracle Enterprise Landing Zone, with 2 environments and 1 workload each. 
 
-However, there are some resource limits that will need to be increased in order to deploy the Enterprise Scale Baseline Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Enterprise Scale Baseline Landing Zone:
+However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
 |OCI Terraform Resource Name | Count   |
 | ---------------------------- | ------- |
 |oci_announcements_service_announcement_subscription| 2|
@@ -105,7 +105,7 @@ Requests to raise these limits can be done through the [request a service limit 
 [1]: https://cloud.oracle.com/loganalytics/home "Logging Analytics Home page."
 [2]: https://cloud.oracle.com/support/create?type=limit "Request a service Limit Increase."
 
-## Enterprise Scale Baseline Landing Zone Compartment Architecture
+## Oracle Enterprise Landing Zone Compartment Architecture
 
 ---
 ![Architecture](<../../images/LZ-v2.0.png> "Architecture")
@@ -114,9 +114,9 @@ This architecture diagram illustrates the compartments Enterprise LZ deployments
 
 ### Compartment Structure
 
-For the Enterprise Scale Baseline Landing Zone, we have the below compartment architecture:
+For the Oracle Enterprise Landing Zone, we have the below compartment architecture:
 
-* Enterprise Scale Baseline Landing Zone Home Compartment
+* Oracle Enterprise Landing Zone Home Compartment
   * Prod
     * Shared Infrastructure
       * Network
@@ -139,9 +139,9 @@ Environments are each full infrastructure deployments with their own hub-and-spo
 
 They are designed to ensure isolation between each environment. They can each contain multiple Workloads.
 
-The Enterprise Scale Baseline Landing Zone will initially set up two Environments: `Prod` and `Nonprod`.  Infrastructure resources within each Environment will have a single letter abbreviation (such as `N` or `P`) to indicate which environment they are part of.
+The Oracle Enterprise Landing Zone will initially set up two Environments: `Prod` and `Nonprod`.  Infrastructure resources within each Environment will have a single letter abbreviation (such as `N` or `P`) to indicate which environment they are part of.
 
-In the future, the `elz-environment` template will allow you to easily add new Environments to an existing Enterprise Scale Baseline Landing Zone.
+In the future, the `elz-environment` template will allow you to easily add new Environments to an existing Oracle Enterprise Landing Zone.
 
 ## Workloads
 
@@ -150,7 +150,7 @@ Workloads are the "shell" for you to deploy an application or service into. They
 
 Workloads exist within Environments.
 
-The Enterprise Scale Baseline Landing Zone will set up one initial workload configuration in each Environment. In the future, the `elz-workload` template  will allow you to easily add additional workloads to a deployed Environment within the Enterprise Scale Baseline Landing Zone.
+The Oracle Enterprise Landing Zone will set up one initial workload configuration in each Environment. In the future, the `elz-workload` template  will allow you to easily add additional workloads to a deployed Environment within the Oracle Enterprise Landing Zone.
 
 Note that Workload compartments and networks all contain a user provided *workload_name* suffix in their names. This allows multiple workloads, each with their own separate compartment and networks, to be deployed.
 
@@ -158,7 +158,7 @@ Note that Workload compartments and networks all contain a user provided *worklo
 
 ---
 Each environment will have its own identity domain. This lives in the Security compartment of each environment.  The identity domain applies to all resources under the environment compartment.
-Enterprise Scale Baseline Landing Zone will only support the new identity domains in OCI(Henosis) and not the old IDCS domains.
+Oracle Enterprise Landing Zone will only support the new identity domains in OCI(Henosis) and not the old IDCS domains.
 
 Each domain has it's own users and groups, and can be federated and configured separately.
 
@@ -173,28 +173,28 @@ For *each* workload deployed in an environment, there will be one Spoke network.
 
 The `elz-network-extension` template can add VPN or FastConnect links between an environment's DRG and an on-prem network.
 
-## Deployment of The Enterprise Scale Baseline Landing Zone
+## Deployment of The Oracle Enterprise Landing Zone
 
 ## For customers who already have Infrastructure in OCI
 
-If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Enterprise Scale Baseline Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Enterprise Scale Baseline Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
+If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Oracle Enterprise Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Oracle Enterprise Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
 
-Note that child tenancies have their own [resource limits](#resource-limits), which should be checked to confirm the Enterprise Scale Baseline Landing Zone can be deployed. 
+Note that child tenancies have their own [resource limits](#resource-limits), which should be checked to confirm the Oracle Enterprise Landing Zone can be deployed. 
 
 ## How to Deploy
 
 ---
-The Enterprise Scale Baseline Landing Zone can be launched through Oracle Resource Manager or from the Terraform CLI.
+The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manager or from the Terraform CLI.
 
 ## Terraform CLI
 
-1. Have Terraform installed on the system you will deploy from. The Enterprise Scale Baseline Landing Zone should work with any version of Terraform greater than 1.0.0, including the latest version (currently 1.3.9).  If you do not have Terraform already installed, the [Terraform Download page](https://developer.hashicorp.com/terraform/downloads) will have links for the proper package for your system, and installation instructions. 
+1. Have Terraform installed on the system you will deploy from. The Oracle Enterprise Landing Zone should work with any version of Terraform greater than 1.0.0, including the latest version (currently 1.3.9).  If you do not have Terraform already installed, the [Terraform Download page](https://developer.hashicorp.com/terraform/downloads) will have links for the proper package for your system, and installation instructions. 
 
 2. Set up API keys to work with your OCI account. Follow the instructions [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm).
 
 3. Visit the [GitHub page](https://github.com/oracle-quickstart/oci-landing-zones) to clone the Terraform template.
 
-4. In the repository, cd to the `templates/enterprise-landing-zone/` directory. This is the main template for the Enterprise Scale Baseline Landing Zone. (the other templates will allow you to deploy other components, such as additional Environments or Workloads, or to deploy pieces of the Enterprise Scale Baseline Landing Zone architecture for use in your own custom infrastructure designs.)
+4. In the repository, cd to the `templates/enterprise-landing-zone/` directory. This is the main template for the Oracle Enterprise Landing Zone. (the other templates will allow you to deploy other components, such as additional Environments or Workloads, or to deploy pieces of the Oracle Enterprise Landing Zone architecture for use in your own custom infrastructure designs.)
 
 5. Create a terraform.tfvars file in the directory and populate it with the required variables or override existing variables. 
 **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](README.md#inputs)**
@@ -253,9 +253,9 @@ In the Stack page use the appropriate buttons to plan/apply/destroy your stack.
 
 - [Resource Manager Overview](https://docs.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm)
 
-## Teardown and destroy of an Enterprise Scale Baseline Landing Zone stack
+## Teardown and destroy of an Oracle Enterprise Landing Zone stack
 
-If you wish to delete an entire Enterprise Scale Baseline Landing Zone stack, there are a few resources that will require some manual intervention due to dependancies or conditions that are outside of Terraform's knowledge. 
+If you wish to delete an entire Oracle Enterprise Landing Zone stack, there are a few resources that will require some manual intervention due to dependancies or conditions that are outside of Terraform's knowledge. 
 
 The steps to clean up these resources is as follows: 
 
@@ -274,15 +274,15 @@ The steps to clean up these resources is as follows:
 3. Vault/Key (For each Environment)
 
     * The vault cannot be deleted right away. Vaults have a minimum 7-Day waiting period before deletion. This is because once the Vault is deleted, all data encrypted with keys in that Vault becomes unreadable. 
-    * You can move the vault and the Master Encryption Key to another compartment outside the Enterprise Scale Baseline Landing Zone home before deleting it in order to delete the landing zone.
-    * Or you can schedule a deletion for the key and the vault, and then wait to delete the Enterprise Scale Baseline Landing Zone when the Vault and key have been deleted. 
+    * You can move the vault and the Master Encryption Key to another compartment outside the Oracle Enterprise Landing Zone home before deleting it in order to delete the landing zone.
+    * Or you can schedule a deletion for the key and the vault, and then wait to delete the Oracle Enterprise Landing Zone when the Vault and key have been deleted. 
 
 4. Logging Analytics
 
     * Purge the log: navigate to the Administration page of Logging Analytics → click the storage under the Resources section → Purge Logs
     * (Optional) Delete the Logging Analytics group.
 
-Once these resources have been removed, you will be able to use Terraform to delete the rest of the Enterprise Scale Baseline Landing Zone. If using terraform CLI: run `terraform destroy` to remove other resources. If using ORM: navigate to the corresponding stack created and click  `Destroy`.
+Once these resources have been removed, you will be able to use Terraform to delete the rest of the Oracle Enterprise Landing Zone. If using terraform CLI: run `terraform destroy` to remove other resources. If using ORM: navigate to the corresponding stack created and click  `Destroy`.
 
 #### Cleanup Script
 A clean up script is provided to assist in cleaning up lingering resources that block terraform destroy.
@@ -317,7 +317,7 @@ python destroy_lz.py  --help
 ## Known Issues
 
 ---
-These are some known temporary issues that can occur while deploying the Enterprise Scale Baseline Landing Zone. 
+These are some known temporary issues that can occur while deploying the Oracle Enterprise Landing Zone. 
 
 * 400-InvalidParameter Error in CreateServiceConnector operation:  This can occasionally happen due to logs taking longer than normal to create while setting up the logging infrastructure.  This will correct itself when the logs finish creating. Later Apply jobs in ORM or invocations of `terraform apply` should succeed. 
 * 429-TooManyRequests Error: A tenancy making a large number of OCI API requests in rapid succession may be throttled by the API.  The solution is to wait some period of time (a few minutes) and retry the terraform operation again.  This is rarely seen on `apply` but may occasionally be seen on `destroy` runs, as the delete operations are much faster than create, and Terraform makes many API calls. 

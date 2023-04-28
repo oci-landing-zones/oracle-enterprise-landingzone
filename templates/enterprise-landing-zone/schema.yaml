@@ -1,5 +1,5 @@
-title: Enterprise Scale Baseline Landing Zone 2.0
-description: Enterprise Scale Baseline Landing Zone 2.0 developed by OCI
+title: Oracle Enterprise Landing Zone 2.0
+description: Oracle Enterprise Landing Zone 2.0 developed by OCI
 schemaVersion: 1.0.0
 version: "1.0.0"
 locale: en
@@ -41,6 +41,8 @@ variableGroups:
       - nonprod_workload_admin_group_name
       - nonprod_application_admin_group_name
       - nonprod_database_admin_group_name
+      - prod_workload_compartment_names
+      - nonprod_workload_compartment_names
   - title: Security Variables
     visible: true
     variables:
@@ -1198,3 +1200,17 @@ variables:
     default: [ ]
     visible: show_fastconnect_variables
     title: Customer Onprem IP CIDR
+  prod_workload_compartment_names:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Workload Compartment Name from Workload Expansion in Prod
+    description: "A list of workload compartment name from Workload Expansion in Prod"
+  nonprod_workload_compartment_names:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Workload Compartment Name from Workload Expansion in Non-Prod
+    description: "A list of workload compartment name from Workload Expansion in Non-Prod"

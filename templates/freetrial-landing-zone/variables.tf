@@ -231,7 +231,7 @@ variable "nonprod_budget_alert_rule_recipients" {
 # -----------------------------------------------------------------------------
 variable "enable_cloud_guard" {
   type        = bool
-  default     = true
+  default     = false
   description = "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
 }
 
@@ -454,6 +454,11 @@ variable "is_create_alarms" {
   type        = bool
   default     = false
   description = "Enable Alarms Creation in all Compartment"
+}
+variable "is_service_connector_limit" {
+  type        = bool
+  default     = true
+  description = "Restrict Number of Service Connector Deployment in Tenancy if limit is two"
 }
 variable "prod_enable_security_monitoring_alarms" {
   type        = bool

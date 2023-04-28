@@ -13,25 +13,25 @@ locals {
     topic_description     = "OCI Landing Zone Warning Workload Topic"
     subscription_protocol = "EMAIL"
   }
-  alarm_policy = {
-    name        = "${var.environment_prefix}-Policy"
-    description = "OCI Alarm Policy"
+  # alarm_policy = {
+  #   name        = "${var.environment_prefix}-Policy"
+  #   description = "OCI Alarm Policy"
 
-    statements = [
-      <<EOT
-        Allow group OCI-ELZ-${var.environment_prefix}-IDT/OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN  to read metrics in compartment id ${var.environment_compartment_id} where any {
-          target.metrics.namespace='oci_vcn',
-          target.metrics.namespace='oci_vpn',
-          target.metrics.namespace='oci_fastconnect',
-          target.metrics.namespace='oci_service_gateway',
-          target.metrics.namespace='oci_nat_gateway',
-          target.metrics.namespace='oci_internet_gateway',
-          target.metrics.namespace='oci_lbaas',
-          target.metrics.namespace='oci_network_firewall'
-        }
-      EOT
-    ]
-  }
+  #   statements = [
+  #     <<EOT
+  #       Allow group OCI-ELZ-${var.environment_prefix}-IDT/OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN  to read metrics in compartment id ${var.environment_compartment_id} where any {
+  #         target.metrics.namespace='oci_vcn',
+  #         target.metrics.namespace='oci_vpn',
+  #         target.metrics.namespace='oci_fastconnect',
+  #         target.metrics.namespace='oci_service_gateway',
+  #         target.metrics.namespace='oci_nat_gateway',
+  #         target.metrics.namespace='oci_internet_gateway',
+  #         target.metrics.namespace='oci_lbaas',
+  #         target.metrics.namespace='oci_network_firewall'
+  #       }
+  #     EOT
+  #   ]
+  # }
   
   workload_alarms = {
     metric_compartment_id_in_subtree = false

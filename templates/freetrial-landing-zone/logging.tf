@@ -87,7 +87,6 @@ locals {
     ]
   }
 }
-
 module "service_connector_policy" {
   source           = "../../modules/policies"
   compartment_ocid = module.home_compartment.compartment_id
@@ -146,6 +145,8 @@ module "archive_bucket" {
 }
 
 module "prod_archive_audit_log_service_connector" {
+  count                 = var.is_service_connector_limit   ? 0 : 1
+
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
   compartment_id        = module.prod_environment.compartment.security.id
@@ -158,23 +159,10 @@ module "prod_archive_audit_log_service_connector" {
 
   depends_on = [module.archive_bucket, module.service_connector_archive_policy]
 }
-/*
-module "nonprod_archive_audit_log_service_connector" {
-  source                = "../../modules/service-connector"
-  tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
-  source_compartment_id = module.home_compartment.compartment_id
-  display_name          = local.nonprod_archive_audit_log_service_connector.display_name
-  source_kind           = local.nonprod_archive_audit_log_service_connector.source_kind
-  target_kind           = local.nonprod_archive_audit_log_service_connector.target_kind
-  log_group_id          = local.nonprod_archive_audit_log_service_connector.log_group_id
-  target_bucket         = local.nonprod_archive_audit_log_service_connector.target_bucket
-
-  depends_on = [module.archive_bucket, module.service_connector_archive_policy]
-}
-*/
 module "prod_archive_default_log_service_connector" {
+  count                 = var.is_service_connector_limit   ? 0 : 1
   source                = "../../modules/service-connector"
+
   tenancy_ocid          = var.tenancy_ocid
   compartment_id        = module.prod_environment.compartment.security.id
   source_compartment_id = module.prod_environment.compartment.security.id
@@ -186,21 +174,6 @@ module "prod_archive_default_log_service_connector" {
 
   depends_on = [module.archive_bucket, module.service_connector_archive_policy]
 }
-/*
-module "nonprod_archive_default_log_service_connector" {
-  source                = "../../modules/service-connector"
-  tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
-  source_compartment_id = module.nonprod_environment.compartment.security.id
-  display_name          = local.nonprod_archive_default_log_service_connector.display_name
-  source_kind           = local.nonprod_archive_default_log_service_connector.source_kind
-  target_kind           = local.nonprod_archive_default_log_service_connector.target_kind
-  log_group_id          = module.nonprod_environment.default_group_id
-  target_bucket         = local.nonprod_archive_default_log_service_connector.target_bucket
-
-  depends_on = [module.archive_bucket, module.service_connector_archive_policy]
-}
-*/
 module "prod_archive_service_events_service_connector" {
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
@@ -215,22 +188,6 @@ module "prod_archive_service_events_service_connector" {
 
   depends_on = [module.archive_bucket, module.service_connector_archive_policy]
 }
-/*
-module "nonprod_archive_service_events_service_connector" {
-  source                = "../../modules/service-connector"
-  tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
-  source_compartment_id = module.nonprod_environment.compartment.security.id
-  display_name          = local.nonprod_archive_service_events_service_connector.display_name
-  source_kind           = local.nonprod_archive_service_events_service_connector.source_kind
-  target_kind           = local.nonprod_archive_service_events_service_connector.target_kind
-  stream_id             = module.nonprod_environment.stream_id
-  cursor_kind           = local.nonprod_archive_service_events_service_connector.cursor_kind
-  target_bucket         = local.nonprod_archive_service_events_service_connector.target_bucket
-
-  depends_on = [module.archive_bucket, module.service_connector_archive_policy]
-}
-*/
 module "prod_platform_admin_policy" {
   source           = "../../modules/policies"
   compartment_ocid = module.home_compartment.compartment_id
@@ -240,14 +197,4 @@ module "prod_platform_admin_policy" {
 
   depends_on = [module.home_compartment]
 }
-/*
-module "nonprod_platform_admin_policy" {
-  source           = "../../modules/policies"
-  compartment_ocid = module.home_compartment.compartment_id
-  policy_name      = local.nonprod_platform_admin_policy.name
-  description      = local.nonprod_platform_admin_policy.description
-  statements       = local.nonprod_platform_admin_policy.statements
 
-  depends_on = [module.home_compartment]
-}
-*/

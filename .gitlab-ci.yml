@@ -7,6 +7,8 @@ stages:          # List of stages for jobs, and their order of execution
   - test-unit
   - TF-Plan-e2e
   - TF-Apply-e2e
+  - TF-Workload-Apply-e2e
+  - TF-Reapply-e2e
   - TF-Destroy-e2e
 
 
@@ -30,7 +32,7 @@ unit-test-job:   # This job runs in the test stage.
   extends: .testing_pipeline
   stage: test-unit
   script:
-    - pytest  -m unit --junit-xml=pytest.xml test
+    - pytest  -c test/pytest.ini -m "unit and not expensive" --junit-xml=pytest.xml
   # # Orahub's artifact upload seems broken. Possibly a config issue...  
   # artifacts:
   #   when: always
@@ -39,7 +41,7 @@ unit-test-job:   # This job runs in the test stage.
   #   reports:
   #     junit: pytest.xml
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: ($CI_COMMIT_BRANCH != "main")
 
 e2e-full-plan-job:   # This job runs terraform plan.
   extends: .testing_pipeline
@@ -49,9 +51,13 @@ e2e-full-plan-job:   # This job runs terraform plan.
     - cd templates/enterprise-landing-zone
     - ./BackEnd.sh
     - cat backend.tf
+    - curl $BASE_LAST_OUTPUT > base_output.json 
+    - curl $WE_LAST_OUTPUT > we_output.json 
+    - cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+    - python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
     - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
     - terraform validate
-    - terraform plan -var-file=$ENV_TFVARS_FILE_NAME
+    - terraform plan -var-file=updated-$ENV_TFVARS_FILE_NAME
   rules:
     - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
 
@@ -63,12 +69,22 @@ e2e-full-deploy-job:   # This job runs terraform apply.
     - cd templates/enterprise-landing-zone
     - ./BackEnd.sh
     - cat backend.tf
+    - curl $BASE_LAST_OUTPUT > base_output.json 
+    - curl $WE_LAST_OUTPUT > we_output.json 
+    - cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+    - python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
     - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
     - terraform validate
-    - terraform apply -var-file=$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understan gitlab artifiacts issue
+    - terraform apply -var-file=updated-$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understan gitlab artifiacts issue
+    - terraform output -json > base_output.json
+    - 'curl -X PUT -H "Content-Type: application/json"  -d @base_output.json $BASE_LAST_OUTPUT'
   rules:
     - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
   retry: 1
+
+e2e-redeploy-job:
+  extends: e2e-full-deploy-job
+  stage: TF-Reapply-e2e
 
 e2e-full-destroy-job:   # This job runs terraform destroy.
   extends: .testing_pipeline
@@ -79,8 +95,36 @@ e2e-full-destroy-job:   # This job runs terraform destroy.
     - cd templates/enterprise-landing-zone
     - ./BackEnd.sh
     - cat backend.tf
+    - curl $BASE_LAST_OUTPUT > base_output.json 
+    - curl $WE_LAST_OUTPUT > we_output.json 
+    - cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+    - python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
     - terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
     - terraform validate
-    - terraform destroy -var-file=$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understand gitlab artifiacts issue
+    - terraform destroy -var-file=updated-$ENV_TFVARS_FILE_NAME -auto-approve #neeed to look at pasing a plan file but have to understand gitlab artifiacts issue
+    - terraform output -json > base_output.json
+    - 'curl -X PUT -H "Content-Type: application/json"  -d @base_output.json $BASE_LAST_OUTPUT'
   rules:
     - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
+
+e2e-workload-deploy-job:   # This job runs terraform apply on Workload Expansion.
+  extends: .testing_pipeline
+  stage: TF-Workload-Apply-e2e
+  when: on_success
+  script:
+    - cd templates
+    - elz-workload/add_workload.sh TestWE P
+    - cd elz-workload-P-TestWE
+    - ./BackEnd.sh
+    - cat backend.tf
+    - curl $BASE_LAST_OUTPUT > base_output.json 
+    - curl $WE_LAST_OUTPUT > we_output.json 
+    - python3 read_base_vars.py -e P -f base_output.json >> $ENV_TFVARS_FILE_NAME
+    - terraform init -backend-config="address=$WE_REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+    - terraform validate
+    - terraform apply -var-file=$ENV_TFVARS_FILE_NAME -auto-approve #need to look at pasing a plan file but have to understan gitlab artifiacts issue
+    - terraform output -json > we_output.json
+    - 'curl -X PUT -H "Content-Type: application/json"  -d @we_output.json $WE_LAST_OUTPUT'
+  rules:
+    - if: ($CI_COMMIT_BRANCH == "LANZ-Integration")
+  retry: 1

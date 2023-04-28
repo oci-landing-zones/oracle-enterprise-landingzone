@@ -1,6 +1,6 @@
-# Enterprise Scale Baseline Landing Zone 
+# Oracle Enterprise Landing Zone 
 
-Version 2 of Enterprise Scale Baseline Landing Zone
+Version 2 of Oracle Enterprise Landing Zone
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

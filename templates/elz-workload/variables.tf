@@ -192,3 +192,9 @@ variable "database_admin_group_name" {
   description = "the name of workload database admin group"
   default     = ""
 }
+
+variable "network_admin_group_name" {
+  type        = string
+  description = "the name of landing zone Network admin group"
+  default     = ""
+}

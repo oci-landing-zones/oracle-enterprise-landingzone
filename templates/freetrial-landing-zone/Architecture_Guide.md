@@ -4,7 +4,7 @@
 
 The Oracle Enterprise Landing Zone "OELZ" provides the baseline architectural framework for your organization to deploy new projects and workloads on OCI. The landing zone consists of Terraform modules, the architectural documentation, and an implementation guide. The landing zone helps you quickly and securely create a foundation for your cloud deployment based on Oracle recommendations, customer experience, and industry-standard best practices.
 
-OELZ is a set of Terraform modules that are designed to make it easy to set up a secure and compliant multi-account infrastructure on OCI. Some common use cases for OCI Enterprise Scale Baseline Landing Zone include:
+OELZ is a set of Terraform modules that are designed to make it easy to set up a secure and compliant multi-account infrastructure on OCI. Some common use cases for OCI Oracle Enterprise Landing Zone include:
 
 - Governance and compliance: The OELZ provides a set of pre-built policies and guardrails that help ensure that your OCI environment is compliant with industry standards, such as ISO27001 and PCI DSS (these and other compliance standards will be part of ongoing releases).
 - Automation and scalability: The Landing Zone can be used to automate the creation of new accounts, users, and resources on OCI, making it easy to scale your infrastructure as your organization grows.
@@ -31,7 +31,7 @@ Resiliency depends on the nature, architecture, and implementation of the worklo
 
 ## **_Security_**
 
-The Enterprise Scale Baseline Landing Zone follows best practices for security design principles.
+The Oracle Enterprise Landing Zone follows best practices for security design principles.
 
 - Design for attackers
   - Limit permissions based on requirements
