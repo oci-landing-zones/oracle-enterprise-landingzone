@@ -49,3 +49,8 @@ variable "api_private_key_path" {
   description = "The local path to the API private key"
   default     = ""
 }
+variable "api_private_key" {
+  type        = string
+  description = "The API private key"
+  default     = ""
+}
