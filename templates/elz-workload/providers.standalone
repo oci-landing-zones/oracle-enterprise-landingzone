@@ -18,6 +18,7 @@ provider "oci" {
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.current_user_ocid
   fingerprint      = var.api_fingerprint
+  private_key      = var.api_private_key # if both set this takes precedence
   private_key_path = var.api_private_key_path
   region           = var.region
 }
@@ -26,6 +27,7 @@ provider "oci" {
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.current_user_ocid
   fingerprint      = var.api_fingerprint
+  private_key      = var.api_private_key # if both set this takes precedence
   private_key_path = var.api_private_key_path
   region           = local.home_region[0]
 }
@@ -45,5 +47,10 @@ variable "api_fingerprint" {
 variable "api_private_key_path" {
   type        = string
   description = "The local path to the API private key"
+  default     = ""
+}
+variable "api_private_key" {
+  type        = string
+  description = "The API private key"
   default     = ""
 }

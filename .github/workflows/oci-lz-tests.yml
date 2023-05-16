@@ -1,0 +1,199 @@
+name: Landing Zone CICD Test Suite
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_integration:
+        type: boolean
+        description: "Deploy to Integration Environment?"
+        required: true
+        default: false
+  pull_request:
+    branches: 
+    - master
+    - integration
+    types:
+    - closed
+    - opened
+
+env:
+  ENV_TFVARS_FILE_NAME: integration.tfvars
+  BASE_LAST_OUTPUT: ${{ secrets.BASE_OUTPUT }}
+  WE_LAST_OUTPUT: ${{ secrets.WE_OUTPUT }}
+  REMOTE_STATE_BACKEND: ${{ secrets.BASE_TFSTATE }}
+  WE_REMOTE_STATE_BACKEND: ${{ secrets.WE_TFSTATE }}
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  TF_VAR_api_private_key: ${{ secrets.TF_VAR_API_PRIVATE_KEY }}
+  TF_VAR_api_fingerprint: ${{ vars.TF_VAR_API_FINGERPRINT }}
+  TF_VAR_region: ${{ vars.TF_VAR_REGION }}
+  TF_VAR_ssh_public_key_list: ${{ vars.TF_VAR_SSH_PUBLIC_KEY_LIST }}
+  TF_VAR_tenancy_ocid: ${{ vars.TF_VAR_TENANCY_OCID }}
+  TF_VAR_current_user_ocid: ${{ vars.TF_VAR_CURRENT_USER_OCID }}
+  TF_VAR_nonprod_budget_alert_rule_recipients: ${{ vars.TEST_EMAIL_ADDRESS }}
+  TF_VAR_nonprod_domain_admin_email: ${{ vars.TEST_EMAIL_ADDRESS }}
+  TF_VAR_prod_budget_alert_rule_recipients: ${{ vars.TEST_EMAIL_ADDRESS }}
+  TF_VAR_prod_domain_admin_email: ${{ vars.TEST_EMAIL_ADDRESS }}
+
+jobs:
+  unittests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        ls -l ~/
+        unzip terraform.zip -d ~/bin
+        ~/bin/terraform --version
+        pip install -r test/requirements.txt
+    - name: Test with pytest
+      run: |
+        eval $(ssh-agent -s) 
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        ssh-add -l 
+        echo "$TF_VAR_api_private_key" > ~/api_key.pem
+        export TF_VAR_api_private_key_path=~/api_key.pem
+        pytest -c test/pytest.ini -m "unit and not expensive" --junit-xml=pytest.xml
+    - name: Upload test report artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: unittest-results-report
+        path: pytest.xml
+
+  integration-plan:
+    runs-on: ubuntu-latest
+    needs: unittests
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        ls -l ~/
+        unzip terraform.zip -d ~/bin
+        ~/bin/terraform --version
+        pip install -r test/requirements.txt
+    - name: Run Terraform plan
+      run: |
+        cd templates/enterprise-landing-zone
+        ./BackEnd.sh
+        cat backend.tf
+        curl $BASE_LAST_OUTPUT > base_output.json 
+        curl $WE_LAST_OUTPUT > we_output.json 
+        cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+        python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
+        terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+        terraform validate
+        terraform plan -var-file=updated-$ENV_TFVARS_FILE_NAME
+
+  integration-apply:
+    runs-on: ubuntu-latest
+    needs: integration-plan
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        ls -l ~/
+        unzip terraform.zip -d ~/bin
+        ~/bin/terraform --version
+        pip install -r test/requirements.txt
+    - name: Run Terraform apply
+      run: |
+        cd templates/enterprise-landing-zone
+        ./BackEnd.sh
+        cat backend.tf
+        curl $BASE_LAST_OUTPUT > base_output.json 
+        curl $WE_LAST_OUTPUT > we_output.json 
+        cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+        python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
+        terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+        terraform validate
+        terraform apply -var-file=updated-$ENV_TFVARS_FILE_NAME -auto-approve 
+        terraform output -json > base_output.json
+        curl -X PUT -H "Content-Type: application/json"  -d @base_output.json $BASE_LAST_OUTPUT
+
+  integration-workload-apply:
+    runs-on: ubuntu-latest
+    needs: integration-apply
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        ls -l ~/
+        unzip terraform.zip -d ~/bin
+        ~/bin/terraform --version
+        pip install -r test/requirements.txt
+    - name: Run Terraform apply on Workload Expansion
+      run: |
+        cd templates
+        elz-workload/add_workload.sh TestWE P
+        cd elz-workload-P-TestWE
+        ./BackEnd.sh
+        cat backend.tf
+        curl $BASE_LAST_OUTPUT > base_output.json 
+        curl $WE_LAST_OUTPUT > we_output.json 
+        python3 read_base_vars.py -e P -f base_output.json >> $ENV_TFVARS_FILE_NAME
+        terraform init -backend-config="address=$WE_REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+        terraform validate
+        terraform apply -var-file=$ENV_TFVARS_FILE_NAME -auto-approve
+        terraform output -json > we_output.json
+        curl -X PUT -H "Content-Type: application/json"  -d @we_output.json $WE_LAST_OUTPUT
+
+  integration-re-apply:
+    runs-on: ubuntu-latest
+    needs: integration-workload-apply
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        curl https://releases.hashicorp.com/terraform/1.2.2/terraform_1.2.2_linux_amd64.zip > terraform.zip
+        ls -l ~/
+        unzip terraform.zip -d ~/bin
+        ~/bin/terraform --version
+        pip install -r test/requirements.txt
+    - name: Run Terraform apply
+      run: |
+        cd templates/enterprise-landing-zone
+        ./BackEnd.sh
+        cat backend.tf
+        curl $BASE_LAST_OUTPUT > base_output.json 
+        curl $WE_LAST_OUTPUT > we_output.json 
+        cp $ENV_TFVARS_FILE_NAME  updated-$ENV_TFVARS_FILE_NAME
+        python3 read_workload_vars.py -f base_output.json -p we_output.json >> updated-$ENV_TFVARS_FILE_NAME
+        terraform init -backend-config="address=$REMOTE_STATE_BACKEND" -backend-config="update_method=PUT"
+        terraform validate
+        terraform apply -var-file=updated-$ENV_TFVARS_FILE_NAME -auto-approve 
+        terraform output -json > base_output.json
+        curl -X PUT -H "Content-Type: application/json"  -d @base_output.json $BASE_LAST_OUTPUT
+  
