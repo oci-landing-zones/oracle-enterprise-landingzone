@@ -26,5 +26,21 @@ resource "oci_core_security_list" "security_list_spoke" {
     source      = var.security_list_ingress_source
     description = var.security_list_ingress_description
     source_type = var.security_list_ingress_source_type
+    dynamic "tcp_options" {
+      iterator = tcp_options
+      for_each = (var.tcp_options_destination_port_range == 0) ? [] : [var.tcp_options_destination_port_range]
+      content {
+        min = tcp_options.value
+        max = tcp_options.value
+        dynamic "source_port_range" {
+          iterator = source_port_range
+          for_each = (var.tcp_options_source_port_range == 0) ? [] : [var.tcp_options_source_port_range]
+          content {
+            min = source_port_range.value
+            max = source_port_range.value
+          }
+        }
+      }
+    }
   }
 }
