@@ -1,4 +1,5 @@
 import argparse
+import os
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from typing import Dict, List
@@ -8,12 +9,18 @@ from tqdm import tqdm
 
 
 class DestroyLandingZone:
-    def __init__(self, parent_cmp: str, region_key: str, resource_label: str, oci_config: str = "~/.oci/config", profile_name: str = "DEFAULT"):
+    def __init__(self, parent_cmp: str, region_key: str, resource_label: str, 
+                 oci_config_file: str = "~/.oci/config", 
+                 profile_name: str = "DEFAULT",
+                 oci_config: Dict = None):
 
-        self.config = oci.config.from_file(
-            file_location=oci_config,
-            profile_name=profile_name
-        )
+        if oci_config:
+            self.config = oci_config
+        else:
+            self.config = oci.config.from_file(
+                file_location=oci_config_file,
+                profile_name=profile_name
+            )
 
         self.identity_client = oci.identity.IdentityClient(self.config)
         self.os_client = oci.object_storage.ObjectStorageClient(self.config)
@@ -350,6 +357,17 @@ class DestroyLandingZone:
 
         print("finished destroying ___\n\n")
 
+def get_config_from_env():
+    conf = {
+        "user" : os.environ["TF_VAR_current_user_ocid"],
+        "tenancy" : os.environ["TF_VAR_tenancy_ocid"],
+        "fingerprint" : os.environ["TF_VAR_api_fingerprint"],
+        "key_file" : os.environ["TF_VAR_api_private_key_path"],
+        "region"  : os.environ["TF_VAR_region"],
+    }
+    oci.config.validate_config(conf)
+    return conf
+
 
 if __name__ == "__main__":
     '''
@@ -386,13 +404,22 @@ if __name__ == "__main__":
     parser.add_argument("--oci_config",
                         default="~/.oci/config",
                         help="Path to the OCI Configuration file")
+    
+    parser.add_argument('-v', '--oci_env_config', action='store_true',
+                        help="Fetch OCI config from environment vars.")
 
     args = parser.parse_args()
+    if args.oci_env_config:
+        conf = get_config_from_env()
+    else:
+        conf = None
+
     destroy_lz = DestroyLandingZone(
         parent_cmp=args.cmp,
         region_key=args.region_key,
         resource_label=args.scca_label,
-        oci_config=args.oci_config,
+        oci_config_file=args.oci_config,
+        oci_config=conf,
         profile_name=args.profile
     )
 
