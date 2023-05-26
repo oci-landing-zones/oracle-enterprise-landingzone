@@ -1,6 +1,6 @@
 locals {
   osms_dynamic_group = {
-    dynamic_group_name        = "${var.resource_label}-OCI-ELZ-${var.environment_prefix}-DG-${var.workload_name}"
+    dynamic_group_name        = "${var.resource_label}-OCI-ELZ-DG-${var.environment_prefix}-${var.workload_name}"
     dynamic_group_description = "OCI ELZ Dynamic Group - ${var.workload_name}"
 
     general_matching_rule = <<EOT
@@ -29,7 +29,7 @@ module "osms_dynamic_group" {
 module "bastion" {
   source                               = "../../modules/bastion"
   count                                = var.enable_bastion ? 1 : 0
-  target_subnet_id                     = module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXAEXP-SPK-VCN-SUB-${local.region_key[0]}-001"]
+  target_subnet_id                     = module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-LB"]
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   bastion_name                         = local.bastion.name
   compartment_id                       = var.security_compartment_id

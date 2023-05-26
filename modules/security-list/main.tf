@@ -26,6 +26,16 @@ resource "oci_core_security_list" "security_list_spoke" {
     source      = var.security_list_ingress_source
     description = var.security_list_ingress_description
     source_type = var.security_list_ingress_source_type
+
+    dynamic "icmp_options" {
+      iterator = icmp_options
+      for_each = (var.icmp_options_type == 0) ? [] : [var.icmp_options_type]
+      content {
+        type = icmp_options.value
+        code = (var.icmp_options_code != 0) ? var.icmp_options_code : null
+      }
+    }
+
     dynamic "tcp_options" {
       iterator = tcp_options
       for_each = (var.tcp_options_destination_port_range == 0) ? [] : [var.tcp_options_destination_port_range]

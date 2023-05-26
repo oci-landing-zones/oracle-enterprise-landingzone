@@ -59,3 +59,14 @@ variable "tcp_options_source_port_range" {
   description = "Source Port Min"
   default     = 0
 }
+
+variable "icmp_options_type" {
+  type        = number
+  description = "ICMP type"
+  default     = 0
+}
+variable "icmp_options_code" {
+  type        = number
+  description = "ICMP code"
+  default     = 0
+}

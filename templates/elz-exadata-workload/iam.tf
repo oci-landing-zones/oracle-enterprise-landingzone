@@ -7,27 +7,36 @@ locals {
     description = "Exadata Workload Compartment"
   }
 
-  group_names = {
-    workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-WRK-ADMIN",
-    application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-APP-ADMIN",
-    exadata_infra_admin_group_name : var.exadata_infra_admin_group_name != "" ? var.exadata_infra_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-EXA-INFRA-ADMIN",
-    database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-DB-ADMIN",
+  group_names = var.enable_datasafe ? {
+    workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-WRK-ADMIN",
+    application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-APP-ADMIN",
+    exadata_infra_admin_group_name : var.exadata_infra_admin_group_name != "" ? var.exadata_infra_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-EXA-INFRA-ADMIN",
+    database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DB-ADMIN",
+    datasafe_admin_group_name : var.datasafe_admin_group_name != "" ? var.datasafe_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DTSAFE-ADMIN",
+    datasafe_reports_group_name : var.datasafe_reports_group_name != "" ? var.datasafe_reports_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DTSAFE-REPORTS",
+    } : {
+    workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-WRK-ADMIN",
+    application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-APP-ADMIN",
+    exadata_infra_admin_group_name : var.exadata_infra_admin_group_name != "" ? var.exadata_infra_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-EXA-INFRA-ADMIN",
+    database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DB-ADMIN",
   }
 
   base_group_names = {
     network_admin_group_name : var.network_admin_group_name != "" ? var.network_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN",
+    # security_admin_group_name : var.security_admin_group_name != "" ? var.security_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN",
   }
 
   identity_domain_name = var.identity_domain_name != "" ? var.identity_domain_name : "OCI-ELZ-${var.environment_prefix}-IDT"
 
   parent_compartment_names = {
     security_compartment_name : var.security_compartment_name != "" ? var.security_compartment_name : "OCI-ELZ-${var.environment_prefix}-SRD-SEC"
+    environment_compartment_name : var.environment_compartment_name != "" ? var.environment_compartment_name : "OCI-ELZ-${var.environment_prefix}-CMP"
   }
 
   exadata_workload_expansion_policy = {
     name        = "OCI-ELZ-EXAWRK-EXP-${var.workload_prefix}-POLICY"
     description = "OCI Exadata Workload Expansion Policy"
-    statements = [
+    statements = concat([
       "Allow group ${local.identity_domain_name}/${local.group_names["workload_admin_group_name"]} to manage virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["workload_admin_group_name"]} to manage alarms in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["workload_admin_group_name"]} to manage ons-topics in compartment ${module.workload_compartment.compartment_name}",
@@ -55,8 +64,6 @@ locals {
       "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage metrics in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage data-safe-family in compartment ${module.workload_compartment.compartment_name}",
 
-      "Allow group ${local.identity_domain_name}/${local.base_group_names["network_admin_group_name"]} to read virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
-
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to read cloud-exadata-infrastructures in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to use cloud-vmclusters in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to read work-requests in compartment ${module.workload_compartment.compartment_name}",
@@ -65,7 +72,24 @@ locals {
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage databases in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage db-backups in compartment ${module.workload_compartment.compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage data-safe-family in compartment ${module.workload_compartment.compartment_name}",
-    ]
+
+      "Allow group ${local.identity_domain_name}/${local.base_group_names["network_admin_group_name"]} to read metrics in compartment ${module.workload_compartment.compartment_name}",
+      ], flatten(
+      var.enable_datasafe ? [
+        "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage target-databases in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage database-family in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage autonomous-databases in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage autonomous-container-databases in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect autonomous-vmclusters in compartment ${module.workload_compartment.compartment_name}",
+        # "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect vmcluster-network in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
+
+        "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to manage data-safe-assessment-family in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to read data-safe-report-definitions in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to read data-safe-reports in compartment ${module.workload_compartment.compartment_name}",
+        "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to read data-safe-alerts in compartment ${module.workload_compartment.compartment_name}",
+      ] : []
+    ))
   }
 
   exadata_workload_expansion_policy_security = {
@@ -82,6 +106,15 @@ locals {
       "Allow group ${local.identity_domain_name}/${local.group_names["workload_admin_group_name"]} to use bastion in compartment ${local.parent_compartment_names.security_compartment_name}",
       "Allow group ${local.identity_domain_name}/${local.group_names["workload_admin_group_name"]} to manage bastion-session in compartment ${local.parent_compartment_names.security_compartment_name}",
     ]
+  }
+
+  datasafe_admin_policy = {
+    name        = "OCI-ELZ-EXAWRK-EXP-${var.workload_prefix}-DTSAFE-ADMIN-POLICY"
+    description = "OCI Exadata Workload Expansion Data Safe Admin Policy"
+
+    statements = var.enable_datasafe ? [
+      "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_admin_group_name"]} to manage data-safe-family in compartment ${local.parent_compartment_names.environment_compartment_name}",
+    ] : []
   }
 }
 
@@ -118,4 +151,13 @@ module "exadata_workload_expansion_sec_policy" {
   policy_name      = local.exadata_workload_expansion_policy_security.name
   description      = local.exadata_workload_expansion_policy_security.description
   statements       = local.exadata_workload_expansion_policy_security.statements
+}
+
+module "datasafe_admin_policy" {
+  count            = var.enable_datasafe ? 1 : 0
+  source           = "../../modules/policies"
+  compartment_ocid = var.environment_compartment_id
+  policy_name      = local.datasafe_admin_policy.name
+  description      = local.datasafe_admin_policy.description
+  statements       = local.datasafe_admin_policy.statements
 }

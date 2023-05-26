@@ -16,12 +16,12 @@ locals {
 
   spoke_route_rules_options = {
     route_rules_default = {
-      "spoke-public-subnet" = {
+      "hub-public-subnet" = {
         network_entity_id = var.drg_id
         destination       = var.hub_public_subnet_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
-      "spoke-private-subnet" = {
+      "hub-private-subnet" = {
         network_entity_id = var.drg_id
         destination       = var.hub_private_subnet_cidr_block
         destination_type  = "CIDR_BLOCK"
@@ -62,6 +62,7 @@ locals {
       }
     }
   }
+
   spoke_route_rules = {
     route_rules = merge(local.spoke_route_rules_options.route_rules_default,
       local.spoke_route_rules_options.route_rules_nat_spoke,
@@ -69,6 +70,7 @@ locals {
       local.spoke_route_rules_options.route_rules_fastconnect,
     local.spoke_route_rules_options.route_rules_vpn)
   }
+
   workload_expansion_subnet_map = {
     Workload-Spoke-LB-Subnet = {
       name                       = var.workload_private_spoke_subnet_lb_display_name
@@ -99,63 +101,64 @@ locals {
       prohibit_public_ip_on_vnic = true
     }
   }
+
   ip_protocols = {
     ICMP   = "1"
     TCP    = "6"
     UDP    = "17"
     ICMPv6 = "58"
   }
+
+  security_list_ingress_common_ssh = {
+    protocol         = local.ip_protocols.TCP
+    source           = var.hub_private_subnet_cidr_block
+    description      = "SSH Traffic from Hub"
+    source_type      = "CIDR_BLOCK"
+    destination_port = 22
+  }
   security_list_ingress_common_icmp = {
     protocol    = local.ip_protocols.ICMP
     source      = var.hub_private_subnet_cidr_block
     description = "All ICMP Taffic from Hub"
     source_type = "CIDR_BLOCK"
-    type        = 3
-    code        = 4
-  }
-  security_list_ingress_common_ssh = {
-    protocol    = local.ip_protocols.TCP
-    source      = var.hub_private_subnet_cidr_block
-    description = "SSH Traffic from Hub"
-    source_type = "CIDR_BLOCK"
-    tcp_port    = 22
+    icmp_type   = 3
+    icmp_code   = 4
   }
   security_list_ingress_common_vcn = {
     protocol    = local.ip_protocols.ICMP
-    source      = var.hub_private_subnet_cidr_block
+    source      = var.hub_vcn_cidr_block
     description = "VCN ICMP Traffic"
     source_type = "CIDR_BLOCK"
-    type        = 3
+    icmp_type   = 3
   }
-  security_list_egress_general = {
+  security_list_egress_common = {
     destination      = "0.0.0.0/0"
     protocol         = "all"
     description      = "All egress Traffic"
     destination_type = "CIDR_BLOCK"
   }
 
-
   security_list_ingress_client_ons = {
-    count       = var.fan_events_enabled ? 1 : 0
-    protocol    = local.ip_protocols.TCP
-    source      = var.workload_private_spoke_subnet_client_cidr_block
-    description = "ONS to FAN events"
-    source_type = "CIDR_BLOCK"
-    tcp_port    = 6200
+    count            = var.enable_fan_events ? 1 : 0
+    protocol         = local.ip_protocols.TCP
+    source           = var.workload_private_spoke_subnet_client_cidr_block
+    description      = "ONS to FAN events"
+    source_type      = "CIDR_BLOCK"
+    destination_port = 6200
   }
   security_list_ingress_client_sql = {
-    protocol    = local.ip_protocols.TCP
-    source      = var.workload_private_spoke_subnet_client_cidr_block
-    description = "SQL Traffic"
-    source_type = "CIDR_BLOCK"
-    tcp_port    = var.db_port
+    protocol         = local.ip_protocols.TCP
+    source           = var.workload_private_spoke_subnet_client_cidr_block
+    description      = "SQL Traffic"
+    source_type      = "CIDR_BLOCK"
+    destination_port = var.db_port
   }
   security_list_egress_client = {
     destination      = "0.0.0.0/0"
     protocol         = "all"
     description      = "All Traffic For All Port"
     destination_type = "CIDR_BLOCK"
-    tcp_port         = 22
+    destination_port = 22
   }
 
 }
@@ -188,39 +191,40 @@ module "workload_spoke_vcn" {
 #          Create Workload VCN Spoke Security List                   #
 ######################################################################
 
-module "workload_spoke_security_list_icmp" {
-  source = "../../modules/security-list"
-
-  compartment_id                        = var.workload_compartment_id
-  vcn_id                                = module.workload_spoke_vcn.vcn_id
-  spoke_security_list_display_name      = local.security_list_display_name_icmp
-  security_list_egress_destination      = local.security_list_egress_general.destination
-  security_list_egress_protocol         = local.security_list_egress_general.protocol
-  security_list_egress_description      = local.security_list_egress_general.description
-  security_list_egress_destination_type = local.security_list_egress_general.destination_type
-
-  security_list_ingress_protocol    = local.security_list_ingress_common_icmp.protocol
-  security_list_ingress_source      = local.security_list_ingress_common_icmp.source
-  security_list_ingress_description = local.security_list_ingress_common_icmp.description
-  security_list_ingress_source_type = local.security_list_ingress_common_icmp.source_type
-
-}
 module "workload_spoke_security_list_ssh" {
   source = "../../modules/security-list"
 
   compartment_id                        = var.workload_compartment_id
   vcn_id                                = module.workload_spoke_vcn.vcn_id
   spoke_security_list_display_name      = local.security_list_display_name_ssh
-  security_list_egress_destination      = local.security_list_egress_general.destination
-  security_list_egress_protocol         = local.security_list_egress_general.protocol
-  security_list_egress_description      = local.security_list_egress_general.description
-  security_list_egress_destination_type = local.security_list_egress_general.destination_type
+  security_list_egress_destination      = local.security_list_egress_common.destination
+  security_list_egress_protocol         = local.security_list_egress_common.protocol
+  security_list_egress_description      = local.security_list_egress_common.description
+  security_list_egress_destination_type = local.security_list_egress_common.destination_type
 
   security_list_ingress_protocol     = local.security_list_ingress_common_ssh.protocol
   security_list_ingress_source       = local.security_list_ingress_common_ssh.source
   security_list_ingress_description  = local.security_list_ingress_common_ssh.description
   security_list_ingress_source_type  = local.security_list_ingress_common_ssh.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_common_ssh.tcp_port
+  tcp_options_destination_port_range = local.security_list_ingress_common_ssh.destination_port
+}
+module "workload_spoke_security_list_icmp" {
+  source = "../../modules/security-list"
+
+  compartment_id                        = var.workload_compartment_id
+  vcn_id                                = module.workload_spoke_vcn.vcn_id
+  spoke_security_list_display_name      = local.security_list_display_name_icmp
+  security_list_egress_destination      = local.security_list_egress_common.destination
+  security_list_egress_protocol         = local.security_list_egress_common.protocol
+  security_list_egress_description      = local.security_list_egress_common.description
+  security_list_egress_destination_type = local.security_list_egress_common.destination_type
+
+  security_list_ingress_protocol    = local.security_list_ingress_common_icmp.protocol
+  security_list_ingress_source      = local.security_list_ingress_common_icmp.source
+  security_list_ingress_description = local.security_list_ingress_common_icmp.description
+  security_list_ingress_source_type = local.security_list_ingress_common_icmp.source_type
+  icmp_options_type                 = local.security_list_ingress_common_icmp.icmp_type
+  icmp_options_code                 = local.security_list_ingress_common_icmp.icmp_code
 }
 module "workload_spoke_security_list_vcn" {
   source = "../../modules/security-list"
@@ -228,20 +232,21 @@ module "workload_spoke_security_list_vcn" {
   compartment_id                        = var.workload_compartment_id
   vcn_id                                = module.workload_spoke_vcn.vcn_id
   spoke_security_list_display_name      = local.security_list_display_name_vcn
-  security_list_egress_destination      = local.security_list_egress_general.destination
-  security_list_egress_protocol         = local.security_list_egress_general.protocol
-  security_list_egress_description      = local.security_list_egress_general.description
-  security_list_egress_destination_type = local.security_list_egress_general.destination_type
+  security_list_egress_destination      = local.security_list_egress_common.destination
+  security_list_egress_protocol         = local.security_list_egress_common.protocol
+  security_list_egress_description      = local.security_list_egress_common.description
+  security_list_egress_destination_type = local.security_list_egress_common.destination_type
 
   security_list_ingress_protocol    = local.security_list_ingress_common_vcn.protocol
   security_list_ingress_source      = local.security_list_ingress_common_vcn.source
   security_list_ingress_description = local.security_list_ingress_common_vcn.description
   security_list_ingress_source_type = local.security_list_ingress_common_vcn.source_type
+  icmp_options_type                 = local.security_list_ingress_common_icmp.icmp_type
 }
 
 module "workload_spoke_security_list_ons" {
   source = "../../modules/security-list"
-  count  = var.fan_events_enabled ? 1 : 0
+  count  = var.enable_fan_events ? 1 : 0
 
   compartment_id                        = var.workload_compartment_id
   vcn_id                                = module.workload_spoke_vcn.vcn_id
@@ -255,7 +260,7 @@ module "workload_spoke_security_list_ons" {
   security_list_ingress_source       = local.security_list_ingress_client_ons.source
   security_list_ingress_description  = local.security_list_ingress_client_ons.description
   security_list_ingress_source_type  = local.security_list_ingress_client_ons.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_client_ons.tcp_port
+  tcp_options_destination_port_range = local.security_list_ingress_client_ons.destination_port
 }
 module "workload_spoke_security_list_sql" {
   source = "../../modules/security-list"
@@ -272,7 +277,7 @@ module "workload_spoke_security_list_sql" {
   security_list_ingress_source       = local.security_list_ingress_client_sql.source
   security_list_ingress_description  = local.security_list_ingress_client_sql.description
   security_list_ingress_source_type  = local.security_list_ingress_client_sql.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_client_sql.tcp_port
+  tcp_options_destination_port_range = local.security_list_ingress_client_sql.destination_port
 }
 ######################################################################
 #          Create Workload VCN Spoke Subnet                          #
@@ -290,7 +295,7 @@ module "workload_spoke_subnet" {
     module.workload_spoke_security_list_vcn.security_list_id,
     module.workload_spoke_security_list_sql.security_list_id,
     ],
-    var.fan_events_enabled ? [module.workload_spoke_security_list_ons[0].security_list_id] : []
+    var.enable_fan_events ? [module.workload_spoke_security_list_ons[0].security_list_id] : []
   ))
 }
 

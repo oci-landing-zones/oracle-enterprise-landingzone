@@ -9,10 +9,10 @@ locals {
   }
 
   subnets_map = {
-    SKP1 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXAEXP-SPK-VCN-SUB-${local.region_key[0]}-001"]
-    SKP2 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXAEXP-SPK-VCN-SUB-${local.region_key[0]}-002"]
-    SKP3 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXAEXP-SPK-VCN-SUB-${local.region_key[0]}-003"]
-    SKP4 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXAEXP-SPK-VCN-SUB-${local.region_key[0]}-004"]
+    SPK1 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-LB"]
+    SPK2 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-APP"]
+    SPK3 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-CLT"]
+    SPK4 : module.exadata_workload_expansion_spoke.subnets["OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-BKP"]
   }
 
 }

@@ -74,41 +74,41 @@ locals {
         query                 = "MemoryUtilization[1m].mean() > 80"
         severity              = "CRITICAL"
       }
-      # database_adb_cpu_alarm = {
-      #   display_name          = "database_cluster_cpu_alarm"
-      #   metric_compartment_id = module.workload_compartment.compartment_id
-      #   namespace             = "oci_database_cluster"
-      #   query                 = "CpuUtilization[1m].mean() > 80"
-      #   severity              = "CRITICAL"
-      # }
-      # database_adb_cpu_alarm = {
-      #   display_name          = "database_cluster_memory_alarm"
-      #   metric_compartment_id = module.workload_compartment.compartment_id
-      #   namespace             = "oci_database_cluster"
-      #   query                 = "MemoryUtilization[1m].mean() > 80"
-      #   severity              = "CRITICAL"
-      # }
-      # database_adb_cpu_alarm = {
-      #   display_name          = "database_adb_cpu_alarm"
-      #   metric_compartment_id = module.workload_compartment.compartment_id
-      #   namespace             = "oci_autonomous_database"
-      #   query                 = "CpuUtilization[1m].mean() > 80"
-      #   severity              = "CRITICAL"
-      # }
-      # database_adb_cpu_alarm = {
-      #   display_name          = "database_adb_storage_alarm"
-      #   metric_compartment_id = module.workload_compartment.compartment_id
-      #   namespace             = "oci_autonomous_database"
-      #   query                 = "StorageUtilization[1m].mean() > 80"
-      #   severity              = "CRITICAL"
-      # }
-      # database_adb_storage_alarm = {
-      #   display_name          = "database_adb_availability_alarm"
-      #   metric_compartment_id = module.workload_compartment.compartment_id
-      #   namespace             = "oci_autonomous_database"
-      #   query                 = "DatabaseAvailability[1m].mean() = 0"
-      #   severity              = "CRITICAL"
-      # }
+      database_adb_cpu_alarm = {
+        display_name          = "database_cluster_cpu_alarm"
+        metric_compartment_id = module.workload_compartment.compartment_id
+        namespace             = "oci_database_cluster"
+        query                 = "CpuUtilization[1m].mean() > 80"
+        severity              = "CRITICAL"
+      }
+      database_adb_cpu_alarm = {
+        display_name          = "database_cluster_memory_alarm"
+        metric_compartment_id = module.workload_compartment.compartment_id
+        namespace             = "oci_database_cluster"
+        query                 = "MemoryUtilization[1m].mean() > 80"
+        severity              = "CRITICAL"
+      }
+      database_adb_cpu_alarm = {
+        display_name          = "database_adb_cpu_alarm"
+        metric_compartment_id = module.workload_compartment.compartment_id
+        namespace             = "oci_autonomous_database"
+        query                 = "CpuUtilization[1m].mean() > 80"
+        severity              = "CRITICAL"
+      }
+      database_adb_cpu_alarm = {
+        display_name          = "database_adb_storage_alarm"
+        metric_compartment_id = module.workload_compartment.compartment_id
+        namespace             = "oci_autonomous_database"
+        query                 = "StorageUtilization[1m].mean() > 80"
+        severity              = "CRITICAL"
+      }
+      database_adb_storage_alarm = {
+        display_name          = "database_adb_availability_alarm"
+        metric_compartment_id = module.workload_compartment.compartment_id
+        namespace             = "oci_autonomous_database"
+        query                 = "DatabaseAvailability[1m].mean() = 0"
+        severity              = "CRITICAL"
+      }
       network_lbUnHealthyBackendServers_alarm = {
         display_name          = "network_lbUnHealthyBackendServers_alarm"
         metric_compartment_id = module.workload_compartment.compartment_id
@@ -208,30 +208,30 @@ module "workload_warning_topic" {
   subscription_protocol = local.workload_warning_topic.subscription_protocol
 }
 
-module "workload_alarms_warning" {
-  source = "../../modules/alarms"
-  count  = var.is_create_alarms ? 1 : 0
+# module "workload_alarms_warning" {
+#   source = "../../modules/alarms"
+#   count  = var.is_create_alarms ? 1 : 0
 
-  compartment_id                   = module.workload_compartment.compartment_id
-  notification_topic_id            = module.workload_warning_topic[0].topic_id
-  is_enabled                       = local.workload_alarms.is_enabled
-  message_format                   = local.workload_alarms.message_format
-  pending_duration                 = local.workload_alarms.pending_duration
-  metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
-  alarm_map                        = local.workload_alarms.workload_alarms_warning_map
+#   compartment_id                   = module.workload_compartment.compartment_id
+#   notification_topic_id            = module.workload_warning_topic[0].topic_id
+#   is_enabled                       = local.workload_alarms.is_enabled
+#   message_format                   = local.workload_alarms.message_format
+#   pending_duration                 = local.workload_alarms.pending_duration
+#   metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
+#   alarm_map                        = local.workload_alarms.workload_alarms_warning_map
 
-}
+# }
 
-module "workload_alarms_critical" {
-  source = "../../modules/alarms"
+# module "workload_alarms_critical" {
+#   source = "../../modules/alarms"
 
-  count                            = var.is_create_alarms ? 1 : 0
-  compartment_id                   = module.workload_compartment.compartment_id
-  notification_topic_id            = module.workload_critical_topic[0].topic_id
-  is_enabled                       = local.workload_alarms.is_enabled
-  message_format                   = local.workload_alarms.message_format
-  pending_duration                 = local.workload_alarms.pending_duration
-  metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
-  alarm_map                        = local.workload_alarms.workload_alarms_critical_map
+#   count                            = var.is_create_alarms ? 1 : 0
+#   compartment_id                   = module.workload_compartment.compartment_id
+#   notification_topic_id            = module.workload_critical_topic[0].topic_id
+#   is_enabled                       = local.workload_alarms.is_enabled
+#   message_format                   = local.workload_alarms.message_format
+#   pending_duration                 = local.workload_alarms.pending_duration
+#   metric_compartment_id_in_subtree = local.workload_alarms.metric_compartment_id_in_subtree
+#   alarm_map                        = local.workload_alarms.workload_alarms_critical_map
 
-}
+# }

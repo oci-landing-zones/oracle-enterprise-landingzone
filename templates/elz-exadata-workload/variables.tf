@@ -28,7 +28,7 @@ variable "db_port" {
   default     = 1521
 }
 
-variable "fan_events_enabled" {
+variable "enable_fan_events" {
   type        = bool
   description = "Security List to be enabled for ONS FAN events"
   default     = true
@@ -47,6 +47,12 @@ variable "enable_compartment_delete" {
 variable "environment_compartment_id" {
   type        = string
   description = "the OCID of the compartment where the environment was created."
+}
+
+variable "environment_compartment_name" {
+  type        = string
+  description = "the name of the compartment where the environment was created."
+  default     = ""
 }
 
 variable "workload_name" {
@@ -90,10 +96,33 @@ variable "database_admin_group_name" {
   default     = ""
 }
 
+variable "enable_datasafe" {
+  type        = bool
+  description = "Enable DataSafe related IAM Group and Policies"
+  default     = false
+}
+
+variable "datasafe_admin_group_name" {
+  type        = string
+  description = "the name of datasafe admin group"
+  default     = ""
+}
+
+variable "datasafe_reports_group_name" {
+  type        = string
+  description = "the name of datasafe reports group"
+  default     = ""
+}
+
 variable "network_admin_group_name" {
   type        = string
   description = "the name of landing zone Network admin group"
   default     = ""
+}
+
+variable "network_compartment_id" {
+  type        = string
+  description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
 }
 
 variable "security_compartment_name" {
@@ -105,6 +134,12 @@ variable "security_compartment_name" {
 variable "security_compartment_id" {
   type        = string
   description = "the OCID of the security compartment."
+}
+
+variable "security_admin_group_name" {
+  type        = string
+  description = "the name of landing zone Security admin group"
+  default     = ""
 }
 
 variable "identity_domain_id" {
@@ -292,6 +327,16 @@ variable "drg_id" {
     condition     = can(regex("^drg$", split(".", var.drg_id)[1]))
     error_message = "Only Compartment OCID is allowed."
   }
+}
+
+variable "hub_vcn_id" {
+  description = "OCID of Hub VCN."
+  type        = string
+}
+
+variable "hub_vcn_cidr_block" {
+  description = "CIDR of Hub VCN."
+  type        = string
 }
 
 variable "hub_public_subnet_cidr_block" {

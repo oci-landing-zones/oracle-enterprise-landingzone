@@ -85,6 +85,9 @@ variable "service_gw_spoke_check" {
 variable "drg_id" {
   type = string
 }
+variable "hub_vcn_cidr_block" {
+  type = string
+}
 variable "hub_public_subnet_cidr_block" {
   type = string
 }
@@ -131,7 +134,7 @@ variable "db_port" {
   type        = number
   description = "Database Port. Default 1521."
 }
-variable "fan_events_enabled" {
+variable "enable_fan_events" {
   type        = bool
   description = "Security List to be enabled for ONS FAN events"
 }
