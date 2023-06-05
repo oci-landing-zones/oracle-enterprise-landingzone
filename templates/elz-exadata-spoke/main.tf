@@ -202,11 +202,11 @@ module "workload_spoke_security_list_ssh" {
   security_list_egress_description      = local.security_list_egress_common.description
   security_list_egress_destination_type = local.security_list_egress_common.destination_type
 
-  security_list_ingress_protocol     = local.security_list_ingress_common_ssh.protocol
-  security_list_ingress_source       = local.security_list_ingress_common_ssh.source
-  security_list_ingress_description  = local.security_list_ingress_common_ssh.description
-  security_list_ingress_source_type  = local.security_list_ingress_common_ssh.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_common_ssh.destination_port
+  security_list_ingress_protocol         = local.security_list_ingress_common_ssh.protocol
+  security_list_ingress_source           = local.security_list_ingress_common_ssh.source
+  security_list_ingress_description      = local.security_list_ingress_common_ssh.description
+  security_list_ingress_source_type      = local.security_list_ingress_common_ssh.source_type
+  tcp_options_destination_port_range_min = local.security_list_ingress_common_ssh.destination_port
 }
 module "workload_spoke_security_list_icmp" {
   source = "../../modules/security-list"
@@ -256,11 +256,11 @@ module "workload_spoke_security_list_ons" {
   security_list_egress_description      = local.security_list_egress_client.description
   security_list_egress_destination_type = local.security_list_egress_client.destination_type
 
-  security_list_ingress_protocol     = local.security_list_ingress_client_ons.protocol
-  security_list_ingress_source       = local.security_list_ingress_client_ons.source
-  security_list_ingress_description  = local.security_list_ingress_client_ons.description
-  security_list_ingress_source_type  = local.security_list_ingress_client_ons.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_client_ons.destination_port
+  security_list_ingress_protocol         = local.security_list_ingress_client_ons.protocol
+  security_list_ingress_source           = local.security_list_ingress_client_ons.source
+  security_list_ingress_description      = local.security_list_ingress_client_ons.description
+  security_list_ingress_source_type      = local.security_list_ingress_client_ons.source_type
+  tcp_options_destination_port_range_min = local.security_list_ingress_client_ons.destination_port
 }
 module "workload_spoke_security_list_sql" {
   source = "../../modules/security-list"
@@ -273,11 +273,11 @@ module "workload_spoke_security_list_sql" {
   security_list_egress_description      = local.security_list_egress_client.description
   security_list_egress_destination_type = local.security_list_egress_client.destination_type
 
-  security_list_ingress_protocol     = local.security_list_ingress_client_sql.protocol
-  security_list_ingress_source       = local.security_list_ingress_client_sql.source
-  security_list_ingress_description  = local.security_list_ingress_client_sql.description
-  security_list_ingress_source_type  = local.security_list_ingress_client_sql.source_type
-  tcp_options_destination_port_range = local.security_list_ingress_client_sql.destination_port
+  security_list_ingress_protocol         = local.security_list_ingress_client_sql.protocol
+  security_list_ingress_source           = local.security_list_ingress_client_sql.source
+  security_list_ingress_description      = local.security_list_ingress_client_sql.description
+  security_list_ingress_source_type      = local.security_list_ingress_client_sql.source_type
+  tcp_options_destination_port_range_min = local.security_list_ingress_client_sql.destination_port
 }
 ######################################################################
 #          Create Workload VCN Spoke Subnet                          #

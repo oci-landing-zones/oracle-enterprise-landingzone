@@ -38,16 +38,16 @@ resource "oci_core_security_list" "security_list_spoke" {
 
     dynamic "tcp_options" {
       iterator = tcp_options
-      for_each = (var.tcp_options_destination_port_range == 0) ? [] : [var.tcp_options_destination_port_range]
+      for_each = (var.tcp_options_destination_port_range_min == 0) ? [] : [var.tcp_options_destination_port_range_min]
       content {
         min = tcp_options.value
-        max = tcp_options.value
+        max = (var.tcp_options_destination_port_range_max != 0) ? var.tcp_options_destination_port_range_max : tcp_options.value
         dynamic "source_port_range" {
           iterator = source_port_range
-          for_each = (var.tcp_options_source_port_range == 0) ? [] : [var.tcp_options_source_port_range]
+          for_each = (var.tcp_options_source_port_range_min == 0) ? [] : [var.tcp_options_source_port_range_min]
           content {
             min = source_port_range.value
-            max = source_port_range.value
+            max = (var.tcp_options_source_port_range_max != 0) ? var.tcp_options_source_port_range_max : source_port_range.value
           }
         }
       }
