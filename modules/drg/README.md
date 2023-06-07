@@ -49,5 +49,6 @@ No modules.
 |------|-------------|
 | <a name="output_drg_attachment_all_attributes"></a> [drg\_attachment\_all\_attributes](#output\_drg\_attachment\_all\_attributes) | all attributes related to drg attachment |
 | <a name="output_drg_id"></a> [drg\_id](#output\_drg\_id) | id of drg if it is created |
+| <a name="output_drg_route_distributions"></a> [drg\_route\_distributions](#output\_drg\_route\_distributions) | all route distributions |
 | <a name="output_drg_route_tables"></a> [drg\_route\_tables](#output\_drg\_route\_tables) | n/a |
 <!-- END_TF_DOCS -->    

@@ -26,9 +26,12 @@ No modules.
 | <a name="input_drg_attachment_type"></a> [drg\_attachment\_type](#input\_drg\_attachment\_type) | DRG Attacment Network Type | `string` | n/a | yes |
 | <a name="input_drg_attachment_vcn_route_type"></a> [drg\_attachment\_vcn\_route\_type](#input\_drg\_attachment\_vcn\_route\_type) | DRG Attacment Network VCN Route Type | `string` | n/a | yes |
 | <a name="input_drg_id"></a> [drg\_id](#input\_drg\_id) | DRG OCID Value. | `string` | n/a | yes |
+| <a name="input_drg_route_table_id"></a> [drg\_route\_table\_id](#input\_drg\_route\_table\_id) | DRG Route table for this attachment | `string` | `null` | no |
 | <a name="input_vcn_id"></a> [vcn\_id](#input\_vcn\_id) | VCN OCID Value | `string` | n/a | yes |
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_attachment_id"></a> [attachment\_id](#output\_attachment\_id) | n/a |
 <!-- END_TF_DOCS -->

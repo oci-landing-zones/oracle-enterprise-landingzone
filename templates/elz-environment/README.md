@@ -37,6 +37,7 @@
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_additional_workload_subnets_cidr_blocks"></a> [additional\_workload\_subnets\_cidr\_blocks](#input\_additional\_workload\_subnets\_cidr\_blocks) | A list of subnets cidr blocks in additional workload stack | `list(string)` | n/a | yes |
 | <a name="input_application_admin_group_name"></a> [application\_admin\_group\_name](#input\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group | `string` | `""` | no |
 | <a name="input_bastion_client_cidr_block_allow_list"></a> [bastion\_client\_cidr\_block\_allow\_list](#input\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
 | <a name="input_bgp_cust_tunnela_ip"></a> [bgp\_cust\_tunnela\_ip](#input\_bgp\_cust\_tunnela\_ip) | n/a | `any` | n/a | yes |
@@ -58,6 +59,7 @@
 | <a name="input_customer_secondary_bgp_peering_ip"></a> [customer\_secondary\_bgp\_peering\_ip](#input\_customer\_secondary\_bgp\_peering\_ip) | n/a | `string` | n/a | yes |
 | <a name="input_database_admin_group_name"></a> [database\_admin\_group\_name](#input\_database\_admin\_group\_name) | The group name for the OCI Database Logging Administrators Group | `string` | `""` | no |
 | <a name="input_domain_admin_email"></a> [domain\_admin\_email](#input\_domain\_admin\_email) | The email address for the identity domain admin. | `string` | n/a | yes |
+| <a name="input_domain_license_type"></a> [domain\_license\_type](#input\_domain\_license\_type) | Identity Domain License Type | `string` | n/a | yes |
 | <a name="input_enable_bastion"></a> [enable\_bastion](#input\_enable\_bastion) | Option to enable bastion service | `bool` | n/a | yes |
 | <a name="input_enable_budget"></a> [enable\_budget](#input\_enable\_budget) | ----------------------------------------------------------------------------- Budget Variables ----------------------------------------------------------------------------- | `bool` | n/a | yes |
 | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | n/a | yes |
@@ -67,6 +69,7 @@
 | <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | Set to true to enable logging compartment which stores the configuration information that landing zones is setting up for the customer. | `bool` | `false` | no |
 | <a name="input_enable_nat_gateway_hub"></a> [enable\_nat\_gateway\_hub](#input\_enable\_nat\_gateway\_hub) | Option to enable true and Disable false. | `string` | n/a | yes |
 | <a name="input_enable_nat_gateway_spoke"></a> [enable\_nat\_gateway\_spoke](#input\_enable\_nat\_gateway\_spoke) | Option to enable true and Disable false. | `string` | n/a | yes |
+| <a name="input_enable_network_firewall"></a> [enable\_network\_firewall](#input\_enable\_network\_firewall) | Option to enable Network Firewall. | `bool` | `false` | no |
 | <a name="input_enable_network_monitoring_alarms"></a> [enable\_network\_monitoring\_alarms](#input\_enable\_network\_monitoring\_alarms) | Enable Network Monitoring Alarms in Network Compartment | `bool` | n/a | yes |
 | <a name="input_enable_security_monitoring_alarms"></a> [enable\_security\_monitoring\_alarms](#input\_enable\_security\_monitoring\_alarms) | Enable Security Monitoring Alarms in Security Compartment | `bool` | n/a | yes |
 | <a name="input_enable_service_gateway_hub"></a> [enable\_service\_gateway\_hub](#input\_enable\_service\_gateway\_hub) | Option to enable true and Disable false. | `string` | n/a | yes |
@@ -89,6 +92,8 @@
 | <a name="input_igw_hub_check"></a> [igw\_hub\_check](#input\_igw\_hub\_check) | n/a | `list(string)` | n/a | yes |
 | <a name="input_ipsec_connection_static_routes"></a> [ipsec\_connection\_static\_routes](#input\_ipsec\_connection\_static\_routes) | n/a | `list(string)` | n/a | yes |
 | <a name="input_ipsec_display_name"></a> [ipsec\_display\_name](#input\_ipsec\_display\_name) | n/a | `string` | n/a | yes |
+| <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | n/a | yes |
+| <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment | `bool` | n/a | yes |
 | <a name="input_nat_gw_hub_check"></a> [nat\_gw\_hub\_check](#input\_nat\_gw\_hub\_check) | n/a | `list(string)` | n/a | yes |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | n/a | yes |
 | <a name="input_network_admin_group_name"></a> [network\_admin\_group\_name](#input\_network\_admin\_group\_name) | The group name for the OCI Landing Zone Network Administrators Group | `string` | `""` | no |
@@ -130,6 +135,7 @@
 | <a name="input_virtual_circuit_is_bfd_enabled"></a> [virtual\_circuit\_is\_bfd\_enabled](#input\_virtual\_circuit\_is\_bfd\_enabled) | n/a | `bool` | n/a | yes |
 | <a name="input_virtual_circuit_type"></a> [virtual\_circuit\_type](#input\_virtual\_circuit\_type) | n/a | `string` | n/a | yes |
 | <a name="input_workload_admin_group_name"></a> [workload\_admin\_group\_name](#input\_workload\_admin\_group\_name) | The group name for the OCI Workload Administrators Group | `string` | `""` | no |
+| <a name="input_workload_compartment_names"></a> [workload\_compartment\_names](#input\_workload\_compartment\_names) | The names of the workload compartments to update policies for the Admin Groups | `list(string)` | `[]` | no |
 | <a name="input_workload_topic_endpoints"></a> [workload\_topic\_endpoints](#input\_workload\_topic\_endpoints) | List of email addresses for Workload notifications. | `list(string)` | `[]` | no |
 
 ## Outputs
@@ -139,12 +145,17 @@
 | <a name="output_bucket"></a> [bucket](#output\_bucket) | n/a |
 | <a name="output_compartment"></a> [compartment](#output\_compartment) | n/a |
 | <a name="output_default_group_id"></a> [default\_group\_id](#output\_default\_group\_id) | n/a |
+| <a name="output_drg_id"></a> [drg\_id](#output\_drg\_id) | n/a |
+| <a name="output_hub_private_subnet_cidr"></a> [hub\_private\_subnet\_cidr](#output\_hub\_private\_subnet\_cidr) | n/a |
+| <a name="output_hub_public_subnet_cidr"></a> [hub\_public\_subnet\_cidr](#output\_hub\_public\_subnet\_cidr) | n/a |
+| <a name="output_identity_domain"></a> [identity\_domain](#output\_identity\_domain) | n/a |
 | <a name="output_key_id"></a> [key\_id](#output\_key\_id) | n/a |
 | <a name="output_rpc_id"></a> [rpc\_id](#output\_rpc\_id) | n/a |
-| <a name="output_spoke_web_subnet_ocid"></a> [spoke\_web\_subnet\_ocid](#output\_spoke\_web\_subnet\_ocid) | n/a |
 | <a name="output_stream_id"></a> [stream\_id](#output\_stream\_id) | n/a |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The subnet OCID |
 | <a name="output_vault_id"></a> [vault\_id](#output\_vault\_id) | n/a |
 | <a name="output_vcn"></a> [vcn](#output\_vcn) | n/a |
 | <a name="output_workload_compartment_id"></a> [workload\_compartment\_id](#output\_workload\_compartment\_id) | n/a |
+| <a name="output_workload_compartment_name"></a> [workload\_compartment\_name](#output\_workload\_compartment\_name) | n/a |
+| <a name="output_workload_subnet_cidr_blocks"></a> [workload\_subnet\_cidr\_blocks](#output\_workload\_subnet\_cidr\_blocks) | n/a |
 <!-- END_TF_DOCS -->    

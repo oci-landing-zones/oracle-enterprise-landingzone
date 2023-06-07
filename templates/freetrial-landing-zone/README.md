@@ -15,7 +15,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 4.96.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.4.3 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -69,14 +69,15 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_customer_primary_bgp_peering_ip"></a> [customer\_primary\_bgp\_peering\_ip](#input\_customer\_primary\_bgp\_peering\_ip) | The primary BGP IPv4 address of the customer's router | `string` | `""` | no |
 | <a name="input_customer_secondary_bgp_peering_ip"></a> [customer\_secondary\_bgp\_peering\_ip](#input\_customer\_secondary\_bgp\_peering\_ip) | [Optional] The secondary BGP IPv4 address of the customer's router | `string` | `""` | no |
 | <a name="input_domain_license_type"></a> [domain\_license\_type](#input\_domain\_license\_type) | Identity Domain License Type. | `string` | `"premium"` | no |
-| <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | `true` | no |
+| <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | `false` | no |
 | <a name="input_enable_compartment_delete"></a> [enable\_compartment\_delete](#input\_enable\_compartment\_delete) | Set to true to allow the compartments to delete on terraform destroy. | `bool` | `true` | no |
 | <a name="input_enable_vpn_or_fastconnect"></a> [enable\_vpn\_or\_fastconnect](#input\_enable\_vpn\_or\_fastconnect) | Option to enable VPN or FASTCONNECT service. Options are NONE, VPN, FASTCONNECT. | `string` | `"NONE"` | no |
 | <a name="input_fastconnect_provider"></a> [fastconnect\_provider](#input\_fastconnect\_provider) | Fastconnect provider. Please choose from: AT&T, Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo | `string` | `""` | no |
 | <a name="input_fastconnect_routing_policy"></a> [fastconnect\_routing\_policy](#input\_fastconnect\_routing\_policy) | Available FastConnect routing policies: ORACLE\_SERVICE\_NETWORK, REGIONAL, MARKET\_LEVEL, GLOBAL | `list(string)` | `[]` | no |
-| <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the Landing Zone home compartment. | `string` | `"OCI-ELZ-CMP-HOME"` | no |
+| <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the Landing Zone home compartment. | `string` | `"LIVELAB-OCI-CMP-HOME"` | no |
 | <a name="input_igw_hub_check"></a> [igw\_hub\_check](#input\_igw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
-| <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `true` | no |
+| <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `false` | no |
+| <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment in Tenancy if limit is two | `bool` | `true` | no |
 | <a name="input_nat_gw_hub_check"></a> [nat\_gw\_hub\_check](#input\_nat\_gw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_nonprod_application_admin_group_name"></a> [nonprod\_application\_admin\_group\_name](#input\_nonprod\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group. Defaults to OCI-ELZ-UGP-N-APP-ADMIN if blank or not provided. | `string` | `""` | no |
