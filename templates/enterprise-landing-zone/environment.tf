@@ -121,6 +121,7 @@ module "prod_environment" {
   enable_workload_monitoring_alarms   = var.prod_enable_workload_monitoring_alarms
 
   additional_workload_subnets_cidr_blocks = var.prod_additional_workload_subnets_cidr_blocks
+  enable_network_firewall            = var.prod_enable_network_firewall
 
   providers = {
     oci             = oci
@@ -263,6 +264,7 @@ module "nonprod_environment" {
   remote_peering_connection_peer_region_name = var.region
 
   additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
+  enable_network_firewall            = var.nonprod_enable_network_firewall
 
   providers = {
     oci             = oci

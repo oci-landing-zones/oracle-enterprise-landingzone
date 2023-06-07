@@ -89,7 +89,13 @@ locals {
     UDP    = "17"
     ICMPv6 = "58"
   }
-  security_list_ingress = {
+  security_list_ingress_open = {
+    protocol         = "all"
+    source           = "0.0.0.0/0"
+    description      = "All Traffic For All Port"
+    source_type      = "CIDR_BLOCK"
+  }
+  security_list_ingress_icmp = {
     protocol    = local.ip_protocols.ICMP
     source      = "0.0.0.0/0"
     description = "All ICMP Taffic"
@@ -102,6 +108,8 @@ locals {
     source_type = "CIDR_BLOCK"
     tcp_port    = 22
   }
+  security_list_ingress = var.enable_network_firewall ? local.security_list_ingress_open  : local.security_list_ingress_icmp
+
   security_list_egress = {
     destination      = "0.0.0.0/0"
     protocol         = "all"
@@ -194,13 +202,32 @@ module "workload_spoke_route_table" {
   route_table_display_name = var.route_table_display_name
   route_rules              = local.spoke_route_rules.route_rules
 }
+
 ######################################################################
 #          Attach Workload Spoke VCN to DRG                          #
 ######################################################################
+
+locals {
+  spoke_drg_route_table = var.enable_network_firewall ? var.spoke_drg_route_table_id : null
+}
 module "workload_spoke_vcn_drg_attachment" {
   source                        = "../../modules/drg-attachment"
   drg_id                        = var.drg_id
   vcn_id                        = module.workload_spoke_vcn.vcn_id
   drg_attachment_type           = "VCN"
   drg_attachment_vcn_route_type = "VCN_CIDRS"
+  drg_route_table_id            = local.spoke_drg_route_table
+}
+
+resource "oci_core_drg_route_distribution_statement" "hub_route_distribution_statement" {
+  count = var.enable_network_firewall ? 1 : 0
+  drg_route_distribution_id = var.hub_drg_route_distribution
+  action                    = "ACCEPT"
+  priority                  = 10
+
+  match_criteria {
+    match_type        = "DRG_ATTACHMENT_TYPE"
+    attachment_type   = "VCN"
+    drg_attachment_id = module.workload_spoke_vcn_drg_attachment.attachment_id
+  }
 }

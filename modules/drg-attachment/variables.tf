@@ -17,3 +17,9 @@ variable "drg_attachment_vcn_route_type" {
   type        = string
   description = "DRG Attacment Network VCN Route Type"
 }
+
+variable "drg_route_table_id" {
+  type = string
+  description = "DRG Route table for this attachment"
+  default = null
+}

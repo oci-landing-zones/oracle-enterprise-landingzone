@@ -8,6 +8,11 @@ output "drg_attachment_all_attributes" {
   value       = { for k, v in oci_core_drg_attachment.drg_vcn_attachment : k => v }
 }
 
+output "drg_route_distributions" {
+  description = "all route distributions"
+  value = { for k, v in oci_core_drg_route_distribution.route_distribution : k => v }
+}
+
 output "drg_route_tables" {
   value       = { for k, v in oci_core_drg_route_table.route_table: k => v }
 }

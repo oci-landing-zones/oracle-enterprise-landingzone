@@ -48,6 +48,13 @@ variable "enable_service_gateway_spoke" {
   default     = "false"
   description = "Option to enable true and Disable false."
 }
+
+variable "enable_network_firewall" {
+  type        = bool
+  description = "Option to enable Network Firewall."
+  default     = false
+}
+
 variable "igw_hub_check" {
   type = list(string)
 }

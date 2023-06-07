@@ -147,6 +147,8 @@ module "network" {
 
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
 
+  enable_network_firewall             = var.enable_network_firewall
+
   providers = {
     oci             = oci
     oci.home_region = oci.home_region

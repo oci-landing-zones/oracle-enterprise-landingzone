@@ -380,6 +380,19 @@ variable "nonprod_enable_service_gateway_spoke" {
   description = "Option to enable TRUE and Disable false."
   default     = "false"
 }
+
+variable "prod_enable_network_firewall" {
+  type        = bool
+  description = "Option to enable Network Firewall."
+  default     = false
+}
+
+variable "nonprod_enable_network_firewall" {
+  type        = bool
+  description = "Option to enable Network Firewall."
+  default     = false
+}
+
 variable "igw_hub_check" {
   type    = list(string)
   default = [""]

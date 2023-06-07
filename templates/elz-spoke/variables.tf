@@ -113,6 +113,23 @@ variable "security_list_display_name" {
   type        = string
   description = "Workload Expansion Spoke Security List Name Disly Name."
 }
+
+variable "enable_network_firewall" {
+  type        = bool
+  description = "Option to enable Network Firewall."
+  default     = false
+}
+variable "spoke_drg_route_table_id" {
+  type        = string
+  description = "OCID of DRG route table for Spoke"
+  default     = null
+}
+variable "hub_drg_route_distribution" {
+  type = string
+  description = "OCID of route distribution list for hub."
+  default = null
+}
+
 variable "enable_vpn_or_fastconnect" {}
 variable "enable_vpn_on_environment" {}
 variable "ipsec_connection_static_routes" {}

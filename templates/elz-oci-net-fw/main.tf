@@ -29,3 +29,4 @@ module "network_firewall" {
   ip_address_lists             = local.network_firewall.ip_address_lists
   security_rules               = local.network_firewall.security_rules
 }
+

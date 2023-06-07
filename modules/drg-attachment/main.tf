@@ -12,6 +12,8 @@ terraform {
 
 resource "oci_core_drg_attachment" "drg_attachment" {
     drg_id = var.drg_id
+    drg_route_table_id = var.drg_route_table_id
+    
     network_details {
         id              = var.vcn_id
         type            = var.drg_attachment_type

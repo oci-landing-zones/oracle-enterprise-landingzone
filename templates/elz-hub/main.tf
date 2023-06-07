@@ -141,7 +141,13 @@ locals {
     UDP    = "17"
     ICMPv6 = "58"
   }
-  security_list_ingress = {
+  security_list_ingress_open = {
+    protocol         = "all"
+    source           = "0.0.0.0/0"
+    description      = "All Traffic For All Port"
+    source_type      = "CIDR_BLOCK"
+  }
+  security_list_ingress_icmp = {
     protocol    = local.ip_protocols.ICMP
     source      = "0.0.0.0/0"
     description = "All ICMP Taffic"
@@ -154,12 +160,15 @@ locals {
     source_type = "CIDR_BLOCK"
     tcp_port    = 22
   }
+  security_list_ingress = var.enable_network_firewall ? local.security_list_ingress_open  : local.security_list_ingress_icmp
+
   security_list_egress = {
     destination      = "0.0.0.0/0"
     protocol         = "all"
     description      = "All Traffic For All Port"
     destination_type = "CIDR_BLOCK"
   }
+
 
   hub_internet_gateway = {
     vcn_id                        = oci_core_vcn.vcn_hub_network.id
@@ -194,6 +203,58 @@ resource "oci_core_vcn" "vcn_hub_network" {
   display_name   = local.vcn_hub_network.name
   dns_label      = "hublabel"
   is_ipv6enabled = false
+}
+
+locals {
+  nfw_dest = var.enable_network_firewall ? module.network-firewall[0].firewall_ip: null
+  hub_ingress_route_rules_options = {
+    route_rules_default = var.enable_network_firewall ? {
+      "ingress-web-traffic" = {
+        network_entity_id = local.nfw_dest
+        destination       = var.private_spoke_subnet_web_cidr_block
+        destination_type  = "CIDR_BLOCK"
+      }
+      "ingress-app-traffic" = {
+        network_entity_id = local.nfw_dest
+        destination       = var.private_spoke_subnet_app_cidr_block
+        destination_type  = "CIDR_BLOCK"
+      }
+      "ingress-db-traffic" = {
+        network_entity_id = local.nfw_dest
+        destination       = var.private_spoke_subnet_db_cidr_block
+        destination_type  = "CIDR_BLOCK"
+      }
+    } : {}
+    route_rules_workload = var.enable_network_firewall ? {
+      for index, route in local.additional_workload_subnets_cidr_blocks : "workload-ingress-rule-${index}" => {
+        network_entity_id = local.nfw_dest
+        destination       = route
+        destination_type  = "CIDR_BLOCK"
+      }
+    } : {}
+  }
+
+  hub_ingress_route_rules = {
+    route_table_display_name = "OCI-ELZ-RTING-${var.environment_prefix}-HUB"
+    route_rules              = merge(local.hub_ingress_route_rules_options.route_rules_default,
+                                     local.hub_ingress_route_rules_options.route_rules_workload)
+  }
+}
+
+resource "oci_core_route_table" "hub_ingress_route_table" {
+  count = var.enable_network_firewall ? 1 : 0
+  compartment_id = var.network_compartment_id
+  vcn_id         = oci_core_vcn.vcn_hub_network.id
+  display_name   = local.hub_ingress_route_rules.route_table_display_name
+  dynamic "route_rules" {
+    for_each = local.hub_ingress_route_rules.route_rules
+    content {
+      description       = route_rules.key
+      network_entity_id = route_rules.value.network_entity_id
+      destination       = route_rules.value.destination
+      destination_type  = route_rules.value.destination_type
+    }
+  }
 }
 
 resource "oci_core_default_security_list" "hub_default_security_list_locked_down" {
@@ -312,10 +373,33 @@ module "service-gateway-hub" {
   service_gateway_display_name = local.service_gateway_hub.service_gateway_display_name
 }
 
-// DGR
+// DRG
 locals {
+
   drg_route_table_options = {
     default = {}
+    firewall = var.enable_network_firewall ? {
+      RT-Hub = {
+        display_name            = "RT-Hub"
+        route_distribution_name = "Import-Hub"
+        rules = {
+
+        }
+      }
+      RT-Spoke = {
+        display_name            = "RT-Spoke"
+        route_distribution_name = null
+        rules = {
+          all_to_drg = {
+            destination              = "0.0.0.0/0"
+            destination_type         = "CIDR_BLOCK"
+            next_hop_attachment_name = "Hub-VCN-Attachment"
+          }
+        }
+      }
+
+    } : {}
+
     virtual_circuit = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? {
       RT-Onprem = {
         display_name            = "RT-Onprem"
@@ -335,6 +419,13 @@ locals {
   }
   drg_route_distribution_options = {
     default = {}
+    firewall = var.enable_network_firewall ? {
+      Import-Hub = {
+        distribution_display_name = "Import-Hub"
+        distribution_type         = "IMPORT"
+        statements = {}
+      }
+    } : {}
     virtual_circuit = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? {
       Import_Onprem = {
         distribution_display_name = "Import_Onprem"
@@ -379,12 +470,16 @@ locals {
       "Hub-VCN-Attachment" = {
         display_name         = "Hub-Vcn-Drg-${var.environment_prefix}-Attachment"
         vcn_id               = oci_core_vcn.vcn_hub_network.id
-        route_table_id       = ""
-        drg_route_table_name = null
+        route_table_id       = var.enable_network_firewall ? oci_core_route_table.hub_ingress_route_table[0].id : null
+        drg_route_table_name = var.enable_network_firewall ? "RT-Hub" : null
       }
     }
-    drg_route_table_map    = merge(local.drg_route_table_options.default, local.drg_route_table_options.virtual_circuit)
-    route_distribution_map = merge(local.drg_route_distribution_options.default, local.drg_route_distribution_options.virtual_circuit)
+    drg_route_table_map    = merge(local.drg_route_table_options.default, 
+                                   local.drg_route_table_options.virtual_circuit,
+                                   local.drg_route_table_options.firewall)
+    route_distribution_map = merge(local.drg_route_distribution_options.default,
+                                   local.drg_route_distribution_options.virtual_circuit,
+                                   local.drg_route_distribution_options.firewall)
   }
 }
 
@@ -398,3 +493,21 @@ module "drg" {
   route_distribution_map = local.drg.route_distribution_map
 }
 
+
+module "network-firewall" {
+  source = "../elz-oci-net-fw"
+  count  = var.enable_network_firewall ? 1 : 0 
+
+  tenancy_ocid               = var.tenancy_ocid
+  region                     = var.region
+  environment_prefix         = var.environment_prefix
+  network_compartment_id     = var.network_compartment_id
+  hub_vcn_cidr_block         = var.vcn_cidr_block
+  network_firewall_subnet_id = oci_core_subnet.hub_private_subnet.id
+
+  providers = {
+    oci             = oci
+    oci.home_region = oci.home_region
+  }
+
+}

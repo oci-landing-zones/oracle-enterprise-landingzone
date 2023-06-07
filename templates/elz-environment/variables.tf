@@ -295,6 +295,12 @@ variable "spoke_vcn_cidr" {
   description = "Spoke VCN CIDR Block."
 }
 
+variable "enable_network_firewall" {
+  type        = bool
+  description = "Option to enable Network Firewall."
+  default     = false
+}
+
 # -----------------------------------------------------------------------------
 # Monitoring Variables
 # -----------------------------------------------------------------------------

@@ -29,7 +29,6 @@ variable "hub_vcn_cidr_block" {
 }
 
 variable "network_firewall_subnet_id" {
-    type        = string
-    description = "OCID of subnet to create network FW on." 
+  type        = string
+  description = "OCID of subnet to create network FW on." 
 }
-

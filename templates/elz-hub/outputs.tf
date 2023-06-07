@@ -13,3 +13,11 @@ output "subnets" {
   }
   description = "The subnet OCID"
 }
+
+output "spoke_drg_route_table_id" {
+  value = var.enable_network_firewall ? module.drg.drg_route_tables["RT-Spoke"].id : null
+}
+
+output "hub_drg_route_distribution" {
+  value = var.enable_network_firewall ? module.drg.drg_route_distributions["Import-Hub"].id : null
+}
