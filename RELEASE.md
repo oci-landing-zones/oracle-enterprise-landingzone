@@ -1,6 +1,16 @@
 # Release Notes
 
 ----
+## v2.1.0 - 2023-06-05
+- Initial Release of Workload Expansion Stack. The Workload Expansion template is responsible for deploying the resources for an empty workload. The user can use the workload expansion stack to deploy additional customized workload.
+  Workload Expansion template will deploy the following resources:
+  - Compartment
+  - Network (Spoke)
+  - Logging
+  - Monitoring
+  - Policies and workload group
+- Refactoring Network module. The network module was refactored to the Hub module and the Spoke module. The Hub module deploys the main network resource using for baseline stack and the spoke module deploys resource using for workload stack.
+
 ## v2.0.0 - 2023-02-28
 - Initial Release of new version 2 codebase with Hub and Spoke Networking, Multi-Environment support and more modular architecture. see the [Architecture Guide](./templates/enterprise-landing-zone/Architecture_Guide.md) for details.
 - CIS Security Benchmark Compliance: Oracle Enterprise Landing Zone v2 was designed to include a foundational set of security controls from the Center for Internet Security (CIS). We are happy to share that this release of Landing Zones will support the recommended CIS 1.2 Level 1 controls. The security controls implemented by this Landing Zone are prescriptive and practical in nature with the primary focus to help provide best practices for security hardening of the technologies that are deployed in our customers' tenancies.
