@@ -11,6 +11,24 @@ variable "region" {
   description = "The OCI region"
 }
 
+variable "current_user_ocid" {
+  type        = string
+  description = "The OCID of the current user"
+  default     = ""
+}
+
+variable "api_fingerprint" {
+  type        = string
+  description = "The fingerprint of API"
+  default     = ""
+}
+
+variable "api_private_key_path" {
+  type        = string
+  description = "The local path to the API private key"
+  default     = ""
+}
+
 variable "environment_prefix" {
   type        = string
   description = "the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U"

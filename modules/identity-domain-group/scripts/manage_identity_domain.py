@@ -10,27 +10,36 @@ import requests
 
 
 class ManageIdentityDomain:
-    def __init__(self, domain_id, group_names):
-        self.config, self.auth = self.set_up_oci_config()
+    def __init__(self, domain_id, group_names, args):
+        self.config, self.auth = self.set_up_oci_config(args)
         self.identity_client = oci.identity.IdentityClient(self.config)
 
         self.host = self.get_domain_url(domain_id)
         self.group_endpoint = self.host + "/admin/v1/Groups"
         self.group_names = group_names
 
-    def set_up_oci_config(self):
+    def set_up_oci_config(self,args):
         '''
         check terraform environment variables, prefixed by TF_, so it can run in our pipeline
         '''
         try:
-            config = oci.config.from_file()
+            # JMA: Build config using parameters
+            # config = oci.config.from_file()
+            config = {
+                "user": args.user_ocid,
+                "key_file": args.api_private_key_path,
+                "fingerprint": args.api_fingerprint,
+                "tenancy": args.tenancy_ocid,
+                "region": args.region,                 
+            }
             auth = oci.Signer(
                 tenancy=config['tenancy'],
                 user=config['user'],
                 fingerprint=config['fingerprint'],
                 private_key_file_location=config['key_file']
             )
-        except oci.exceptions.ConfigFileNotFound:
+        # except oci.exceptions.ConfigFileNotFound:
+        except: # JMA Any failure, missing parameter
 
             tenancy = os.environ.get("TF_VAR_tenancy_ocid")
             user = os.environ.get("TF_VAR_current_user_ocid")
@@ -115,6 +124,23 @@ class ManageIdentityDomain:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Manage an Identity Domain")
+    # JMA: New parameters
+    parser.add_argument('-t', '--tenancy_ocid',
+                        help="<Required> Tenany OCID for create the domain group",
+                        required=True)     
+    parser.add_argument('-r', '--region',
+                        help="<Required> Region for connection",
+                        required=True)
+    parser.add_argument('-u', '--user_ocid',
+                        help="<Required> User OCID creating the domain group",
+                        required=True) 
+    parser.add_argument('-a', '--api_fingerprint',
+                        help="<Required> API finger print for the API call for creating the domain group",
+                        required=True)
+    parser.add_argument('-p', '--api_private_key_path',
+                        help="<Required> Location of local private key",
+                        required=True) 
+    # End JMA                         
     parser.add_argument('-d', '--domain_id',
                         help="<Required> Id of the domain to manage",
                         required=True)
@@ -124,5 +150,7 @@ if __name__ == "__main__":
                         required=True)
 
     args = parser.parse_args()
-    manage_id = ManageIdentityDomain(args.domain_id, args.group_names)
+    manage_id = ManageIdentityDomain(args.domain_id, args.group_names, args)
     manage_id.create_groups()
+
+

@@ -17,10 +17,14 @@ module "compartment" {
 
 module "identity" {
   source             = "../elz-identity"
+
   tenancy_ocid       = var.tenancy_ocid
   region             = var.region
-  environment_prefix = var.environment_prefix
+  current_user_ocid  = var.current_user_ocid
+  api_fingerprint    = var.api_fingerprint
+  api_private_key_path = var.api_private_key_path
 
+  environment_prefix = var.environment_prefix
   environment_compartment_id   = module.compartment.compartments.environment.id
   environment_compartment_name = module.compartment.compartments.environment.name
   shared_compartment_id        = module.compartment.compartments.shared.id

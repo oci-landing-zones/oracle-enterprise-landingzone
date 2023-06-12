@@ -14,6 +14,10 @@ module "prod_environment" {
 
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
+  current_user_ocid  = var.current_user_ocid
+  api_fingerprint    = var.api_fingerprint
+  api_private_key_path = var.api_private_key_path
+
   resource_label = var.resource_label
 
   home_compartment_id               = module.home_compartment.compartment_id
@@ -151,6 +155,9 @@ module "nonprod_environment" {
 
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
+  current_user_ocid  = var.current_user_ocid
+  api_fingerprint    = var.api_fingerprint
+  api_private_key_path = var.api_private_key_path  
   resource_label = var.resource_label
 
   home_compartment_id               = module.home_compartment.compartment_id

@@ -74,6 +74,11 @@ module "groups" {
   source             = "../../modules/identity-domain-group"
   identity_domain_id = var.identity_domain_id
   group_names        = values(local.group_names)
+  tenancy_ocid       = var.tenancy_ocid
+  region             = var.region
+  current_user_ocid  = var.current_user_ocid
+  api_fingerprint    = var.api_fingerprint
+  api_private_key_path = var.api_private_key_path  
 }
 
 module "workload_expansion_policy" {

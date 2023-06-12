@@ -179,7 +179,14 @@ module "groups" {
   source             = "../../modules/identity-domain-group"
   group_names        = local.identity_domain.group_names
   identity_domain_id = module.identity_domain.domain.id
+  tenancy_ocid       = var.tenancy_ocid
+  region             = var.region
+  current_user_ocid  = var.current_user_ocid
+  api_fingerprint    = var.api_fingerprint
+  api_private_key_path = var.api_private_key_path
+  
 }
+
 
 module "network_admin_policy" {
   source           = "../../modules/policies"
