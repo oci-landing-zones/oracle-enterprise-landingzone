@@ -34,8 +34,5 @@ No modules.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_domain"></a> [domain](#output\_domain) | n/a |
-| <a name="output_url"></a> [url](#output\_url) | n/a |
+No outputs.
 <!-- END_TF_DOCS -->    
