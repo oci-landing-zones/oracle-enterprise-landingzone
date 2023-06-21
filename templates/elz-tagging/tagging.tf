@@ -2,7 +2,7 @@
 locals {
   architecture_tag = {
     tag_namespace_description = "ArchitectureCenterTagNamespace"
-    tag_namespace_name        = "ArchitectureCenter\\oracle-enterprise-landing-zone-freetrial-v2-${random_id.tag.hex}"
+    tag_namespace_name        = "ArchitectureCenter\\oracle-enterprise-landing-zone-v2-${random_id.tag.hex}"
     is_namespace_retired      = false
     tag_map = {
       architecture_tag = {

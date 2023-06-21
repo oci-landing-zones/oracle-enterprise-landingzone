@@ -11,11 +11,13 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_architecture_tag"></a> [architecture\_tag](#module\_architecture\_tag) | ../../modules/tag | n/a |
 | <a name="module_iam_admin_groups"></a> [iam\_admin\_groups](#module\_iam\_admin\_groups) | ../../modules/non-default-domain-group | n/a |
 | <a name="module_iam_admin_policy"></a> [iam\_admin\_policy](#module\_iam\_admin\_policy) | ../../modules/policies | n/a |
 | <a name="module_iam_admin_root_policy"></a> [iam\_admin\_root\_policy](#module\_iam\_admin\_root\_policy) | ../../modules/policies | n/a |
@@ -35,6 +37,7 @@
 
 | Name | Type |
 |------|------|
+| [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
