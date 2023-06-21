@@ -175,10 +175,40 @@ module "identity_domain" {
   domain_is_hidden_on_login = local.identity_domain.domain_is_hidden_on_login
 }
 
-module "groups" {
-  source             = "../../modules/identity-domain-group"
-  group_names        = local.identity_domain.group_names
-  identity_domain_id = module.identity_domain.domain.id
+#module "groups" {
+#  source             = "../../modules/identity-domain-group"
+#  group_names        = local.identity_domain.group_names
+#  identity_domain_id = module.identity_domain.domain.id
+#}
+
+module "network_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = module.identity_domain.domain.url
+  group_display_name       = local.group_names.network_admin_group_name
+}
+
+module "iam_admin_groups" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = module.identity_domain.domain.url
+  group_display_name       = local.group_names.iam_admin_group_name
+}
+
+module "platform_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = module.identity_domain.domain.url
+  group_display_name       = local.group_names.platform_admin_group_name
+}
+
+module "ops_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = module.identity_domain.domain.url
+  group_display_name       = local.group_names.ops_admin_group_name
+}
+
+module "security_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = module.identity_domain.domain.url
+  group_display_name       = local.group_names.security_admin_group_name
 }
 
 module "network_admin_policy" {
