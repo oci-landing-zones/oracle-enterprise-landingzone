@@ -28,4 +28,8 @@ resource "oci_sch_service_connector" "service_connector" {
     bucket = var.target_bucket
     namespace = data.oci_objectstorage_namespace.ns.namespace
   }
+  lifecycle {
+    ignore_changes = [ stream_id 
+    ]
+  }
 }

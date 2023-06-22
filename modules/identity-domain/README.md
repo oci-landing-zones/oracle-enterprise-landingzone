@@ -49,4 +49,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_domain"></a> [domain](#output\_domain) | n/a |
+| <a name="output_url"></a> [url](#output\_url) | n/a |
 <!-- END_TF_DOCS -->    
