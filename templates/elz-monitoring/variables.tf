@@ -20,7 +20,10 @@ variable "resource_label" {
   type        = string
   description = "Prefix used to avoid naming conflict"
 }
-
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}
 # -----------------------------------------------------------------------------
 # Common Variables
 # -----------------------------------------------------------------------------

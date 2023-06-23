@@ -42,6 +42,7 @@ module "identity" {
   workload_compartment_id      = module.workload.compartment_id
   workload_compartment_name    = module.workload.compartment_name
   workload_compartment_names   = var.workload_compartment_names
+  home_compartment_id          = var.home_compartment_id
 
   providers = {
     oci             = oci
@@ -71,6 +72,7 @@ module "budget" {
   budget_alert_rule_threshold  = var.budget_alert_rule_threshold
   budget_alert_rule_message    = var.budget_alert_rule_message
   budget_alert_rule_recipients = var.budget_alert_rule_recipients
+  home_compartment_id          = var.home_compartment_id
 
   providers = {
     oci             = oci
@@ -117,6 +119,7 @@ module "network" {
   environment_prefix     = var.environment_prefix
   region                 = var.region
   network_compartment_id = module.compartment.compartments.network.id
+  home_compartment_id          = var.home_compartment_id
 
   enable_internet_gateway_hub  = var.enable_internet_gateway_hub
   enable_nat_gateway_hub       = var.enable_nat_gateway_hub
@@ -165,6 +168,7 @@ module "tagging" {
   tenancy_ocid                 = var.tenancy_ocid
   cost_center_tagging          = var.cost_center_tagging
   geo_location_tagging         = var.geo_location_tagging
+  home_compartment_id          = var.home_compartment_id
 
   providers = {
     oci             = oci
@@ -179,6 +183,7 @@ module "monitoring" {
   region             = var.region
   environment_prefix = var.environment_prefix
   resource_label     = var.resource_label
+  home_compartment_id  = var.home_compartment_id
 
   environment_compartment_id = module.compartment.compartments.environment.id
   security_compartment_id    = module.compartment.compartments.security.id

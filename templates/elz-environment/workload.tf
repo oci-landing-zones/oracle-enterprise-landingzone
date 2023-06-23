@@ -42,6 +42,7 @@ module "workload" {
   workload_private_spoke_subnet_db_cidr_block  = var.private_spoke_subnet_db_cidr_block
   workload_private_spoke_subnet_web_cidr_block = var.private_spoke_subnet_web_cidr_block
   workload_spoke_vcn_cidr                      = var.spoke_vcn_cidr
+  
 
   providers = {
     oci             = oci

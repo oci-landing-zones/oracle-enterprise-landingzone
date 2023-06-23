@@ -14,6 +14,11 @@ variable "environment_prefix" {
   description = ""
 }
 
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}
+
 variable "enable_vpn_or_fastconnect" {
   type        = string
   description = "Option to enable VPN or FASTCONNECT service. Options are NONE, VPN, FASTCONNECT."

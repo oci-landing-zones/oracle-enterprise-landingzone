@@ -33,7 +33,8 @@ module "workload_expansion_spoke" {
     hub_public_subnet_cidr_block                 = var.hub_public_subnet_cidr_block
     hub_private_subnet_cidr_block                = var.hub_private_subnet_cidr_block
     workload_compartment_id                      = module.workload_compartment.compartment_id
-
+    home_compartment_id                          = module.workload_compartment.compartment_id
+    
     customer_onprem_ip_cidr        = var.customer_onprem_ip_cidr
     enable_vpn_on_environment      = var.enable_vpn_on_environment
     enable_vpn_or_fastconnect      = var.enable_vpn_or_fastconnect

@@ -16,6 +16,10 @@ variable "environment_prefix" {
   description = "the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U"
 }
 
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}
 # -----------------------------------------------------------------------------
 # Domain Variables
 # -----------------------------------------------------------------------------
