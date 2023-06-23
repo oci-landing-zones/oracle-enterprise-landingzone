@@ -17,10 +17,6 @@ variable "resource_label" {
   description = "A prefix used to avoid naming conflicts if multiple Landing Zones are deployed."
 }
 
-variable "home_compartment_id" {
-  type        = string
-  description = "Home Compartment ID"
-}
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

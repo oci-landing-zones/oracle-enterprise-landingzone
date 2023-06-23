@@ -39,6 +39,7 @@ module "network-extension" {
   remote_peering_connection_peer_region_name = var.remote_peering_connection_peer_region_name
   drg_route_table_rpc_id            = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? module.network.drg_route_tables.RT-RPC.id : null
   drg_route_table_vc_id             = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? module.network.drg_route_tables.RT-Onprem.id : null
+  home_compartment_id               = var.home_compartment_id
 
   providers = {
     oci             = oci

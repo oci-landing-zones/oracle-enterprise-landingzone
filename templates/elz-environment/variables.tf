@@ -25,10 +25,6 @@ variable "workload_compartment_names" {
   default     = []
   description = "The names of the workload compartments to update policies for the Admin Groups"
 }
-variable "home_compartment_id" {
-  type        = string
-  description = "Home Compartment ID"
-}
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

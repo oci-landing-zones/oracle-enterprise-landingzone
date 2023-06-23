@@ -15,11 +15,6 @@ variable "environment_prefix" {
   type        = string
   description = "the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U"
 }
-
-variable "home_compartment_id" {
-  type        = string
-  description = "Home Compartment ID"
-}
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

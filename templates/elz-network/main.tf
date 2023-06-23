@@ -27,6 +27,7 @@ module "hub" {
   enable_fastconnect_on_environment       = var.enable_fastconnect_on_environment
   customer_onprem_ip_cidr                 = var.customer_onprem_ip_cidr
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
+  home_compartment_id                     = var.home_compartment_id
 
   providers = {
     oci             = oci
@@ -85,6 +86,7 @@ module "spoke" {
   enable_vpn_on_environment                      = var.enable_vpn_on_environment
   customer_onprem_ip_cidr                        = var.customer_onprem_ip_cidr
   ipsec_connection_static_routes                 = var.ipsec_connection_static_routes
+  home_compartment_id                            = var.home_compartment_id
 
   providers = {
     oci             = oci
