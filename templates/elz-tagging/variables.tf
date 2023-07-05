@@ -35,3 +35,7 @@ variable "region" {
   type        = string
   description = "The OCI region"
 }
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}

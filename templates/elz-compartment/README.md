@@ -4,19 +4,21 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.96.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.96.0 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_architecture_tag"></a> [architecture\_tag](#module\_architecture\_tag) | ../../modules/tag | n/a |
 | <a name="module_backup_compartment"></a> [backup\_compartment](#module\_backup\_compartment) | ../../modules/compartment | n/a |
 | <a name="module_environment_compartment"></a> [environment\_compartment](#module\_environment\_compartment) | ../../modules/compartment | n/a |
 | <a name="module_logging_compartment"></a> [logging\_compartment](#module\_logging\_compartment) | ../../modules/compartment | n/a |
@@ -28,8 +30,9 @@
 
 | Name | Type |
 |------|------|
+| [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [time_sleep.compartment_replication_delay](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/data-sources/identity_region_subscriptions) | data source |
+| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
 

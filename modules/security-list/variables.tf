@@ -49,3 +49,34 @@ variable "spoke_security_list_display_name" {
   type        = string
   description = "VCN OCID ID"
 }
+variable "tcp_options_destination_port_range_min" {
+  type        = number
+  description = "Destination Port Min"
+  default     = 0
+}
+variable "tcp_options_destination_port_range_max" {
+  type        = number
+  description = "Destination Port Max"
+  default     = 0
+}
+variable "tcp_options_source_port_range_min" {
+  type        = number
+  description = "Source Port Min"
+  default     = 0
+}
+variable "tcp_options_source_port_range_max" {
+  type        = number
+  description = "Source Port Max"
+  default     = 0
+}
+
+variable "icmp_options_type" {
+  type        = number
+  description = "ICMP type"
+  default     = 0
+}
+variable "icmp_options_code" {
+  type        = number
+  description = "ICMP code"
+  default     = 0
+}

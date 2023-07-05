@@ -13,6 +13,11 @@ variable "region" {
   description = "The OCI region"
 }
 
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}
+
 variable "workload_spoke_vcn_cidr" {
   description = "The list of IPv4 CIDR blocks the VCN will use."
   type        = string

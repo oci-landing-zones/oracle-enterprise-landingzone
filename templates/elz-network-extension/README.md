@@ -4,18 +4,20 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.96.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.96.0 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_architecture_tag"></a> [architecture\_tag](#module\_architecture\_tag) | ../../modules/tag | n/a |
 | <a name="module_fastconnect"></a> [fastconnect](#module\_fastconnect) | ../../modules/fastconnect | n/a |
 | <a name="module_ipsec"></a> [ipsec](#module\_ipsec) | ../../modules/ipsec | n/a |
 
@@ -23,10 +25,11 @@
 
 | Name | Type |
 |------|------|
-| [oci_core_drg_attachment_management.drg_rpc_attachment_nonprod](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/resources/core_drg_attachment_management) | resource |
-| [oci_core_drg_attachment_management.drg_rpc_attachment_prod](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/resources/core_drg_attachment_management) | resource |
-| [oci_core_remote_peering_connection.remote_peering_connection](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/resources/core_remote_peering_connection) | resource |
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/data-sources/identity_region_subscriptions) | data source |
+| [oci_core_drg_attachment_management.drg_rpc_attachment_nonprod](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/resources/core_drg_attachment_management) | resource |
+| [oci_core_drg_attachment_management.drg_rpc_attachment_prod](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/resources/core_drg_attachment_management) | resource |
+| [oci_core_remote_peering_connection.remote_peering_connection](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/resources/core_remote_peering_connection) | resource |
+| [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
 
