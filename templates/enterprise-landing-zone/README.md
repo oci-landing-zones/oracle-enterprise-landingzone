@@ -64,6 +64,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_api_fingerprint"></a> [api\_fingerprint](#input\_api\_fingerprint) | The fingerprint of API | `string` | `""` | no |
 | <a name="input_api_private_key"></a> [api\_private\_key](#input\_api\_private\_key) | The API private key | `string` | `""` | no |
 | <a name="input_api_private_key_path"></a> [api\_private\_key\_path](#input\_api\_private\_key\_path) | The local path to the API private key | `string` | `""` | no |
+| <a name="input_archive_external_master_encryption_key"></a> [archive\_external\_master\_encryption\_key](#input\_archive\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_archive_log_retention_policy_duration_amount"></a> [archive\_log\_retention\_policy\_duration\_amount](#input\_archive\_log\_retention\_policy\_duration\_amount) | The timeAmount is interpreted in units defined by the timeUnit parameter, and is calculated in relation to each object's Last-Modified timestamp. | `string` | `"1"` | no |
 | <a name="input_archive_log_retention_policy_duration_time_unit"></a> [archive\_log\_retention\_policy\_duration\_time\_unit](#input\_archive\_log\_retention\_policy\_duration\_time\_unit) | The unit that should be used to interpret timeAmount. | `string` | `"DAYS"` | no |
 | <a name="input_bgp_md5auth_key"></a> [bgp\_md5auth\_key](#input\_bgp\_md5auth\_key) | The key for BGP MD5 authentication. Only applicable if your system requires MD5 authentication | `string` | `""` | no |
@@ -117,6 +118,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_nonprod_enable_vault_replication"></a> [nonprod\_enable\_vault\_replication](#input\_nonprod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
 | <a name="input_nonprod_enable_vpn"></a> [nonprod\_enable\_vpn](#input\_nonprod\_enable\_vpn) | Enable VPN in non prod environment | `bool` | `false` | no |
 | <a name="input_nonprod_enable_workload_monitoring_alarms"></a> [nonprod\_enable\_workload\_monitoring\_alarms](#input\_nonprod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Non-Production Workload Compartment | `bool` | `false` | no |
+| <a name="input_nonprod_external_master_encryption_key"></a> [nonprod\_external\_master\_encryption\_key](#input\_nonprod\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_nonprod_geo_location_tagging"></a> [nonprod\_geo\_location\_tagging](#input\_nonprod\_geo\_location\_tagging) | Non-Production Geo Location. | `string` | n/a | yes |
 | <a name="input_nonprod_hub_private_subnet_cidr_block"></a> [nonprod\_hub\_private\_subnet\_cidr\_block](#input\_nonprod\_hub\_private\_subnet\_cidr\_block) | Non-Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |
 | <a name="input_nonprod_hub_public_subnet_cidr_block"></a> [nonprod\_hub\_public\_subnet\_cidr\_block](#input\_nonprod\_hub\_public\_subnet\_cidr\_block) | Non-Production Enivornment HUB Public Subnet CIDR Block. | `string` | n/a | yes |
@@ -181,6 +183,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_prod_enable_vault_replication"></a> [prod\_enable\_vault\_replication](#input\_prod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
 | <a name="input_prod_enable_vpn"></a> [prod\_enable\_vpn](#input\_prod\_enable\_vpn) | Enable VPN in prod environment | `bool` | `false` | no |
 | <a name="input_prod_enable_workload_monitoring_alarms"></a> [prod\_enable\_workload\_monitoring\_alarms](#input\_prod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Production Workload Compartment | `bool` | `false` | no |
+| <a name="input_prod_external_master_encryption_key"></a> [prod\_external\_master\_encryption\_key](#input\_prod\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_prod_geo_location_tagging"></a> [prod\_geo\_location\_tagging](#input\_prod\_geo\_location\_tagging) | Production Geo Center. | `string` | n/a | yes |
 | <a name="input_prod_hub_private_subnet_cidr_block"></a> [prod\_hub\_private\_subnet\_cidr\_block](#input\_prod\_hub\_private\_subnet\_cidr\_block) | Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |
 | <a name="input_prod_hub_public_subnet_cidr_block"></a> [prod\_hub\_public\_subnet\_cidr\_block](#input\_prod\_hub\_public\_subnet\_cidr\_block) | Production Enivornment HUB Public Subnet CIDR Block. | `string` | n/a | yes |
