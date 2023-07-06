@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.122.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.122.0 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
 
 ## Modules
 
@@ -32,8 +32,8 @@
 
 | Name | Type |
 |------|------|
-| [oci_core_services.service_gateway](https://registry.terraform.io/providers/oracle/oci/4.122.0/docs/data-sources/core_services) | data source |
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.122.0/docs/data-sources/identity_region_subscriptions) | data source |
+| [oci_core_services.service_gateway](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/core_services) | data source |
+| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
 
