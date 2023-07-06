@@ -20,7 +20,7 @@ variable "resource_label" {
 variable "is_baseline_deploy" {
   type        = bool
   default     = false
-  description = "TagNameSpace Optimization: Set to True(if the deployment is baseline) and on dependent module TagNameSpace Tag will not get Created."
+  description = "TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation."
 }
 
 # -----------------------------------------------------------------------------

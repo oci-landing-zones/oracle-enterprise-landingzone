@@ -63,5 +63,5 @@ variable "is_service_connector_limit" {
 }
 variable "is_baseline_deploy" {
   type        = bool
-  description = "TagNameSpace Optimization: Enable this flag to disble dependent module TagNameSpace Tag Creation."
+  description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }

@@ -120,7 +120,7 @@ variable "security_list_display_name" {
 }
 variable "is_baseline_deploy" {
   type        = bool
-  description = "TagNameSpace Optimization: Enable this flag to disble dependent module TagNameSpace Tag Creation."
+  description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }
 variable "enable_vpn_or_fastconnect" {}
 variable "enable_vpn_on_environment" {}

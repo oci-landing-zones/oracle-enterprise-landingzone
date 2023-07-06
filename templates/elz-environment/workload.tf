@@ -11,15 +11,15 @@ locals {
 module "workload" {
   source = "../elz-workload"
 
-  tenancy_ocid       = var.tenancy_ocid
-  region             = var.region
-  environment_prefix = var.environment_prefix
+  tenancy_ocid                 = var.tenancy_ocid
+  region                       = var.region
+  environment_prefix           = var.environment_prefix
 
-  workload_name              = local.workload.workload_name
-  enable_compartment_delete  = local.workload.enable_compartment_delete
-  environment_compartment_id = module.compartment.compartments.environment.id
-  security_compartment_id    = module.compartment.compartments.security.id
-  network_compartment_id     = module.compartment.compartments.network.id
+  workload_name                = local.workload.workload_name
+  enable_compartment_delete    = local.workload.enable_compartment_delete
+  environment_compartment_id   = module.compartment.compartments.environment.id
+  security_compartment_id      = module.compartment.compartments.security.id
+  network_compartment_id       = module.compartment.compartments.network.id
 
   security_compartment_name    = module.compartment.compartments.security.name
   identity_domain_id           = module.identity.domain.id

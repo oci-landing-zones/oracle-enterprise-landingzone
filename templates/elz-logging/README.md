@@ -49,6 +49,7 @@
 | <a name="input_environment_prefix"></a> [environment\_prefix](#input\_environment\_prefix) | the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U | `string` | n/a | yes |
 | <a name="input_home_compartment_id"></a> [home\_compartment\_id](#input\_home\_compartment\_id) | The id of the home compartment. | `string` | n/a | yes |
 | <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the home compartment. | `string` | n/a | yes |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation. | `bool` | n/a | yes |
 | <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment | `bool` | n/a | yes |
 | <a name="input_logging_compartment_id"></a> [logging\_compartment\_id](#input\_logging\_compartment\_id) | The ocid of the logging compartment. | `string` | n/a | yes |
 | <a name="input_master_encryption_key"></a> [master\_encryption\_key](#input\_master\_encryption\_key) | The ocid of master encryption key | `string` | n/a | yes |
