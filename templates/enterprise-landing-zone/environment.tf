@@ -27,6 +27,7 @@ module "prod_environment" {
   ops_admin_group_name              = var.prod_ops_admin_group_name
   security_admin_group_name         = var.prod_security_admin_group_name
   workload_compartment_names        = var.prod_workload_compartment_names
+  is_baseline_deploy                = var.is_baseline_deploy
 
   workload_admin_group_name         = var.prod_workload_admin_group_name
   application_admin_group_name      = var.prod_application_admin_group_name
@@ -164,7 +165,8 @@ module "nonprod_environment" {
   ops_admin_group_name              = var.nonprod_ops_admin_group_name
   security_admin_group_name         = var.nonprod_security_admin_group_name
   workload_compartment_names        = var.nonprod_workload_compartment_names
-
+  is_baseline_deploy                = var.is_baseline_deploy
+  
   workload_admin_group_name         = var.nonprod_workload_admin_group_name
   application_admin_group_name      = var.nonprod_application_admin_group_name
   database_admin_group_name         = var.nonprod_database_admin_group_name

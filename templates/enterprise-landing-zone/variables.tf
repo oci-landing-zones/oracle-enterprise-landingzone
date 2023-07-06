@@ -17,6 +17,12 @@ variable "resource_label" {
   description = "A prefix used to avoid naming conflicts if multiple Landing Zones are deployed."
 }
 
+variable "is_baseline_deploy" {
+  type        = bool
+  default     = false
+  description = "TagNameSpace Optimization: Set to True(if the deployment is baseline) and on dependent module TagNameSpace Tag will not get Created."
+}
+
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

@@ -20,6 +20,10 @@ variable "home_compartment_id" {
   type        = string
   description = "Home Compartment ID"
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disble dependent module TagNameSpace Tag Creation."
+}
 # -----------------------------------------------------------------------------
 # Domain Variables
 # -----------------------------------------------------------------------------

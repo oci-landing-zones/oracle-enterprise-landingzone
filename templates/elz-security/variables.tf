@@ -84,3 +84,7 @@ variable "create_master_encryption_key" {
   type        = bool
   description = "Option create master encryption key"
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disble dependent module TagNameSpace Tag Creation."
+}

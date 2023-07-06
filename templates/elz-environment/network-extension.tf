@@ -40,6 +40,7 @@ module "network-extension" {
   drg_route_table_rpc_id            = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? module.network.drg_route_tables.RT-RPC.id : null
   drg_route_table_vc_id             = var.enable_vpn_or_fastconnect == "FASTCONNECT" && var.enable_fastconnect_on_environment ? module.network.drg_route_tables.RT-Onprem.id : null
   home_compartment_id               = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   providers = {
     oci             = oci

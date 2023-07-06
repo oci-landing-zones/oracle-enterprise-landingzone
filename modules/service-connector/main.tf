@@ -30,7 +30,8 @@ resource "oci_sch_service_connector" "service_connector" {
   }
   lifecycle {
     ignore_changes = [ 
-      source[0].stream_id 
+      source[0],
+      target[0]
     ]
   }
 }

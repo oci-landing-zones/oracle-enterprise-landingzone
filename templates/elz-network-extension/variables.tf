@@ -165,3 +165,7 @@ variable "drg_route_table_rpc_id" {
 variable "drg_route_table_vc_id" {
   type    = string
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disble dependent module TagNameSpace Tag Creation."
+}
