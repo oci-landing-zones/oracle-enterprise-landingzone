@@ -4,13 +4,13 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.122.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.122.0 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
@@ -35,7 +35,7 @@
 | Name | Type |
 |------|------|
 | [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.122.0/docs/data-sources/identity_region_subscriptions) | data source |
+| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
 
 ## Inputs
 
@@ -73,6 +73,7 @@
 | <a name="input_identity_domain_id"></a> [identity\_domain\_id](#input\_identity\_domain\_id) | the ocid of identity domain | `string` | `"ocid1.domain."` | no |
 | <a name="input_identity_domain_name"></a> [identity\_domain\_name](#input\_identity\_domain\_name) | identity domain name | `string` | `""` | no |
 | <a name="input_ipsec_connection_static_routes"></a> [ipsec\_connection\_static\_routes](#input\_ipsec\_connection\_static\_routes) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation. | `bool` | n/a | yes |
 | <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `true` | no |
 | <a name="input_nat_gateway_display_name"></a> [nat\_gateway\_display\_name](#input\_nat\_gateway\_display\_name) | (Updatable) Name of NAT Gateway. Does not have to be unique. | `string` | `"ngw"` | no |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |

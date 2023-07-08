@@ -51,7 +51,9 @@
 | <a name="input_environment_compartment_id"></a> [environment\_compartment\_id](#input\_environment\_compartment\_id) | n/a | `string` | n/a | yes |
 | <a name="input_environment_compartment_name"></a> [environment\_compartment\_name](#input\_environment\_compartment\_name) | ----------------------------------------------------------------------------- Policy Variables ----------------------------------------------------------------------------- | `string` | n/a | yes |
 | <a name="input_environment_prefix"></a> [environment\_prefix](#input\_environment\_prefix) | the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U | `string` | n/a | yes |
+| <a name="input_home_compartment_id"></a> [home\_compartment\_id](#input\_home\_compartment\_id) | Home Compartment ID | `string` | n/a | yes |
 | <a name="input_iam_admin_group_name"></a> [iam\_admin\_group\_name](#input\_iam\_admin\_group\_name) | The group name for the OCI Landing Zone IAM Administrators Group | `string` | `""` | no |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation. | `bool` | n/a | yes |
 | <a name="input_network_admin_group_name"></a> [network\_admin\_group\_name](#input\_network\_admin\_group\_name) | The group name for the OCI Landing Zone Network Administrators Group | `string` | `""` | no |
 | <a name="input_network_compartment_id"></a> [network\_compartment\_id](#input\_network\_compartment\_id) | n/a | `string` | n/a | yes |
 | <a name="input_network_compartment_name"></a> [network\_compartment\_name](#input\_network\_compartment\_name) | n/a | `string` | n/a | yes |

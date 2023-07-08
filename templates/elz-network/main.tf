@@ -28,6 +28,7 @@ module "hub" {
   customer_onprem_ip_cidr                 = var.customer_onprem_ip_cidr
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
   home_compartment_id                     = var.home_compartment_id
+  is_baseline_deploy                      = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -87,6 +88,7 @@ module "spoke" {
   customer_onprem_ip_cidr                        = var.customer_onprem_ip_cidr
   ipsec_connection_static_routes                 = var.ipsec_connection_static_routes
   home_compartment_id                            = var.home_compartment_id
+  is_baseline_deploy                             = var.is_baseline_deploy
 
   providers = {
     oci             = oci

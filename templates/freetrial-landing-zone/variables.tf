@@ -21,7 +21,10 @@ variable "home_compartment_id" {
   type        = string
   description = "Home Compartment ID"
 }
-
+variable "is_freetrial_deploy" {
+  type        = bool
+  description = "true if you want to deploying the baseline template"
+}
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

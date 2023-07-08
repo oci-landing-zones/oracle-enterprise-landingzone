@@ -1,4 +1,4 @@
-# Oracle Enterprise Landing Zone Workload Extension
+# Oracle Enterprise Landing Zone Workload Expansion
 
 ## Prerequisites
 
@@ -143,7 +143,7 @@ OELZ Workload Expansion Stack will deploy one Spoke VCN on user defined Compartm
 
 Logging for the Oracle Enterprise Landing Zone is configured at the Environment level, with logs for all Workloads within a given Environment being sent to object storage buckets set up per-environment, as well as an archive bucket for all Environments, with a long term retention policy. No logging configuration per Workload is necessary. 
 
-### Workload Expansion : Policy 
+### Workload Expansion : Policy
 
 As part of Workload Expansion three user groups will be created Workload Admin, Application Admin and Database Admin. We are adding default policy so that newly created user groups have fine-grained access to workload resources. 
 

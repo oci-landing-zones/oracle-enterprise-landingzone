@@ -25,6 +25,11 @@ variable "workload_compartment_names" {
   default     = []
   description = "The names of the workload compartments to update policies for the Admin Groups"
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
+}
+
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------

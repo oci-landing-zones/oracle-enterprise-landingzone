@@ -1,4 +1,4 @@
-## Oracle Enterprise Landing Zone Workload Extension Configuration Guide
+## Oracle Enterprise Landing Zone Workload Expansion Configuration Guide
 
 This configuration guide will detail the required and available configurations needed to deploy an Oracle Enterprise Landing Zone(OELZ) 2.0 Workload Expansion on Oracle Cloud Infrastructure. 
 
@@ -84,7 +84,7 @@ The required arguments for OELZ Workload Network:
 | <a name="hub_public_subnet_cidr_block"></a> [hub\_public\_subnet\_cidr\_block](#hub\_public\_subnet\_cidr\_block)             | Provide Hub Public Subnet IPv4 CIDR Block. | `string` | `""(Valid IPv4 CIDR Block)` |    yes    |
 | <a name="hub_private_subnet_cidr_block"></a> [hub\_private\_subnet\_cidr\_block](#hub\_private\_subnet\_cidr\_block)             | Provide Hub Private Subnet IPv4 CIDR Block. | `string` | `""(Valid IPv4 CIDR Block)` |    yes    |
 
-## IAM 
+## IAM
 
 The required arguments Workload Expansion IAM:
 
@@ -94,7 +94,7 @@ The required arguments Workload Expansion IAM:
 | <a name="application_admin_group_name"></a> [application\_admin\_group\_name](#application\_admin\_group\_name)             | Provide Workload Application Admin Group Name. | `string` | `"OCI-ELZ-UGP-[workload_prefix]-APP-ADMIN"` |    yes    |
 | <a name="database_admin_group_name"></a> [database\_admin\_group\_name](#database\_admin\_group\_name)             | Provide Workload DB Admin Group Name. | `string` | `"OCI-ELZ-UGP-[workload_prefix]-DB-ADMIN"` |    yes    |
 
-## Policy 
+## Policy
 
 The required arguments Workload Expansion Policy:
 
@@ -105,7 +105,7 @@ The required arguments Workload Expansion Policy:
 | <a name="identity_domain_name"></a> [identity\_domain\_name](#security\_compartment\_name)           | Identity Domain Name.              | `string` | `""` |    yes    |
 | <a name="identity_domain_id"></a> [identity\_domain\_ocid](#security\_compartment\_ocid)             | Identity Domain OCID.              | `string` | `""` |    yes    |
 
-## Monitoring 
+## Monitoring
 
 These are the configuration options for Workload Monitoring: 
 

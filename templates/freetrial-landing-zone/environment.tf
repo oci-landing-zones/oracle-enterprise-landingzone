@@ -15,6 +15,7 @@ module "prod_environment" {
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
   resource_label = var.resource_label
+  is_baseline_deploy = var.is_freetrial_deploy
 
   home_compartment_id                 = module.home_compartment.compartment_id
   environment_prefix                  = local.prod_environment.environment_prefix

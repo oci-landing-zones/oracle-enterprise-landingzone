@@ -257,11 +257,16 @@ variables:
     items:
       type: string
       pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
-    description:
-      "Unique list of break glass user email addresses that do not exist. These users are added to the Administrator group.
+    description: "Unique list of break glass user email addresses that do not exist. These users are added to the Administrator group.
       in the tenancy"
     required: true
     title: Break Glass User Email List
+  is_baseline_deploy:
+    type: boolean
+    description: "Set to true in case of Baseline Deployment."
+    default: true
+    required: false
+    title: Is Baseline Deployment
   show_extra_group_names:
     type: boolean
     default: false

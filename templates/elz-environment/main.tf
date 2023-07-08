@@ -8,6 +8,7 @@ module "compartment" {
   environment_compartment_name = var.environment_compartment_name
   enable_tf_state_backup       = var.enable_tf_state_backup
   enable_logging               = var.enable_logging
+  is_baseline_deploy           = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -43,6 +44,7 @@ module "identity" {
   workload_compartment_name    = module.workload.compartment_name
   workload_compartment_names   = var.workload_compartment_names
   home_compartment_id          = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -73,6 +75,7 @@ module "budget" {
   budget_alert_rule_message    = var.budget_alert_rule_message
   budget_alert_rule_recipients = var.budget_alert_rule_recipients
   home_compartment_id          = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -99,6 +102,7 @@ module "security" {
   replica_region                       = var.vault_replica_region
   enable_replication                   = var.enable_vault_replication
   create_master_encryption_key         = var.create_master_encryption_key
+  is_baseline_deploy                   = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -120,6 +124,7 @@ module "network" {
   region                 = var.region
   network_compartment_id = module.compartment.compartments.network.id
   home_compartment_id          = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   enable_internet_gateway_hub  = var.enable_internet_gateway_hub
   enable_nat_gateway_hub       = var.enable_nat_gateway_hub
@@ -169,6 +174,7 @@ module "tagging" {
   cost_center_tagging          = var.cost_center_tagging
   geo_location_tagging         = var.geo_location_tagging
   home_compartment_id          = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   providers = {
     oci             = oci
@@ -184,6 +190,7 @@ module "monitoring" {
   environment_prefix = var.environment_prefix
   resource_label     = var.resource_label
   home_compartment_id  = var.home_compartment_id
+  is_baseline_deploy           = var.is_baseline_deploy
 
   environment_compartment_id = module.compartment.compartments.environment.id
   security_compartment_id    = module.compartment.compartments.security.id

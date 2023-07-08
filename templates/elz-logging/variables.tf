@@ -61,3 +61,7 @@ variable "is_service_connector_limit" {
   type        = bool
   description = "Restrict Number of Service Connector Deployment"
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
+}

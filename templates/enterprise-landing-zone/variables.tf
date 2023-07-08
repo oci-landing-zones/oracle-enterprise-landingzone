@@ -17,6 +17,12 @@ variable "resource_label" {
   description = "A prefix used to avoid naming conflicts if multiple Landing Zones are deployed."
 }
 
+variable "is_baseline_deploy" {
+  type        = bool
+  default     = true
+  description = "TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation."
+}
+
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------
@@ -315,6 +321,16 @@ variable "nonprod_create_master_encryption_key" {
   type        = bool
   description = "Option create master encryption key"
   default     = true
+}
+variable "nonprod_external_master_encryption_key" {
+  type        = string
+  description = "OCID of existing key to use (instead of creating a new MEK)"
+  default     = ""
+}
+variable "prod_external_master_encryption_key" {
+  type        = string
+  description = "OCID of existing key to use (instead of creating a new MEK)"
+  default     = ""
 }
 
 # -----------------------------------------------------------------------------

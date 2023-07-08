@@ -12,6 +12,7 @@
 resource_label             					 = "LIVELAB"
 enable_compartment_delete  					 = false
 prod_domain_admin_email                      = ""
+is_freetrial_deploy                          = true
 # security
 enable_cloud_guard                           = false
 cloud_guard_target_tenancy                   = false
