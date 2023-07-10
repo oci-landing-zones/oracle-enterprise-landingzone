@@ -385,6 +385,15 @@ variable "enable_workload_monitoring_alarms" {
 }
 
 # -----------------------------------------------------------------------------
+# Workload Variables
+# -----------------------------------------------------------------------------
+
+variable "workload_name_prefix" {
+  type        = string
+  description = "Workload Compartment Name Prefix"
+}
+
+# -----------------------------------------------------------------------------
 # Workload Network Variables
 # -----------------------------------------------------------------------------
 variable "additional_workload_subnets_cidr_blocks" {
