@@ -44,8 +44,7 @@ variable "network_compartment_id" {
 
 variable "workload_name" {
   type        = string
-  description = "The name of the workload."
-  default     = "W"
+  description = "Workload Compartment Name Prefix."
 }
 
 variable "workload_compartment_name" {

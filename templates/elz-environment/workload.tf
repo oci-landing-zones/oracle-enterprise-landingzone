@@ -3,8 +3,8 @@
 # -----------------------------------------------------------------------------
 locals {
   workload = {
-    workload_name             = "Workload1"
-    enable_compartment_delete = true
+    workload_name             = var.workload_name_prefix
+    enable_compartment_delete = var.enable_compartment_delete
   }
 }
 
