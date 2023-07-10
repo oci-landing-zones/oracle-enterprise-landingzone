@@ -1,5 +1,12 @@
 # Release Notes
 
+## v2.1.1 - 2023-07-10
+- Fixed the Tagging Namespace Issue (tagging limit #61)
+  - Added the Flag to disble the Tag per module. Earlier the tag are created per module which impacted OELZ deployment time and in certain cases tenancy tag service limit has been hit.
+- Fixed the Bucket Log Rotation issue.
+  - While re-deploying the Workload template with changed resources parameter we had seen the Bucket resources had been modified which is causing issue. Added the functionality on bucket resources which will not impact bucket resources by any future changes. 
+- Fixed Database Admins need higher IAM privileges (Issue #15)
+
 ----
 ## v2.1.0 - 2023-06-05
 - Initial Release of Workload Expansion Stack. The Workload Expansion template is responsible for deploying the resources for an empty workload. The user can use the workload expansion stack to deploy additional customized workload.
