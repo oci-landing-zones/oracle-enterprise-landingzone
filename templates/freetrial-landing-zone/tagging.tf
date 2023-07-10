@@ -30,6 +30,7 @@ resource "random_id" "tag" {
 }
 
 module "architecture_tag" {
+  count                     = var.is_freetrial_deploy ? 1 : 0
   source                    = "../../modules/tag"
   compartment_id            = var.tenancy_ocid
   tag_namespace_description = local.architecture_tag.tag_namespace_description

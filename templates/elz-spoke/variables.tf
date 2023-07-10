@@ -118,6 +118,10 @@ variable "security_list_display_name" {
   type        = string
   description = "Workload Expansion Spoke Security List Name Disly Name."
 }
+variable "is_baseline_deploy" {
+  type        = bool
+  description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
+}
 variable "enable_vpn_or_fastconnect" {}
 variable "enable_vpn_on_environment" {}
 variable "ipsec_connection_static_routes" {}

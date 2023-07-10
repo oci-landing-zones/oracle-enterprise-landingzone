@@ -8,14 +8,14 @@ Version 2 of Oracle Enterprise Landing Zone
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 4.96.0 |
+| <a name="requirement_oci"></a> [oci](#requirement\_oci) | 5.1.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | 4.96.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.4.3 |
+| <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 
 ## Modules
 
@@ -54,8 +54,8 @@ Version 2 of Oracle Enterprise Landing Zone
 | Name | Type |
 |------|------|
 | [random_id.tag](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
-| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/data-sources/identity_region_subscriptions) | data source |
-| [oci_objectstorage_namespace.ns](https://registry.terraform.io/providers/oracle/oci/4.96.0/docs/data-sources/objectstorage_namespace) | data source |
+| [oci_identity_region_subscriptions.regions](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/identity_region_subscriptions) | data source |
+| [oci_objectstorage_namespace.ns](https://registry.terraform.io/providers/oracle/oci/5.1.0/docs/data-sources/objectstorage_namespace) | data source |
 
 ## Inputs
 
@@ -64,6 +64,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_api_fingerprint"></a> [api\_fingerprint](#input\_api\_fingerprint) | The fingerprint of API | `string` | `""` | no |
 | <a name="input_api_private_key"></a> [api\_private\_key](#input\_api\_private\_key) | The API private key | `string` | `""` | no |
 | <a name="input_api_private_key_path"></a> [api\_private\_key\_path](#input\_api\_private\_key\_path) | The local path to the API private key | `string` | `""` | no |
+| <a name="input_archive_external_master_encryption_key"></a> [archive\_external\_master\_encryption\_key](#input\_archive\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_archive_log_retention_policy_duration_amount"></a> [archive\_log\_retention\_policy\_duration\_amount](#input\_archive\_log\_retention\_policy\_duration\_amount) | The timeAmount is interpreted in units defined by the timeUnit parameter, and is calculated in relation to each object's Last-Modified timestamp. | `string` | `"1"` | no |
 | <a name="input_archive_log_retention_policy_duration_time_unit"></a> [archive\_log\_retention\_policy\_duration\_time\_unit](#input\_archive\_log\_retention\_policy\_duration\_time\_unit) | The unit that should be used to interpret timeAmount. | `string` | `"DAYS"` | no |
 | <a name="input_bgp_md5auth_key"></a> [bgp\_md5auth\_key](#input\_bgp\_md5auth\_key) | The key for BGP MD5 authentication. Only applicable if your system requires MD5 authentication | `string` | `""` | no |
@@ -73,6 +74,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_customer_onprem_ip_cidr"></a> [customer\_onprem\_ip\_cidr](#input\_customer\_onprem\_ip\_cidr) | n/a | `list(string)` | `[]` | no |
 | <a name="input_customer_primary_bgp_peering_ip"></a> [customer\_primary\_bgp\_peering\_ip](#input\_customer\_primary\_bgp\_peering\_ip) | The primary BGP IPv4 address of the customer's router | `string` | `""` | no |
 | <a name="input_customer_secondary_bgp_peering_ip"></a> [customer\_secondary\_bgp\_peering\_ip](#input\_customer\_secondary\_bgp\_peering\_ip) | [Optional] The secondary BGP IPv4 address of the customer's router | `string` | `""` | no |
+| <a name="input_domain_license_type"></a> [domain\_license\_type](#input\_domain\_license\_type) | Identity Domain License Type | `string` | `"premium"` | no |
 | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | `true` | no |
 | <a name="input_enable_compartment_delete"></a> [enable\_compartment\_delete](#input\_enable\_compartment\_delete) | Set to true to allow the compartments to delete on terraform destroy. | `bool` | `true` | no |
 | <a name="input_enable_vpn_or_fastconnect"></a> [enable\_vpn\_or\_fastconnect](#input\_enable\_vpn\_or\_fastconnect) | Option to enable VPN or FASTCONNECT service. Options are NONE, VPN, FASTCONNECT. | `string` | `"NONE"` | no |
@@ -80,8 +82,12 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_fastconnect_routing_policy"></a> [fastconnect\_routing\_policy](#input\_fastconnect\_routing\_policy) | Available FastConnect routing policies: ORACLE\_SERVICE\_NETWORK, REGIONAL, MARKET\_LEVEL, GLOBAL | `list(string)` | `[]` | no |
 | <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the Landing Zone home compartment. | `string` | `"OCI-ELZ-CMP-HOME"` | no |
 | <a name="input_igw_hub_check"></a> [igw\_hub\_check](#input\_igw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation. | `bool` | `false` | no |
+| <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `true` | no |
+| <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment in Tenancy if limit is two | `bool` | `false` | no |
 | <a name="input_nat_gw_hub_check"></a> [nat\_gw\_hub\_check](#input\_nat\_gw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_nonprod_additional_workload_subnets_cidr_blocks"></a> [nonprod\_additional\_workload\_subnets\_cidr\_blocks](#input\_nonprod\_additional\_workload\_subnets\_cidr\_blocks) | A list of subnets cidr blocks in additional workload stack in non-prod | `list(string)` | `[]` | no |
 | <a name="input_nonprod_application_admin_group_name"></a> [nonprod\_application\_admin\_group\_name](#input\_nonprod\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group. Defaults to OCI-ELZ-UGP-N-APP-ADMIN if blank or not provided. | `string` | `""` | no |
 | <a name="input_nonprod_bastion_client_cidr_block_allow_list"></a> [nonprod\_bastion\_client\_cidr\_block\_allow\_list](#input\_nonprod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
 | <a name="input_nonprod_bgp_cust_tunnela_ip"></a> [nonprod\_bgp\_cust\_tunnela\_ip](#input\_nonprod\_bgp\_cust\_tunnela\_ip) | The IP address for the CPE end of the inside tunnel interface. | `string` | `""` | no |
@@ -112,6 +118,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_nonprod_enable_vault_replication"></a> [nonprod\_enable\_vault\_replication](#input\_nonprod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
 | <a name="input_nonprod_enable_vpn"></a> [nonprod\_enable\_vpn](#input\_nonprod\_enable\_vpn) | Enable VPN in non prod environment | `bool` | `false` | no |
 | <a name="input_nonprod_enable_workload_monitoring_alarms"></a> [nonprod\_enable\_workload\_monitoring\_alarms](#input\_nonprod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Non-Production Workload Compartment | `bool` | `false` | no |
+| <a name="input_nonprod_external_master_encryption_key"></a> [nonprod\_external\_master\_encryption\_key](#input\_nonprod\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_nonprod_geo_location_tagging"></a> [nonprod\_geo\_location\_tagging](#input\_nonprod\_geo\_location\_tagging) | Non-Production Geo Location. | `string` | n/a | yes |
 | <a name="input_nonprod_hub_private_subnet_cidr_block"></a> [nonprod\_hub\_private\_subnet\_cidr\_block](#input\_nonprod\_hub\_private\_subnet\_cidr\_block) | Non-Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |
 | <a name="input_nonprod_hub_public_subnet_cidr_block"></a> [nonprod\_hub\_public\_subnet\_cidr\_block](#input\_nonprod\_hub\_public\_subnet\_cidr\_block) | Non-Production Enivornment HUB Public Subnet CIDR Block. | `string` | n/a | yes |
@@ -140,10 +147,12 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_nonprod_vault_replica_region"></a> [nonprod\_vault\_replica\_region](#input\_nonprod\_vault\_replica\_region) | the region to be created replica to. Required *if* nonprod\_enable\_vault\_replication is true. | `string` | `""` | no |
 | <a name="input_nonprod_vault_type"></a> [nonprod\_vault\_type](#input\_nonprod\_vault\_type) | The type of vault to create. | `string` | `"DEFAULT"` | no |
 | <a name="input_nonprod_workload_admin_group_name"></a> [nonprod\_workload\_admin\_group\_name](#input\_nonprod\_workload\_admin\_group\_name) | The group name for the OCI Workload Administrators Group. Defaults to OCI-ELZ-UGP-N-WRK-ADMIN if blank or not provided. | `string` | `""` | no |
+| <a name="input_nonprod_workload_compartment_names"></a> [nonprod\_workload\_compartment\_names](#input\_nonprod\_workload\_compartment\_names) | The names of the workload compartments to update policies for the Admin Groups | `list(string)` | `[]` | no |
 | <a name="input_nonprod_workload_topic_endpoints"></a> [nonprod\_workload\_topic\_endpoints](#input\_nonprod\_workload\_topic\_endpoints) | List of email addresses for Non Prod Workload notifications. | `list(string)` | `[]` | no |
 | <a name="input_onboard_log_analytics"></a> [onboard\_log\_analytics](#input\_onboard\_log\_analytics) | Set to true to onboard the tenancy to logging analytics. | `bool` | `true` | no |
 | <a name="input_oracle_primary_bgp_peering_ip"></a> [oracle\_primary\_bgp\_peering\_ip](#input\_oracle\_primary\_bgp\_peering\_ip) | The primary BGP IPv4 address for Oracle's end of the BGP session | `string` | `""` | no |
 | <a name="input_oracle_secondary_bgp_peering_ip"></a> [oracle\_secondary\_bgp\_peering\_ip](#input\_oracle\_secondary\_bgp\_peering\_ip) | [Optional] Secondary IPv4 address for Oracle's end of the BGP session | `string` | `""` | no |
+| <a name="input_prod_additional_workload_subnets_cidr_blocks"></a> [prod\_additional\_workload\_subnets\_cidr\_blocks](#input\_prod\_additional\_workload\_subnets\_cidr\_blocks) | A list of subnets cidr blocks in additional workload stack in prod | `list(string)` | `[]` | no |
 | <a name="input_prod_application_admin_group_name"></a> [prod\_application\_admin\_group\_name](#input\_prod\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group. Defaults to OCI-ELZ-UGP-P-APP-ADMIN if blank or not provided. | `string` | `""` | no |
 | <a name="input_prod_bastion_client_cidr_block_allow_list"></a> [prod\_bastion\_client\_cidr\_block\_allow\_list](#input\_prod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
 | <a name="input_prod_bgp_cust_tunnela_ip"></a> [prod\_bgp\_cust\_tunnela\_ip](#input\_prod\_bgp\_cust\_tunnela\_ip) | The IP address for the CPE end of the inside tunnel interface. | `string` | `""` | no |
@@ -174,6 +183,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_prod_enable_vault_replication"></a> [prod\_enable\_vault\_replication](#input\_prod\_enable\_vault\_replication) | Option to enable vault replication | `bool` | `false` | no |
 | <a name="input_prod_enable_vpn"></a> [prod\_enable\_vpn](#input\_prod\_enable\_vpn) | Enable VPN in prod environment | `bool` | `false` | no |
 | <a name="input_prod_enable_workload_monitoring_alarms"></a> [prod\_enable\_workload\_monitoring\_alarms](#input\_prod\_enable\_workload\_monitoring\_alarms) | Enable Workload Monitoring Alarms in Production Workload Compartment | `bool` | `false` | no |
+| <a name="input_prod_external_master_encryption_key"></a> [prod\_external\_master\_encryption\_key](#input\_prod\_external\_master\_encryption\_key) | OCID of existing key to use (instead of creating a new MEK) | `string` | `""` | no |
 | <a name="input_prod_geo_location_tagging"></a> [prod\_geo\_location\_tagging](#input\_prod\_geo\_location\_tagging) | Production Geo Center. | `string` | n/a | yes |
 | <a name="input_prod_hub_private_subnet_cidr_block"></a> [prod\_hub\_private\_subnet\_cidr\_block](#input\_prod\_hub\_private\_subnet\_cidr\_block) | Production Enivornment HUB Private Subnet CIDR Block. | `string` | n/a | yes |
 | <a name="input_prod_hub_public_subnet_cidr_block"></a> [prod\_hub\_public\_subnet\_cidr\_block](#input\_prod\_hub\_public\_subnet\_cidr\_block) | Production Enivornment HUB Public Subnet CIDR Block. | `string` | n/a | yes |
@@ -202,6 +212,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_prod_vault_replica_region"></a> [prod\_vault\_replica\_region](#input\_prod\_vault\_replica\_region) | the region to be created replica to. Required *if* prod\_enable\_vault\_replication is true. | `string` | `""` | no |
 | <a name="input_prod_vault_type"></a> [prod\_vault\_type](#input\_prod\_vault\_type) | The type of vault to create. | `string` | `"DEFAULT"` | no |
 | <a name="input_prod_workload_admin_group_name"></a> [prod\_workload\_admin\_group\_name](#input\_prod\_workload\_admin\_group\_name) | The group name for the OCI Workload Administrators Group. Defaults to OCI-ELZ-UGP-P-WRK-ADMIN if blank or not provided. | `string` | `""` | no |
+| <a name="input_prod_workload_compartment_names"></a> [prod\_workload\_compartment\_names](#input\_prod\_workload\_compartment\_names) | The names of the workload compartments to update policies for the Admin Groups | `list(string)` | `[]` | no |
 | <a name="input_prod_workload_topic_endpoints"></a> [prod\_workload\_topic\_endpoints](#input\_prod\_workload\_topic\_endpoints) | List of email addresses for Prod Workload notifications. | `list(string)` | `[]` | no |
 | <a name="input_provider_service_key_name"></a> [provider\_service\_key\_name](#input\_provider\_service\_key\_name) | The provider service key that the provider gives you when you set up a virtual circuit connection from the provider to OCI | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | The OCI region | `string` | n/a | yes |
@@ -220,6 +231,8 @@ Version 2 of Oracle Enterprise Landing Zone
 | Name | Description |
 |------|-------------|
 | <a name="output_dynamic_group_detail"></a> [dynamic\_group\_detail](#output\_dynamic\_group\_detail) | n/a |
+| <a name="output_nonprod_environment"></a> [nonprod\_environment](#output\_nonprod\_environment) | n/a |
+| <a name="output_prod_environment"></a> [prod\_environment](#output\_prod\_environment) | n/a |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The subnet OCID |
 | <a name="output_vcn"></a> [vcn](#output\_vcn) | n/a |
 | <a name="output_workload_compartment_id"></a> [workload\_compartment\_id](#output\_workload\_compartment\_id) | n/a |

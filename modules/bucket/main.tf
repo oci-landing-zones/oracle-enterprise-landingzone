@@ -22,4 +22,7 @@ resource "oci_objectstorage_bucket" "bucket" {
       time_unit   = var.retention_policy_duration_time_unit
     }
   }
+  lifecycle {
+    ignore_changes = all
+  }
 }
