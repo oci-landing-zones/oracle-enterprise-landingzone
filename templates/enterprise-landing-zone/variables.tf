@@ -696,6 +696,16 @@ variable "nonprod_enable_workload_monitoring_alarms" {
 }
 
 # -----------------------------------------------------------------------------
+# Workload Variables
+# -----------------------------------------------------------------------------
+
+variable "workload_name_prefix" {
+  type        = string
+  default     = "Workload1"
+  description = "Workload Compartment Name Prefix"
+}
+
+# -----------------------------------------------------------------------------
 # Workload Network Variables
 # -----------------------------------------------------------------------------
 variable "prod_additional_workload_subnets_cidr_blocks" {

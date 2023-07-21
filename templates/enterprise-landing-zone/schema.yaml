@@ -178,6 +178,10 @@ variableGroups:
       - virtual_circuit_is_bfd_enabled
       - bgp_md5auth_key
       - customer_onprem_ip_cidr
+  - title: Workload Variable
+    visible: true
+    variables:
+      - workload_name_prefix
   - title: Invisible Variables
     visible: false
     variables:
@@ -1205,6 +1209,13 @@ variables:
     default: [ ]
     visible: show_fastconnect_variables
     title: Customer Onprem IP CIDR
+  workload_name_prefix:
+    type: string
+    description: "Workload Compartment Naming Prefix"
+    required: true
+    visible: workload_name_prefix
+    title: Workload Compartment Naming Prefix
+    default: "Workload1"
   prod_workload_compartment_names:
     type: array
     items:
