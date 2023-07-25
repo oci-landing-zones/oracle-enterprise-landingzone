@@ -39,50 +39,51 @@ There will be a dark grey box at the top of the page. On the right hand side of 
 Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 Oracle Enterprise Landing Zone, with 2 environments and 1 workload each. 
 
 However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
-|OCI Terraform Resource Name | Count   |
-| ---------------------------- | ------- |
-|oci_announcements_service_announcement_subscription| 2|
-|oci_announcements_service_announcement_subscriptions_filter_group| 4|
-|oci_bastion_bastion| 2|
-|oci_budget_alert_rule| 2|
-|oci_budget_budget| 2|
-|oci_cloud_guard_cloud_guard_configuration| 2|
-|oci_cloud_guard_target| 2|
-|oci_core_cpe| 1|
-|oci_core_default_security_list| 4|
-|oci_core_drg| 2|
-|oci_core_drg_attachment| 4|
-|oci_core_internet_gateway| 2|
-|oci_core_ipsec| 1|
-|oci_core_ipsec_connection_tunnel_management| 2|
-|oci_core_nat_gateway| 4|
-|oci_core_route_table| 6|
-|oci_core_security_list| 4|
-|oci_core_service_gateway| 4|
-|oci_core_subnet| 10|
-|oci_core_vcn| 4|
-|oci_events_rule| 12|
-|oci_identity_authentication_policy| 1|
-|oci_identity_compartment| 13|
-|oci_identity_domain| 2|
-|oci_identity_dynamic_group| 1|
-|oci_identity_policy| 49|
-|oci_identity_tag| 7|
-|oci_identity_tag_default| 7|
-|oci_identity_tag_namespace| 3|
-|oci_kms_key| 3|
-|oci_kms_vault| 2|
-|oci_log_analytics_log_analytics_log_group| 4|
-|oci_logging_log| 18|
-|oci_logging_log_group| 2|
-|oci_monitoring_alarm| 68|
-|oci_objectstorage_bucket| 7|
-|oci_ons_notification_topic| 20|
-|oci_sch_service_connector| 16|
-|oci_streaming_stream| 2|
-|oci_streaming_stream_pool| 2|
-|oci_vulnerability_scanning_host_scan_recipe| 2|
-|oci_vulnerability_scanning_host_scan_target| 2| 
+
+| OCI Defination | OCI Terraform Resource Name | Count |
+| :------:       |          :------:           | ----: |
+| Creates a new announcement subscription |oci_announcements_service_announcement_subscription| 2|
+| Creates a new filter group in the specified announcement subscription |oci_announcements_service_announcement_subscriptions_filter_group| 4|
+| Creates a new bastion |oci_bastion_bastion| 2|
+| Creates a new Alert Rule |oci_budget_alert_rule| 2|
+| Creates a new budget |oci_budget_budget| 2|
+| Cloud Guard Configuration resource | oci_cloud_guard_cloud_guard_configuration| 2|
+| Creates a new Target | oci_cloud_guard_target| 2|
+| Creates a new CPE object in the specified compartment | oci_core_cpe| 1|
+| Creates a new security list for the specified VCN | oci_core_default_security_list| 4|
+| Creates a new  DRG in the specified compartment | oci_core_drg| 2|
+| Attaches the specified DRG to the specified network resource | oci_core_drg_attachment| 4|
+| Creates a new internet gateway for the specified VCN | oci_core_internet_gateway| 2|
+| Creates a new IPSec connection between the specified DRG and CPE | oci_core_ipsec| 1|
+| Update the Ip Sec Connection Tunnel Management resource | oci_core_ipsec_connection_tunnel_management| 2|
+| Creates a new NAT gateway for the specified VCN | oci_core_nat_gateway| 4|
+| Creates a new route table for the specified VCN | oci_core_route_table| 6|
+| Creates a new security list for the specified VCN | oci_core_security_list| 4|
+| Creates a new service gateway in the specified compartment | oci_core_service_gateway| 4|
+| Creates a new subnet in the specified VCN | oci_core_subnet| 10|
+| Creates a new Virtual Cloud Network (VCN) | oci_core_vcn| 4|
+| Creates a new Event rule | oci_events_rule| 12|
+| Updates authentication policy for the specified tenancy | oci_identity_authentication_policy| 1|
+| Creates a new compartment in the specified compartment | oci_identity_compartment| 13|
+| Creates a new domain in the tenancy | oci_identity_domain| 2|
+| Creates a new dynamic group in your tenancy | oci_identity_dynamic_group| 1|
+| Creates a new policy in the specified compartment | oci_identity_policy| 49|
+| Create Tag on Identity Resources |  oci_identity_tag| 7|
+| Creates a new tag default in the specified compartment for the specified tag definition | oci_identity_tag_default| 7|
+| Creates a new tag namespace in the specified compartment | oci_identity_tag_namespace| 3|
+| Creates a new master encryption key | oci_kms_key| 3|
+| Creates a new vault | oci_kms_vault| 2|
+| Creates a new log group in the specified compartment | oci_log_analytics_log_analytics_log_group| 4|
+| Creates a log within the specified log group | oci_logging_log| 18|
+| Create a new log group with a unique display name | oci_logging_log_group| 2|
+| Creates a new alarm in the specified compartment | oci_monitoring_alarm| 68|
+| Creates a bucket in the given namespace | oci_objectstorage_bucket| 7|
+| Creates a topic in the specified compartment | oci_ons_notification_topic| 20|
+| Creates a new service connector in the specified compartment | oci_sch_service_connector| 16|
+| Starts the provisioning of a new stream | oci_streaming_stream| 2|
+| Starts the provisioning of a new stream pool | oci_streaming_stream_pool| 2|
+| Creates a new HostScanRecipe | oci_vulnerability_scanning_host_scan_recipe| 2|
+| Creates a new HostScanTarget | oci_vulnerability_scanning_host_scan_target| 2| 
 
 Example to check the limits in tenancy:
 
@@ -208,7 +209,7 @@ The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manag
 
 7. Terraform will provision your resources and provide outputs once it completes.
 
-### For more information 
+### For more information
 
 - [Deploy to OCI using Terraform tutorials](https://docs.oracle.com/en-us/iaas/developer-tutorials/tutorials/tf-provider/01-summary.htm).
 
