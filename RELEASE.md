@@ -1,5 +1,17 @@
 # Release Notes
 
+## v2.1.2 - 2023-07-26
+- Initial Workload Name has to be parameterized Initial Workload Name has to be parameterised #23
+  - Added New Variable "workload_name_prefix" to define the Workload Name.
+- Policies required for destroy landing zone Policies required for destroy landing zone #71
+  - Added Policy to allow Oracle Logging Analytics service READ access rights of the family loganalytics-features-family across the tenancy
+- OCI Team Please create a brand new tenancy (With default settings) OCI Team Please create a brand new tenancy (With default settings) #62
+  - Updated the IMPLEMENTATION.md with OCI terminalogies corresponding to there terraform API call
+- Break-glass user email should be optional in ORM stack template Break-glass user email should be optional in ORM stack template #17
+  - Break-glass user email is mandatory, updated the CONFIGURATION.md
+- Osms dynamic group for Workload expansion osms dynamic group for Workload expansion #24
+  - Added OSMS Dynamic Group on Workload Compartment.
+
 ## v2.1.1 - 2023-07-10
 - Fixed the Tagging Namespace Issue (tagging limit #61)
   - Added the Flag to disble the Tag per module. Earlier the tag are created per module which impacted OELZ deployment time and in certain cases tenancy tag service limit has been hit.
