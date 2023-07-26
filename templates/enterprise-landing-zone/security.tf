@@ -106,6 +106,16 @@ locals {
       "Allow service osms to read instances in tenancy",
     ]
   }
+
+  log_analytics_policy = {
+    name        = "${var.resource_label}-OCI-ELZ-LOG-ANA-Policy"
+    description = "OCI Landing Zone Landing Zone Log Analytic Service Policy"
+
+    statements = [
+      "Allow service loganalytics to READ loganalytics-features-family in tenancy",
+      "Allow service loganalytics to manage loganalytics-resources-family in tenancy",
+    ]
+  }
 }
 
 module "cloud_guard_root_policy" {
@@ -176,4 +186,13 @@ module "osms_dg_policy" {
   policy_name      = local.osms_dg_policy.name
   description      = local.osms_dg_policy.description
   statements       = local.osms_dg_policy.statements
+}
+
+module "log_analytics_policy" {
+  source = "../../modules/policies"
+
+  compartment_ocid = var.tenancy_ocid
+  policy_name      = local.log_analytics_policy.name
+  description      = local.log_analytics_policy.description
+  statements       = local.log_analytics_policy.statements
 }
