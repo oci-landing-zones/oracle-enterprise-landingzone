@@ -67,10 +67,10 @@ Required attributes:
     | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------- | :------: |
     | <a name="input_nonprod_domain_admin_email"></a> [nonprod\_domain\_admin\_email](#input\_nonprod\_domain\_admin\_email)      | The email address for the non prod identity domain admin.                                                                           | `string`       | n/a     |   yes    |
     | <a name="input_prod_domain_admin_email"></a> [prod\_domain\_admin\_email](#input\_prod\_domain\_admin\_email)               | The email address for the prod identity domain admin.                                                                               | `string`       | n/a     |   yes    |
-    | <a name="input_break_glass_user_email_list"></a> [break\_glass\_user\_email\_list](#input\_break\_glass\_user\_email\_list) | Unique list of break glass user email addresses that do not exist in the tenancy. These users are added to the Administrator group. | `list(string)` | `[]`    |    no    |
+    | <a name="input_break_glass_user_email_list"></a> [break\_glass\_user\_email\_list](#input\_break\_glass\_user\_email\_list) | Unique list of break glass user email addresses that do not exist in the tenancy. These users are added to the Administrator group. | `list(string)` | `[]`    |    yes    |
 
 
-## Groups and Policies 
+## Groups and Policies
 
 For control over users and user groups, a federate-able Identity Domain is created in the L4-Security Compartment for each environment. 
 To do so, the user deploying the OELZ will need set up federation after the OELZ has been deployed. 
@@ -189,7 +189,7 @@ The OELZ should create following components:
 
 The monitoring module will enable you to actively and passively monitor resources using the Metrics and Alarms features. By Default the monitoring module will create all the components in each environment but alerts are disabled.
 
-## Monitoring Module Known Limitation 
+## Monitoring Module Known Limitation
 1. Monitoring Module will configure at least 100 Alarms, so make sure tenancy have proper service limit.
 
 ## Required Arguments/Parameters for Monitoring Module
@@ -222,7 +222,7 @@ The monitoring module will enable you to actively and passively monitor resource
 
 Network Module will deploy Hub and Spoke distribution paradigm, VPN and Fastconnect on the LZ Environment. 
 
-## Network Module Known Limitation 
+## Network Module Known Limitation
 * CIDR ranges which can't be used during the OELZ deployment:
     * 169.254.10.0-169.254.19.255
     * 169.254.100.0-169.254.109.255
