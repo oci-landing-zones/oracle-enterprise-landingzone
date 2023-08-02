@@ -1,5 +1,6 @@
 #tfvars file for the ci pipline
 
+
 # iam
 resource_label             = "INTEGRATION"
 enable_compartment_delete  = false

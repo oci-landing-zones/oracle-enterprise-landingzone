@@ -15,8 +15,8 @@ locals {
     description = "Workload OCI Landing Zone OS Management Service Dynamic Group Policy"
 
     statements = [
-      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to read instance-family in compartment ${module.workload_compartment.compartment_id}",
-      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to use osms-managed-instances in compartment ${module.workload_compartment.compartment_id}"
+      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to read instance-family in compartment ${module.workload_compartment.compartment_name}",
+      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to use osms-managed-instances in compartment ${module.workload_compartment.compartment_name}"
     ]
   }
 }
