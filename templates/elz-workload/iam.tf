@@ -70,11 +70,30 @@ module "workload_compartment" {
   }
 }
 
-module "groups" {
-  source             = "../../modules/identity-domain-group"
-  identity_domain_id = var.identity_domain_id
-  group_names        = values(local.group_names)
+#module "groups" {
+#  source             = "../../modules/identity-domain-group"
+#  identity_domain_id = var.identity_domain_id
+#  group_names        = values(local.group_names)
+#}
+
+module "workload_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = var.idcs_endpoint
+  group_display_name       = local.group_names.workload_admin_group_name
 }
+
+module "app_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = var.idcs_endpoint
+  group_display_name       = local.group_names.application_admin_group_name
+}
+
+module "db_admin_group" {
+  source                   = "../../modules/non-default-domain-group"
+  idcs_endpoint            = var.idcs_endpoint
+  group_display_name       = local.group_names.database_admin_group_name
+}
+
 
 module "workload_expansion_policy" {
   source           = "../../modules/policies"

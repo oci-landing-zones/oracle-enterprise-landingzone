@@ -1,4 +1,5 @@
 # Provider 
+
 current_user_ocid    = ""
 region               = ""
 tenancy_ocid         = ""
@@ -25,6 +26,7 @@ security_compartment_id      = ""
 workload_admin_group_name    = ""
 application_admin_group_name = ""
 database_admin_group_name    = ""
+idcs_endpoint                = ""
 
 
 #####################################################
@@ -51,7 +53,7 @@ workload_private_spoke_subnet_app_display_name = ""
 workload_private_spoke_subnet_db_display_name = ""
 route_table_display_name = ""
 security_list_display_name = ""
-drg_id = ""
+
 
 #####################################################
 # Workload Expansion Monitoring Variables
