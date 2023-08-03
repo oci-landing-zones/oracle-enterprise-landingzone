@@ -168,6 +168,20 @@ variable "identity_domain_id" {
   }
 }
 
+variable "idcs_endpoint" {
+  type        = string
+  description = "Identity Domain End Points"
+  default     = "https://idcs-."
+  validation {
+    condition     = can(regex("^443$", split(":", var.idcs_endpoint)[2]))
+    error_message = "Not Valid IDCS Endpoint."
+  }
+  validation {
+    condition     =  can(regex("^https://idcs$", split("-", var.idcs_endpoint)[0]))
+    error_message = "Not Valid IDCS Endpoint."
+  }
+}
+
 variable "identity_domain_name" {
   type        = string
   description = "identity domain name"
