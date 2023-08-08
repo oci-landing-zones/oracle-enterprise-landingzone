@@ -44,8 +44,6 @@ variable "workload_spoke_vcn_cidr" {
 }
 
 
-
-
 variable "enable_nat_gateway_spoke" {
   type    = bool
   default = false
