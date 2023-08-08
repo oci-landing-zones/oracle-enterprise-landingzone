@@ -9,7 +9,7 @@ api_private_key_path = ""
 #####################################################
 # Workload Expansion Compartment Variable
 #####################################################
-enable_compartment_delete  				      = false
+enable_compartment_delete  				= false
 workload_compartment_name               = ""
 environment_compartment_id              = ""
 workload_expansion_flag                 = true
