@@ -11,19 +11,23 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_oci"></a> [oci](#provider\_oci) | 5.1.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.5.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_app_admin_group"></a> [app\_admin\_group](#module\_app\_admin\_group) | ../../modules/non-default-domain-group | n/a |
 | <a name="module_architecture_tag"></a> [architecture\_tag](#module\_architecture\_tag) | ../../modules/tag | n/a |
-| <a name="module_groups"></a> [groups](#module\_groups) | ../../modules/identity-domain-group | n/a |
+| <a name="module_db_admin_group"></a> [db\_admin\_group](#module\_db\_admin\_group) | ../../modules/non-default-domain-group | n/a |
+| <a name="module_workload_admin_group"></a> [workload\_admin\_group](#module\_workload\_admin\_group) | ../../modules/non-default-domain-group | n/a |
 | <a name="module_workload_compartment"></a> [workload\_compartment](#module\_workload\_compartment) | ../../modules/compartment | n/a |
 | <a name="module_workload_critical_topic"></a> [workload\_critical\_topic](#module\_workload\_critical\_topic) | ../../modules/notification-topic | n/a |
 | <a name="module_workload_expansion_policy"></a> [workload\_expansion\_policy](#module\_workload\_expansion\_policy) | ../../modules/policies | n/a |
 | <a name="module_workload_expansion_sec_policy"></a> [workload\_expansion\_sec\_policy](#module\_workload\_expansion\_sec\_policy) | ../../modules/policies | n/a |
 | <a name="module_workload_expansion_spoke"></a> [workload\_expansion\_spoke](#module\_workload\_expansion\_spoke) | ../elz-spoke | n/a |
+| <a name="module_workload_osms_dg_policy"></a> [workload\_osms\_dg\_policy](#module\_workload\_osms\_dg\_policy) | ../../modules/policies | n/a |
+| <a name="module_workload_osms_dynamic_group"></a> [workload\_osms\_dynamic\_group](#module\_workload\_osms\_dynamic\_group) | ../../modules/dynamic-group | n/a |
 | <a name="module_workload_warning_topic"></a> [workload\_warning\_topic](#module\_workload\_warning\_topic) | ../../modules/notification-topic | n/a |
 
 ## Resources
@@ -54,6 +58,7 @@
 | <a name="input_environment_prefix"></a> [environment\_prefix](#input\_environment\_prefix) | the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U | `string` | n/a | yes |
 | <a name="input_hub_private_subnet_cidr_block"></a> [hub\_private\_subnet\_cidr\_block](#input\_hub\_private\_subnet\_cidr\_block) | n/a | `string` | `"10.1.2.0/24"` | no |
 | <a name="input_hub_public_subnet_cidr_block"></a> [hub\_public\_subnet\_cidr\_block](#input\_hub\_public\_subnet\_cidr\_block) | n/a | `string` | `"10.1.1.0/24"` | no |
+| <a name="input_idcs_endpoint"></a> [idcs\_endpoint](#input\_idcs\_endpoint) | Identity Domain End Points | `string` | `"https://idcs-."` | no |
 | <a name="input_identity_domain_id"></a> [identity\_domain\_id](#input\_identity\_domain\_id) | the ocid of identity domain | `string` | `"ocid1.domain."` | no |
 | <a name="input_identity_domain_name"></a> [identity\_domain\_name](#input\_identity\_domain\_name) | identity domain name | `string` | `""` | no |
 | <a name="input_ipsec_connection_static_routes"></a> [ipsec\_connection\_static\_routes](#input\_ipsec\_connection\_static\_routes) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
@@ -77,7 +82,7 @@
 | <a name="input_workload_admin_group_name"></a> [workload\_admin\_group\_name](#input\_workload\_admin\_group\_name) | the name of workload admin group | `string` | `""` | no |
 | <a name="input_workload_compartment_name"></a> [workload\_compartment\_name](#input\_workload\_compartment\_name) | The name of the workload compartment by default OCI-ELZ-<Workload Name>-<Region>. | `string` | `""` | no |
 | <a name="input_workload_expansion_flag"></a> [workload\_expansion\_flag](#input\_workload\_expansion\_flag) | Set to true if you want to use this as independent Workload Expansion Deployment Stack. | `bool` | `false` | no |
-| <a name="input_workload_name"></a> [workload\_name](#input\_workload\_name) | The name of the workload. | `string` | `"W"` | no |
+| <a name="input_workload_name"></a> [workload\_name](#input\_workload\_name) | Workload Compartment Name Prefix. | `string` | n/a | yes |
 | <a name="input_workload_prefix"></a> [workload\_prefix](#input\_workload\_prefix) | Atleast 4 Alphanumeric Charater to Describe the Workload : WRK1 | `string` | `"WRK1"` | no |
 | <a name="input_workload_private_spoke_subnet_app_cidr_block"></a> [workload\_private\_spoke\_subnet\_app\_cidr\_block](#input\_workload\_private\_spoke\_subnet\_app\_cidr\_block) | Workload Enivornment Spoke VCN CIDR Block. | `string` | n/a | yes |
 | <a name="input_workload_private_spoke_subnet_app_display_name"></a> [workload\_private\_spoke\_subnet\_app\_display\_name](#input\_workload\_private\_spoke\_subnet\_app\_display\_name) | Workload Expansion Spoke App Subnet Display Name. | `string` | `""` | no |
