@@ -40,7 +40,7 @@ Most of the initial resource limits a new tenancy comes with should be sufficien
 
 However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed, please check the resources and limits and ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
 
-**Note:** Specified Compartment also refers to Environment. So if the table lists limit 2 for sepecified compartment that means that limit 2 is for one environment and since LZ deployment is with 2 environments that means the limit should be doubled. eg.: oci_monitoring_alarm: 68 should be 2*68 = 136
+**Note: Specified Compartment in the below table also refers to Environment.** So if the table lists limit 2 for sepecified compartment that means that limit 2 is for one environment and since LZ deployment is with 2 environments that means the limit should be doubled. eg.: oci_monitoring_alarm: 68 should be 2*68 = 136
 
 | OCI Defination | OCI Terraform Resource Name | Count |
 | :------:       |          :------:           | ----: |
