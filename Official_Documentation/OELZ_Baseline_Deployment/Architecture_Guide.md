@@ -235,6 +235,15 @@ In order to isolate access between resources, groups are created together with p
 - **Ops Admin: ** User group that have access to the metrics, events and alerts in your environment
 - **Log Admin: ** User group that have access to the logs of your environment
 
+
+Our admin groups are not a 1:1 mapping to the [IDCS Admin groups](https://docs.oracle.com/en/cloud/paas/identity-cloud/uaids/understand-administrator-roles.html). But some admin groups provide the same IDCS functionality. 
+
+| **OELZ Admin** | **IDCS Admin** |
+| --- | --- |
+|Identity Admin|Identity domain administrator, User administrator, User Manager|
+|SecOps Admin|Security administrator|
+
+
 ## **_Logging Module_**
 
 The Logging Module implemented by OELZv2 will use the below services to help your organization meet your Security Policy and Compliance requirements.
