@@ -30,6 +30,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="module_cloud_guard_target_policy"></a> [cloud\_guard\_target\_policy](#module\_cloud\_guard\_target\_policy) | ../../modules/policies | n/a |
 | <a name="module_home_compartment"></a> [home\_compartment](#module\_home\_compartment) | ../../modules/compartment | n/a |
 | <a name="module_key_archive_policy"></a> [key\_archive\_policy](#module\_key\_archive\_policy) | ../../modules/policies | n/a |
+| <a name="module_log_analytics_policy"></a> [log\_analytics\_policy](#module\_log\_analytics\_policy) | ../../modules/policies | n/a |
 | <a name="module_logging_analytics_namespace"></a> [logging\_analytics\_namespace](#module\_logging\_analytics\_namespace) | ../../modules/log-analytics-namespace | n/a |
 | <a name="module_nonprod_archive_audit_log_service_connector"></a> [nonprod\_archive\_audit\_log\_service\_connector](#module\_nonprod\_archive\_audit\_log\_service\_connector) | ../../modules/service-connector | n/a |
 | <a name="module_nonprod_archive_default_log_service_connector"></a> [nonprod\_archive\_default\_log\_service\_connector](#module\_nonprod\_archive\_default\_log\_service\_connector) | ../../modules/service-connector | n/a |
@@ -82,7 +83,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_fastconnect_routing_policy"></a> [fastconnect\_routing\_policy](#input\_fastconnect\_routing\_policy) | Available FastConnect routing policies: ORACLE\_SERVICE\_NETWORK, REGIONAL, MARKET\_LEVEL, GLOBAL | `list(string)` | `[]` | no |
 | <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the Landing Zone home compartment. | `string` | `"OCI-ELZ-CMP-HOME"` | no |
 | <a name="input_igw_hub_check"></a> [igw\_hub\_check](#input\_igw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
-| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation. | `bool` | `false` | no |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation. | `bool` | `true` | no |
 | <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `true` | no |
 | <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment in Tenancy if limit is two | `bool` | `false` | no |
 | <a name="input_nat_gw_hub_check"></a> [nat\_gw\_hub\_check](#input\_nat\_gw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
@@ -225,6 +226,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_virtual_circuit_display_name"></a> [virtual\_circuit\_display\_name](#input\_virtual\_circuit\_display\_name) | The display name of this virtual circuit. Recommendation: OCI-ELZ-FCN-P-HUB-[REGION] 001 | `string` | `""` | no |
 | <a name="input_virtual_circuit_is_bfd_enabled"></a> [virtual\_circuit\_is\_bfd\_enabled](#input\_virtual\_circuit\_is\_bfd\_enabled) | Set to true to enable BFD for IPv4 BGP peering, or set to false to disable BFD | `bool` | `false` | no |
 | <a name="input_virtual_circuit_type"></a> [virtual\_circuit\_type](#input\_virtual\_circuit\_type) | The type of IP addresses used in this virtual circuit. PRIVATE or PUBLIC | `string` | `""` | no |
+| <a name="input_workload_name_prefix"></a> [workload\_name\_prefix](#input\_workload\_name\_prefix) | Workload Compartment Name Prefix | `string` | `"Workload1"` | no |
 
 ## Outputs
 
