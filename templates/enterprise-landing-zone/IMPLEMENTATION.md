@@ -34,11 +34,13 @@ The Logging Analytics service should be enabled for the tenancy.
 To check the current status of Logging Analytics for a tenancy, visit the [Logging Analytics home page][1].
 There will be a dark grey box at the top of the page. On the right hand side of that box, if Logging analytics has *not* been enabled, there will be a notice that Logging Analytics has not been enabled for the tenancy, and a blue button to enable it.  To enable it, click the blue button, and wait for the 3 onboarding steps to complete.  No further action will be required, as the Oracle Enterprise Landing Zone will configure the needed datasources.
 
-### Resource Limits
+### Resource Limits (must be done before deployment)
 
 Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 Oracle Enterprise Landing Zone, with 2 environments and 1 workload each. 
 
-However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
+However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed, please check the resources and limits and ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
+
+**Note: Specified Compartment in the below table also refers to Environment.** So if the table lists limit 2 for sepecified compartment that means that limit 2 is for one environment and since LZ deployment is with 2 environments that means the limit should be doubled. eg.: oci_monitoring_alarm: 68 should be 2*68 = 136
 
 | OCI Defination | OCI Terraform Resource Name | Count |
 | :------:       |          :------:           | ----: |
