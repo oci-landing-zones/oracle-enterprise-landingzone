@@ -385,6 +385,16 @@ After deployment, if it is necessary to have other Fast Connect circuits, the cu
 
 The security lists implemented during the OELZ v2.0 deployment are CIS 1.2.0 compliant, so all incoming traffic will be blocked except the ICMP protocol. For more information please refer to the CIS Benchmark 1.2.0 for Oracle Cloud Infrastructure: [CIS Oracle Cloud Infrastructure Benchmarks (cisecurity.org)](https://www.cisecurity.org/benchmark/oracle_cloud)
 
+## **_Network Firewall Module_**
+
+Oracle Cloud InfrastructureNetwork Firewall is a next-generation managed network firewall and intrusion detection and prevention service for your Oracle Cloud Infrastructure VCN. The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-south network traffic) as well traffic between subnets (East-west network traffic).
+
+- The customer should be able to deploy the OCI Network Firewall during the OELZ v2 deployment in Production and/or No-Production.
+- The customer should be able to deploy the OCI Network Firewall using its module in a standalone mode.
+- The customer should be able to deploy the OCI Network Firewall in a private or public subnet part of the HUB Network.
+- The customer should be able to inspect the North-South and East-West (inter and intra VCN) traffic in the OELZ v2 Hub and Spoke topology using OCI Network Firewall.
+
+
 ## **_Security Module_**
 
 Oracle Cloud Infrastructure (OCI) is a Security-first Cloud Service that helps organizations reduce the risk of security threats for cloud workloads by putting our customers' Data Security and Privacy first.  This is achieved via the automation of security operations with simple, prescriptive, and integrated cloud-native security capabilities built into the OCI platform.  Oracle helps customers easily adopt OIC services and secure their cloud infrastructure, data, and applications.
