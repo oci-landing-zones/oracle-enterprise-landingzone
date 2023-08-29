@@ -257,6 +257,7 @@ variable "cloud_guard_target_tenancy" {
 
 variable "prod_bastion_client_cidr_block_allow_list" {
   type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
 }
 
@@ -267,6 +268,7 @@ variable "prod_enable_bastion" {
 
 variable "nonprod_bastion_client_cidr_block_allow_list" {
   type        = list(string)
+  default     = ["0.0.0.0/0"]
   description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
 }
 
