@@ -492,6 +492,68 @@ On Premise Subnet route will not propagate over the RPC connection to the second
     5. Apply the new Route Tables to the Attachments
 
 
+## Network Firewall
+
+The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-south network traffic) as well traffic between subnets (East-west network traffic).
+
+**Deployment Scenario**
+
+1. **With Baseline**
+
+    1.1) By Default Network Firewall is disabled. 
+    1.2) To Enable Network Firewall on Prod Environment.
+    1.3) Go to Folder templates/enterprise-landing-zone and tfvars file.\
+
+**Required Arguments/Parameters For Baseline Deployment on Prod**:
+
+| Descripation                       | TFVAR Variable                          |Default Value                      | 
+| :--------------------------------- | --------------------------------------- |---------------------------------- |
+| Network Firewall Deployment        | enable_network_firewall_prod            | false (bool)                      |       
+| Enable NFW Threat and Traffic Log  | enable_traffic_threat_log_prod          | false (bool)                      |
+| Enable NFW on Subnet               | nfw_subnet_type_prod                    | "public"(string)(public\|private) |
+| Network Firewall Name              | nfw_instance_name_prod                  | "" (string)                       |
+| Network Firewall Policy Name       | nfw_instance_policy_prod                | "" (string)                       |
+| Network Firewall Subnet CIDR       | nfw_subnet_cidr_block_prod              | "" (string)                       |
+
+    1.3) To Enable Network Firewall on Prod Environment.
+
+**Required Arguments/Parameters For Baseline Deployment on Non-Prod**:
+
+
+| Descripation                       | TFVAR Variable                          |Default Value                      | 
+| :--------------------------------- | --------------------------------------- |---------------------------------- |
+| Network Firewall Deployment        | enable_network_firewall_nonprod         | false (bool)                      |       
+| Enable NFW Threat and Traffic Log  | enable_traffic_threat_log_nonprod       | false (bool)                      |
+| Enable NFW on Subnet               | nfw_subnet_type_nonprod                 | "public"(string)(public\|private) |
+| Network Firewall Name              | nfw_instance_name_nonprod               | "" (string)                       |
+| Network Firewall Policy Name       | nfw_instance_policy_nonprod             | "" (string)                       |
+| Network Firewall Subnet CIDR       | nfw_subnet_cidr_block_nonprod           | "" (string)                       |
+
+
+2. **Without Baseline as Standlone**
+    
+    2.1) Assumption : OELZ Baseline stack has been successfully deployed.\
+    2.2) Go to Folder templates/elz-network-firewall.\
+    2.3) **Required Varibales For Baseline Deployment**\
+
+| Descripation                       | TFVAR Variable                                |Default Value          | 
+| :--------------------------------- | --------------------------------------------- |-----------------------|
+| Environment Prefix                 | nfw_environment_prefix                        | ""                    |
+| Network Compartment OCID           | nfw_compartment_ocid                          | ""                    |
+| Hub VCN CIDR Block                 | nfw_hub_vcn_cidr_block                        | ""                    |
+| Network Firewall Subnet            | nfw_subnet_ocid                               | ""                    |
+| DRG OCID                           | nfw_drg_ocid                                  | ""                    |
+| Hub VCN OCID                       | nfw_hub_vcn_ocid                              | ""                    |
+| Spoke VCN OCID                     | nfw_spoke_vcn_ocid                            | ""                    |
+| Network Firewall Subnet IP         | nfw_subnet_ip                                 | ""                    |
+| Network Firewall Display Name      | nfw_subnet_display_name                       | ""                    |
+| Network Firewall DNS Label         | nfw_subnet_dns_label_name                     | ""                    |
+| Route Table OCID                   | nfw_route_table_ocid                          | ""                    |
+| IDCS Endpoint                      | nfw_idcs_endpoint                             | ""                    |
+| Internet Gateway OCID              | nfw_igw_ocid                                  | ""                    |
+
+
+
 ## Security
 
 To provide for a secure environment, the OELZ deploys several Oracle security services, such as CloudGuard to monitor for insecure cloud resource deployments, Vulnerability Scanning Service to scan compute instances for open ports and known vulnerabilities, and OS Management Service to manage updates and patches. 

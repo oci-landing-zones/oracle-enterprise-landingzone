@@ -98,6 +98,13 @@ module "prod_environment" {
   private_spoke_subnet_app_cidr_block = var.prod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.prod_spoke_subnet_db_cidr_block
 
+  enable_network_firewall             = var.enable_network_firewall_prod
+  enable_traffic_threat_log           = var.enable_traffic_threat_log_prod
+  nfw_subnet_type                     = var.nfw_subnet_type_prod
+  nfw_instance_name                   = var.nfw_instance_name_prod
+  nfw_instance_policy                 = var.nfw_instance_policy_prod
+  nfw_subnet_cidr_block               = var.nfw_subnet_cidr_block_prod
+
   enable_bastion                       = var.prod_enable_bastion
   bastion_client_cidr_block_allow_list = var.prod_bastion_client_cidr_block_allow_list
   vault_type                           = var.prod_vault_type
@@ -236,6 +243,13 @@ module "nonprod_environment" {
   private_spoke_subnet_web_cidr_block = var.nonprod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.nonprod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.nonprod_spoke_subnet_db_cidr_block
+
+  enable_network_firewall             = var.enable_network_firewall_nonprod
+  enable_traffic_threat_log           = var.enable_traffic_threat_log_nonprod
+  nfw_subnet_type                     = var.nfw_subnet_type_nonprod
+  nfw_instance_name                   = var.nfw_instance_name_nonprod
+  nfw_instance_policy                 = var.nfw_instance_policy_nonprod
+  nfw_subnet_cidr_block               = var.nfw_subnet_cidr_block_nonprod
 
   enable_bastion                       = var.nonprod_enable_bastion
   bastion_client_cidr_block_allow_list = var.nonprod_bastion_client_cidr_block_allow_list
