@@ -171,7 +171,7 @@ variable "identity_domain_id" {
 variable "idcs_endpoint" {
   type        = string
   description = "Identity Domain End Points"
-  default     = "https://idcs-."
+  default     = "https://idcs-:443"
   validation {
     condition     = can(regex("^443$", split(":", var.idcs_endpoint)[2]))
     error_message = "Not Valid IDCS Endpoint."
@@ -209,5 +209,23 @@ variable "database_admin_group_name" {
 variable "network_admin_group_name" {
   type        = string
   description = "the name of landing zone Network admin group"
+  default     = ""
+}
+variable "enable_datasafe" {
+  type    = bool
+}
+variable "datasafe_reports_group_name" {
+  type        = string
+  description = "the name of datasafe reports group"
+  default     = ""
+}
+variable "datasafe_admin_group_name" {
+  type        = string
+  description = "the name of datasafe admin group"
+  default     = ""
+}
+variable "environment_compartment_name" {
+  type        = string
+  description = "the name of the compartment where the environment was created."
   default     = ""
 }

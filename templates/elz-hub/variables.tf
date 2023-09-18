@@ -98,6 +98,55 @@ variable "add_ssh_to_security_list" {
   default     = false
 }
 
+variable "hub_vcn_name" {
+  type        = string
+  description = "Hub VCN Name."
+}
+variable "hub_vcn_dns_label" {
+  type        = string
+  description = "Hub VCN DNS Label."
+}
+variable "hub_public_subnet_display_name" {
+  type        = string
+  description = "Hub Public Subnet Display Name."
+}
+variable "hub_public_subnet_description" {
+  type        = string
+  description = "Hub Public Subnet Description."
+}
+variable "hub_public_subnet_dns_label" {
+  type        = string
+  description = "Hub Public Subnet DNS Label."
+}
+variable "hub_private_subnet_display_name" {
+  type        = string
+  description = "Hub Private Subnet Name."
+}
+variable "hub_private_subnet_description" {
+  type        = string
+  description = "Hub Private Subnet Description."
+}
+variable "hub_private_subnet_dns_label" {
+  type        = string
+  description = "Hub Private Subnet DNS Label."
+}
+variable "igw_gateway_display_name" {
+  type        = string
+  description = "Hub Internet Gateway Display Name."
+}
+variable "nat_gateway_display_name" {
+  type        = string
+  description = "Hub NAT Gateway Display Name.."
+}
+variable "srv_gateway_display_name" {
+  type        = string
+  description = "Hub Service Gateway Display Name."
+}
+variable "hub_security_list_display_name" {
+  type        = string
+  description = "Hub Security List Display Name."
+}
+
 # -----------------------------------------------------------------------------
 # Network Extension Variables
 # -----------------------------------------------------------------------------
@@ -129,4 +178,40 @@ variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack"
 }
+
+# -----------------------------------------------------------------------------
+# Network Firewall Variables
+# -----------------------------------------------------------------------------
+
+variable "enable_network_firewall" {
+  type        = bool
+  description = "Enable Network Firewall in Enviornment."
+}
+variable "enable_traffic_threat_log" {
+  type        = bool
+  description = "Enable Traffic & Threat Log on Network Firewall."
+}
+variable "nfw_use_existing_network" {
+  type        = bool
+  description = "Use Existing VCN instead of Network Firewall."
+}
+variable "nfw_instance_name" {
+  type        = string
+  description = "Network Firewall Instance Name."
+}
+variable "nfw_instance_policy" {
+  type        = string
+  description = "Network Firewall Policy Name."
+}
+variable "log_group_id" {
+  type        = string
+  description = "Log Group OCID."
+}
+variable "nfw_subnet_type" {
+  type        = string
+  description = "Network Firewall Subnet Type : Public or Private Subnet."
+}
+# -----------------------------------------------------------------------------
+# Network Firewall Variables
+# -----------------------------------------------------------------------------
 

@@ -721,3 +721,9 @@ variable "nonprod_additional_workload_subnets_cidr_blocks" {
   default     = []
   description = "A list of subnets cidr blocks in additional workload stack in non-prod"
 }
+
+variable "enable_datasafe" {
+  type        = bool
+  default     = false
+  description = "Enable Data Safe."
+}

@@ -21,3 +21,11 @@ output "spoke_app_subnet_ocid" {
 output "spoke_db_subnet_ocid" {
   value = module.spoke.spoke_db_subnet_ocid
 }
+
+#output "public_subnet_id" {
+#  value = module.hub.public_subnet_id
+#}
+
+#output "private_subnet_id" {
+#  value = module.hub.private_subnet_id
+#}

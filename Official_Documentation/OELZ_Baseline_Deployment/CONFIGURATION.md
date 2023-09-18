@@ -500,9 +500,9 @@ The Network Firewall service offers simple setup and deployment and gives you vi
 
 1. **With Baseline**
 
-    1.1) By Default Network Firewall is disabled. 
-    1.2) To Enable Network Firewall on Prod Environment.
-    1.3) Go to Folder templates/enterprise-landing-zone and tfvars file.\
+    1.1) By Default Network Firewall is disabled.<br /> 
+    1.2) To Enable Network Firewall on Prod Environment.<br />
+    1.3) Go to Folder templates/enterprise-landing-zone and tfvars file.<br />
 
 **Required Arguments/Parameters For Baseline Deployment on Prod**:
 
@@ -532,9 +532,9 @@ The Network Firewall service offers simple setup and deployment and gives you vi
 
 2. **Without Baseline as Standlone**
     
-    2.1) Assumption : OELZ Baseline stack has been successfully deployed.\
-    2.2) Go to Folder templates/elz-network-firewall.\
-    2.3) **Required Varibales For Baseline Deployment**\
+    2.1) Assumption : OELZ Baseline stack has been successfully deployed.<br />
+    2.2) Go to Folder templates/elz-network-firewall.<br />
+    2.3) **Required Varibales For Baseline Deployment**
 
 | Descripation                       | TFVAR Variable                                |Default Value          | 
 | :--------------------------------- | --------------------------------------------- |-----------------------|

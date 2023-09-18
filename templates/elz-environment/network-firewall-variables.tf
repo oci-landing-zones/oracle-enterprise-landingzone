@@ -18,7 +18,7 @@ variable "nfw_instance_policy" {
   type        = string
   description = "Network Firewall Instance Policy Name."
 }
-variable "nfw_subnet_cidr_block" {
-  type        = string
-  description = "Network Firewall Subnet CIDR IP Block."
+variable "nfw_use_existing_network" {
+  type        = bool
+  description = "Use Existing VCN in place Network Firewall."
 }

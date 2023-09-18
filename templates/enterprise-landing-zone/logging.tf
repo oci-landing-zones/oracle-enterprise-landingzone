@@ -15,8 +15,8 @@ locals {
   }
 
   identity_domain = {
-    domain_display_prod_name          = "OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
-    domain_display_non_prod_name      = "OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
+    domain_display_prod_name     = "OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
+    domain_display_non_prod_name = "OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
   }
 
   service_connector_archive_policy = {
@@ -96,9 +96,9 @@ locals {
   }
 
   archive_key = {
-    name = "${var.resource_label}-OCI-ELZ-ARC-KEY-${local.prod_environment.environment_prefix}"
+    name            = "${var.resource_label}-OCI-ELZ-ARC-KEY-${local.prod_environment.environment_prefix}"
     shape_algorithm = "AES"
-    shape_length = 32
+    shape_length    = 32
     protection_mode = "SOFTWARE"
   }
 
@@ -149,7 +149,7 @@ module "service_connector_archive_policy" {
 }
 
 module "archive_key" {
-  source = "../../modules/key"
+  source              = "../../modules/key"
   compartment_ocid    = module.prod_environment.compartment.security.id
   display_name        = local.archive_key.name
   shape_algorithm     = local.archive_key.shape_algorithm

@@ -161,3 +161,35 @@ variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack"
 }
+
+# -----------------------------------------------------------------------------
+# Network Firewall Variables
+# -----------------------------------------------------------------------------
+variable "enable_network_firewall" {
+  type        = bool
+  description = "Enable Network Firewall in Enviornment."
+}
+variable "enable_traffic_threat_log" {
+  type        = bool
+  description = "Enable Traffic & Threat Log on Network Firewall."
+}
+variable "nfw_use_existing_network" {
+  type        = bool
+  description = "Use Existing VCN instead of Network Firewall."
+}
+variable "nfw_instance_name" {
+  type        = string
+  description = "Network Firewall Instance Name."
+}
+variable "nfw_instance_policy" {
+  type        = string
+  description = "Network Firewall Policy Name."
+}
+variable "log_group_id" {
+  type        = string
+  description = "Log Group OCID."
+}
+variable "nfw_subnet_type"{
+  type        = string
+  description = "Network Firewall Subnet Type : Public or Private Subnet."
+}

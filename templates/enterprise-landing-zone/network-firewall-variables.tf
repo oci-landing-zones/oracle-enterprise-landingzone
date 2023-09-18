@@ -9,19 +9,6 @@ variable "enable_network_firewall_nonprod" {
   default     = false
 }
 
-#enable_network_firewall_env
-
-variable "enable_network_firewall_env_prod" {
-  type        = bool
-  description = "Enable Network Firewall in Prod Enviornment."
-  default     = false
-}
-variable "enable_network_firewall_env_nonprod" {
-  type        = bool
-  description = "Enable Network Firewall in Non-Prod Enviornment."
-  default     = false
-}
-
 #enable_traffic_threat_log
 
 variable "enable_traffic_threat_log_prod" {
@@ -71,14 +58,15 @@ variable "nfw_instance_policy_nonprod" {
   default     = ""
 }
 
-#nfw_subnet_cidr_block
-variable "nfw_subnet_cidr_block_prod" {
-  type        = string
-  description = "Network Firewall Subnet IP CIDR Block."
-  default     = ""
+#use_existing_network
+variable "nfw_use_existing_network_prod" {
+  type        = bool
+  description = "Use Existing VCN in place of Network Firewall VCN."
+  default     = false
 }
-variable "nfw_subnet_cidr_block_nonprod" {
-  type        = string
-  description = "Network Firewall Subnet IP CIDR Block."
-  default     = ""
+variable "nfw_use_existing_network_nonprod" {
+  type        = bool
+  description = "Use Existing VCN in place of Network Firewall VCN."
+  default     = false
 }
+
