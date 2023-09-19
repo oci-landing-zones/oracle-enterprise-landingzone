@@ -71,6 +71,7 @@ locals {
     local.hub_public_route_rules_options.route_rules_vpn,
     local.hub_public_route_rules_options.route_rules_fastconnect, local.hub_public_route_rules_options.route_rules_workload)
   }
+
   hub_public_route_rules_options_nfw = {
     route_rules_default = {
       "hub-to-web-traffic" = {
@@ -122,7 +123,9 @@ locals {
   hub_public_route_rules_nfw = {
     route_table_display_name = "OCI-ELZ-RTPUB-${var.environment_prefix}-HUB001"
     route_rules              = merge(local.hub_public_route_rules_options_nfw.route_rules_default, local.hub_public_route_rules_options_nfw.route_rules_igw,
-    local.hub_public_route_rules_options_nfw.route_rules_vpn, local.hub_public_route_rules_options_nfw.route_rules_fastconnect, local.hub_public_route_rules_options_nfw.route_rules_workload)
+    local.hub_public_route_rules_options_nfw.route_rules_vpn,
+    local.hub_public_route_rules_options_nfw.route_rules_fastconnect,
+    local.hub_public_route_rules_options_nfw.route_rules_workload)
   }
 
   hub_public_route_check_test = try(var.enable_network_firewall == "true" ? local.hub_public_route_rules_nfw : local.hub_public_route_rules)
@@ -383,6 +386,10 @@ resource "oci_core_security_list" "security_list_hub" {
 #       Create Hub Public And Private Subnet and Route Table         #
 ######################################################################
 
+######################################################################
+#                  Create Hub Private Subnet                         #
+######################################################################
+
 resource "oci_core_subnet" "hub_private_subnet" {
   cidr_block                 = var.private_subnet_cidr_block
   display_name               = var.hub_private_subnet_display_name
@@ -390,9 +397,13 @@ resource "oci_core_subnet" "hub_private_subnet" {
   compartment_id             = var.network_compartment_id
   prohibit_public_ip_on_vnic = true
   vcn_id                     = oci_core_vcn.vcn_hub_network.id
-  route_table_id             = oci_core_route_table.hub_private_route_table.id
+  #route_table_id             = oci_core_route_table.hub_private_route_table.id
   security_list_ids          = toset([oci_core_security_list.security_list_hub.id])
 }
+
+######################################################################
+#                 Create Hub Private Route Table                     #
+######################################################################
 
 resource "oci_core_route_table" "hub_private_route_table" {
   compartment_id = var.network_compartment_id
@@ -409,6 +420,19 @@ resource "oci_core_route_table" "hub_private_route_table" {
   }
 }
 
+######################################################################
+#       Associate Hub Private Route Table to Private Subnet          #
+######################################################################
+
+resource "oci_core_route_table_attachment" "private_route_table_attachment" {  
+  subnet_id = oci_core_subnet.hub_private_subnet.id
+  route_table_id =oci_core_route_table.hub_private_route_table.id
+}
+
+######################################################################
+#                   Create Hub Public Subnet                         #
+######################################################################
+
 resource "oci_core_subnet" "hub_public_subnet" {
   cidr_block                 = var.public_subnet_cidr_block
   display_name               = var.hub_public_subnet_display_name
@@ -416,9 +440,13 @@ resource "oci_core_subnet" "hub_public_subnet" {
   compartment_id             = var.network_compartment_id
   prohibit_public_ip_on_vnic = false
   vcn_id                     = oci_core_vcn.vcn_hub_network.id
-  route_table_id             = oci_core_route_table.hub_public_route_table.id
+  #route_table_id             = oci_core_route_table.hub_public_route_table.id
   security_list_ids          = toset([oci_core_security_list.security_list_hub.id])
 }
+
+######################################################################
+#                   Create Hub Public Route Table                    #
+######################################################################
 
 resource "oci_core_route_table" "hub_public_route_table" {
   compartment_id = var.network_compartment_id
@@ -433,6 +461,15 @@ resource "oci_core_route_table" "hub_public_route_table" {
       destination_type  = route_rules.value.destination_type
     }
   }
+}
+
+######################################################################
+#         Associate Hub Public Route Table to Public Subnet          #
+######################################################################
+
+resource "oci_core_route_table_attachment" "public_route_table_attachment" {  
+  subnet_id = oci_core_subnet.hub_public_subnet.id
+  route_table_id =oci_core_route_table.hub_public_route_table.id
 }
 
 ######################################################################
@@ -619,7 +656,7 @@ locals {
   #private_subnet_id = oci_core_subnet.hub_private_subnet[var.hub_private_subnet_display_name].id
   public_subnet_id   = oci_core_subnet.hub_public_subnet.id
   private_subnet_id  = oci_core_subnet.hub_private_subnet.id
-  nfw_subnet_id      = var.nfw_subnet_type == "public" ? local.public_subnet_id : local.private_subnet_id
+  #nfw_subnet_id      = var.nfw_subnet_type == "public" ? local.public_subnet_id : local.private_subnet_id
 }
 
 ######################################################################
