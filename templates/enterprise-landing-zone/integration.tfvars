@@ -1,10 +1,10 @@
 #tfvars file for the ci pipline
 
-#current_user_ocid    
-#region               
-#tenancy_ocid         
-#api_fingerprint      
-#api_private_key_path 
+#current_user_ocid    = "## YOUR USER OCID ##"
+#region               = "## OCI REGION TO DEPLOY TO"
+#tenancy_ocid         = "## YOUR TENANCY OCID ##"
+#api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
+#api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
 
 # iam
 resource_label            = "INTEGRATION1"
@@ -93,6 +93,5 @@ workload_name_prefix = "Workload1"
 enable_network_firewall_prod   = "true"
 enable_traffic_threat_log_prod = "true"
 nfw_subnet_type_prod           = "public"
-nfw_instance_name_prod         = "nfw_vin"
-nfw_instance_policy_prod       = "nfw_vin_policy"
-nfw_use_existing_network_prod  = "false"
+nfw_instance_name_prod         = "nfw_name"
+nfw_instance_policy_prod       = "nfw_name_policy"

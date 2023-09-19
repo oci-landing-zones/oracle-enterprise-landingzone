@@ -174,9 +174,17 @@ For *each* workload deployed in an environment, there will be one Spoke network.
 
 The `elz-network-extension` template can add VPN or FastConnect links between an environment's DRG and an on-prem network.
 
+## Networking Firewall
+
+Network Firewall is part of the Network of the module and will be in prod por non-prod enivornment if enable_network_firewall_prod or enable_network_firewall_nonprod is enabled. Be default, these varibale are set to false. By Design the Network Firewall will be configured on Hub Public or Private VCN as per customer need via nfw_subnet_type_prod or nfw_subnet_type_nonprod. 
+
+
 ## Deployment of The Oracle Enterprise Landing Zone
 
 ## For customers who already have Infrastructure in OCI
+
+
+
 
 If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Oracle Enterprise Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Oracle Enterprise Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
 

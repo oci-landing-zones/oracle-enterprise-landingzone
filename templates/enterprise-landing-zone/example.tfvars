@@ -5,11 +5,6 @@
 #api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
 #api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
 
-current_user_ocid    = "ocid1.user.oc1..aaaaaaaatqpzxafhpmkl33chm5imuttp7u3cbkcccyucand45pfmnevqbk2a"
-region               = "us-phoenix-1"
-tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaqi25whyscyfdgqvz6442exv34ievd4cf7dddobb3fbmbbgmmknca"
-api_fingerprint      = "a5:1b:7e:2c:39:b3:c8:b3:74:93:de:16:e0:5a:2c:cd"
-api_private_key_path = "/Users/kvivina/.oci/oci_api_key.pem"
 
 # iam
 resource_label             = "DEMO"
@@ -108,6 +103,5 @@ nonprod_workload_compartment_names              = []
 enable_network_firewall_prod   = true
 enable_traffic_threat_log_prod = true
 nfw_subnet_type_prod           = "public"
-nfw_instance_name_prod         = "nfw_vin"
-nfw_instance_policy_prod       = "nfw_vin_policy"
-nfw_use_existing_network_prod  = false
+nfw_instance_name_prod         = "nfw_name"
+nfw_instance_policy_prod       = "nfw_policy_name"

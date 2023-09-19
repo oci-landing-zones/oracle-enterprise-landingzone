@@ -401,6 +401,11 @@ Oracle Cloud Infrastructure Network Firewall is a next-generation managed networ
 - The customer should be able to enable or not Traffic Log and Threat Log.
 
 
+**Network Firewall Limitation**
+
+- Customer can deploy Network Firewall Feature  as part of baseline deployment only . Currently, standalone deployment of Network Firewall feature is not supported and we will release this feature in future release.
+
+
 ## **_Security Module_**
 
 Oracle Cloud Infrastructure (OCI) is a Security-first Cloud Service that helps organizations reduce the risk of security threats for cloud workloads by putting our customers' Data Security and Privacy first.  This is achieved via the automation of security operations with simple, prescriptive, and integrated cloud-native security capabilities built into the OCI platform.  Oracle helps customers easily adopt OIC services and secure their cloud infrastructure, data, and applications.

@@ -17,9 +17,20 @@ data "oci_identity_region_subscriptions" "regions" {
 #              Get the Private IPs using Trust Subnet                #
 ######################################################################
 data "oci_core_private_ips" "firewall_subnet_private_ip" {
-  subnet_id = local.public_subnet_id
+  subnet_id = local.nfw_subnet_id
   filter {
     name   = "display_name"
     values = [local.network_firewall_info.network_firewall_name]
   }
 }
+
+#data "oci_core_private_ips" "firewall_subnet_public_ip" {
+#  subnet_id = local.public_subnet_id
+#  filter {
+#    name   = "display_name"
+#    values = [local.network_firewall_info.network_firewall_name]
+#    depends_on = [
+#      oci_network_firewall_network_firewall.network_firewall
+#    ]
+#  }
+#}
