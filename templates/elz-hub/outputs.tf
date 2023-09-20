@@ -13,3 +13,7 @@ output "subnets" {
   }
   description = "The Hub Subnet OCIDs"
 }
+
+output "oci_network_firewall_ip_address" {
+  value = [data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].ip_address]
+}

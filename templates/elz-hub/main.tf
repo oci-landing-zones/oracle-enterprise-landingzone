@@ -425,8 +425,8 @@ resource "oci_core_route_table" "hub_private_route_table" {
 ######################################################################
 
 resource "oci_core_route_table_attachment" "private_route_table_attachment" {  
-  subnet_id = oci_core_subnet.hub_private_subnet.id
-  route_table_id =oci_core_route_table.hub_private_route_table.id
+  subnet_id      = oci_core_subnet.hub_private_subnet.id
+  route_table_id = oci_core_route_table.hub_private_route_table.id
 }
 
 ######################################################################
@@ -468,8 +468,8 @@ resource "oci_core_route_table" "hub_public_route_table" {
 ######################################################################
 
 resource "oci_core_route_table_attachment" "public_route_table_attachment" {  
-  subnet_id = oci_core_subnet.hub_public_subnet.id
-  route_table_id =oci_core_route_table.hub_public_route_table.id
+  subnet_id      = oci_core_subnet.hub_public_subnet.id
+  route_table_id = oci_core_route_table.hub_public_route_table.id
 }
 
 ######################################################################

@@ -126,3 +126,19 @@ variable "enable_vpn_or_fastconnect" {}
 variable "enable_vpn_on_environment" {}
 variable "ipsec_connection_static_routes" {}
 variable "customer_onprem_ip_cidr" {}
+
+# -----------------------------------------------------------------------------
+# Network Firewall Variables
+# -----------------------------------------------------------------------------
+
+variable "enable_network_firewall" {
+  type        = bool
+  default     = "false"
+  description = "Enable Network Firewall in Enviornment."
+}
+
+variable "nfw_ip_address" {
+  type        = string
+  default     = ""
+  description = "Network Firewall Forwarding IP."
+}

@@ -132,6 +132,8 @@ module "spoke" {
   ipsec_connection_static_routes                 = var.ipsec_connection_static_routes
   home_compartment_id                            = var.home_compartment_id
   is_baseline_deploy                             = var.is_baseline_deploy
+  enable_network_firewall                        = var.enable_network_firewall
+  nfw_ip_address                                 = module.hub.oci_network_firewall_ip_address[0]
 
   providers = {
     oci             = oci
