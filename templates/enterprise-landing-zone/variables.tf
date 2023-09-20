@@ -725,5 +725,5 @@ variable "nonprod_additional_workload_subnets_cidr_blocks" {
 variable "enable_datasafe" {
   type        = bool
   default     = false
-  description = "Enable Data Safe."
+  description = "Enable Data-Safe Feature on Workload."
 }

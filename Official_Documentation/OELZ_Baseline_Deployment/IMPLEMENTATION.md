@@ -84,6 +84,8 @@ However, there are some resource limits that will need to be increased in order 
 | Starts the provisioning of a new stream pool | oci_streaming_stream_pool| 2|
 | Creates a new HostScanRecipe | oci_vulnerability_scanning_host_scan_recipe| 2|
 | Creates a new HostScanTarget | oci_vulnerability_scanning_host_scan_target| 2| 
+| Creates a Network Firewall   | oci_network_firewall_network_firewall| 1| 
+
 
 Example to check the limits in tenancy:
 
@@ -176,14 +178,11 @@ The `elz-network-extension` template can add VPN or FastConnect links between an
 
 ## Networking Firewall
 
-Network Firewall is part of the Network of the module and will be in prod por non-prod enivornment if enable_network_firewall_prod or enable_network_firewall_nonprod is enabled. Be default, these varibale are set to false. By Design the Network Firewall will be configured on Hub Public or Private VCN as per customer need via nfw_subnet_type_prod or nfw_subnet_type_nonprod. 
-
+The Network Firewall is a part of the Oracle Enterprise Landing Zone Network Module, that can be activated in both production and non-production environments when the "enable_network_firewall_prod" or "enable_network_firewall_nonprod" variables are set to true. By default, these variables are initially set to false. The configuration of the Network Firewall will be determined based on customer requirements, either on the HUB Public VNC  or HUB Private VCN, and this choice can be specified using the "nfw_subnet_type_prod" or "nfw_subnet_type_nonprod" options.
 
 ## Deployment of The Oracle Enterprise Landing Zone
 
 ## For customers who already have Infrastructure in OCI
-
-
 
 
 If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Oracle Enterprise Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Oracle Enterprise Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  

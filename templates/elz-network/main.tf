@@ -60,13 +60,13 @@ module "hub" {
   srv_gateway_display_name                = local.vcn-hub-info.srv_gateway_display_name
   hub_security_list_display_name          = local.vcn-hub-info.hub_security_list_display_name
 
-  enable_network_firewall           = var.enable_network_firewall
-  enable_traffic_threat_log         = var.enable_traffic_threat_log
-  nfw_subnet_type                   = var.nfw_subnet_type
-  nfw_instance_name                 = var.nfw_instance_name
-  nfw_instance_policy               = var.nfw_instance_policy
-  nfw_use_existing_network          = var.nfw_use_existing_network
-  log_group_id                      = var.log_group_id
+  enable_network_firewall                 = var.enable_network_firewall
+  enable_traffic_threat_log               = var.enable_traffic_threat_log
+  nfw_subnet_type                         = var.nfw_subnet_type
+  nfw_instance_name                       = var.nfw_instance_name
+  nfw_instance_policy                     = var.nfw_instance_policy
+  nfw_use_existing_network                = var.nfw_use_existing_network
+  log_group_id                            = var.log_group_id
 
 
   providers = {

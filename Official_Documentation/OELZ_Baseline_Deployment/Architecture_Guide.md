@@ -387,7 +387,7 @@ The security lists implemented during the OELZ v2.0 deployment are CIS 1.2.0 com
 
 ## **_Network Firewall Module_**
 
-Oracle Cloud Infrastructure Network Firewall is a next-generation managed network firewall and intrusion detection and prevention service for your Oracle Cloud Infrastructure VCN. The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-south network traffic) as well traffic between subnets (East-west network traffic). We are using combined architesture where are using Dynmamic Routing Gateway with OCI Network Firewall running in the Furewall VCN(Hub VCAN). This architecture has a central component (Hub) that's connected to multipe networks around it like Spoke. To learn more about teh architecture check the offical [Reference Architecture doc](https://docs.oracle.com/en/solutions/oci-network-firewall/#GUID-F4B62BD0-EAD4-4763-B06F-6ACAC758BD69).
+Oracle Cloud Infrastructure Network Firewall is a next-generation managed network firewall and intrusion detection and prevention service for your Oracle Cloud Infrastructure VCN. The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-south network traffic) as well traffic between subnets (East-west network traffic). We are using combined architecture where we are using Dynamic Routing Gateway with OCI Network Firewall running in the Firewall VCN(Hub VCAN). This architecture has a central component (Hub) that's connected to multipe networks around it like Spoke. To learn more about teh architecture check the offical [Reference Architecture doc](https://docs.oracle.com/en/solutions/oci-network-firewall/#GUID-F4B62BD0-EAD4-4763-B06F-6ACAC758BD69).
 
 ## **_Network Firewall Architecture_**
 
@@ -403,7 +403,7 @@ Oracle Cloud Infrastructure Network Firewall is a next-generation managed networ
 
 **Network Firewall Limitation**
 
-- Customer can deploy Network Firewall Feature  as part of baseline deployment only . Currently, standalone deployment of Network Firewall feature is not supported and we will release this feature in future release.
+- Customers can currently deploy the Network Firewall feature only as part of a baseline deployment. Standalone deployment of the Network Firewall feature is not supported at this time, but we plan to release this feature in a future update.
 
 
 ## **_Security Module_**

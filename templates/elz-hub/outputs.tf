@@ -1,9 +1,11 @@
 output "drg_id" {
   value = module.drg.drg_id
+  description = "DRG OCID."
 }
 
 output "vcn_id" {
   value = oci_core_vcn.vcn_hub_network.id
+  description = "Hub VCN OCID."
 }
 
 output "subnets" {
@@ -16,4 +18,5 @@ output "subnets" {
 
 output "oci_network_firewall_ip_address" {
   value = [data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].ip_address]
+  description = "Network Firewall IP OCID."
 }

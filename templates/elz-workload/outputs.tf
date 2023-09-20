@@ -1,10 +1,10 @@
 output "compartment_id" {
   value       = module.workload_compartment.compartment_id
-  description = "The ocid of workload compartment"
+  description = "Workload Compartment OCID."
 }
 output "compartment_name" {
   value = module.workload_compartment.compartment_name
-  description = "The Workload Compartment Name"
+  description = "Workload Compartment Name."
 }
 
 output "subnet_cidr_blocks" {
@@ -12,4 +12,5 @@ output "subnet_cidr_blocks" {
            var.workload_private_spoke_subnet_db_cidr_block,
            var.workload_private_spoke_subnet_web_cidr_block,
   ]
+  description = "Workload Subnet OCID Information."
 }

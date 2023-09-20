@@ -1,18 +1,21 @@
 output "subnets" {
   value       = module.prod_environment.subnets
-  description = "The subnet OCID"
+  description = "The Subnet OCID."
 }
 
 output "vcn" {
   value = module.prod_environment.vcn
+  description = "Production Environment VCN Information."
 }
 
 output "dynamic_group_detail" {
   value = module.osms_dynamic_group
+  description = "OSMS Dynamic Group OCID."
 }
 
 output "workload_compartment_id" {
   value = module.prod_environment.workload_compartment_id
+  description = "Workload Compartment OCID."
 }
 
 output "prod_environment" {
@@ -29,6 +32,7 @@ output "prod_environment" {
     workload_compartment_id     = module.prod_environment.workload_compartment_id
     workload_subnet_cidr_blocks = module.prod_environment.workload_subnet_cidr_blocks
   }
+  description = "Production Environment Information."
 }
 
 output "nonprod_environment" {
@@ -45,4 +49,5 @@ output "nonprod_environment" {
     workload_compartment_id     = module.nonprod_environment.workload_compartment_id
     workload_subnet_cidr_blocks = module.nonprod_environment.workload_subnet_cidr_blocks
   }
+  description = "Non-Production Environment Information."
 }

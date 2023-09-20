@@ -58,7 +58,6 @@ variable "nfw_instance_policy_nonprod" {
   default     = ""
 }
 
-#use_existing_network
 variable "nfw_use_existing_network_prod" {
   type        = bool
   description = "Use Existing VCN in place of Network Firewall VCN."
