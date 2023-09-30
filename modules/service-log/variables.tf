@@ -32,3 +32,8 @@ variable "log_source_type" {
   type        = string
   description = "The log source type."
 }
+variable "log_source_resource" {
+  type        = string
+  default     = ""
+  description = "The unique identifier of the resource emitting the log."
+}

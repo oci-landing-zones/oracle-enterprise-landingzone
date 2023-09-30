@@ -18,8 +18,8 @@ data "oci_identity_region_subscriptions" "regions" {
 ######################################################################
 data "oci_core_private_ips" "firewall_subnet_private_ip" {
   subnet_id  = var.nfw_subnet_type == "public" ? oci_core_subnet.hub_public_subnet.id : oci_core_subnet.hub_private_subnet.id
-  filter {
-    name   = "display_name"
-    values = ["local.network_firewall_info.network_firewall_name"]
-  }
+  #subnet_id  = oci_core_subnet.hub_public_subnet.id
+  depends_on = [
+    oci_network_firewall_network_firewall.network_firewall
+  ]
 }

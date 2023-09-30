@@ -139,6 +139,6 @@ variable "enable_network_firewall" {
 
 variable "nfw_ip_address" {
   type        = string
-  default     = ""
-  description = "Network Firewall Forwarding IP."
+  default     = null
+  description = "Network Firewall Forwarding IP OCID."
 }

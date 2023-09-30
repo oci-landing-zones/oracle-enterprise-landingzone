@@ -13,6 +13,7 @@ output "dynamic_group_detail" {
   description = "OSMS Dynamic Group OCID."
 }
 
+
 output "workload_compartment_id" {
   value = module.prod_environment.workload_compartment_id
   description = "Workload Compartment OCID."

@@ -17,6 +17,9 @@ locals {
   nfw_private_forwarding_true   = local.check_nfw_private_subnet_flag && !var.nfw_use_existing_network ? true : false
   nfw_public_forwarding_true    = local.check_nfw_public_subnet_flag && !var.nfw_use_existing_network ? true : false
 
+  #nfw_ip_ocid_value       = var.enable_network_firewall ? data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[*].id : " "
+  nfw_ip_ocid_value       = [try(data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id,null), "" ] [var.enable_network_firewall ? 0 : 1]
+
   hub_public_route_rules_options = {
     route_rules_default = {
       "hub-to-web-traffic" = {
@@ -75,17 +78,17 @@ locals {
   hub_public_route_rules_options_nfw = {
     route_rules_default = {
       "hub-to-web-traffic" = {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_web_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
       "hub-to-app-traffic" = {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_app_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
       "hub-to-db-traffic" = {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_db_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
@@ -99,21 +102,21 @@ locals {
     }
     route_rules_vpn = {
       for index, route in local.ipsec_connection_static_routes : "cpe-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_fastconnect = {
       for index, route in local.customer_onprem_ip_cidr : "fc-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_workload = {
       for index, route in local.additional_workload_subnets_cidr_blocks : "workload-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
@@ -128,7 +131,7 @@ locals {
     local.hub_public_route_rules_options_nfw.route_rules_workload)
   }
 
-  hub_public_route_check_test = try(var.enable_network_firewall == "true" ? local.hub_public_route_rules_nfw : local.hub_public_route_rules)
+  hub_public_route_check_test_nfw  =  [local.hub_public_route_rules_nfw , local.hub_public_route_rules] [var.enable_network_firewall ? 0 : 1]
 
   list_info = {
     hub_display_name = "OCI-ELZ-${var.environment_prefix}-Hub-Security-List"
@@ -191,24 +194,27 @@ locals {
 
   hub_private_route_rules = {
     route_table_display_name = "OCI-ELZ-RTPRV-${var.environment_prefix}-HUB002"
-    route_rules              = merge(local.hub_private_route_rules_options.route_rules_default, local.hub_private_route_rules_options.route_rules_nat, local.hub_private_route_rules_options.route_rules_srvc_gw, local.hub_private_route_rules_options.route_rules_vpn, local.hub_private_route_rules_options.route_rules_fastconnect, local.hub_private_route_rules_options.route_rules_workload)
+    route_rules              = merge(local.hub_private_route_rules_options.route_rules_default, local.hub_private_route_rules_options.route_rules_nat, 
+    local.hub_private_route_rules_options.route_rules_srvc_gw, 
+    local.hub_private_route_rules_options.route_rules_vpn, 
+    local.hub_private_route_rules_options.route_rules_fastconnect, local.hub_private_route_rules_options.route_rules_workload)
   }
 
   hub_private_route_rules_options_nfw = {
     route_rules_default = {
       "pri-hub-to-web-traffic" = {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_web_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
       "pri-hub-to-app-traffic" = {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_app_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
       "pri-hub-to-db-traffic" = {
 
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = var.private_spoke_subnet_db_cidr_block
         destination_type  = "CIDR_BLOCK"
       }
@@ -229,21 +235,21 @@ locals {
     }
     route_rules_vpn = {
       for index, route in local.ipsec_connection_static_routes : "cpe-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_fastconnect = {
       for index, route in local.customer_onprem_ip_cidr : "fc-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_workload = {
       for index, route in local.additional_workload_subnets_cidr_blocks : "workload-rule-${index}" => {
-        network_entity_id = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
+        network_entity_id = local.nfw_ip_ocid_value
         destination       = route
         destination_type  = "CIDR_BLOCK"
       }
@@ -255,7 +261,7 @@ locals {
     route_rules              = merge(local.hub_private_route_rules_options_nfw.route_rules_default, local.hub_private_route_rules_options_nfw.route_rules_nat, local.hub_private_route_rules_options_nfw.route_rules_srvc_gw, local.hub_private_route_rules_options_nfw.route_rules_vpn, local.hub_private_route_rules_options_nfw.route_rules_fastconnect, local.hub_private_route_rules_options_nfw.route_rules_workload)
   }
 
-  hub_private_route_check_test = try(var.enable_network_firewall == "true" ? local.hub_private_route_rules_nfw : local.hub_private_route_rules)
+  hub_private_route_check_test_nfw  =  [local.hub_private_route_rules_nfw , local.hub_private_route_rules] [var.enable_network_firewall ? 0 : 1]
 
   ip_protocols = {
     ICMP   = "1"
@@ -329,7 +335,9 @@ data "oci_core_services" "service_gateway" {
 data "oci_core_subnets" "subnets" {
   compartment_id = var.network_compartment_id
 }
-
+output "nfw_ip_ocid_value" {
+      value = local.nfw_ip_ocid_value
+}
 ######################################################################
 #                      Create  Hub VCN                               #
 ######################################################################
@@ -410,7 +418,7 @@ resource "oci_core_route_table" "hub_private_route_table" {
   vcn_id         = oci_core_vcn.vcn_hub_network.id
   display_name   = local.hub_private_route_rules.route_table_display_name
   dynamic "route_rules" {
-    for_each = local.hub_private_route_check_test.route_rules
+    for_each = local.hub_private_route_check_test_nfw.route_rules
     content {
       description       = route_rules.key
       network_entity_id = route_rules.value.network_entity_id
@@ -453,7 +461,7 @@ resource "oci_core_route_table" "hub_public_route_table" {
   vcn_id         = oci_core_vcn.vcn_hub_network.id
   display_name   = local.hub_public_route_rules.route_table_display_name
   dynamic "route_rules" {
-    for_each = local.hub_public_route_check_test.route_rules
+    for_each = local.hub_public_route_check_test_nfw.route_rules
     content {
       description       = route_rules.key
       network_entity_id = route_rules.value.network_entity_id
@@ -632,25 +640,21 @@ locals {
     log_display_name    = "OCI-ELZ-NFW-THREAT-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
     log_source_category = "threatlog"
-    log_source_resource = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
-    #log_source_resource = oci_network_firewall_network_firewall.network_firewall[0].id 
-    log_source_service = "ocinetworkfirewall"
-    log_source_type    = "OCISERVICE"
+    log_source_service  = "ocinetworkfirewall"
+    log_source_type     = "OCISERVICE"
   }
   firewall_traffic_log = {
     log_display_name    = "OCI-ELZ-NFW-TRAFFIC-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
     log_source_category = "trafficlog"
-    log_source_resource = data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id
-    #log_source_resource = oci_network_firewall_network_firewall.network_firewall[0].id
-    log_source_service = "ocinetworkfirewall"
-    log_source_type    = "OCISERVICE"
+    log_source_service  = "ocinetworkfirewall"
+    log_source_type     = "OCISERVICE"
   }
   network_firewall_threat = {
-    "Threat_Log" : "data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id"
+    "Threat_Log" : "oci_network_firewall_network_firewall.network_firewall[*].id"
   }
   network_firewall_traffic = {
-    "Traffic_Log" : "data.oci_core_private_ips.firewall_subnet_private_ip.private_ips[0].id"
+    "Traffic_Log" : "oci_network_firewall_network_firewall.network_firewall[*].id"
   }
   #public_subnet_id  = oci_core_subnet.hub_public_subnet[var.hub_public_subnet_display_name].id
   #private_subnet_id = oci_core_subnet.hub_private_subnet[var.hub_private_subnet_display_name].id
@@ -681,10 +685,6 @@ resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy
 
   display_name   = local.network_firewall_info.network_firewall_policy_name
   compartment_id = var.network_compartment_id
-  ip_address_lists {
-    ip_address_list_name  = "vcn-ips"
-    ip_address_list_value = [oci_core_vcn.vcn_hub_network.id]
-  }
   security_rules {
     name   = "reject-all-rule"
     action = "REJECT"
@@ -705,25 +705,25 @@ module "firewall_threat_log" {
   source = "../../modules/service-log"
 
   service_log_map     = local.network_firewall_threat
-  log_display_name    = "OCI-ELZ-NFW-THREAT-LOG-${var.environment_prefix}"
+  log_display_name    = local.firewall_threat_log.log_display_name
   log_type            = local.firewall_threat_log.log_type
   log_group_id        = var.log_group_id
   log_source_category = local.firewall_threat_log.log_source_category
-  #log_source_resource  = local.firewall_threat_log.log_source_resource
-  log_source_service = local.firewall_threat_log.log_source_service
-  log_source_type    = local.firewall_threat_log.log_source_type
+  log_source_resource = oci_network_firewall_network_firewall.network_firewall[0].id
+  log_source_service  = local.firewall_threat_log.log_source_service
+  log_source_type     = local.firewall_threat_log.log_source_type
 }
 
 module "firewall_traffic_log" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
   source = "../../modules/service-log"
 
-  service_log_map     = local.network_firewall_threat
-  log_display_name    = "OCI-ELZ-NFW-TRAFFIC-LOG-${var.environment_prefix}"
-  log_type            = local.firewall_traffic_log.log_type
-  log_group_id        = var.log_group_id
-  log_source_category = local.firewall_traffic_log.log_source_category
-  #log_source_resource  = local.firewall_traffic_log.log_source_resource
-  log_source_service = local.firewall_traffic_log.log_source_service
-  log_source_type    = local.firewall_traffic_log.log_source_type
+  service_log_map      = local.network_firewall_threat
+  log_display_name     = local.firewall_traffic_log.log_display_name
+  log_type             = local.firewall_traffic_log.log_type
+  log_group_id         = var.log_group_id
+  log_source_category  = local.firewall_traffic_log.log_source_category
+  log_source_resource  = oci_network_firewall_network_firewall.network_firewall[0].id
+  log_source_service   = local.firewall_traffic_log.log_source_service
+  log_source_type      = local.firewall_traffic_log.log_source_type
 }

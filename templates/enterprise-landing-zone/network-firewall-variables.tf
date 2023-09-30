@@ -1,12 +1,12 @@
 variable "enable_network_firewall_prod" {
-  type        = bool
+  type        = string
   description = "Enable Network Firewall in Prod Enviornment."
-  default     = false
+  default     = "false"
 }
 variable "enable_network_firewall_nonprod" {
-  type        = bool
+  type        = string
   description = "Enable Network Firewall in Non-Prod Enviornment."
-  default     = false
+  default     = "false"
 }
 
 #enable_traffic_threat_log

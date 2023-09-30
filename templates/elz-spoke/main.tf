@@ -60,57 +60,6 @@ locals {
   spoke_route_rules = {
     route_rules = merge(local.spoke_route_rules_options.route_rules_default, local.spoke_route_rules_options.route_rules_nat_spoke, local.spoke_route_rules_options.route_rules_srvc_gw_spoke, local.spoke_route_rules_options.route_rules_fastconnect, local.spoke_route_rules_options.route_rules_vpn)
   }
-  spoke_route_rules_options_nfw = {
-    route_rules_default = {
-      "spoke-public-subnet" = {
-        network_entity_id = var.nfw_ip_address
-        destination       = var.hub_public_subnet_cidr_block
-        destination_type  = "CIDR_BLOCK"
-      }
-      "spoke-private-subnet" = {
-        network_entity_id = var.nfw_ip_address
-        destination       = var.hub_private_subnet_cidr_block
-        destination_type  = "CIDR_BLOCK"
-      }
-      "spoke-route-target" = {
-        network_entity_id = var.nfw_ip_address
-        destination       = var.workload_spoke_vcn_cidr
-        destination_type  = "CIDR_BLOCK"
-      }
-    }
-    route_rules_nat_spoke = {
-      for index, route in local.workload_nat_gw_spoke_check : "nat-gw-rule-${index}" => {
-        network_entity_id = module.workload-spoke-nat-gateway[0].nat_gw_id
-        destination       = "0.0.0.0/0"
-        destination_type  = "CIDR_BLOCK"
-      }
-    }
-    route_rules_srvc_gw_spoke = {
-      for index, route in local.workload_service_gw_spoke_check : "service-gw-rule-${index}" => {
-        network_entity_id = module.workload-spoke-service-gateway[0].service_gw_id
-        destination       = data.oci_core_services.service_gateway.services[0]["cidr_block"]
-        destination_type  = "SERVICE_CIDR_BLOCK"
-
-      }
-    }
-    route_rules_vpn = {
-      for index, route in local.ipsec_connection_static_routes : "cpe-rule-${index}" => {
-        network_entity_id = var.nfw_ip_address
-        destination       = route
-        destination_type  = "CIDR_BLOCK"
-      }
-    }
-    route_rules_fastconnect = {
-      for index, route in local.customer_onprem_ip_cidr : "fc-rule-${index}" => {
-        network_entity_id = var.nfw_ip_address
-        destination       = route
-        destination_type  = "CIDR_BLOCK"
-      }
-    }
-  }
-  spoke_route_rules_nfw = {
-    route_rules = merge(local.spoke_route_rules_options_nfw.route_rules_default, local.spoke_route_rules_options_nfw.route_rules_nat_spoke, local.spoke_route_rules_options_nfw.route_rules_srvc_gw_spoke, local.spoke_route_rules_options_nfw.route_rules_fastconnect, local.spoke_route_rules_options_nfw.route_rules_vpn)
-  }
   workload_expansion_subnet_map = {
     Workload-Spoke-Web-Subnet = {
       name                       = var.workload_private_spoke_subnet_web_display_name
@@ -134,6 +83,8 @@ locals {
       prohibit_public_ip_on_vnic = true
     }
   }
+  
+
   ip_protocols = {
     ICMP   = "1"
     TCP    = "6"
@@ -238,13 +189,31 @@ module "workload-spoke-service-gateway" {
 ######################################################################
 #          Create Workload VCN Spoke Route Table                     #
 ######################################################################
+
 module "workload_spoke_route_table" {
   source                   = "../../modules/route-table"
   compartment_id           = var.workload_compartment_id
   vcn_id                   = module.workload_spoke_vcn.vcn_id
   route_table_display_name = var.route_table_display_name
-  route_rules              = var.enable_network_firewall ? local.spoke_route_rules_nfw.route_rules : local.spoke_route_rules.route_rules
+  route_rules              = local.spoke_route_rules.route_rules
 }
+
+/*
+resource "oci_core_route_table" "workload_spoke_route_table" {
+  compartment_id = var.workload_compartment_id
+  vcn_id         = module.workload_spoke_vcn.vcn_id
+  display_name   = var.route_table_display_name
+  dynamic "route_rules" {
+    for_each = local.hub_spoke_route_nfw.route_rules
+    content {
+      description       = route_rules.key
+      network_entity_id = route_rules.value.network_entity_id
+      destination       = route_rules.value.destination
+      destination_type  = route_rules.value.destination_type
+    }
+  }
+}
+*/
 ######################################################################
 #          Attach Workload Spoke VCN to DRG                          #
 ######################################################################

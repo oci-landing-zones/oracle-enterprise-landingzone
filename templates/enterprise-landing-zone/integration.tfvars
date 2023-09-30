@@ -6,8 +6,20 @@
 #api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
 #api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
 
+#current_user_ocid    = "ocid1.user.oc1..aaaaaaaatqpzxafhpmkl33chm5imuttp7u3cbkcccyucand45pfmnevqbk2a"
+#region               = "us-phoenix-1"
+#tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaqi25whyscyfdgqvz6442exv34ievd4cf7dddobb3fbmbbgmmknca"
+#api_fingerprint      = "a5:1b:7e:2c:39:b3:c8:b3:74:93:de:16:e0:5a:2c:cd"
+#api_private_key_path = "/Users/kvivina/.oci/oci_api_key.pem"
+
+current_user_ocid    = "ocid1.user.oc1..aaaaaaaapdcli2o2mfg6hz425aym3knx2s3fdyqyuufrgmzpw6p4ypjqpuuq"
+region               = "us-ashburn-1"
+tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaavgvnnjx74fkruavau43g56srimxrgl6tsip4zmzrfbembhxsbbca"
+api_fingerprint      = "a5:1b:7e:2c:39:b3:c8:b3:74:93:de:16:e0:5a:2c:cd"
+api_private_key_path = "/Users/kvivina/.oci/oci_api_key.pem"
+
 # iam
-resource_label            = "INTEGRATION1"
+resource_label            = "INTEGRATION-NFW"
 enable_compartment_delete = false
 is_baseline_deploy        = true
 
@@ -83,7 +95,7 @@ onboard_log_analytics = false
 
 #Workload
 
-workload_name_prefix = "Workload1"
+workload_name_prefix = "Workload11"
 
 # Workload Expansion
 # prod_additional_workload_subnets_cidr_blocks = []
@@ -95,3 +107,6 @@ enable_traffic_threat_log_prod = "true"
 nfw_subnet_type_prod           = "public"
 nfw_instance_name_prod         = "nfw_name"
 nfw_instance_policy_prod       = "nfw_name_policy"
+
+nonprod_domain_admin_email = "abc@domain.net"
+prod_domain_admin_email    = "xyz@domain.net"

@@ -95,8 +95,9 @@ locals {
     subnet_web_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}001"
     subnet_app_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}002"
     subnet_db_display_name           = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}003"
-
   }
+  #nfw_ip_ocid_value                = ["null", "module.hub.oci_network_firewall_ip_address" ] [var.enable_network_firewall ? 0 : 1]
+  #nfw_ip_ocid_value                 = try(module.hub.oci_network_firewall_ip_address, null)
 }
 
 module "spoke" {
@@ -132,8 +133,8 @@ module "spoke" {
   ipsec_connection_static_routes                 = var.ipsec_connection_static_routes
   home_compartment_id                            = var.home_compartment_id
   is_baseline_deploy                             = var.is_baseline_deploy
-  enable_network_firewall                        = var.enable_network_firewall
-  nfw_ip_address                                 = module.hub.oci_network_firewall_ip_address[0]
+  #enable_network_firewall                        = var.enable_network_firewall
+  #nfw_ip_address                                 = local.nfw_ip_ocid_value
 
   providers = {
     oci             = oci

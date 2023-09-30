@@ -43,6 +43,7 @@ module "workload" {
   workload_private_spoke_subnet_web_cidr_block = var.private_spoke_subnet_web_cidr_block
   workload_spoke_vcn_cidr                      = var.spoke_vcn_cidr
   enable_datasafe                              = var.enable_datasafe
+  idcs_endpoint                                = module.identity.idcs_endpoint
 
   providers = {
     oci             = oci
