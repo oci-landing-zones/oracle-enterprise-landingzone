@@ -16,34 +16,34 @@ module "prod_environment" {
   region         = var.region
   resource_label = var.resource_label
 
-  home_compartment_id               = module.home_compartment.compartment_id
-  environment_prefix                = local.prod_environment.environment_prefix
-  enable_tf_state_backup            = local.prod_environment.enable_tf_state_backup
-  enable_logging                    = local.prod_environment.enable_logging
-  domain_admin_email                = var.prod_domain_admin_email
-  network_admin_group_name          = var.prod_network_admin_group_name
-  iam_admin_group_name              = var.prod_iam_admin_group_name
-  platform_admin_group_name         = var.prod_platform_admin_group_name
-  ops_admin_group_name              = var.prod_ops_admin_group_name
-  security_admin_group_name         = var.prod_security_admin_group_name
-  workload_compartment_names        = var.prod_workload_compartment_names
-  is_baseline_deploy                = var.is_baseline_deploy
-  enable_compartment_delete         = var.enable_compartment_delete
+  home_compartment_id        = module.home_compartment.compartment_id
+  environment_prefix         = local.prod_environment.environment_prefix
+  enable_tf_state_backup     = local.prod_environment.enable_tf_state_backup
+  enable_logging             = local.prod_environment.enable_logging
+  domain_admin_email         = var.prod_domain_admin_email
+  network_admin_group_name   = var.prod_network_admin_group_name
+  iam_admin_group_name       = var.prod_iam_admin_group_name
+  platform_admin_group_name  = var.prod_platform_admin_group_name
+  ops_admin_group_name       = var.prod_ops_admin_group_name
+  security_admin_group_name  = var.prod_security_admin_group_name
+  workload_compartment_names = var.prod_workload_compartment_names
+  is_baseline_deploy         = var.is_baseline_deploy
+  enable_compartment_delete  = var.enable_compartment_delete
 
-  workload_admin_group_name         = var.prod_workload_admin_group_name
-  application_admin_group_name      = var.prod_application_admin_group_name
-  database_admin_group_name         = var.prod_database_admin_group_name
+  workload_admin_group_name    = var.prod_workload_admin_group_name
+  application_admin_group_name = var.prod_application_admin_group_name
+  database_admin_group_name    = var.prod_database_admin_group_name
 
-  enable_budget                     = var.prod_enable_budget
-  budget_amount                     = var.prod_budget_amount
-  budget_alert_rule_threshold       = var.prod_budget_alert_rule_threshold
-  budget_alert_rule_message         = var.prod_budget_alert_rule_message
-  budget_alert_rule_recipients      = var.prod_budget_alert_rule_recipients
-  enable_cloud_guard                = var.enable_cloud_guard
-  cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
-  is_create_alarms                  = var.is_create_alarms
-  is_service_connector_limit        = var.is_service_connector_limit
-  domain_license_type               = var.domain_license_type
+  enable_budget                = var.prod_enable_budget
+  budget_amount                = var.prod_budget_amount
+  budget_alert_rule_threshold  = var.prod_budget_alert_rule_threshold
+  budget_alert_rule_message    = var.prod_budget_alert_rule_message
+  budget_alert_rule_recipients = var.prod_budget_alert_rule_recipients
+  enable_cloud_guard           = var.enable_cloud_guard
+  cloud_guard_target_tenancy   = var.cloud_guard_target_tenancy
+  is_create_alarms             = var.is_create_alarms
+  is_service_connector_limit   = var.is_service_connector_limit
+  domain_license_type          = var.domain_license_type
 
   home_compartment_name             = var.home_compartment_name
   enable_vpn_or_fastconnect         = var.enable_vpn_or_fastconnect
@@ -77,17 +77,17 @@ module "prod_environment" {
   enable_fastconnect_on_environment = var.prod_enable_fastconnect
   customer_onprem_ip_cidr           = var.customer_onprem_ip_cidr
 
-  enable_internet_gateway_hub       = var.prod_enable_internet_gateway_hub
-  enable_nat_gateway_hub            = var.prod_enable_nat_gateway_hub
-  enable_service_gateway_hub        = var.prod_enable_service_gateway_hub
-  enable_nat_gateway_spoke          = var.prod_enable_nat_gateway_spoke
-  enable_service_gateway_spoke      = var.prod_enable_service_gateway_spoke
+  enable_internet_gateway_hub  = var.prod_enable_internet_gateway_hub
+  enable_nat_gateway_hub       = var.prod_enable_nat_gateway_hub
+  enable_service_gateway_hub   = var.prod_enable_service_gateway_hub
+  enable_nat_gateway_spoke     = var.prod_enable_nat_gateway_spoke
+  enable_service_gateway_spoke = var.prod_enable_service_gateway_spoke
 
-  igw_hub_check                     = var.igw_hub_check
-  nat_gw_hub_check                  = var.nat_gw_hub_check
-  service_gw_hub_check              = var.service_gw_hub_check
-  nat_gw_spoke_check                = var.nat_gw_spoke_check
-  service_gw_spoke_check            = var.service_gw_spoke_check
+  igw_hub_check          = var.igw_hub_check
+  nat_gw_hub_check       = var.nat_gw_hub_check
+  service_gw_hub_check   = var.service_gw_hub_check
+  nat_gw_spoke_check     = var.nat_gw_spoke_check
+  service_gw_spoke_check = var.service_gw_spoke_check
 
   vcn_cidr_block            = var.prod_hub_vcn_cidr_block
   public_subnet_cidr_block  = var.prod_hub_public_subnet_cidr_block
@@ -97,6 +97,13 @@ module "prod_environment" {
   private_spoke_subnet_web_cidr_block = var.prod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.prod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.prod_spoke_subnet_db_cidr_block
+
+  enable_network_firewall   = var.enable_network_firewall_prod
+  enable_traffic_threat_log = var.enable_traffic_threat_log_prod
+  nfw_subnet_type           = var.nfw_subnet_type_prod
+  nfw_instance_name         = var.nfw_instance_name_prod
+  nfw_instance_policy       = var.nfw_instance_policy_prod
+  nfw_use_existing_network  = var.nfw_use_existing_network_prod
 
   enable_bastion                       = var.prod_enable_bastion
   bastion_client_cidr_block_allow_list = var.prod_bastion_client_cidr_block_allow_list
@@ -117,12 +124,13 @@ module "prod_environment" {
   platform_topic_endpoints = var.prod_platform_topic_endpoints
   identity_topic_endpoints = var.prod_identity_topic_endpoints
 
-  workload_topic_endpoints            = var.prod_workload_topic_endpoints
-  enable_security_monitoring_alarms   = var.prod_enable_security_monitoring_alarms
-  enable_network_monitoring_alarms    = var.prod_enable_network_monitoring_alarms
-  enable_workload_monitoring_alarms   = var.prod_enable_workload_monitoring_alarms
+  workload_topic_endpoints          = var.prod_workload_topic_endpoints
+  enable_security_monitoring_alarms = var.prod_enable_security_monitoring_alarms
+  enable_network_monitoring_alarms  = var.prod_enable_network_monitoring_alarms
+  enable_workload_monitoring_alarms = var.prod_enable_workload_monitoring_alarms
+  enable_datasafe                   = var.enable_datasafe
 
-  workload_name_prefix                = var.workload_name_prefix
+  workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.prod_additional_workload_subnets_cidr_blocks
 
   providers = {
@@ -156,24 +164,24 @@ module "nonprod_environment" {
   region         = var.region
   resource_label = var.resource_label
 
-  home_compartment_id               = module.home_compartment.compartment_id
-  environment_prefix                = local.nonprod_environment.environment_prefix
-  enable_tf_state_backup            = local.nonprod_environment.enable_tf_state_backup
-  enable_logging                    = local.nonprod_environment.enable_logging
-  domain_admin_email                = var.nonprod_domain_admin_email
-  network_admin_group_name          = var.nonprod_network_admin_group_name
-  iam_admin_group_name              = var.nonprod_iam_admin_group_name
-  platform_admin_group_name         = var.nonprod_platform_admin_group_name
-  ops_admin_group_name              = var.nonprod_ops_admin_group_name
-  security_admin_group_name         = var.nonprod_security_admin_group_name
-  workload_compartment_names        = var.nonprod_workload_compartment_names
-  is_baseline_deploy                = var.is_baseline_deploy
-  enable_compartment_delete         = var.enable_compartment_delete
-  
-  workload_admin_group_name         = var.nonprod_workload_admin_group_name
-  application_admin_group_name      = var.nonprod_application_admin_group_name
-  database_admin_group_name         = var.nonprod_database_admin_group_name
-  
+  home_compartment_id        = module.home_compartment.compartment_id
+  environment_prefix         = local.nonprod_environment.environment_prefix
+  enable_tf_state_backup     = local.nonprod_environment.enable_tf_state_backup
+  enable_logging             = local.nonprod_environment.enable_logging
+  domain_admin_email         = var.nonprod_domain_admin_email
+  network_admin_group_name   = var.nonprod_network_admin_group_name
+  iam_admin_group_name       = var.nonprod_iam_admin_group_name
+  platform_admin_group_name  = var.nonprod_platform_admin_group_name
+  ops_admin_group_name       = var.nonprod_ops_admin_group_name
+  security_admin_group_name  = var.nonprod_security_admin_group_name
+  workload_compartment_names = var.nonprod_workload_compartment_names
+  is_baseline_deploy         = var.is_baseline_deploy
+  enable_compartment_delete  = var.enable_compartment_delete
+
+  workload_admin_group_name    = var.nonprod_workload_admin_group_name
+  application_admin_group_name = var.nonprod_application_admin_group_name
+  database_admin_group_name    = var.nonprod_database_admin_group_name
+
   enable_budget                     = var.nonprod_enable_budget
   budget_amount                     = var.nonprod_budget_amount
   budget_alert_rule_threshold       = var.nonprod_budget_alert_rule_threshold
@@ -216,17 +224,17 @@ module "nonprod_environment" {
   enable_fastconnect_on_environment = var.nonprod_enable_fastconnect
   customer_onprem_ip_cidr           = var.customer_onprem_ip_cidr
 
-  enable_internet_gateway_hub      = var.nonprod_enable_internet_gateway_hub
-  enable_nat_gateway_hub           = var.nonprod_enable_nat_gateway_hub
-  enable_service_gateway_hub       = var.nonprod_enable_service_gateway_hub
-  enable_nat_gateway_spoke         = var.nonprod_enable_nat_gateway_spoke
-  enable_service_gateway_spoke     = var.nonprod_enable_service_gateway_spoke
-  
-  igw_hub_check                    = var.igw_hub_check
-  nat_gw_hub_check                 = var.nat_gw_hub_check
-  service_gw_hub_check             = var.service_gw_hub_check
-  nat_gw_spoke_check               = var.nat_gw_spoke_check
-  service_gw_spoke_check           = var.service_gw_spoke_check
+  enable_internet_gateway_hub  = var.nonprod_enable_internet_gateway_hub
+  enable_nat_gateway_hub       = var.nonprod_enable_nat_gateway_hub
+  enable_service_gateway_hub   = var.nonprod_enable_service_gateway_hub
+  enable_nat_gateway_spoke     = var.nonprod_enable_nat_gateway_spoke
+  enable_service_gateway_spoke = var.nonprod_enable_service_gateway_spoke
+
+  igw_hub_check          = var.igw_hub_check
+  nat_gw_hub_check       = var.nat_gw_hub_check
+  service_gw_hub_check   = var.service_gw_hub_check
+  nat_gw_spoke_check     = var.nat_gw_spoke_check
+  service_gw_spoke_check = var.service_gw_spoke_check
 
   vcn_cidr_block            = var.nonprod_hub_vcn_cidr_block
   public_subnet_cidr_block  = var.nonprod_hub_public_subnet_cidr_block
@@ -236,6 +244,13 @@ module "nonprod_environment" {
   private_spoke_subnet_web_cidr_block = var.nonprod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.nonprod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.nonprod_spoke_subnet_db_cidr_block
+
+  enable_network_firewall   = var.enable_network_firewall_nonprod
+  enable_traffic_threat_log = var.enable_traffic_threat_log_nonprod
+  nfw_subnet_type           = var.nfw_subnet_type_nonprod
+  nfw_instance_name         = var.nfw_instance_name_nonprod
+  nfw_instance_policy       = var.nfw_instance_policy_nonprod
+  nfw_use_existing_network  = var.nfw_use_existing_network_nonprod
 
   enable_bastion                       = var.nonprod_enable_bastion
   bastion_client_cidr_block_allow_list = var.nonprod_bastion_client_cidr_block_allow_list
@@ -257,17 +272,18 @@ module "nonprod_environment" {
   platform_topic_endpoints = var.nonprod_platform_topic_endpoints
   identity_topic_endpoints = var.nonprod_identity_topic_endpoints
 
-  workload_topic_endpoints            = var.nonprod_workload_topic_endpoints
-  enable_security_monitoring_alarms   = var.nonprod_enable_security_monitoring_alarms
-  enable_network_monitoring_alarms    = var.nonprod_enable_network_monitoring_alarms
-  enable_workload_monitoring_alarms   = var.nonprod_enable_workload_monitoring_alarms
+  workload_topic_endpoints          = var.nonprod_workload_topic_endpoints
+  enable_security_monitoring_alarms = var.nonprod_enable_security_monitoring_alarms
+  enable_network_monitoring_alarms  = var.nonprod_enable_network_monitoring_alarms
+  enable_workload_monitoring_alarms = var.nonprod_enable_workload_monitoring_alarms
+  enable_datasafe                   = var.enable_datasafe
 
   #workload_compartment_id             = module.nonprod_environment.workload_compartment_id
 
   remote_peering_connection_peer_id          = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? module.prod_environment.rpc_id : null
   remote_peering_connection_peer_region_name = var.region
 
-  workload_name_prefix                = var.workload_name_prefix
+  workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
 
   providers = {

@@ -83,6 +83,8 @@ locals {
       prohibit_public_ip_on_vnic = true
     }
   }
+  
+
   ip_protocols = {
     ICMP   = "1"
     TCP    = "6"
@@ -187,6 +189,7 @@ module "workload-spoke-service-gateway" {
 ######################################################################
 #          Create Workload VCN Spoke Route Table                     #
 ######################################################################
+
 module "workload_spoke_route_table" {
   source                   = "../../modules/route-table"
   compartment_id           = var.workload_compartment_id
@@ -194,6 +197,23 @@ module "workload_spoke_route_table" {
   route_table_display_name = var.route_table_display_name
   route_rules              = local.spoke_route_rules.route_rules
 }
+
+/*
+resource "oci_core_route_table" "workload_spoke_route_table" {
+  compartment_id = var.workload_compartment_id
+  vcn_id         = module.workload_spoke_vcn.vcn_id
+  display_name   = var.route_table_display_name
+  dynamic "route_rules" {
+    for_each = local.hub_spoke_route_nfw.route_rules
+    content {
+      description       = route_rules.key
+      network_entity_id = route_rules.value.network_entity_id
+      destination       = route_rules.value.destination
+      destination_type  = route_rules.value.destination_type
+    }
+  }
+}
+*/
 ######################################################################
 #          Attach Workload Spoke VCN to DRG                          #
 ######################################################################

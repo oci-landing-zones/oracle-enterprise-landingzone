@@ -400,3 +400,6 @@ variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack"
 }
+variable "enable_datasafe" {
+  type    = bool
+}

@@ -15,7 +15,7 @@ resource "oci_logging_log" "service_log" {
   configuration {
     source {
       category = var.log_source_category
-      resource = each.value
+      resource = try(var.log_source_resource, null)
       service = var.log_source_service
       source_type = var.log_source_type
     }
