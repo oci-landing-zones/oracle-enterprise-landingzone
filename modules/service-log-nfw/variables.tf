@@ -1,8 +1,3 @@
-variable "service_log_map" {
-  type        = map(string)
-  description = ""
-}
-
 variable "log_display_name" {
   type        = string
   description = "The display name of service log"
@@ -31,4 +26,9 @@ variable "log_source_service" {
 variable "log_source_type" {
   type        = string
   description = "The log source type."
+}
+
+variable "log_source_resource" {
+  type        = string
+  description = "The log resource type."
 }

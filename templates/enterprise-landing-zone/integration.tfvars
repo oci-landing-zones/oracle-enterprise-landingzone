@@ -6,14 +6,19 @@
 #api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
 #api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
 
+current_user_ocid    = "ocid1.user.oc1..aaaaaaaapdcli2o2mfg6hz425aym3knx2s3fdyqyuufrgmzpw6p4ypjqpuuq"
+region               = "us-ashburn-1"
+tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaavgvnnjx74fkruavau43g56srimxrgl6tsip4zmzrfbembhxsbbca"
+api_fingerprint      = "a5:1b:7e:2c:39:b3:c8:b3:74:93:de:16:e0:5a:2c:cd"
+api_private_key_path = "/Users/kvivina/.oci/oci_api_key.pem"
 
 # iam
-resource_label            = "INTEGRATION"
+resource_label            = "INTEGRATION-test1"
 enable_compartment_delete = false
 is_baseline_deploy        = true
 
 # security
-enable_cloud_guard                           = true
+enable_cloud_guard                           = false
 cloud_guard_target_tenancy                   = false
 nonprod_enable_bastion                       = true
 prod_enable_bastion                          = true
@@ -27,8 +32,8 @@ nonprod_budget_amount               = 10000000
 prod_budget_alert_rule_message      = "test"
 prod_budget_alert_rule_threshold    = 1000000
 prod_budget_amount                  = 10000000
-nonprod_enable_budget               = true
-prod_enable_budget                  = true
+nonprod_enable_budget               = false
+prod_enable_budget                  = false
 
 # network extension
 enable_vpn_or_fastconnect           = "VPN"
@@ -82,6 +87,9 @@ nonprod_enable_tagging       = true
 # logging
 onboard_log_analytics = false
 
+#Alarms
+#is_create_alarms      = false
+
 #Workload
 
 workload_name_prefix = "Workload11"
@@ -91,9 +99,9 @@ workload_name_prefix = "Workload11"
 # nonprod_additional_workload_subnets_cidr_blocks = []
 
 #Network Firewall
-enable_network_firewall_prod   = "true"
+enable_network_firewall_prod   = "false"
 enable_traffic_threat_log_prod = "true"
-nfw_subnet_type_prod           = "public"
+nfw_subnet_type_prod           = "private"
 nfw_instance_name_prod         = "nfw_name"
 nfw_instance_policy_prod       = "nfw_name_policy"
 

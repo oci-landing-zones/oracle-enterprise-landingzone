@@ -202,3 +202,12 @@ variable "hub_private_subnet_cidr_block" {
     error_message = "Must be valid IPv4 CIDR."
   }
 }
+
+# -----------------------------------------------------------------------------
+# Workload Network Variables
+# -----------------------------------------------------------------------------
+variable "baseline_spoke_subnets_cidr_blocks" {
+  type        = list(string)
+  default     = []
+  description = "A list of subnets cidr blocks in additional workload stack in prod"
+}

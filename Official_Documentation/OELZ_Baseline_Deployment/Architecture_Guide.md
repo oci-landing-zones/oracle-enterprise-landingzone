@@ -389,6 +389,9 @@ The security lists implemented during the OELZ v2.0 deployment are CIS 1.2.0 com
 
 Oracle Cloud Infrastructure Network Firewall is a next-generation managed network firewall and intrusion detection and prevention service for your Oracle Cloud Infrastructure VCN. The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-South network traffic) as well traffic between subnets (East-West network traffic). We are using combined architecture where we are using Dynamic Routing Gateway with OCI Network Firewall running in the Firewall VCN (Hub VCN). This architecture has a central component (Hub) that's connected to multiple networks around it like Spoke. To learn more about the architecture check the official [Reference Architecture doc](https://docs.oracle.com/en/solutions/oci-network-firewall/#GUID-F4B62BD0-EAD4-4763-B06F-6ACAC758BD69).
 
+This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments.
+One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements.
+
 ## **_Network Firewall Architecture_**
 
 ![Architecture](<../../images/OCI-NFW.jpg> "Architecture")
@@ -399,11 +402,7 @@ Oracle Cloud Infrastructure Network Firewall is a next-generation managed networ
 - The customer should be able to deploy the OCI Network Firewall in a private or public subnet part of the HUB Network.
 - The customer should be able to inspect the North-South and East-West (inter and intra VCN) traffic in the OELZ v2 Hub and Spoke topology using OCI Network Firewall.
 - The customer should be able to enable or disable Traffic Log and Threat Log.
-
-
-**Network Firewall Limitation**
-
-- Customers can currently deploy the Network Firewall feature only as part of a baseline deployment. Standalone deployment of the Network Firewall feature is not supported at this time, but we plan to release this feature in a future update.
+- Customers can currently deploy the Network Firewall feature as greenfield and brownfield deployment.
 
 
 ## **_Security Module_**
