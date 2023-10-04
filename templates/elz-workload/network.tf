@@ -37,10 +37,11 @@ module "workload_expansion_spoke" {
     workload_compartment_id                      = module.workload_compartment.compartment_id
     home_compartment_id                          = module.workload_compartment.compartment_id
     
-    customer_onprem_ip_cidr        = var.customer_onprem_ip_cidr
-    enable_vpn_on_environment      = var.enable_vpn_on_environment
-    enable_vpn_or_fastconnect      = var.enable_vpn_or_fastconnect
-    ipsec_connection_static_routes = var.ipsec_connection_static_routes
+    customer_onprem_ip_cidr                      = var.customer_onprem_ip_cidr
+    enable_vpn_on_environment                    = var.enable_vpn_on_environment
+    enable_vpn_or_fastconnect                    = var.enable_vpn_or_fastconnect
+    ipsec_connection_static_routes               = var.ipsec_connection_static_routes
+    additional_workload_subnets_cidr_blocks      = var.baseline_spoke_subnets_cidr_blocks
 
     providers = {
         oci             = oci

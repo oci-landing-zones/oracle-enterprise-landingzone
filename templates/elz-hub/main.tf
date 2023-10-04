@@ -131,7 +131,7 @@ locals {
     local.hub_public_route_rules_options_nfw.route_rules_workload)
   }
 
-  hub_public_route_check_test_nfw  =  [local.hub_public_route_rules_nfw , local.hub_public_route_rules] [var.enable_network_firewall ? 0 : 1]
+  hub_public_route_check_test_nfw  =  [local.hub_public_route_rules_nfw , local.hub_public_route_rules] [var.enable_network_firewall && var.nfw_subnet_type == "public" ? 1 : 0 ]
 
   list_info = {
     hub_display_name = "OCI-ELZ-${var.environment_prefix}-Hub-Security-List"
@@ -261,7 +261,7 @@ locals {
     route_rules              = merge(local.hub_private_route_rules_options_nfw.route_rules_default, local.hub_private_route_rules_options_nfw.route_rules_nat, local.hub_private_route_rules_options_nfw.route_rules_srvc_gw, local.hub_private_route_rules_options_nfw.route_rules_vpn, local.hub_private_route_rules_options_nfw.route_rules_fastconnect, local.hub_private_route_rules_options_nfw.route_rules_workload)
   }
 
-  hub_private_route_check_test_nfw  =  [local.hub_private_route_rules_nfw , local.hub_private_route_rules] [var.enable_network_firewall ? 0 : 1]
+  hub_private_route_check_test_nfw  =  [local.hub_private_route_rules_nfw , local.hub_private_route_rules ] [var.enable_network_firewall && var.nfw_subnet_type == "private" ? 1 : 0]
 
   ip_protocols = {
     ICMP   = "1"
@@ -702,9 +702,9 @@ resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy
 ##############################################################################
 module "firewall_threat_log" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-nfw"
 
-  service_log_map     = local.network_firewall_threat
+  #service_log_map     = local.network_firewall_threat
   log_display_name    = local.firewall_threat_log.log_display_name
   log_type            = local.firewall_threat_log.log_type
   log_group_id        = var.log_group_id
@@ -716,9 +716,9 @@ module "firewall_threat_log" {
 
 module "firewall_traffic_log" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-nfw"
 
-  service_log_map      = local.network_firewall_threat
+  #service_log_map      = local.network_firewall_traffic
   log_display_name     = local.firewall_traffic_log.log_display_name
   log_type             = local.firewall_traffic_log.log_type
   log_group_id         = var.log_group_id

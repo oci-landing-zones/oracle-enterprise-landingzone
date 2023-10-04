@@ -142,3 +142,10 @@ variable "nfw_ip_address" {
   default     = null
   description = "Network Firewall Forwarding IP OCID."
 }
+# -----------------------------------------------------------------------------
+# Workload Network Variables
+# -----------------------------------------------------------------------------
+variable "additional_workload_subnets_cidr_blocks" {
+  type        = list(string)
+  description = "A list of subnets cidr blocks in additional workload stack"
+}

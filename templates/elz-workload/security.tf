@@ -1,6 +1,6 @@
 locals { 
   osms_dynamic_group_workload = {
-    dynamic_group_name        = "OCI-${var.environment_prefix}-ELZ-${var.workload_name}-DG"
+    dynamic_group_name        = "OCI-${var.environment_prefix}-ELZ-${var.workload_name}-DG1"
     dynamic_group_description = "OCI ELZ Workload Dynamic Group"
 
     general_matching_rule = <<EOT

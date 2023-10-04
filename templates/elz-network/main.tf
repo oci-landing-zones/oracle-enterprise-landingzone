@@ -133,8 +133,7 @@ module "spoke" {
   ipsec_connection_static_routes                 = var.ipsec_connection_static_routes
   home_compartment_id                            = var.home_compartment_id
   is_baseline_deploy                             = var.is_baseline_deploy
-  #enable_network_firewall                        = var.enable_network_firewall
-  #nfw_ip_address                                 = local.nfw_ip_ocid_value
+  additional_workload_subnets_cidr_blocks        = var.additional_workload_subnets_cidr_blocks
 
   providers = {
     oci             = oci
