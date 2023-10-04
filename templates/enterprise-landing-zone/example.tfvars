@@ -99,9 +99,12 @@ nonprod_additional_workload_subnets_cidr_blocks = []
 prod_workload_compartment_names                 = []
 nonprod_workload_compartment_names              = []
 
-#Network Firewall
-enable_network_firewall_prod   = true
-enable_traffic_threat_log_prod = true
-nfw_subnet_type_prod           = "public"
-nfw_instance_name_prod         = "nfw_name"
-nfw_instance_policy_prod       = "nfw_policy_name"
+#Network Firewall can be only deployed in Prod or Non_prod Enviornment
+
+enable_network_firewall_prod    = true
+enable_traffic_threat_log_prod  = true
+nfw_subnet_type_prod            = "public"
+nfw_instance_name_prod          = "nfw_name"
+nfw_instance_policy_prod        = "nfw_policy_name"
+enable_network_firewall_nonprod = "false"  
+
