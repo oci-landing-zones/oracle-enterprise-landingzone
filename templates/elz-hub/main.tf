@@ -130,8 +130,8 @@ locals {
     local.hub_public_route_rules_options_nfw.route_rules_fastconnect,
     local.hub_public_route_rules_options_nfw.route_rules_workload)
   }
-
-  hub_public_route_check_test_nfw  =  [local.hub_public_route_rules_nfw , local.hub_public_route_rules] [var.enable_network_firewall && var.nfw_subnet_type == "public" ? 1 : 0 ]
+  
+  hub_public_route_check_test_nfw         = var.enable_network_firewall && var.nfw_subnet_type == "private" ? local.hub_public_route_rules_nfw : local.hub_public_route_rules
 
   list_info = {
     hub_display_name = "OCI-ELZ-${var.environment_prefix}-Hub-Security-List"
@@ -261,7 +261,7 @@ locals {
     route_rules              = merge(local.hub_private_route_rules_options_nfw.route_rules_default, local.hub_private_route_rules_options_nfw.route_rules_nat, local.hub_private_route_rules_options_nfw.route_rules_srvc_gw, local.hub_private_route_rules_options_nfw.route_rules_vpn, local.hub_private_route_rules_options_nfw.route_rules_fastconnect, local.hub_private_route_rules_options_nfw.route_rules_workload)
   }
 
-  hub_private_route_check_test_nfw  =  [local.hub_private_route_rules_nfw , local.hub_private_route_rules ] [var.enable_network_firewall && var.nfw_subnet_type == "private" ? 1 : 0]
+  hub_private_route_check_test_nfw = var.enable_network_firewall && var.nfw_subnet_type == "public" ? local.hub_private_route_rules_nfw : local.hub_private_route_rules
 
   ip_protocols = {
     ICMP   = "1"
