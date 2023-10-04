@@ -79,7 +79,7 @@ nonprod_cost_center_tagging  = "n_cost_tag"
 nonprod_geo_location_tagging = "n_geo_tag"
 prod_cost_center_tagging     = "p_cost_tag"
 prod_geo_location_tagging    = "p_geo_tag"
-onboard_log_analytics        = false
+
 
 # Monitoring (Optional)
 prod_network_topic_endpoints     = []
@@ -93,11 +93,16 @@ nonprod_platform_topic_endpoints = []
 nonprod_identity_topic_endpoints = []
 nonprod_workload_topic_endpoints = []
 
+#Logging
+
+onboard_log_analytics        = false
+
 # Workload Expansion
 prod_additional_workload_subnets_cidr_blocks    = []
 nonprod_additional_workload_subnets_cidr_blocks = []
 prod_workload_compartment_names                 = []
 nonprod_workload_compartment_names              = []
+
 
 #Network Firewall can be only deployed in Prod or Non_prod Enviornment
 
