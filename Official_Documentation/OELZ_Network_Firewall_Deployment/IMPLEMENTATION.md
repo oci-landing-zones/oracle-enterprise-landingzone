@@ -12,29 +12,29 @@
 
 # <a name="introduction"></a>1. Introduction
 
-Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that is powered by Palo Alto Networks®. Network Firewall.  It is an OCI cloud native service feature that is now available as part of the Oracle Enterprise Landing Zone Landing Zone (OELZ) package.  OELZ now offers simple setup and deployment of the OCI Network Firewall service which gives you visibility into traffic entering your cloud environment (North - South) as well traffic between subnets (East - West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with Network Firewall in the Hub.
-​
-This repo is under active development. Building open source software is a community effort. We're excited to engage with the community and we welcome contributors.
+Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that is powered by Palo Alto Networks®. Network Firewall. It is an OCI cloud-native service feature now available in the Oracle Enterprise Landing Zone (OELZ) package. OELZ now offers simple setup and deployment of the OCI Network Firewall service, which gives you visibility into traffic entering your cloud environment (North-South) and traffic between subnets (East-West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with Network Firewall in the Hub.
+
+This repo is under active development. Building open-source software is a community effort. We're excited to engage with the community and we welcome contributors.
 
 
 # <a name="considerations"></a>2. Considerations
 
 ## 2.1 Access Permissions
 
-The Oracle Enterprise Landing Zone(OELZ) is desgined to be deployed by tenancy administrator (any user that part of Administrator group). By Default, OELZ require tenancy amninstrator permissions in the tenancy to deploy Network Firewall, Network Firewall Policy and creation of compartment in the root compartment. 
+The Oracle Enterprise Landing Zone(OELZ) is desgined to be deployed by a Tenancy administrator (any user is part of the Administrator group). By Default, OELZ requires tenancy administrator permissions in the Tenancy to deploy the Network Firewall and Network Firewall Policy and create a compartment in the root compartment. 
 
 ## 2.2 Terraform State File
 
-When working with Terraform , a key consideration is how to manage the state of the infrastructure. The desired state of the instrastructure is expressed in the local configuration file (tf file) and the actual state of the infrastructure is stored in the Terraform state file (terraform.tfstate).
+When working with Terraform, a key consideration is how to manage the state of the infrastructure. The desired state of the infrastructure is expressed in the local configuration file (tf file), and the actual state of the infrastructure is stored in the Terraform state file (terraform.tfstate).
 
-**- Terraform state must be protected against unintentional changes**: OELZ Network Firewall State will be stored in terraform.tfstate file (readable text). To ensure the accuracy of the OELZ deployment , do not update the state file manually but let Terraform manage the update or use Terraform CLI state management commands if you need to make a manual change. Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use the Terraform state backup in case you cannot recover from a corrupted or lost *terraform.tfstate*.
+**- Terraform state must be protected against unintentional changes**: OELZ Network Firewall State will be stored in terraform.tfstate file(readable text). To ensure the accuracy of the OELZ deployment, do not update the state file manually but let Terraform manage the update or use Terraform CLI state management commands if you need to make a manual change. Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use the Terraform state backup if you cannot recover from a corrupted or lost *terraform.tfstate*.
 
-**- Terraform may overwrite changes made via other means to its managed resources**: When you provision infrastructure resources with Terraform, it is expected that those resources are going to be managed via Terraform. However, there are situations where quick changes are made outside Terraform, for example via the OCI Console. If you resume using Terraform later, those changes will be detected and Terraform will inform you that those changes will be overwritten. You can either accept that or import those resource changes into the state file. Terraform can import existing resources into the state, but it does not generate configuration. Therefore, before importing existing resources, it is necessary to manually add the imported resources into the configuration files. This approach is recommended for advanced users only and is out of the scope of this document.
+**- Terraform may overwrite changes made via other means to its managed resources**: When you provision infrastructure resources with Terraform, it is expected that those resources are going to be managed via Terraform. However, there are situations where quick changes are made outside Terraform, for example, via the OCI Console. If you resume using Terraform later, those changes will be detected and Terraform will inform you that those changes will be overwritten. You can either accept or import those resource changes into the state file. Terraform can import existing resources into the state but does not generate configuration. Therefore, before importing existing resources, it is necessary to add the imported resources into the configuration files manually. This approach is recommended for advanced users only and is out of the scope of this document.
 
 
 # <a name="architecture"></a>3. Architecture
 
-This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments.One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
+This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments. One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
 
 ![NFW Architecture](<../../images/OCI-NFW.jpg> "NFW Architecture")
 
@@ -42,66 +42,74 @@ This reference architecture helps enterprises achieve greater agility, scalabili
 
 he Hub & Spoke architecture deployed within the OELZ can provide several benefits, including:
 
-1. Isolation: Each spoke is its own compartment, which provides an additional layer of isolation and security for resources. This allows for better management and control over access to resources and limits the blast radius of any security incident.
+1. Isolation: Each spoke is its own compartment, which provides an additional layer of isolation and security for resources. This allows for better management and control over resource access and limits the blast radius of any security incident.
 2. Scalability: Spokes can be added or removed as needed to support different use cases or teams. This allows for a flexible and scalable architecture that can adapt to changing business needs.
 3. Networking: A hub provides a central point for all network traffic to flow through, which simplifies the overall network architecture and improves security. Resources in different spokes can communicate with each other over the hub-spoke network without having to traverse the internet.
-4. Resource Management: Each spoke can be managed and administered independently, which allows for better resource allocation and more efficient use of resources. It also allows for different teams or business units to manage their own resources, with the ability to have different access to control and management.
-5. Cost Optimization: By centralizing certain resources, like VPN gateways and load balancers, in the hub, it can be more cost-effective to manage them.
-6. Governance: By having a central hub it becomes much more easier to apply governance rules and policies across the whole infrastructure and have a clear view of all the resources and activity going on in your enterprise.
+4. Resource Management: Each spoke can be managed and administered independently, which allows for better resource allocation and more efficient use of resources. It also allows for different teams or business units to manage their own resources, with the ability to have further access to control and management.
+5. Cost Optimization: By centralizing specific resources, like Network Firewall, VPN gateways, in the hub, it can be more cost-effective to manage them.
+6. Governance: Having a central hub makes it much easier to apply governance rules and policies across the whole infrastructure and have a clear view of all the resources and activity in your enterprise.
 
 
-In OELZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation from each other. By default, in the baseline, we create one hub and one spoke, and if needed, more spokes can be added using the Workload Expansion Stack. In the hub, we create two subnets (public and private), and in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall is installed on the hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
+In OELZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation. By default, in the Baseline, we create one hub and one spoke, and if needed, more spokes can be added using the Workload Expansion Stack. In the Hub, we create two subnets (public and private); in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall is installed on the hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
 
-Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
+Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI, and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
 
 # <a name="scenarios"></a>4. Deployment Scenarios
 
 
 ## 4.1 Greenfield Scenarios
 
-The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case in `home.region`). For a Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources on top of it. This is the simplest deployment scenario. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as an additional Spoke so that the traffic can be inspected by the Network Firewall.
+The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case in `home.region`). A Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as a different Spoke so that the Network Firewall can inspect the traffic.
 
 
 ## 4.2 Brownfield Scenarios
 
-In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ and alongside the existing workload(s) and use the OELZ workload expansion template for new workloads to be added as a spoke VCN. Brownfield deployment gives flexibility to customers, allowing them to install a Network Firewall on top of the OELZ baseline in the future if needed. More information on installion can found in section 6.3.
+In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ resources stack. Brownfield deployment gives flexibility to customers, allowing them to install a Network Firewall on top of the OELZ baseline in the future if needed. More information on installation can be found in section 6.3.
 
 # <a name="ways_to_deploy"></a>5. Ways to Deploy
 
 ## 5.1 Deploying with Terraform CLI
 
-Go to folder templates/enterprise-landing-zone, provide variable values in the existing *example.tfvars* file.
+Go to folder templates/enterprise-landing-zone, and provide variable values in the existing *example.tfvars* file.
 
 Next, execute:<br />
-    `terraform init`<br />
-    `terraform plan -var-file="example.tfvars" -out oelz_nfw.out`<br />
-    `terraform apply oelz_nfw.out`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfw.out`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw.out`<br />
 
 ### Identity
 
-Terraform CLI executes under the identity information passed to Terraform provider. In OELZ, the identity is defined in
-    `tenancy_ocid         = "<tenancy_ocid>"` <br />
-    `user_ocid            = "<user_ocid>"`<br />
-    `fingerprint          = "<user_api_key_fingerprint>"`<br />
-    `private_key_path     = "<path_to_user_private_key_file>"`<br />
+Terraform CLI executes under the identity information passed to the Terraform provider. In OELZ, the identity is defined in<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;`tenancy_ocid         = "<tenancy_ocid>"` <br />
+&nbsp;&nbsp;&nbsp;&nbsp;`user_ocid            = "<user_ocid>"`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;`fingerprint          = "<user_api_key_fingerprint>"`<br />
+&nbsp;&nbsp;&nbsp;&nbsp;`private_key_path     = "<path_to_user_private_key_file>"`<br />
 
 The *fingerprint* and private key pair are obtained in OCI Console when an API key is created for the user. Save the private key file locally and provide its path (absolute or relative) to the *private_key_path* variable.
 
 
 ## 5.2 Deploying with OCI Resource Manager UI
 
-There are three different ways to run Terraform code using OCI Resource Manager (ORM) user interface.<br />
+There are three different ways to run Terraform code using the OCI Resource Manager (ORM) user interface.<br />
 - creating an ORM stack by uploading a zip file to ORM;<br />
-- Uploading the Zip file to ORM<br />
+- Uploading the Zip file to ORM(See Section 5.3)<br /> 
 - Using RMS OELZ Stack.<br />
 
-A stack is the ORM term for a Terraform configuration and provide an isolated scope for Terraform state. The stack manages only a single Terraform configuration and therefore, for managing multiple OELZ configurations, use multiple stacks, one for each configuration.<br />
+A stack is the ORM term for a Terraform configuration and provides an isolated scope for the Terraform state. The stack manages only a single Terraform configuration and, therefore, for managing multiple OELZ configurations, uses multiple stacks, one for each configuration.<br />
 
 For more ORM information, [please check](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm)
 
+Login to the Tenancy and search "Stack" on the search bar. Click on Create Stack and select the "OELZ v2" template under Architecture Section.
+
+![Create Stack RMS](<../../images/oelz_stack_rms.png> "Create Stack RMS")
+
+Once variable values are provided, click Next, review stack values, and create the stack. <br />
+<br />
+
 ## 5.3 Stack from Github
 
-Download this repository as a .zip file, by expanding the Code button in the repository home page and choosing the "Download ZIP" option.
+Download this repository as a .zip file by expanding the Code button on the repository home page and choosing the "Download ZIP" option.
 
 ![OELZ Zip Download](<../../images/oelz_stack_zip.png> "OELZ Zip Download")
 
@@ -113,18 +121,18 @@ In the **Create Stack** page:<br />
 
 ![Create Stack](<../../images/oelz_create_stack.png> "Create Stack")
 
-Alternatively, you can simply click the button below to supply the zip file directly from GitHub without downloading it:
+Alternatively, you can click the button below to supply the zip file directly from GitHub without downloading it:
 [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v3.0.0.zip)
 
-*If you are logged in your OCI tenancy, the button will take you directly to OCI Resource Manager where you can proceed to deploy. If you are not logged, the button takes you to Oracle Cloud initial page where you must enter your tenancy name and log in to OCI.*
+*If you are logged in to your OCI tenancy, the button will take you directly to OCI Resource Manager, where you can proceed to deploy. If you are not logged, the button takes you to tje Oracle Cloud initial webpage, where you must enter your tenancy name and log in to OCI.*
 
 Once variable values are provided, click Next, review stack values and create the stack. <br />
 <br />
-In the Stack page use the appropriate buttons to plan/apply/destroy your stack.<br />
+In the Stack page, use the appropriate buttons to plan/apply/destroy your stack.<br />
 
 # <a name="samples"></a>6. Deployment Samples
 
-In this section we provide two deployment sceanrio of OELZ network firewall feature. By Design, Network Firewall will be disable in both Production and Non-Production Enivornment and can be enabled on one Enivornment either Prodution or Non-Production. By default the Network Firewall Policy is reject all traffic.
+In this section, we provide two deployment scenarios of the OELZ Network Firewall Feature. By Design, the Network Firewall will be disabled in both Production and Non-Production environments and can be enabled on one environment, either Prodution or Non-Production. By default the Network Firewall Policy is to `reject all traffic`.
 
 ## 6.1 : Network Firewall Feature Varibles
 
@@ -143,109 +151,108 @@ In this section we provide two deployment sceanrio of OELZ network firewall feat
 
 ## Sample tfvars : To Enable Network Firewall (private hub subnet) on Production Enviornment
 
-  `enable_network_firewall_prod   = "true"` <br />
-  `enable_traffic_threat_log_prod = "true"`  <br />
-  `nfw_subnet_type_prod           = "private"` <br />
-  `nfw_instance_name_prod         = "nfw_name"` <br />
-  `nfw_instance_policy_prod       = "nfw_name_policy"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_firewall_prod   = "true"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_traffic_threat_log_prod = "true"`  <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_subnet_type_prod           = "private"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_name_prod         = "nfw_name"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_policy_prod       = "nfw_name_policy"` <br />
 
 
 ## Sample tfvars : To Enable Network Firewall (public hub subnet) on Non-Production Enviornment
 
-  `enable_network_firewall_nonprod   = "true"` <br />
-  `enable_traffic_threat_log_nonprod = "false"` <br />
-  `nfw_subnet_type_nonprod           = "public"` <br />
-  `nfw_instance_name_nonprod         = "nfw_name"` <br />
-  `nfw_instance_policy_nonprod       = "nfw_name_policy"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_firewall_nonprod   = "true"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_traffic_threat_log_nonprod = "false"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_subnet_type_nonprod           = "public"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_name_nonprod         = "nfw_name"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_policy_nonprod       = "nfw_name_policy"` <br />
 
 ## 6.2 Greenfield Deployment : Network Firewall Part of Baseline Deployment.
 
 
 * Step 1) Go to folder templates/enterprise-landing-zone.
 * Step 2) Provide variable values in the existing *example.tfvars* file. Add the following Network Firewall Related Variables on *example.tfvars* file.
-        `enable_network_firewall_prod   = "true"` <br />
-        `enable_traffic_threat_log_prod = "true"`  <br />
-        `nfw_subnet_type_prod           = "private"` <br />
-        `nfw_instance_name_prod         = "nfw_name"` <br />
-        `nfw_instance_policy_prod       = "nfw_name_policy"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_firewall_prod   = "true"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_traffic_threat_log_prod = "true"`  <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_subnet_type_prod           = "private"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_name_prod         = "nfw_name"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_policy_prod       = "nfw_name_policy"` <br />
 * Step 3) Use any deployment scenario in Section 5. We are using the terraform CLI (Section 5.1) method.
 * Step 4) Execute the Following.<br />
-    `terraform init`<br />
-    `terraform plan -var-file="example.tfvars" -out oelz_nfw.out`<br />
-    `terraform apply oelz_nfw.out`<br />
-* Step 5) Network Firewall Provisioning ususlly take 45-50 minutes.
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfw.out`<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw.out`<br />
+* Step 5) Network Firewall Provisioning usually take 45-50 minutes.
 * Step 6) Deploy one more spoke using Workload Expansion.
     * Step 6.1) Go to folder templates/elz-workload.
-    * Step 6.2) Provide variable values in the existing *workload_extension-variables.tfvars* file
-    * Step 6.3) Workload Extension Variable Sample
-
-          `enable_compartment_delete             = false`<br />
-          `workload_compartment_name             = <"Workload Compartment Name">`<br />
-          `environment_compartment_id            = < Environment OCID where network firewall is deployed >`<br />
-          `workload_expansion_flag               = true`<br />
-          `environment_prefix                    = "< Production or Non-Production Environment >"`<br />
-          `workload_prefix                       = "WRKTEST01"`<br />
-          `identity_domain_id                    = < Identity Domain OCID Where Network Firewall Deployed >`<br />
-          `identity_domain_name                  = < Identity Domain Name Where Network Firewall Deployed >`<br />
-          `security_compartment_name             = < Security Compartment Name >`<br />
-          `security_compartment_id               = < Security Compartment ID >`<br />
-          `workload_admin_group_name             = "TEST-WRK1-ADMIN"`<br />
-          `application_admin_group_name          = "TEST-WRK1-ADMIN-APP"`<br />
-          `database_admin_group_name             = "TEST-WRK1-ADMIN-DB"`<br />
-          `idcs_endpoint                         = < Identity Domain IDCS Endpoint >`<br />
-          `security_admin_group_name             = "OCI-ELZ-UGP-P-SEC-ADMIN"`<br />
-          `network_admin_group_name              = "OCI-ELZ-UGP-P-NET-ADMIN"`<br />
-          `workload_spoke_vcn_cidr                          = "10.5.0.0/16"`<br />
-          `workload_private_spoke_subnet_web_cidr_block     = "10.5.1.0/24"`<br />
-          `workload_private_spoke_subnet_app_cidr_block     = "10.5.2.0/24"`<br />
-          `workload_private_spoke_subnet_db_cidr_block      = "10.5.3.0/24"`<br />
-          `enable_nat_gateway_spoke                         = true`<br />
-          `enable_service_gateway_spoke                     = true`<br />
-          `drg_id                                           = < DRG OCID Value >`<br />
-          `hub_public_subnet_cidr_block                     = "10.1.1.0/24"`<br />
-          `hub_private_subnet_cidr_block                    = "10.1.2.0/24"`<br />
-          `workload_name            = "WSPK1"`<br />
-          `enable_network_monitoring_alarms  = false`<br />
-          `enable_security_monitoring_alarms = false`<br />
-          `enable_workload_monitoring_alarms = false`<br />
-          `# workload_topic_endpoints = [""]`<br />
-
+    * Step 6.2) Provide variable values in the existing *workload_extension-variables.tfvars* file.
+    * Step 6.3) Workload Extension Variable Sample.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_compartment_delete             = false`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_compartment_name             = <"Workload Compartment Name">`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`environment_compartment_id            = < Environment OCID where network firewall is deployed >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_expansion_flag               = true`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`environment_prefix                    = "< Production or Non-Production Environment >"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_prefix                       = "WRKTEST01"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`identity_domain_id                    = < Identity Domain OCID Where Network Firewall Deployed >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`identity_domain_name                  = < Identity Domain Name Where Network Firewall Deployed >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`security_compartment_name             = < Security Compartment Name >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`security_compartment_id               = < Security Compartment ID >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_admin_group_name             = "TEST-WRK1-ADMIN"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`application_admin_group_name          = "TEST-WRK1-ADMIN-APP"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`database_admin_group_name             = "TEST-WRK1-ADMIN-DB"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`idcs_endpoint                         = < Identity Domain IDCS Endpoint >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`security_admin_group_name             = "OCI-ELZ-UGP-P-SEC-ADMIN"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`network_admin_group_name              = "OCI-ELZ-UGP-P-NET-ADMIN"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_spoke_vcn_cidr                          = "10.5.0.0/16"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_private_spoke_subnet_web_cidr_block     = "10.5.1.0/24"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_private_spoke_subnet_app_cidr_block     = "10.5.2.0/24"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_private_spoke_subnet_db_cidr_block      = "10.5.3.0/24"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_nat_gateway_spoke                         = true`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_service_gateway_spoke                     = true`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`drg_id                                           = < DRG OCID Value >`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`hub_public_subnet_cidr_block                     = "10.1.1.0/24"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`hub_private_subnet_cidr_block                    = "10.1.2.0/24"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_name            = "WSPK1"`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_monitoring_alarms  = false`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_security_monitoring_alarms = false`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`enable_workload_monitoring_alarms = false`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`# workload_topic_endpoints = [""]`<br />
     * Step 6.4) Take a backup of providers.tf file.
     * Step 6.5) Copy providers.standalone file content to providers.tf file.
     * Step 6.6) Execute the Following.<br />
-            `terraform init`<br />
-            `terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_wrkspoke1.out`<br />
-            `terraform apply oelz_wrkspoke1.out`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_wrkspoke1.out`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_wrkspoke1.out`<br />
     * Step 6.7) Add the Baseline Spoke Route on the Newly Created Spoke Route Table. Update the following variable on *workload_extension-variables.tfvars* file.
-            `workload_topic_endpoints = ["< SPOKE CIDR BLOCK>"]`<br />
-    * Step 6.8) Execute the Following.<br />
-        `terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_nfw_spoke_route.out`<br />
-        `terraform apply oelz_nfw_spoke_route.out`<br />
-    * Step 6.9) Maerge backup of providers.tf file to provider.tf file.
+    &nbsp;&nbsp;&nbsp;&nbsp;`workload_topic_endpoints = ["< SPOKE CIDR BLOCK>"]`<br />
+    * Step 6.8) Execute the Following. (This step will revert the Wrk Spoke VCN Security List to default i.e., Manually added Wrk Spoke VCN Security rules will be deleted)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_nfw_spoke_route.out`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw_spoke_route.out`<br />
+    * Step 6.9) Merge backup of providers.tf file to provider.tf file.
     * Step 6.10) Go to Folder templates/enterprise-landing-zone.
     * Step 6.11) Add the newly created Spoke Routes on the Existing Hub and Spoke Route Table. Update the following variable on *example.tfvars* file.
-        prod_workload_compartment_names                 = [ < New Workload Compartment Name > ]
-        prod_additional_workload_subnets_cidr_blocks    = [ < New Spoke VCN CIDR > ]
-    * Step 6.12) Execute the Following.<br />
-        `terraform plan -var-file="example.tfvars" -out oelz_nfw_wrkspoke_route.out`<br />
-        `terraform apply oelz_nfw_wrkspoke_route.out`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;prod_workload_compartment_names                 = [ < New Workload Compartment Name > ]
+    &nbsp;&nbsp;&nbsp;&nbsp;prod_additional_workload_subnets_cidr_blocks    = [ < New Spoke VCN CIDR > ]
+    * Step 6.12) Execute the Following. (This step will revert the Network Firewall Policy, Hub and Spoke VCN Security List to default i.e., Manually added Network Firewall Policy and Hub Spoke VCN Security Rules will be deleted).<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variabes"`
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfw_wrkspoke_route.out`<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw_wrkspoke_route.out`<br />
 
 
-## 6.3 Brownfield Deployment : Add Network Firewall on top of Existing Baseline OELZ.
+## 6.3 Brownfield Deployment: Add Network Firewall on top of Existing Baseline OELZ.
 
 * Step 1) Go to folder templates/enterprise-landing-zone.
 * Step 2) Provide variable values in the existing *example.tfvars* file. Do not add any  Network Firewall Related Variables on *example.tfvars* file.
 * Step 3) Execute the Following.<br />
-    `terraform init`<br />
-    `terraform plan -var-file="example.tfvars" -out oelz_baseline.out`<br />
-    `terraform apply oelz_baseline.out`<br />
-* Step 4) Update the Network Firewall variables on existing *example.tfvars* file .
-        `enable_network_firewall_prod   = "true"` <br />
-        `enable_traffic_threat_log_prod = "true"`  <br />
-        `nfw_subnet_type_prod           = "private"` <br />
-        `nfw_instance_name_prod         = "nfw_name"` <br />
-        `nfw_instance_policy_prod       = "nfw_name_policy"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_baseline.out`<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_baseline.out`<br />
+* Step 4) Update the Network Firewall variables on existing *example.tfvars* file .<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_firewall_prod   = "true"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`enable_traffic_threat_log_prod = "true"`  <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_subnet_type_prod           = "private"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_name_prod         = "nfw_name"` <br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`nfw_instance_policy_prod       = "nfw_name_policy"` <br />
 * Step 3) Execute the Following.<br />
-    `terraform plan -var-file="example.tfvars" -out oelz_nfwonbaseline.out`<br />
-    `terraform apply oelz_nfwonbaseline.out`<br />
-* Step 4) Follow the Same Step 6 defined on Green Field Deployment.
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfwonbaseline.out`<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfwonbaseline.out`<br />
+* Step 4) Follow the Same Step 6 defined on Green Field Deployment if you want to deploy more Workload Spoke.<br />
