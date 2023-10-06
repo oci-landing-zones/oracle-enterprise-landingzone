@@ -34,26 +34,37 @@ When working with Terraform , a key consideration is how to manage the state of 
 
 # <a name="architecture"></a>3. Architecture
 
-This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments.
-One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found  
-[here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
+This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments.One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
 
 ![NFW Architecture](<../../images/OCI-NFW.jpg> "NFW Architecture")
 
 ## 3.1 Hub & Spoke
 
+he Hub & Spoke architecture deployed within the OELZ can provide several benefits, including:
+
+1. Isolation: Each spoke is its own compartment, which provides an additional layer of isolation and security for resources. This allows for better management and control over access to resources and limits the blast radius of any security incident.
+2. Scalability: Spokes can be added or removed as needed to support different use cases or teams. This allows for a flexible and scalable architecture that can adapt to changing business needs.
+3. Networking: A hub provides a central point for all network traffic to flow through, which simplifies the overall network architecture and improves security. Resources in different spokes can communicate with each other over the hub-spoke network without having to traverse the internet.
+4. Resource Management: Each spoke can be managed and administered independently, which allows for better resource allocation and more efficient use of resources. It also allows for different teams or business units to manage their own resources, with the ability to have different access to control and management.
+5. Cost Optimization: By centralizing certain resources, like VPN gateways and load balancers, in the hub, it can be more cost-effective to manage them.
+6. Governance: By having a central hub it becomes much more easier to apply governance rules and policies across the whole infrastructure and have a clear view of all the resources and activity going on in your enterprise.
+
+
+In OELZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation from each other. By default, in the baseline, we create one hub and one spoke, and if needed, more spokes can be added using the Workload Expansion Stack. In the hub, we create two subnets (public and private), and in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall is installed on the hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
+
+Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
 
 # <a name="scenarios"></a>4. Deployment Scenarios
 
 
 ## 4.1 Greenfield Scenarios
 
-The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case). For a Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources on top of it. This is the simplest deployment scenario. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as an additional Spoke so that the traffic can be inspected by the Network Firewall.
+The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case in `home.region`). For a Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources on top of it. This is the simplest deployment scenario. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as an additional Spoke so that the traffic can be inspected by the Network Firewall.
 
 
 ## 4.2 Brownfield Scenarios
 
-In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ and alongside the existing workload(s) and use the OELZ workload expansion template for new workloads to be added as a spoke VCN.
+In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ and alongside the existing workload(s) and use the OELZ workload expansion template for new workloads to be added as a spoke VCN. Brownfield deployment gives flexibility to customers, allowing them to install a Network Firewall on top of the OELZ baseline in the future if needed. More information on installion can found in section 6.3.
 
 # <a name="ways_to_deploy"></a>5. Ways to Deploy
 
@@ -111,7 +122,7 @@ Once variable values are provided, click Next, review stack values and create th
 <br />
 In the Stack page use the appropriate buttons to plan/apply/destroy your stack.<br />
 
-# <a name="samples"></a>7. Deployment Samples
+# <a name="samples"></a>6. Deployment Samples
 
 In this section we provide two deployment sceanrio of OELZ network firewall feature. By Design, Network Firewall will be disable in both Production and Non-Production Enivornment and can be enabled on one Enivornment either Prodution or Non-Production. By default the Network Firewall Policy is reject all traffic.
 
@@ -220,7 +231,7 @@ In this section we provide two deployment sceanrio of OELZ network firewall feat
         `terraform apply oelz_nfw_wrkspoke_route.out`<br />
 
 
-## 7.1 Brownfield Deployment : Add Network Firewall on top of Existing Baseline OELZ.
+## 6.3 Brownfield Deployment : Add Network Firewall on top of Existing Baseline OELZ.
 
 * Step 1) Go to folder templates/enterprise-landing-zone.
 * Step 2) Provide variable values in the existing *example.tfvars* file. Do not add any  Network Firewall Related Variables on *example.tfvars* file.
