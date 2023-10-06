@@ -12,9 +12,10 @@
 
 # <a name="introduction"></a>1. Introduction
 
-Oracle Cloud Infrastructure Network Firewall is a managed next-generation network firewall and intrusion detection and prevention service for Oracle Cloud Infrastructure VCN, powered by Palo Alto Networks®. Network Firewall feature as part Oracle Enterprise Landing Zone(OELZ) environment offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North to South) as well traffic between subnets (East to West). This reference OELZ implementation will deploy Hub and Spoke Network Architecture with Network Firewall on Hub.
+Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that is powered by Palo Alto Networks®. Network Firewall.  It is an OCI cloud native service feature that is now available as part of the Oracle Enterprise Landing Zone Landing Zone (OELZ) package.  OELZ now offers simple setup and deployment of the OCI Network Firewall service which gives you visibility into traffic entering your cloud environment (North - South) as well traffic between subnets (East - West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with Network Firewall in the Hub.
+​
+This repo is under active development. Building open source software is a community effort. We're excited to engage with the community and we welcome contributors.
 
-This repo is under active development. Building open source software is a community effort. We're excited to engage with the community building this.
 
 # <a name="considerations"></a>2. Considerations
 
@@ -22,22 +23,19 @@ This repo is under active development. Building open source software is a commun
 
 The Oracle Enterprise Landing Zone(OELZ) is desgined to be deployed by tenancy administrator (any user that part of Administrator group). By Default, OELZ require tenancy amninstrator permissions in the tenancy to deploy Network Firewall, Network Firewall Policy and creation of compartment in the root compartment. 
 
-## 2.2 Green Field and Brown Field Deployments
+## 2.2 Terraform State File
 
+When working with Terraform , a key consideration is how to manage the state of the infrastructure. The desired state of the instrastructure is expressed in the local configuration file (tf file) and the actual state of the infrastructure is stored in the Terraform state file (terraform.tfstate).
 
-## 2.3 Terraform State File
+**- Terraform state must be protected against unintentional changes**: OELZ Network Firewall State will be stored in terraform.tfstate file (readable text). To ensure the accuracy of the OELZ deployment , do not update the state file manually but let Terraform manage the update or use Terraform CLI state management commands if you need to make a manual change. Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use the Terraform state backup in case you cannot recover from a corrupted or lost *terraform.tfstate*.
 
-When working with Terraform , as key considersation is how to manage the state of infrastructure. The desired state of the instrastructure is expressed in the local confgiuration file(tf file) and acatual state of the infrastructure is stored in the Terraform state file (terraform.tfstate).
-
-**- Terraform state must be protected against unintentional changes**: OELZ Network Firewall State will be stored in terraform.tfstate file(readable text). To ensure the accuracy of the OELZ deployes , do not update the state file manually. Let terraform manage it or use Terraform CLI state management commands if you need to make a manual change . Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use that in case you cannot recover from a corrupted or lost *terraform.tfstate*.
-
-**- Terraform may overwrite changes made via other means to its managed resources**: when you provision infrastructure resources with Terraform, it is expected that those resources are going to be managed via Terraform. However, there are situations where quick changes are made outside Terraform, like via the OCI Console. If you resume using Terraform later, those changes will be detected and Terraform will inform you that those changes will be overwritten. You can either accept that or import those resource changes into the state file. Terraform can import existing resources into the state, but it does not generate configuration. Therefore, before importing existing resources, it is necessary to manually add the imported resources into the configuration files. This approach is recommended for advanced users only and is out of the scope of this document.
+**- Terraform may overwrite changes made via other means to its managed resources**: When you provision infrastructure resources with Terraform, it is expected that those resources are going to be managed via Terraform. However, there are situations where quick changes are made outside Terraform, for example via the OCI Console. If you resume using Terraform later, those changes will be detected and Terraform will inform you that those changes will be overwritten. You can either accept that or import those resource changes into the state file. Terraform can import existing resources into the state, but it does not generate configuration. Therefore, before importing existing resources, it is necessary to manually add the imported resources into the configuration files. This approach is recommended for advanced users only and is out of the scope of this document.
 
 
 # <a name="architecture"></a>3. Architecture
 
 This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments.
-One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found 
+One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found  
 [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
 
 ![NFW Architecture](<../../images/OCI-NFW.jpg> "NFW Architecture")
@@ -50,12 +48,12 @@ One of the key features of Oracle Enterprise Landing Zone v2 is its modular arch
 
 ## 4.1 Greenfield Scenarios
 
-The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case). For a Green Field OCI tenancy deploying becomes a matter of provisioning the OELZ and then adding any other resources on top of it. This is the simplest deployment scenario. As part of Baseline we deploy one Hub and Spoke and Network can be deployed on Hub Public or Private Subnet. If customer need more Spoke , they deploy Workload Expansion template.
+The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case). For a Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources on top of it. This is the simplest deployment scenario. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as an additional Spoke so that the traffic can be inspected by the Network Firewall.
 
 
 ## 4.2 Brownfield Scenarios
 
-In Brown Field we deploy the Network Firewall Feature in top of the existing OELZ and alongside the existing workload(s) and use the OELZ workload template for new workloads spoke vcn.
+In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ and alongside the existing workload(s) and use the OELZ workload expansion template for new workloads to be added as a spoke VCN.
 
 # <a name="ways_to_deploy"></a>5. Ways to Deploy
 
@@ -81,13 +79,12 @@ The *fingerprint* and private key pair are obtained in OCI Console when an API k
 
 ## 5.2 Deploying with OCI Resource Manager UI
 
-There are a two different ways to run Terraform code using OCI Resource Manager (ORM) user interface. Here we describe two of them: <br />
+There are three different ways to run Terraform code using OCI Resource Manager (ORM) user interface.<br />
 - creating an ORM stack by uploading a zip file to ORM;<br />
-- Uploading the Zip File to ORM<br />
+- Uploading the Zip file to ORM<br />
 - Using RMS OELZ Stack.<br />
 
-A stack is the ORM term for a Terraform configuration and provide an isolated scope for Terraform state. A Stack manages one and only Terraform configuration. Therefore, for managing multiple Landing Zone configurations, use multiple stacks, one for each configuration.<br />
-
+A stack is the ORM term for a Terraform configuration and provide an isolated scope for Terraform state. The stack manages only a single Terraform configuration and therefore, for managing multiple OELZ configurations, use multiple stacks, one for each configuration.<br />
 
 For more ORM information, [please check](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm)
 
