@@ -12,24 +12,26 @@
 
 # <a name="introduction"></a>1. Introduction
 
-Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that is powered by Palo Alto Networks®. Network Firewall. It is an OCI cloud-native service feature now available in the Oracle Enterprise Landing Zone (OELZ) package. OELZ now offers simple setup and deployment of the OCI Network Firewall service, which gives you visibility into traffic entering your cloud environment (North-South) and traffic between subnets (East-West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with Network Firewall in the Hub.
+Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that Palo Alto Networks® powers Network Firewall. It is an OCI cloud-native service feature now available in the Oracle Enterprise Landing Zone (OELZ) package. OELZ now offers simple setup and deployment of the OCI Network Firewall service, which gives you visibility into traffic entering your cloud environment (North-South) and traffic between subnets (East-West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with a Network Firewall in the Hub.
 
-This repo is under active development. Building open-source software is a community effort. We're excited to engage with the community and we welcome contributors.
+This repo is under active development. Building open-source software is a community effort. We're excited to engage with the community, and we welcome contributors.
 
 
 # <a name="considerations"></a>2. Considerations
 
 ## 2.1 Access Permissions
 
-The Oracle Enterprise Landing Zone(OELZ) is desgined to be deployed by a Tenancy administrator (any user is part of the Administrator group). By Default, OELZ requires tenancy administrator permissions in the Tenancy to deploy the Network Firewall and Network Firewall Policy and create a compartment in the root compartment. 
+OCI Tenancy Administrators can only deploy the Oracle Enterprise Landing Zone(OELZ), which is part of the Tenancy Administrator (any user is part of the Administrator group). By Default, OELZ Deployment requires Tenancy administrator privileges to deploy the Network Firewall Feature and create a compartment in the root compartment. 
 
 ## 2.2 Terraform State File
 
-When working with Terraform, a key consideration is how to manage the state of the infrastructure. The desired state of the infrastructure is expressed in the local configuration file (tf file), and the actual state of the infrastructure is stored in the Terraform state file (terraform.tfstate).
+When working with Terraform, a key consideration is how to manage the state of the infrastructure. The local configuration file (tf file) contains the desired state of the infrastructure, and the Terraform state file (terraform.tfstate) contains the actual state of configured resources on OCI Tenancy.
 
-**- Terraform state must be protected against unintentional changes**: OELZ Network Firewall State will be stored in terraform.tfstate file(readable text). To ensure the accuracy of the OELZ deployment, do not update the state file manually but let Terraform manage the update or use Terraform CLI state management commands if you need to make a manual change. Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use the Terraform state backup if you cannot recover from a corrupted or lost *terraform.tfstate*.
+**- Terraform state must be protected against unintentional changes**: <br />
+Terraform tfstate file(readable text) `terraform.tfstate` contains the OELZ Network Firewall State. To ensure the accuracy of the OELZ deployment, do not update the state file manually but let Terraform manage the update or use Terraform CLI state management commands if you need to make a manual change. Terraform automatically backs up the state file in *terraform.tfstate.backup* in the same folder as *terraform.tfstate*. Use the Terraform state backup if you cannot recover from a corrupted or lost *terraform.tfstate*.
 
-**- Terraform may overwrite changes made via other means to its managed resources**: When you provision infrastructure resources with Terraform, it is expected that those resources are going to be managed via Terraform. However, there are situations where quick changes are made outside Terraform, for example, via the OCI Console. If you resume using Terraform later, those changes will be detected and Terraform will inform you that those changes will be overwritten. You can either accept or import those resource changes into the state file. Terraform can import existing resources into the state but does not generate configuration. Therefore, before importing existing resources, it is necessary to add the imported resources into the configuration files manually. This approach is recommended for advanced users only and is out of the scope of this document.
+**- Terraform may overwrite changes made via other means to its managed resources**: <br />
+When you provision infrastructure resources with Terraform, the expectation is only Terraform will manage the OCI Tenancy Resources. However, there are situations where quick changes are made outside Terraform, for example, via the OCI Console. If you resume using Terraform later, if some changes are detected, Terraform will overides those manual changes. You can either accept or import those resource changes into the state file. Terraform can import existing resources into the state but does not generate configuration. Therefore, before importing existing resources, it is necessary to add the imported resources into the configuration files manually. This approach is recommended for advanced users only and is out of the scope of this document.
 
 
 # <a name="architecture"></a>3. Architecture
@@ -40,17 +42,17 @@ This reference architecture helps enterprises achieve greater agility, scalabili
 
 ## 3.1 Hub & Spoke
 
-he Hub & Spoke architecture deployed within the OELZ can provide several benefits, including:
+The Hub & Spoke architecture deployed within the OELZ can provide several benefits, including:
 
-1. Isolation: Each spoke is its own compartment, which provides an additional layer of isolation and security for resources. This allows for better management and control over resource access and limits the blast radius of any security incident.
-2. Scalability: Spokes can be added or removed as needed to support different use cases or teams. This allows for a flexible and scalable architecture that can adapt to changing business needs.
-3. Networking: A hub provides a central point for all network traffic to flow through, which simplifies the overall network architecture and improves security. Resources in different spokes can communicate with each other over the hub-spoke network without having to traverse the internet.
-4. Resource Management: Each spoke can be managed and administered independently, which allows for better resource allocation and more efficient use of resources. It also allows for different teams or business units to manage their own resources, with the ability to have further access to control and management.
-5. Cost Optimization: By centralizing specific resources, like Network Firewall, VPN gateways, in the hub, it can be more cost-effective to manage them.
-6. Governance: Having a central hub makes it much easier to apply governance rules and policies across the whole infrastructure and have a clear view of all the resources and activity in your enterprise.
+1. Isolation: Each Hub & Spoke has a separate VCN, which provides an additional layer of isolation and security, better management and control over resource access, and limits the blast radius of any security incident.
+2. Scalability: As per the Customer requirement, Spoke can be added or removed to support different use cases. Furthermore, this allows for a flexible and scalable architecture that can adapt to changing business needs.
+3. Networking: A hub provides a central point for all network traffic to flow through, simplifying overall Network architecture and improving security using the Network Firewall feature. Resources in different spokes can communicate with each other over the hub-spoke network without having to traverse the internet.
+4. Resource Management: Each Spoke can be managed and administered independently for better Resource allocation and efficient use of OCI Resources. It also allows different teams or business units to manage their resources, with the ability to have further access to control and management.
+5. Cost Optimization: By centralizing specific resources, like Network Firewall and VPN gateways in the Hub, it can be more cost-effective to manage them.
+6. Governance: Having a central hub makes it much easier to apply governance rules and policies across the whole infrastructure and have a clear view of your enterprise's resources and activity.
 
 
-In OELZ v2.0 OCI, the hub network is created using a Virtual Cloud Network (VCN) in the Network Shared Infrastructure compartment in each environment, and the spoke networks are created in each Application compartment, using VCN Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). This allows the spoke networks to access the shared resources in the hub network while maintaining their isolation. By default, in the Baseline, we create one hub and one spoke, and if needed, more spokes can be added using the Workload Expansion Stack. In the Hub, we create two subnets (public and private); in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall is installed on the hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
+In OELZ v2.0 OCI, we create a Hub Network in a Virtual Cloud Network (VCN) in each environment's Network Shared Infrastructure compartment, and the Spoke networks are created in each Workload compartment, using DRG Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). Furthermore, this allows the Spoke networks to access the shared resources in the hub network while maintaining their isolation. As part of the Baseline, we are creating one Hub and Spoke; additionally, if customers want more Spokes, they can add using the Workload Expansion Stack. In the Hub, we create two subnets (public and private); in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall will deployed on the Hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
 
 Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI, and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
 
@@ -59,12 +61,12 @@ Overall, the Hub & Spoke architecture is a flexible and scalable design pattern 
 
 ## 4.1 Greenfield Scenarios
 
-The OELZ with Network Firewall Feature can be deployed in any new OCI tenancies (Green Field use-case in `home.region`). A Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ and then adding any other resources. As part of Baseline we deploy one Hub and Spoke and Network Firewall which can be deployed on the Hub in either the Public or Private Subnet. If an additional workload compartment is required, it can be deployed via the Workload Expansion template as a different Spoke so that the Network Firewall can inspect the traffic.
+"Greenfield deployment" refers to setting up an OELZ feature with a Network Firewall feature on a clean, new environment with no previous installation or configuration on the OCI Tenancy home region. A Green Field OCI tenancy deployment becomes a matter of provisioning the OELZ resources and adding Network Firewall resources.
 
 
 ## 4.2 Brownfield Scenarios
 
-In the case of a brownfield OELZ environment, we deploy the Network Firewall feature on top of the existing OELZ resources stack. Brownfield deployment gives flexibility to customers, allowing them to install a Network Firewall on top of the OELZ baseline in the future if needed. More information on installation can be found in section 6.3.
+"Brownfield deployment" refers to deploying a New Firewall Feature on top of the existing OELZ environment on OCI Tenancy. Brownfield deployment gives flexibility to customers, allowing them to install a Network Firewall on top of the OELZ baseline in the future if needed. Additional information on the installation process can be found in section 6.3.
 
 # <a name="ways_to_deploy"></a>5. Ways to Deploy
 
@@ -92,11 +94,11 @@ The *fingerprint* and private key pair are obtained in OCI Console when an API k
 ## 5.2 Deploying with OCI Resource Manager UI
 
 There are three different ways to run Terraform code using the OCI Resource Manager (ORM) user interface.<br />
-- creating an ORM stack by uploading a zip file to ORM;<br />
+- Creating an ORM stack by uploading a zip file to ORM;<br />
 - Uploading the Zip file to ORM(See Section 5.3)<br /> 
 - Using RMS OELZ Stack.<br />
 
-A stack is the ORM term for a Terraform configuration and provides an isolated scope for the Terraform state. The stack manages only a single Terraform configuration and, therefore, for managing multiple OELZ configurations, uses multiple stacks, one for each configuration.<br />
+A stack is the ORM term for a Terraform configuration and provides an isolated scope for the Terraform state. The stack manages only a single Terraform configuration and, therefore, for addressing multiple OELZ configurations, uses multiple stacks, one for each configuration.<br />
 
 For more ORM information, [please check](https://docs.cloud.oracle.com/en-us/iaas/Content/ResourceManager/Concepts/resourcemanager.htm)
 
@@ -132,7 +134,7 @@ In the Stack page, use the appropriate buttons to plan/apply/destroy your stack.
 
 # <a name="samples"></a>6. Deployment Samples
 
-In this section, we provide two deployment scenarios of the OELZ Network Firewall Feature. By Design, the Network Firewall will be disabled in both Production and Non-Production environments and can be enabled on one environment, either Prodution or Non-Production. By default the Network Firewall Policy is to `reject all traffic`.
+This section provides two deployment scenarios of the OELZ Network Firewall Feature. By Design, we had turned off the Network Firewall feature in both Production and Non-Production environments. The Network Firewall can be enabled in either of the environments, but not simultaneously in both environments. By default the Network Firewall Policy is to `reject all traffic`.
 
 ## 6.1 : Network Firewall Feature Varibles
 
@@ -170,7 +172,7 @@ In this section, we provide two deployment scenarios of the OELZ Network Firewal
 
 
 * Step 1) Go to folder templates/enterprise-landing-zone.
-* Step 2) Provide variable values in the existing *example.tfvars* file. Add the following Network Firewall Related Variables on *example.tfvars* file.
+* Step 2) Provide variable values in the existing *example.tfvars* file. Add the following Network Firewall Related Variables on *example.tfvars* file.<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`enable_network_firewall_prod   = "true"` <br />
   &nbsp;&nbsp;&nbsp;&nbsp;`enable_traffic_threat_log_prod = "true"`  <br />
   &nbsp;&nbsp;&nbsp;&nbsp;`nfw_subnet_type_prod           = "private"` <br />
