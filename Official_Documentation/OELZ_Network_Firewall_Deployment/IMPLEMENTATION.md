@@ -224,18 +224,18 @@ This section provides two deployment scenarios of the OELZ Network Firewall Feat
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_wrkspoke1.out`<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_wrkspoke1.out`<br />
-    * Step 6.7) Add the Baseline Spoke Route on the Newly Created Spoke Route Table. Update the following variable on *workload_extension-variables.tfvars* file.
+    * Step 6.7) Add the Baseline Spoke Route on the Newly Created Spoke Route Table. Update the following variable on *workload_extension-variables.tfvars* file.<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`workload_topic_endpoints = ["< SPOKE CIDR BLOCK>"]`<br />
     * Step 6.8) Execute the Following. (This step will revert the Wrk Spoke VCN Security List to default i.e., Manually added Wrk Spoke VCN Security rules will be deleted)<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variables.tfvars" -out oelz_nfw_spoke_route.out`<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw_spoke_route.out`<br />
     * Step 6.9) Merge backup of providers.tf file to provider.tf file.
     * Step 6.10) Go to Folder templates/enterprise-landing-zone.
-    * Step 6.11) Add the newly created Spoke Routes on the Existing Hub and Spoke Route Table. Update the following variable on *example.tfvars* file.
-    &nbsp;&nbsp;&nbsp;&nbsp;prod_workload_compartment_names                 = [ < New Workload Compartment Name > ]
-    &nbsp;&nbsp;&nbsp;&nbsp;prod_additional_workload_subnets_cidr_blocks    = [ < New Spoke VCN CIDR > ]
+    * Step 6.11) Add the newly created Spoke Routes on the Existing Hub and Spoke Route Table. Update the following variable on *example.tfvars* file.<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`prod_workload_compartment_names                 = [ < New Workload Compartment Name > ]`
+    &nbsp;&nbsp;&nbsp;&nbsp;`prod_additional_workload_subnets_cidr_blocks    = [ < New Spoke VCN CIDR > ]`
     * Step 6.12) Execute the Following. (This step will revert the Network Firewall Policy, Hub and Spoke VCN Security List to default i.e., Manually added Network Firewall Policy and Hub Spoke VCN Security Rules will be deleted).<br />
-    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variabes"`
+    &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="workload_extension-variabes"`<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfw_wrkspoke_route.out`<br />
     &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfw_wrkspoke_route.out`<br />
 
@@ -243,7 +243,7 @@ This section provides two deployment scenarios of the OELZ Network Firewall Feat
 ## 6.3 Brownfield Deployment: Add Network Firewall on top of Existing Baseline OELZ.
 
 * Step 1) Go to folder templates/enterprise-landing-zone.
-* Step 2) Provide variable values in the existing *example.tfvars* file. Do not add any  Network Firewall Related Variables on *example.tfvars* file.
+* Step 2) Provide OELZ Baseline variable values in the existing *example.tfvars* file. Do not add any Network Firewall Related Variables on the *example.tfvars* file.
 * Step 3) Execute the Following.<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_baseline.out`<br />

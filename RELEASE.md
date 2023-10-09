@@ -1,5 +1,20 @@
 # Release Notes
 
+## v3.0.0 - 2023-10-08
+
+- Network Firewall Feature is added.(Greenfield & Brownfield usecaes)
+- Data-Safe Feature has been added for Workload Databases.
+- OCI Provider version is upgraded to 5.9.0 from 5.1.0 .
+- All Documentation are moved to Root Folder.
+- With bastion service disabled terraform fails with prod_bastion_client_cidr_block_allow_list error #58
+- Reorg of OELZ v2 documentations #6
+- Error:400-InvalidParameter, creating workload_osms_dg_policy #99
+- Error:400-InvalidParameter, Compartment {ocid1.compartment.oc1....} does not exist or is not part of the policy compartment subtree #100
+- Separate AdminGroups for each Workload #85.
+- Security + OCI Administrators architecture Question #69.
+- Typo: Platform Admin Group Policy To Manage Archive Bucket #75
+- 400-InvalidParameter Invalid Oracle_Managed_Recipe_Configuration #92
+
 ## v2.1.2 - 2023-07-26
 - Initial Workload Name has to be parameterized Initial Workload Name has to be parameterised #23
   - Added New Variable "workload_name_prefix" to define the Workload Name.
