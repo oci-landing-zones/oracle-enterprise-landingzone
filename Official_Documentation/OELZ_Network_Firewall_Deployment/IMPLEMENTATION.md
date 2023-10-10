@@ -12,7 +12,7 @@
 
 # <a name="introduction"></a>1. Introduction
 
-Oracle Cloud Infrastructure (OCI) Network Firewall is a managed next-generation firewall and intrusion detection and prevention service that Palo Alto Networks® powers Network Firewall. It is an OCI cloud-native service feature now available in the Oracle Enterprise Landing Zone (OELZ) package. OELZ now offers simple setup and deployment of the OCI Network Firewall service, which gives you visibility into traffic entering your cloud environment (North-South) and traffic between subnets (East-West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with a Network Firewall in the Hub.
+Oracle Cloud Infrastructure (OCI) Network Firewall is a managed Next-Generation Firewall (NGFW) and Intrusion detection and Prevention service (IDS/IPS) that is powered by Palo Alto Networks®. It is an OCI cloud-native service feature now available in the Oracle Enterprise Landing Zone (OELZ) package. OELZ now offers simple setup and deployment of the OCI Network Firewall service, which gives you visibility into traffic entering your cloud environment (North-South) and traffic between subnets (East-West). This OELZ implementation will deploy a reference Hub and Spoke Network Architecture with a Network Firewall in the Hub.
 
 This repo is under active development. Building open-source software is a community effort. We're excited to engage with the community, and we welcome contributors.
 
@@ -21,7 +21,7 @@ This repo is under active development. Building open-source software is a commun
 
 ## 2.1 Access Permissions
 
-OCI Tenancy Administrators can only deploy the Oracle Enterprise Landing Zone(OELZ), which is part of the Tenancy Administrator (any user is part of the Administrator group). By Default, OELZ Deployment requires Tenancy administrator privileges to deploy the Network Firewall Feature and create a compartment in the root compartment. 
+Any user who is a member of the OCI Tenancy Administrators can deploy the Oracle Enterprise Landing Zone (OELZ). By default, the OELZ Deployment requires Tenancy administrator privileges to deploy the Network Firewall Feature and privileges to create a compartment in the root compartment. 
 
 ## 2.2 Terraform State File
 
@@ -52,7 +52,8 @@ The Hub & Spoke architecture deployed within the OELZ can provide several benefi
 6. Governance: Having a central hub makes it much easier to apply governance rules and policies across the whole infrastructure and have a clear view of your enterprise's resources and activity.
 
 
-In OELZ v2.0 OCI, we create a Hub Network in a Virtual Cloud Network (VCN) in each environment's Network Shared Infrastructure compartment, and the Spoke networks are created in each Workload compartment, using DRG Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). Furthermore, this allows the Spoke networks to access the shared resources in the hub network while maintaining their isolation. As part of the Baseline, we are creating one Hub and Spoke; additionally, if customers want more Spokes, they can add using the Workload Expansion Stack. In the Hub, we create two subnets (public and private); in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall will deployed on the Hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
+In OELZ v2.0 OCI, we create a Hub Network in a Virtual Cloud Network (VCN) in each environment's Network Shared Infrastructure compartment, and the Spoke networks are created in each Workload compartment, using DRG Attachment through a [Dynamic Routing Gateway (DRG)](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingDRGs.htm). Furthermore, this allows the spoke networks to access the shared resources in the hub network while maintaining their isolation. As part of the baseline, we are creating one hub and spoke; additionally, if customers want more spokes, they can add using the [Workload Expansion Stack](https://github.com/oracle-quickstart/oci-landing-zones/tree/main/templates/elz-workload). In the hub, OELZ will create two subnets (public and private); in the spoke VCN, three subnets (web, app, and db) are created. By default, the Network Firewall will deployed on the hub VCN, and customers can choose whether the Network Firewall should be part of the public or private subnet.
+
 
 Overall, the Hub & Spoke architecture is a flexible and scalable design pattern that can be used to build complex network architectures in OCI, and this is one of the main reasons why OELZ v2.0 will allow you to have a pre-configured environment ready to use within minutes.
 
@@ -124,7 +125,7 @@ In the **Create Stack** page:<br />
 ![Create Stack](<../../images/oelz_create_stack.png> "Create Stack")
 
 Alternatively, you can click the button below to supply the zip file directly from GitHub without downloading it:
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v3.0.0.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v2.2.0.zip)
 
 *If you are logged in to your OCI tenancy, the button will take you directly to OCI Resource Manager, where you can proceed to deploy. If you are not logged, the button takes you to tje Oracle Cloud initial webpage, where you must enter your tenancy name and log in to OCI.*
 

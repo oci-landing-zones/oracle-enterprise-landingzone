@@ -1,11 +1,14 @@
 # Release Notes
 
-## v3.0.0 - 2023-10-08
+## v2.2.0 - 2023-10-11
 
 - Network Firewall Feature is added.(Greenfield & Brownfield usecaes)
 - Data-Safe Feature has been added for Workload Databases.
-- OCI Provider version is upgraded to 5.9.0 from 5.1.0 .
+- OCI Provider version is Upgraded to 5.9.0 from 5.1.0 .
 - All Documentation are moved to Root Folder.
+
+Customer Issues as part of this Release
+
 - With bastion service disabled terraform fails with prod_bastion_client_cidr_block_allow_list error #58
 - Reorg of OELZ v2 documentations #6
 - Error:400-InvalidParameter, creating workload_osms_dg_policy #99
@@ -33,6 +36,7 @@
 - Fixed the Bucket Log Rotation issue.
   - While re-deploying the Workload template with changed resources parameter we had seen the Bucket resources had been modified which is causing issue. Added the functionality on bucket resources which will not impact bucket resources by any future changes. 
 - Fixed Database Admins need higher IAM privileges (Issue #15)
+- Workload Exadata Module has been added. The Exadata expansion template can allow you to integrate and prepare the environment to host your Exadata infrastructure within the OELZ workload expansion module. This template also enables Oracle Data Safe to improve the database security posture.
 
 ----
 ## v2.1.0 - 2023-06-05
