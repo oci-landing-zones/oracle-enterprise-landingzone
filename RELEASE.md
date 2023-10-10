@@ -2,12 +2,12 @@
 
 ## v2.2.0 - 2023-10-11
 
-- Network Firewall Feature is added.(Greenfield & Brownfield usecaes)
-- Data-Safe Feature has been added for Workload Databases.
+- Network Firewall Feature is added.(Greenfield & Brownfield use cases)
+- Oracle Data Safe Feature has been added for Workload Databases.
 - OCI Provider version is Upgraded to 5.9.0 from 5.1.0 .
 - All Documentation are moved to Root Folder.
 
-Customer Issues as part of this Release
+Customer Issues resolved as part of this Release
 
 - With bastion service disabled terraform fails with prod_bastion_client_cidr_block_allow_list error #58
 - Reorg of OELZ v2 documentations #6
