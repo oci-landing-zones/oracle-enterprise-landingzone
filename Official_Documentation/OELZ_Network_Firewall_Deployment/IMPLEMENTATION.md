@@ -258,4 +258,4 @@ This section provides two deployment scenarios of the OELZ Network Firewall Feat
 * Step 3) Execute the Following.<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfwonbaseline.out`<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfwonbaseline.out`<br />
-* Step 4) Follow the Same Step 6 defined on Green Field Deployment if you want to deploy more Workload Spoke.<br />
+* Step 4) Follow the Same Step 6 defined on Greenfield Deployment if you want to deploy more Workload Spoke.<br />
