@@ -7,6 +7,7 @@ locals {
 
   ipsec_connection_static_routes = var.enable_vpn_or_fastconnect == "VPN" && var.enable_vpn_on_environment ? var.ipsec_connection_static_routes : []
   customer_onprem_ip_cidr        = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? var.customer_onprem_ip_cidr : []
+  additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks != [] ? var.additional_workload_subnets_cidr_blocks : []
 
 
   spoke_route_rules_options = {
@@ -56,9 +57,16 @@ locals {
         destination_type  = "CIDR_BLOCK"
       }
     }
+    route_rules_workload = {
+      for index, route in local.additional_workload_subnets_cidr_blocks : "workload-rule-${index}" => {
+        network_entity_id = var.drg_id
+        destination       = route
+        destination_type  = "CIDR_BLOCK"
+      }
+    }
   }
   spoke_route_rules = {
-    route_rules = merge(local.spoke_route_rules_options.route_rules_default, local.spoke_route_rules_options.route_rules_nat_spoke, local.spoke_route_rules_options.route_rules_srvc_gw_spoke, local.spoke_route_rules_options.route_rules_fastconnect, local.spoke_route_rules_options.route_rules_vpn)
+    route_rules = merge(local.spoke_route_rules_options.route_rules_default, local.spoke_route_rules_options.route_rules_nat_spoke, local.spoke_route_rules_options.route_rules_srvc_gw_spoke, local.spoke_route_rules_options.route_rules_fastconnect, local.spoke_route_rules_options.route_rules_vpn,local.spoke_route_rules_options.route_rules_workload)
   }
   workload_expansion_subnet_map = {
     Workload-Spoke-Web-Subnet = {
@@ -83,6 +91,8 @@ locals {
       prohibit_public_ip_on_vnic = true
     }
   }
+  
+
   ip_protocols = {
     ICMP   = "1"
     TCP    = "6"
@@ -187,6 +197,7 @@ module "workload-spoke-service-gateway" {
 ######################################################################
 #          Create Workload VCN Spoke Route Table                     #
 ######################################################################
+
 module "workload_spoke_route_table" {
   source                   = "../../modules/route-table"
   compartment_id           = var.workload_compartment_id
@@ -194,6 +205,7 @@ module "workload_spoke_route_table" {
   route_table_display_name = var.route_table_display_name
   route_rules              = local.spoke_route_rules.route_rules
 }
+
 ######################################################################
 #          Attach Workload Spoke VCN to DRG                          #
 ######################################################################

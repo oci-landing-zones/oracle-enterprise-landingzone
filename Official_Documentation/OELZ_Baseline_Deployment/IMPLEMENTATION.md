@@ -40,7 +40,7 @@ Most of the initial resource limits a new tenancy comes with should be sufficien
 
 However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed, please check the resources and limits and ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
 
-**Note: Specified Compartment in the below table also refers to Environment.** So if the table lists limit 2 for sepecified compartment that means that limit 2 is for one environment and since LZ deployment is with 2 environments that means the limit should be doubled. eg.: oci_monitoring_alarm: 68 should be 2*68 = 136
+**Note: Specified Compartment in the below table also refers to Environment.** So if the table lists limit 2 for sepecified compartment that means that limit 2 is for one environment and since LZ deployment is with 2 environments that means the limit should be doubled. eg.: oci_monitoring_alarm: 68 should be 2*68 = 136.
 
 | OCI Defination | OCI Terraform Resource Name | Count |
 | :------:       |          :------:           | ----: |
@@ -86,6 +86,8 @@ However, there are some resource limits that will need to be increased in order 
 | Starts the provisioning of a new stream pool | oci_streaming_stream_pool| 2|
 | Creates a new HostScanRecipe | oci_vulnerability_scanning_host_scan_recipe| 2|
 | Creates a new HostScanTarget | oci_vulnerability_scanning_host_scan_target| 2| 
+| Creates a Network Firewall   | oci_network_firewall_network_firewall| 1|
+
 
 Example to check the limits in tenancy:
 
@@ -176,9 +178,14 @@ For *each* workload deployed in an environment, there will be one Spoke network.
 
 The `elz-network-extension` template can add VPN or FastConnect links between an environment's DRG and an on-prem network.
 
+## Networking Firewall
+
+The Network Firewall is a part of the Oracle Enterprise Landing Zone Network Module, that can be activated in both production and non-production environments when the "enable_network_firewall_prod" or "enable_network_firewall_nonprod" variables are set to true. By default, these variables are initially set to false. The configuration of the Network Firewall will be determined based on customer requirements, either on the HUB Public VNC  or HUB Private VCN, and this choice can be specified using the "nfw_subnet_type_prod" or "nfw_subnet_type_nonprod" options.
+
 ## Deployment of The Oracle Enterprise Landing Zone
 
 ## For customers who already have Infrastructure in OCI
+
 
 If you already have infrastructure deployed in OCI and are looking to explore a best-practices infrastructure architecture with Oracle Enterprise Landing Zone, you may want to create a new [Child Tenancy](https://docs.oracle.com/en-us/iaas/Content/General/Concepts/organization_management_overview.htm) to deploy the Oracle Enterprise Landing Zone in. This will guarantee there are no conflicts with existing infrastructure.  
 
@@ -324,3 +331,7 @@ These are some known temporary issues that can occur while deploying the Oracle 
 
 * 400-InvalidParameter Error in CreateServiceConnector operation:  This can occasionally happen due to logs taking longer than normal to create while setting up the logging infrastructure.  This will correct itself when the logs finish creating. Later Apply jobs in ORM or invocations of `terraform apply` should succeed. 
 * 429-TooManyRequests Error: A tenancy making a large number of OCI API requests in rapid succession may be throttled by the API.  The solution is to wait some period of time (a few minutes) and retry the terraform operation again.  This is rarely seen on `apply` but may occasionally be seen on `destroy` runs, as the delete operations are much faster than create, and Terraform makes many API calls. 
+* **OCI Compartment Deletion**
+By Design, OCI compartments are not deleted upon Terraform destroy by default. Deletions can be anabled in OELZ by setting enable_compartment_delete varaible to true in tfvars file. For more information check check [OCI Terraform provider documentation](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_compartment).
+* **OCI Version Upgrade**
+On Release v3.0.0, we upgrading the OCI provider version from 5.1 to 5.9. If you have previous stack deployed and local tfstate file saved, please issue **terraform init -upgrade** to resolve the provider version mismatch error.

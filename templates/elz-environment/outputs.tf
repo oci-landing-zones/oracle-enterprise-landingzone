@@ -27,6 +27,10 @@ output "identity_domain" {
   value = module.identity.domain
 }
 
+output "identity_idcs_endpoint" {
+  value = module.identity.idcs_endpoint
+}
+
 output "workload_compartment_id" {
   value = module.workload.compartment_id
 }

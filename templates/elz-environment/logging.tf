@@ -15,8 +15,6 @@ module "logging" {
   subnets_map                         = module.network.subnets
   is_baseline_deploy                  = var.is_baseline_deploy
 
-  depends_on = [ module.network ]
-
   providers = {
     oci             = oci
     oci.home_region = oci.home_region

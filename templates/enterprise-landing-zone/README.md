@@ -30,6 +30,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="module_cloud_guard_target_policy"></a> [cloud\_guard\_target\_policy](#module\_cloud\_guard\_target\_policy) | ../../modules/policies | n/a |
 | <a name="module_home_compartment"></a> [home\_compartment](#module\_home\_compartment) | ../../modules/compartment | n/a |
 | <a name="module_key_archive_policy"></a> [key\_archive\_policy](#module\_key\_archive\_policy) | ../../modules/policies | n/a |
+| <a name="module_log_analytics_policy"></a> [log\_analytics\_policy](#module\_log\_analytics\_policy) | ../../modules/policies | n/a |
 | <a name="module_logging_analytics_namespace"></a> [logging\_analytics\_namespace](#module\_logging\_analytics\_namespace) | ../../modules/log-analytics-namespace | n/a |
 | <a name="module_nonprod_archive_audit_log_service_connector"></a> [nonprod\_archive\_audit\_log\_service\_connector](#module\_nonprod\_archive\_audit\_log\_service\_connector) | ../../modules/service-connector | n/a |
 | <a name="module_nonprod_archive_default_log_service_connector"></a> [nonprod\_archive\_default\_log\_service\_connector](#module\_nonprod\_archive\_default\_log\_service\_connector) | ../../modules/service-connector | n/a |
@@ -77,19 +78,32 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_domain_license_type"></a> [domain\_license\_type](#input\_domain\_license\_type) | Identity Domain License Type | `string` | `"premium"` | no |
 | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | `true` | no |
 | <a name="input_enable_compartment_delete"></a> [enable\_compartment\_delete](#input\_enable\_compartment\_delete) | Set to true to allow the compartments to delete on terraform destroy. | `bool` | `true` | no |
+| <a name="input_enable_datasafe"></a> [enable\_datasafe](#input\_enable\_datasafe) | Enable Data Safe. | `bool` | `false` | no |
+| <a name="input_enable_network_firewall_nonprod"></a> [enable\_network\_firewall\_nonprod](#input\_enable\_network\_firewall\_nonprod) | Enable Network Firewall in Non-Prod Enviornment. | `bool` | `false` | no |
+| <a name="input_enable_network_firewall_prod"></a> [enable\_network\_firewall\_prod](#input\_enable\_network\_firewall\_prod) | Enable Network Firewall in Prod Enviornment. | `bool` | `false` | no |
+| <a name="input_enable_traffic_threat_log_nonprod"></a> [enable\_traffic\_threat\_log\_nonprod](#input\_enable\_traffic\_threat\_log\_nonprod) | Enable Network Firewall Threat and Traffic Logs in Non-Prod Enviornment. | `bool` | `false` | no |
+| <a name="input_enable_traffic_threat_log_prod"></a> [enable\_traffic\_threat\_log\_prod](#input\_enable\_traffic\_threat\_log\_prod) | Enable Network Firewall Threat and Traffic Logs in Prod Enviornment. | `bool` | `false` | no |
 | <a name="input_enable_vpn_or_fastconnect"></a> [enable\_vpn\_or\_fastconnect](#input\_enable\_vpn\_or\_fastconnect) | Option to enable VPN or FASTCONNECT service. Options are NONE, VPN, FASTCONNECT. | `string` | `"NONE"` | no |
 | <a name="input_fastconnect_provider"></a> [fastconnect\_provider](#input\_fastconnect\_provider) | Fastconnect provider. Please choose from: AT&T, Azure, Megaport, QTS, CEintro, Cologix, CoreSite, Digitial Realty, EdgeConneX, Epsilon, Equinix, InterCloud, Lumen, Neutrona, OMCS, OracleL2ItegDeployment, OracleL3ItegDeployment, Orange, Verizon, Zayo | `string` | `""` | no |
 | <a name="input_fastconnect_routing_policy"></a> [fastconnect\_routing\_policy](#input\_fastconnect\_routing\_policy) | Available FastConnect routing policies: ORACLE\_SERVICE\_NETWORK, REGIONAL, MARKET\_LEVEL, GLOBAL | `list(string)` | `[]` | no |
 | <a name="input_home_compartment_name"></a> [home\_compartment\_name](#input\_home\_compartment\_name) | The name of the Landing Zone home compartment. | `string` | `"OCI-ELZ-CMP-HOME"` | no |
 | <a name="input_igw_hub_check"></a> [igw\_hub\_check](#input\_igw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
-| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation. | `bool` | `false` | no |
+| <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation. | `bool` | `true` | no |
 | <a name="input_is_create_alarms"></a> [is\_create\_alarms](#input\_is\_create\_alarms) | Enable Alarms Creation in all Compartment | `bool` | `true` | no |
 | <a name="input_is_service_connector_limit"></a> [is\_service\_connector\_limit](#input\_is\_service\_connector\_limit) | Restrict Number of Service Connector Deployment in Tenancy if limit is two | `bool` | `false` | no |
 | <a name="input_nat_gw_hub_check"></a> [nat\_gw\_hub\_check](#input\_nat\_gw\_hub\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_nfw_instance_name_nonprod"></a> [nfw\_instance\_name\_nonprod](#input\_nfw\_instance\_name\_nonprod) | Network Firewall Instance Name. | `string` | `""` | no |
+| <a name="input_nfw_instance_name_prod"></a> [nfw\_instance\_name\_prod](#input\_nfw\_instance\_name\_prod) | Network Firewall Instance Name. | `string` | `""` | no |
+| <a name="input_nfw_instance_policy_nonprod"></a> [nfw\_instance\_policy\_nonprod](#input\_nfw\_instance\_policy\_nonprod) | Network Firewall Instance Policy Name. | `string` | `""` | no |
+| <a name="input_nfw_instance_policy_prod"></a> [nfw\_instance\_policy\_prod](#input\_nfw\_instance\_policy\_prod) | Network Firewall Instance Policy Name. | `string` | `""` | no |
+| <a name="input_nfw_subnet_type_nonprod"></a> [nfw\_subnet\_type\_nonprod](#input\_nfw\_subnet\_type\_nonprod) | Network Firewall Subnet Type. | `string` | `"public"` | no |
+| <a name="input_nfw_subnet_type_prod"></a> [nfw\_subnet\_type\_prod](#input\_nfw\_subnet\_type\_prod) | Network Firewall Subnet Type. | `string` | `"public"` | no |
+| <a name="input_nfw_use_existing_network_nonprod"></a> [nfw\_use\_existing\_network\_nonprod](#input\_nfw\_use\_existing\_network\_nonprod) | Use Existing VCN in place of Network Firewall VCN. | `bool` | `false` | no |
+| <a name="input_nfw_use_existing_network_prod"></a> [nfw\_use\_existing\_network\_prod](#input\_nfw\_use\_existing\_network\_prod) | Use Existing VCN in place of Network Firewall VCN. | `bool` | `false` | no |
 | <a name="input_nonprod_additional_workload_subnets_cidr_blocks"></a> [nonprod\_additional\_workload\_subnets\_cidr\_blocks](#input\_nonprod\_additional\_workload\_subnets\_cidr\_blocks) | A list of subnets cidr blocks in additional workload stack in non-prod | `list(string)` | `[]` | no |
 | <a name="input_nonprod_application_admin_group_name"></a> [nonprod\_application\_admin\_group\_name](#input\_nonprod\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group. Defaults to OCI-ELZ-UGP-N-APP-ADMIN if blank or not provided. | `string` | `""` | no |
-| <a name="input_nonprod_bastion_client_cidr_block_allow_list"></a> [nonprod\_bastion\_client\_cidr\_block\_allow\_list](#input\_nonprod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
+| <a name="input_nonprod_bastion_client_cidr_block_allow_list"></a> [nonprod\_bastion\_client\_cidr\_block\_allow\_list](#input\_nonprod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_nonprod_bgp_cust_tunnela_ip"></a> [nonprod\_bgp\_cust\_tunnela\_ip](#input\_nonprod\_bgp\_cust\_tunnela\_ip) | The IP address for the CPE end of the inside tunnel interface. | `string` | `""` | no |
 | <a name="input_nonprod_bgp_oci_tunnela_ip"></a> [nonprod\_bgp\_oci\_tunnela\_ip](#input\_nonprod\_bgp\_oci\_tunnela\_ip) | The IP address for the Oracle end of the inside tunnel interface. | `string` | `""` | no |
 | <a name="input_nonprod_budget_alert_rule_message"></a> [nonprod\_budget\_alert\_rule\_message](#input\_nonprod\_budget\_alert\_rule\_message) | The alert message for budget alerts. Required *if* nonprod\_enable\_budget is true. | `string` | `""` | no |
@@ -154,7 +168,7 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_oracle_secondary_bgp_peering_ip"></a> [oracle\_secondary\_bgp\_peering\_ip](#input\_oracle\_secondary\_bgp\_peering\_ip) | [Optional] Secondary IPv4 address for Oracle's end of the BGP session | `string` | `""` | no |
 | <a name="input_prod_additional_workload_subnets_cidr_blocks"></a> [prod\_additional\_workload\_subnets\_cidr\_blocks](#input\_prod\_additional\_workload\_subnets\_cidr\_blocks) | A list of subnets cidr blocks in additional workload stack in prod | `list(string)` | `[]` | no |
 | <a name="input_prod_application_admin_group_name"></a> [prod\_application\_admin\_group\_name](#input\_prod\_application\_admin\_group\_name) | The group name for the OCI Application Administrators Group. Defaults to OCI-ELZ-UGP-P-APP-ADMIN if blank or not provided. | `string` | `""` | no |
-| <a name="input_prod_bastion_client_cidr_block_allow_list"></a> [prod\_bastion\_client\_cidr\_block\_allow\_list](#input\_prod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
+| <a name="input_prod_bastion_client_cidr_block_allow_list"></a> [prod\_bastion\_client\_cidr\_block\_allow\_list](#input\_prod\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_prod_bgp_cust_tunnela_ip"></a> [prod\_bgp\_cust\_tunnela\_ip](#input\_prod\_bgp\_cust\_tunnela\_ip) | The IP address for the CPE end of the inside tunnel interface. | `string` | `""` | no |
 | <a name="input_prod_bgp_oci_tunnela_ip"></a> [prod\_bgp\_oci\_tunnela\_ip](#input\_prod\_bgp\_oci\_tunnela\_ip) | The IP address for the Oracle end of the inside tunnel interface. | `string` | `""` | no |
 | <a name="input_prod_budget_alert_rule_message"></a> [prod\_budget\_alert\_rule\_message](#input\_prod\_budget\_alert\_rule\_message) | The alert message for budget alerts. Required *if* prod\_enable\_budget is true. | `string` | `""` | no |
@@ -225,15 +239,16 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="input_virtual_circuit_display_name"></a> [virtual\_circuit\_display\_name](#input\_virtual\_circuit\_display\_name) | The display name of this virtual circuit. Recommendation: OCI-ELZ-FCN-P-HUB-[REGION] 001 | `string` | `""` | no |
 | <a name="input_virtual_circuit_is_bfd_enabled"></a> [virtual\_circuit\_is\_bfd\_enabled](#input\_virtual\_circuit\_is\_bfd\_enabled) | Set to true to enable BFD for IPv4 BGP peering, or set to false to disable BFD | `bool` | `false` | no |
 | <a name="input_virtual_circuit_type"></a> [virtual\_circuit\_type](#input\_virtual\_circuit\_type) | The type of IP addresses used in this virtual circuit. PRIVATE or PUBLIC | `string` | `""` | no |
+| <a name="input_workload_name_prefix"></a> [workload\_name\_prefix](#input\_workload\_name\_prefix) | Workload Compartment Name Prefix | `string` | `"Workload1"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dynamic_group_detail"></a> [dynamic\_group\_detail](#output\_dynamic\_group\_detail) | n/a |
-| <a name="output_nonprod_environment"></a> [nonprod\_environment](#output\_nonprod\_environment) | n/a |
-| <a name="output_prod_environment"></a> [prod\_environment](#output\_prod\_environment) | n/a |
-| <a name="output_subnets"></a> [subnets](#output\_subnets) | The subnet OCID |
-| <a name="output_vcn"></a> [vcn](#output\_vcn) | n/a |
-| <a name="output_workload_compartment_id"></a> [workload\_compartment\_id](#output\_workload\_compartment\_id) | n/a |
+| <a name="output_dynamic_group_detail"></a> [dynamic\_group\_detail](#output\_dynamic\_group\_detail) | OSMS Dynamic Group OCID. |
+| <a name="output_nonprod_environment"></a> [nonprod\_environment](#output\_nonprod\_environment) | Non-Production Environment Information. |
+| <a name="output_prod_environment"></a> [prod\_environment](#output\_prod\_environment) | Production Environment Information. |
+| <a name="output_subnets"></a> [subnets](#output\_subnets) | The Subnet OCID. |
+| <a name="output_vcn"></a> [vcn](#output\_vcn) | Production Environment VCN Information. |
+| <a name="output_workload_compartment_id"></a> [workload\_compartment\_id](#output\_workload\_compartment\_id) | Workload Compartment OCID. |
 <!-- END_TF_DOCS -->    

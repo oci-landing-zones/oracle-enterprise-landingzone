@@ -1,9 +1,10 @@
 # Provider 
-current_user_ocid    = "## YOUR USER OCID ##"
-region               = "## OCI REGION TO DEPLOY TO"
-tenancy_ocid         = "## YOUR TENANCY OCID ##"
-api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
-api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
+#current_user_ocid    = "## YOUR USER OCID ##"
+#region               = "## OCI REGION TO DEPLOY TO"
+#tenancy_ocid         = "## YOUR TENANCY OCID ##"
+#api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
+#api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
+
 
 # iam
 resource_label             = "DEMO"
@@ -41,17 +42,17 @@ prod_ipsec_connection_static_routes = ["10.0.0.0/16", "11.0.0.0/16"]
 nonprod_enable_vpn                  = false
 
 # network
-prod_enable_internet_gateway_hub                 = "true"
-prod_enable_nat_gateway_hub                      = "true"
-prod_enable_service_gateway_hub                  = "true"
-prod_enable_nat_gateway_spoke                    = "true"
-prod_enable_service_gateway_spoke                = "true"
+prod_enable_internet_gateway_hub  = "true"
+prod_enable_nat_gateway_hub       = "true"
+prod_enable_service_gateway_hub   = "true"
+prod_enable_nat_gateway_spoke     = "true"
+prod_enable_service_gateway_spoke = "true"
 
-nonprod_enable_internet_gateway_hub              = "true"
-nonprod_enable_nat_gateway_hub                   = "true"
-nonprod_enable_service_gateway_hub               = "true"
-nonprod_enable_nat_gateway_spoke                 = "true"
-nonprod_enable_service_gateway_spoke             = "true"
+nonprod_enable_internet_gateway_hub  = "true"
+nonprod_enable_nat_gateway_hub       = "true"
+nonprod_enable_service_gateway_hub   = "true"
+nonprod_enable_nat_gateway_spoke     = "true"
+nonprod_enable_service_gateway_spoke = "true"
 
 prod_hub_vcn_cidr_block            = "10.1.0.0/16"
 prod_hub_public_subnet_cidr_block  = "10.1.1.0/24"
@@ -78,7 +79,7 @@ nonprod_cost_center_tagging  = "n_cost_tag"
 nonprod_geo_location_tagging = "n_geo_tag"
 prod_cost_center_tagging     = "p_cost_tag"
 prod_geo_location_tagging    = "p_geo_tag"
-onboard_log_analytics        = false
+
 
 # Monitoring (Optional)
 prod_network_topic_endpoints     = []
@@ -92,8 +93,23 @@ nonprod_platform_topic_endpoints = []
 nonprod_identity_topic_endpoints = []
 nonprod_workload_topic_endpoints = []
 
+#Logging
+
+onboard_log_analytics        = false
+
 # Workload Expansion
-prod_additional_workload_subnets_cidr_blocks = []
+prod_additional_workload_subnets_cidr_blocks    = []
 nonprod_additional_workload_subnets_cidr_blocks = []
-prod_workload_compartment_names = []
-nonprod_workload_compartment_names = []
+prod_workload_compartment_names                 = []
+nonprod_workload_compartment_names              = []
+
+
+#Network Firewall can be only deployed in Prod or Non_prod Enviornment
+
+enable_network_firewall_prod    = true
+enable_traffic_threat_log_prod  = true
+nfw_subnet_type_prod            = "public"
+nfw_instance_name_prod          = "nfw_name"
+nfw_instance_policy_prod        = "nfw_policy_name"
+enable_network_firewall_nonprod = "false"  
+
