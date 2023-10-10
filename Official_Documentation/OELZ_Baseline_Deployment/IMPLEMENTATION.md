@@ -38,7 +38,6 @@ There will be a dark grey box at the top of the page. On the right hand side of 
 
 Most of the initial resource limits a new tenancy comes with should be sufficient to deploy 1 Oracle Enterprise Landing Zone, with 2 environments and 1 workload each. 
 
-However, there are some resource limits that will need to be increased in order to deploy the Oracle Enterprise Landing Zone. Below is a table listing the Terraform OCI resource names and numbers deployed please ensure your tenancy has sufficient limts before deploying the Oracle Enterprise Landing Zone:
 
 | OCI Defination | OCI Terraform Resource Name | Count |
 | :------:       |          :------:           | ----: |
@@ -84,7 +83,6 @@ However, there are some resource limits that will need to be increased in order 
 | Starts the provisioning of a new stream pool | oci_streaming_stream_pool| 2|
 | Creates a new HostScanRecipe | oci_vulnerability_scanning_host_scan_recipe| 2|
 | Creates a new HostScanTarget | oci_vulnerability_scanning_host_scan_target| 2| 
-| Creates a Network Firewall   | oci_network_firewall_network_firewall| 1| 
 
 
 Example to check the limits in tenancy:
@@ -329,7 +327,9 @@ These are some known temporary issues that can occur while deploying the Oracle 
 
 * 400-InvalidParameter Error in CreateServiceConnector operation:  This can occasionally happen due to logs taking longer than normal to create while setting up the logging infrastructure.  This will correct itself when the logs finish creating. Later Apply jobs in ORM or invocations of `terraform apply` should succeed. 
 * 429-TooManyRequests Error: A tenancy making a large number of OCI API requests in rapid succession may be throttled by the API.  The solution is to wait some period of time (a few minutes) and retry the terraform operation again.  This is rarely seen on `apply` but may occasionally be seen on `destroy` runs, as the delete operations are much faster than create, and Terraform makes many API calls. 
+<<<<<<< HEAD:Official_Documentation/OELZ_Baseline_Deployment/IMPLEMENTATION.md
 * **OCI Compartment Deletion**
 By Design, OCI compartments are not deleted upon Terraform destroy by default. Deletions can be anabled in OELZ by setting enable_compartment_delete varaible to true in tfvars file. For more information check check [OCI Terraform provider documentation](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_compartment).
 * **OCI Version Upgrade**
 On Release v3.0.0, we upgrading the OCI provider version from 5.1 to 5.9. If you have previous stack deployed and local tfstate file saved, please issue **terraform init -upgrade** to resolve the provider version mismatch error.
+>>>>>>> main:templates/enterprise-landing-zone/IMPLEMENTATION.md
