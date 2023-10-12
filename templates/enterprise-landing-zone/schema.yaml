@@ -1286,7 +1286,6 @@ variables:
     type: string
     description: "Workload Compartment Naming Prefix"
     required: true
-    visible: workload_name_prefix
     title: Workload Compartment Naming Prefix
     default: "Workload1"
   prod_workload_compartment_names:
