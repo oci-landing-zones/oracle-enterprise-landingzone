@@ -15,26 +15,32 @@ variableGroups:
   - title: Compartment Variables
     visible: true
     variables:
-      - workload_expansion_flag
+      - enable_compartment_delete
       - workload_compartment_name
       - environment_compartment_id
+      - workload_expansion_flag
       - environment_prefix
       - workload_prefix
-      - enable_compartment_delete
+  - title: Datasafe Variables
+    visible: true
+    variables:
+      - enable_datasafe
+      - datasafe_admin_group_name
+      - datasafe_reports_group_name
   - title: Monitoring Variables
     visible: true
     variables:
+      - workload_name
       - enable_network_monitoring_alarms
       - enable_security_monitoring_alarms
       - enable_workload_monitoring_alarms
-      - workload_topic_endpoints
-      - workload_name
+      - workload_topic_endpoints      
   - title: Network Variables
     visible: true
     variables:
-      - workload_spoke_vcn_cidr
       - vcn_display_name
       - vcn_dns_label
+      - workload_spoke_vcn_cidr
       - workload_private_spoke_subnet_web_cidr_block
       - workload_private_spoke_subnet_db_cidr_block
       - workload_private_spoke_subnet_app_cidr_block
@@ -42,27 +48,28 @@ variableGroups:
       - enable_service_gateway_spoke
       - hub_public_subnet_cidr_block
       - hub_private_subnet_cidr_block
+      - drg_id
       - workload_private_spoke_subnet_web_dns_label
       - workload_private_spoke_subnet_app_dns_label
       - workload_private_spoke_subnet_db_dns_label
       - workload_private_spoke_subnet_web_display_name
       - workload_private_spoke_subnet_app_display_name
       - workload_private_spoke_subnet_db_display_name
-      - nat_gateway_display_name
-      - service_gateway_display_name
-      - route_table_display_name
-      - security_list_display_name
-      - drg_id
   - title: IAM Policy Variables
     visible: true
     variables:
       - identity_domain_id
       - identity_domain_name
+      - security_compartment_name
+      - security_compartment_id
       - workload_admin_group_name
       - application_admin_group_name
       - database_admin_group_name
-      - security_compartment_name
-      - security_compartment_id
+      - idcs_endpoint
+  - title: Add baseline Spoke Route
+    visible: true
+    variables:
+      - baseline_spoke_subnets_cidr_blocks
   - title: Invisible Variables
     visible: false
     variables:
@@ -77,7 +84,12 @@ variableGroups:
       - network_compartment_id
       - network_topic_endpoints
       - secops_topic_endpoints
-
+      - nat_gateway_display_name
+      - service_gateway_display_name
+      - route_table_display_name
+      - security_list_display_name
+      - environment_compartment_name
+      - network_admin_group_name
 variables:
   #Provider Variables
   api_fingerprint:
@@ -155,38 +167,38 @@ variables:
     title: Enable Workload Monitoring Alarms in Workload Expansion
   workload_spoke_vcn_cidr:
     type: string
-    description: "Vcn CIDR block in Workload Expansion Spoke"
+    description: "Workload Expansion Spoke VCN CIDR Block"
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    title: VCN CIDR Block in Workload Expansion Spoke
+    title: Workload Expansion Spoke VCN CIDR Block
   vcn_display_name:
     type: string
-    description: "Vcn display name in Workload Expansion Spoke"
-    required: true
-    title: VCN Display Name in Workload Expansion Spoke
+    description: "Provide Spoke VCN Display Name"
+    required: false
+    title: Spoke VCN Display Name
   vcn_dns_label:
     type: string
-    description: "Vcn DNS label in Workload Expansion Spoke"
+    description: "Spoke DNS label"
     required: true
     title: VCN DNS Label in Workload Expansion Spoke
   workload_private_spoke_subnet_web_cidr_block:
     type: string
-    description: "Web subnet CIDR block in Workload Expansion Spoke"
+    description: "Workload Expansion Spoke : Web Subnet CIDR Block"
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    title: Web Subnet CIDR Block in Workload Expansion Spoke
+    title: Workload Expansion Spoke Web Subnet CIDR Block
   workload_private_spoke_subnet_app_cidr_block:
     type: string
-    description: "App subnet CIDR block in Workload Expansion Spoke"
+    description: "Workload Expansion Spoke : App Subnet CIDR Block"
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    title: App Subnet CIDR Block in Workload Expansion Spoke
+    title: Workload Expansion Spoke App Subnet CIDR Block
   workload_private_spoke_subnet_db_cidr_block:
     type: string
-    description: "Database subnet CIDR block in Workload Expansion Spoke"
+    description: "Workload Expansion Spoke : DB Subnet CIDR Block"
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
-    title: Database Subnet CIDR Block in Workload Expansion Spoke
+    title: Workload Expansion Spoke DB Subnet CIDR Block
   enable_nat_gateway_spoke:
     type: boolean
     description: "Option to enable nat gateway in Workload Expansion spoke"
@@ -201,28 +213,28 @@ variables:
     title: Enable Service Gateway in Workload Expansion Spoke
   hub_public_subnet_cidr_block:
     type: string
-    description: "the CIDR block of HUB public subnet in baseline stack"
+    description: "Baseline Hub VCN Public Subnet CIDR Block"
     required: true
-    title: HUB Public Subnet CIDR Block
+    title: Baseline Hub VCN Public Subnet CIDR Block
   hub_private_subnet_cidr_block:
     type: string
-    description: "the CIDR block of HUB private subnet in baseline stack"
+    description: "Baseline Hub VCN Private Subnet CIDR Block"
     required: true
-    title: HUB Private Subnet CIDR Block
+    title: Baseline Hub VCN Private Subnet CIDR Block
   workload_private_spoke_subnet_web_dns_label:
     type: string
     description: "the DNS label for web subnet in workload expansion spoke."
-    required: true
+    required: false
     title: Web Subnet DNS Label in Workload Expansion Spoke
   workload_private_spoke_subnet_app_dns_label:
     type: string
     description: "the DNS label for App subnet in workload expansion spoke."
-    required: true
+    required: false
     title: App Subnet DNS Label in Workload Expansion Spoke
   workload_private_spoke_subnet_db_dns_label:
     type: string
     description: "the DNS label for Database subnet in workload expansion spoke."
-    required: true
+    required: false
     title: Database Subnet DNS Label in Workload Expansion Spoke
   workload_private_spoke_subnet_web_display_name:
     type: string
@@ -263,19 +275,19 @@ variables:
     required: true
   drg_id:
     type: string
-    description: "the OCID of DRG created in baseline stack"
+    description: "Baseline DRG OCID Value"
     title: DRG OCID
     required: true
   # IAM
   identity_domain_id:
     type: string
-    description: "the OCID of identity domain that the workload expansion is going to create in"
-    title: Identity Domain OCID
+    description: "Environment Identity Domain OCID Value"
+    title: Environment Identity Domain OCID Value
     required: true
   identity_domain_name:
     type: string
-    description: "the name of identity domain that the workload expansion is going to create in"
-    title: Identity Domain Name
+    description: "Environment Identity Domain OCID Name"
+    title: Environment Identity Domain OCID Name
     required: true
   workload_admin_group_name:
     type: string
@@ -290,7 +302,7 @@ variables:
   database_admin_group_name:
     type: string
     description: "the name of database admin"
-    title: Databse Admin Group Name
+    title: Database Admin Group Name
     required: true
   security_compartment_name:
     type: string
@@ -314,6 +326,13 @@ variables:
   workload_name:
     type: string
     required: true
-    default: "W"
+    default: "WRK1"
     description: Prefix Name of Workload Expansion Topics to avoid name conflicts
     title: Prefix Name of Workload Expansion Topics
+  baseline_spoke_subnets_cidr_blocks:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Baseline Spoke VCN CIDR Block
+    description: "A list of Baseline Spoke VCN CIDR Block"
