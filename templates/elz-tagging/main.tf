@@ -1,7 +1,7 @@
 locals {
   elz_tagging = {
     tag_namespace_description = "Tenancy Level Tag"
-    tag_namespace_name        = "ELZ-${var.environment_prefix}-Namespace"
+    tag_namespace_name        = "${var.resource_label}-ELZ-${var.environment_prefix}-Namespace"
     is_namespace_retired      = false
     tag_map = {
       cost_center = {

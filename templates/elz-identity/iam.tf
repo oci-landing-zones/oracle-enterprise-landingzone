@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 locals {
   identity_domain = {
-    domain_display_name       = "OCI-ELZ-${var.environment_prefix}-IDT"
+    domain_display_name       = "${var.resource_label}-OCI-ELZ-${var.environment_prefix}-IDT"
     domain_description        = "OCI Landing Zone ${var.environment_prefix} Identity Domain"
     domain_license_type       = var.domain_license_type
     domain_admin_user_name    = "domainadmin"
@@ -41,7 +41,7 @@ locals {
   }
 
   iam_admin_root_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-IDP-ADMIN-ROOT-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-IDP-ADMIN-ROOT-POLICY"
     description = "OCI Landing Zone IAM Group"
 
     statements = [
@@ -74,7 +74,7 @@ locals {
   }
 
   platform_admin_root_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-PLT-ADMIN-ROOT-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-PLT-ADMIN-ROOT-POLICY"
     description = "OCI Landing Zone Platform Admin Root Group"
 
     statements = [
@@ -142,7 +142,7 @@ locals {
   }
 
   security_admin_root_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN-ROOT-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN-ROOT-POLICY"
     description = "OCI Landing Zone Security Admin Group Root Compartment"
 
     statements = [

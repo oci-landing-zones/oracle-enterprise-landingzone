@@ -15,8 +15,8 @@ locals {
   }
 
   identity_domain = {
-    domain_display_prod_name     = "OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
-    domain_display_non_prod_name = "OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
+    domain_display_prod_name     = "${var.resource_label}-OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
+    domain_display_non_prod_name = "${var.resource_label}-OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
   }
 
   service_connector_archive_policy = {
