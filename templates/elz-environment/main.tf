@@ -45,6 +45,7 @@ module "identity" {
   workload_compartment_names   = var.workload_compartment_names
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
 
   providers = {
     oci             = oci
@@ -184,6 +185,8 @@ module "tagging" {
   geo_location_tagging         = var.geo_location_tagging
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
+
 
   providers = {
     oci             = oci
