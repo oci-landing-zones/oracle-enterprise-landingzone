@@ -54,10 +54,10 @@ locals {
     description = "OCI Enterprise Landing Zone VSS Policy"
 
     statements = [
-      "Allow service vulnerability-scanning-service to manage instances in compartment ${module.home_compartment.compartment_name}",
-      "Allow service vulnerability-scanning-service to read compartments in compartment ${module.home_compartment.compartment_name}",
-      "Allow service vulnerability-scanning-service to read vnics in compartment ${module.home_compartment.compartment_name}",
-      "Allow service vulnerability-scanning-service to read vnic-attachments in compartment ${module.home_compartment.compartment_name}"
+      "Allow service vulnerability-scanning-service to manage instances in compartment ${var.home_compartment_name}",
+      "Allow service vulnerability-scanning-service to read compartments in compartment ${var.home_compartment_name}",
+      "Allow service vulnerability-scanning-service to read vnics in compartment ${var.home_compartment_name}",
+      "Allow service vulnerability-scanning-service to read vnic-attachments in compartment ${var.home_compartment_name}"
     ]
   }
 
@@ -65,7 +65,7 @@ locals {
     name        = "${var.resource_label}-OCI-ELZ-Vault-Policy"
     description = "OCI Enterprise Landing Zone Vault Policy"
     statements = [
-      "Allow service keymanagementservice to manage vaults in compartment ${module.home_compartment.compartment_name}"
+      "Allow service keymanagementservice to manage vaults in compartment ${var.home_compartment_name}"
     ]
   }
 
