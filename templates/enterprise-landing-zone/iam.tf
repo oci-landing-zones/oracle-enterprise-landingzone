@@ -4,7 +4,7 @@
 locals {
   home_compartment = {
     description = "Enterprise Landing Zone Home Compartment"
-    name = "${var.resource_label}-${var.home_compartment_name}"
+    name = "${var.home_compartment_name}"
   }
 
 }
