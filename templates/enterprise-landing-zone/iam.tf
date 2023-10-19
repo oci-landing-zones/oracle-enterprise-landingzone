@@ -4,7 +4,6 @@
 locals {
   home_compartment = {
     description = "Enterprise Landing Zone Home Compartment"
-    name = "${var.resource_label}-${var.home_compartment_name}"
   }
 
 }
@@ -13,7 +12,7 @@ module "home_compartment" {
   source = "../../modules/compartment"
 
   compartment_parent_id     = var.tenancy_ocid
-  compartment_name          = local.home_compartment.name
+  compartment_name          = var.home_compartment_name
   compartment_description   = local.home_compartment.description
   enable_compartment_delete = var.enable_compartment_delete
 
