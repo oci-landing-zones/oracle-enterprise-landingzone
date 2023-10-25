@@ -8,10 +8,10 @@ output "vcn" {
   description = "Production Environment VCN Information."
 }
 
-output "dynamic_group_detail" {
-  value = module.osms_dynamic_group
-  description = "OSMS Dynamic Group OCID."
-}
+#output "dynamic_group_detail" {
+#  value = module.osms_dynamic_group
+#  description = "OSMS Dynamic Group OCID."
+#}
 
 
 output "workload_compartment_id" {

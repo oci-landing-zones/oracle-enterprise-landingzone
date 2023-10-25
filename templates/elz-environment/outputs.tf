@@ -46,25 +46,25 @@ output "workload_subnet_cidr_blocks" {
   ]
 }
 
-output "stream_id" {
-  value = module.logging.stream_id
-}
-
-output "key_id" {
-  value = module.security.key_id
-}
-
-output "bucket" {
-  value = module.logging.bucket
-}
-
-output "default_group_id" {
-  value = module.logging.log_group_id
-}
-
-output "vault_id" {
-  value = module.security.vault_id
-}
+#output "stream_id" {
+#  value = module.logging.stream_id
+#}
+#
+#output "key_id" {
+#  value = module.security.key_id
+#}
+#
+#output "bucket" {
+#  value = module.logging.bucket
+#}
+#
+#output "default_group_id" {
+#  value = module.logging.log_group_id
+#}
+#
+#output "vault_id" {
+#  value = module.security.vault_id
+#}
 
 output "rpc_id" {
   value = module.network-extension.rpc_id
