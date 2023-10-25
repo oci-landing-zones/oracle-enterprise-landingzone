@@ -138,12 +138,12 @@ module "prod_environment" {
     oci.home_region = oci.home_region
   }
 
-  depends_on = [
-    module.cloud_guard_root_policy,
-    module.cloud_guard_target_policy,
-    module.vss_policy,
-    module.home_compartment
-  ]
+#  depends_on = [
+#    module.cloud_guard_root_policy,
+#    module.cloud_guard_target_policy,
+#    module.vss_policy,
+#    module.home_compartment
+#  ]
 }
 
 # -----------------------------------------------------------------------------
@@ -291,10 +291,10 @@ module "nonprod_environment" {
     oci.home_region = oci.home_region
   }
 
-  depends_on = [
-    module.cloud_guard_root_policy,
-    module.cloud_guard_target_policy,
-    module.vss_policy,
-    module.home_compartment
-  ]
+#  depends_on = [
+#    module.cloud_guard_root_policy,
+#    module.cloud_guard_target_policy,
+#    module.vss_policy,
+#    module.home_compartment
+#  ]
 }

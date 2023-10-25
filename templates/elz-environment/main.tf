@@ -59,56 +59,56 @@ locals {
   }
 }
 
-module "budget" {
-  count              = var.enable_budget ? 1 : 0
-  source             = "../elz-budget"
-  tenancy_ocid       = var.tenancy_ocid
-  region             = var.region
-  environment_prefix = var.environment_prefix
+#module "budget" {
+#  count              = var.enable_budget ? 1 : 0
+#  source             = "../elz-budget"
+#  tenancy_ocid       = var.tenancy_ocid
+#  region             = var.region
+#  environment_prefix = var.environment_prefix
+#
+#  budget_compartment_id        = var.tenancy_ocid
+#  budget_description           = local.budget.budget_description
+#  budget_display_name          = local.budget.budget_display_name
+#  budget_target                = module.compartment.compartments.environment.id
+#  budget_amount                = var.budget_amount
+#  budget_alert_rule_threshold  = var.budget_alert_rule_threshold
+#  budget_alert_rule_message    = var.budget_alert_rule_message
+#  budget_alert_rule_recipients = var.budget_alert_rule_recipients
+#  home_compartment_id          = var.home_compartment_id
+#  is_baseline_deploy           = var.is_baseline_deploy
+#
+#  providers = {
+#    oci             = oci
+#    oci.home_region = oci.home_region
+#  }
+#}
 
-  budget_compartment_id        = var.tenancy_ocid
-  budget_description           = local.budget.budget_description
-  budget_display_name          = local.budget.budget_display_name
-  budget_target                = module.compartment.compartments.environment.id
-  budget_amount                = var.budget_amount
-  budget_alert_rule_threshold  = var.budget_alert_rule_threshold
-  budget_alert_rule_message    = var.budget_alert_rule_message
-  budget_alert_rule_recipients = var.budget_alert_rule_recipients
-  home_compartment_id          = var.home_compartment_id
-  is_baseline_deploy           = var.is_baseline_deploy
-
-  providers = {
-    oci             = oci
-    oci.home_region = oci.home_region
-  }
-}
-
-module "security" {
-  source                               = "../elz-security"
-  enable_cloud_guard                   = var.enable_cloud_guard
-  resource_label                       = var.resource_label
-  home_compartment_id                  = var.home_compartment_id
-  cloud_guard_target_tenancy           = var.cloud_guard_target_tenancy
-  tenancy_ocid                         = var.tenancy_ocid
-  environment_prefix                   = var.environment_prefix
-  home_compartment_name                = var.home_compartment_name
-  region                               = var.region
-  environment_compartment_id           = module.compartment.compartments.environment.id
-  security_compartment_id              = module.compartment.compartments.security.id
-  enable_bastion                       = var.enable_bastion
-  bastion_target_subnet_id             = module.network.spoke_web_subnet_ocid
-  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
-  vault_type                           = var.vault_type
-  replica_region                       = var.vault_replica_region
-  enable_replication                   = var.enable_vault_replication
-  create_master_encryption_key         = var.create_master_encryption_key
-  is_baseline_deploy                   = var.is_baseline_deploy
-
-  providers = {
-    oci             = oci
-    oci.home_region = oci.home_region
-  }
-}
+#module "security" {
+#  source                               = "../elz-security"
+#  enable_cloud_guard                   = var.enable_cloud_guard
+#  resource_label                       = var.resource_label
+#  home_compartment_id                  = var.home_compartment_id
+#  cloud_guard_target_tenancy           = var.cloud_guard_target_tenancy
+#  tenancy_ocid                         = var.tenancy_ocid
+#  environment_prefix                   = var.environment_prefix
+#  home_compartment_name                = var.home_compartment_name
+#  region                               = var.region
+#  environment_compartment_id           = module.compartment.compartments.environment.id
+#  security_compartment_id              = module.compartment.compartments.security.id
+#  enable_bastion                       = var.enable_bastion
+#  bastion_target_subnet_id             = module.network.spoke_web_subnet_ocid
+#  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
+#  vault_type                           = var.vault_type
+#  replica_region                       = var.vault_replica_region
+#  enable_replication                   = var.enable_vault_replication
+#  create_master_encryption_key         = var.create_master_encryption_key
+#  is_baseline_deploy                   = var.is_baseline_deploy
+#
+#  providers = {
+#    oci             = oci
+#    oci.home_region = oci.home_region
+#  }
+#}
 
 locals {
   network = {
@@ -153,7 +153,7 @@ module "network" {
   enable_fastconnect_on_environment   = var.enable_fastconnect_on_environment
   customer_onprem_ip_cidr             = var.customer_onprem_ip_cidr
 
-  log_group_id                      = module.logging.log_group_id
+  log_group_id                      = "" //module.logging.log_group_id
   enable_network_firewall           = var.enable_network_firewall
   enable_traffic_threat_log         = var.enable_traffic_threat_log
   nfw_subnet_type                   = var.nfw_subnet_type
@@ -170,57 +170,57 @@ module "network" {
   #depends_on = [ module.prod_environment.module.logging, module.nonprod_environment.module.logging ]
 }
 
-module "tagging" {
+#module "tagging" {
+#
+#  source = "../elz-tagging"
+#
+#  region                       = var.region
+#  environment_compartment_id   = module.compartment.compartments.environment.id
+#  environment_compartment_name = var.environment_compartment_name
+#  enable_tagging               = var.enable_tagging
+#  environment_prefix           = var.environment_prefix
+#  tenancy_ocid                 = var.tenancy_ocid
+#  cost_center_tagging          = var.cost_center_tagging
+#  geo_location_tagging         = var.geo_location_tagging
+#  home_compartment_id          = var.home_compartment_id
+#  is_baseline_deploy           = var.is_baseline_deploy
+#
+#  providers = {
+#    oci             = oci
+#    oci.home_region = oci.home_region
+#  }
+#}
 
-  source = "../elz-tagging"
-
-  region                       = var.region
-  environment_compartment_id   = module.compartment.compartments.environment.id
-  environment_compartment_name = var.environment_compartment_name
-  enable_tagging               = var.enable_tagging
-  environment_prefix           = var.environment_prefix
-  tenancy_ocid                 = var.tenancy_ocid
-  cost_center_tagging          = var.cost_center_tagging
-  geo_location_tagging         = var.geo_location_tagging
-  home_compartment_id          = var.home_compartment_id
-  is_baseline_deploy           = var.is_baseline_deploy
-
-  providers = {
-    oci             = oci
-    oci.home_region = oci.home_region
-  }
-}
-
-module "monitoring" {
-  source = "../elz-monitoring"
-
-  tenancy_ocid       = var.tenancy_ocid
-  region             = var.region
-  environment_prefix = var.environment_prefix
-  resource_label     = var.resource_label
-  home_compartment_id  = var.home_compartment_id
-  is_baseline_deploy           = var.is_baseline_deploy
-
-  environment_compartment_id = module.compartment.compartments.environment.id
-  security_compartment_id    = module.compartment.compartments.security.id
-  network_compartment_id     = module.compartment.compartments.network.id
-  workload_compartment_id    = module.workload.compartment_id
-
-  is_create_alarms         = var.is_create_alarms
-  network_topic_endpoints  = var.network_topic_endpoints
-  secops_topic_endpoints   = var.secops_topic_endpoints
-  platform_topic_endpoints = var.platform_topic_endpoints
-  identity_topic_endpoints = var.identity_topic_endpoints
-  default_log_group_id     = module.logging.log_group_id
-
-  workload_topic_endpoints = var.workload_topic_endpoints
-
-  enable_security_monitoring_alarms = var.enable_security_monitoring_alarms
-  enable_network_monitoring_alarms  = var.enable_network_monitoring_alarms
-  enable_workload_monitoring_alarms = var.enable_workload_monitoring_alarms
-
-  providers = {
-    oci             = oci
-    oci.home_region = oci.home_region
-  }
-}
+#module "monitoring" {
+#  source = "../elz-monitoring"
+#
+#  tenancy_ocid       = var.tenancy_ocid
+#  region             = var.region
+#  environment_prefix = var.environment_prefix
+#  resource_label     = var.resource_label
+#  home_compartment_id  = var.home_compartment_id
+#  is_baseline_deploy           = var.is_baseline_deploy
+#
+#  environment_compartment_id = module.compartment.compartments.environment.id
+#  security_compartment_id    = module.compartment.compartments.security.id
+#  network_compartment_id     = module.compartment.compartments.network.id
+#  workload_compartment_id    = module.workload.compartment_id
+#
+#  is_create_alarms         = var.is_create_alarms
+#  network_topic_endpoints  = var.network_topic_endpoints
+#  secops_topic_endpoints   = var.secops_topic_endpoints
+#  platform_topic_endpoints = var.platform_topic_endpoints
+#  identity_topic_endpoints = var.identity_topic_endpoints
+#  default_log_group_id     = module.logging.log_group_id
+#
+#  workload_topic_endpoints = var.workload_topic_endpoints
+#
+#  enable_security_monitoring_alarms = var.enable_security_monitoring_alarms
+#  enable_network_monitoring_alarms  = var.enable_network_monitoring_alarms
+#  enable_workload_monitoring_alarms = var.enable_workload_monitoring_alarms
+#
+#  providers = {
+#    oci             = oci
+#    oci.home_region = oci.home_region
+#  }
+#}
