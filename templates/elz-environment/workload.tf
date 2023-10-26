@@ -34,7 +34,7 @@ module "workload" {
   enable_workload_monitoring_alarms = var.enable_workload_monitoring_alarms
 
   customer_onprem_ip_cidr                      = var.customer_onprem_ip_cidr
-  drg_id                                       = module.network.drg_id
+  drg_id                                       = "" //module.network.drg_id
   enable_vpn_on_environment                    = var.enable_vpn_on_environment
   enable_vpn_or_fastconnect                    = var.enable_vpn_or_fastconnect
   ipsec_connection_static_routes               = var.ipsec_connection_static_routes

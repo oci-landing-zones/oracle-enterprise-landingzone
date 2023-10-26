@@ -35,32 +35,38 @@ terraform {
 # Provider blocks for home region and alternate region(s)
 # -----------------------------------------------------------------------------
 provider "oci" {
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key      = var.api_private_key # if both set this takes precidence
-  private_key_path = var.api_private_key_path
-  region           = var.region
+  tenancy_ocid        = var.tenancy_ocid
+  user_ocid           = var.current_user_ocid
+  fingerprint         = var.api_fingerprint
+  private_key         = var.api_private_key # if both set this takes precidence
+  private_key_path    = var.api_private_key_path
+  region              = var.region
+  auth                = "SecurityToken"
+  config_file_profile = "boat-login"
 }
 
 provider "oci" {
-  alias            = "home_region"
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key      = var.api_private_key # if both set this takes precidence
-  private_key_path = var.api_private_key_path
-  region           = local.home_region[0]
+  alias               = "home_region"
+  tenancy_ocid        = var.tenancy_ocid
+  user_ocid           = var.current_user_ocid
+  fingerprint         = var.api_fingerprint
+  private_key         = var.api_private_key # if both set this takes precidence
+  private_key_path    = var.api_private_key_path
+  region              = local.home_region[0]
+  auth                = "SecurityToken"
+  config_file_profile = "boat-login"
 }
 
 provider "oci" {
-  alias            = "backup_region"
-  tenancy_ocid     = var.tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key      = var.api_private_key
-  private_key_path = var.api_private_key_path
-  region           = var.backup_region
+  alias               = "backup_region"
+  tenancy_ocid        = var.tenancy_ocid
+  user_ocid           = var.current_user_ocid
+  fingerprint         = var.api_fingerprint
+  private_key         = var.api_private_key
+  private_key_path    = var.api_private_key_path
+  region              = var.backup_region
+  auth                = "SecurityToken"
+  config_file_profile = "boat-login"
 }
 
 # -----------------------------------------------------------------------------

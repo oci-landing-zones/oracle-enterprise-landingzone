@@ -179,10 +179,10 @@ variable "security_list_display_name" {
 
 variable "drg_id" {
   type    = string
-  validation {
-    condition     = can(regex("^drg$", split(".", var.drg_id)[1]))
-    error_message = "Only Compartment OCID is allowed."
-  }
+#  validation {
+#    condition     = can(regex("^drg$", split(".", var.drg_id)[1]))
+#    error_message = "Only Compartment OCID is allowed."
+#  }
 }
 
 variable "hub_public_subnet_cidr_block" {

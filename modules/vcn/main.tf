@@ -1,10 +1,10 @@
-terraform {
-  required_providers {
-    oci = {
-      source = "oracle/oci"
-    }
-  }
-}
+#terraform {
+#  required_providers {
+#    oci = {
+#      source = "oracle/oci"
+#    }
+#  }
+#}
 
 ######################################################################
 #                      Create VCN                                    # 

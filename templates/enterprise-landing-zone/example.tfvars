@@ -95,7 +95,7 @@ nonprod_workload_topic_endpoints = []
 
 #Logging
 
-onboard_log_analytics        = false
+onboard_log_analytics = false
 
 # Workload Expansion
 prod_additional_workload_subnets_cidr_blocks    = []
@@ -111,5 +111,5 @@ enable_traffic_threat_log_prod  = true
 nfw_subnet_type_prod            = "public"
 nfw_instance_name_prod          = "nfw_name"
 nfw_instance_policy_prod        = "nfw_policy_name"
-enable_network_firewall_nonprod = "false"  
+enable_network_firewall_nonprod = "false"
 

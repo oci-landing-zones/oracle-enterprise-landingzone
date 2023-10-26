@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 locals {
   identity_domain = {
-    domain_display_name       = "OCI-ELZ-${var.environment_prefix}-IDT"
+    domain_display_name       = "RORY-OCI-ELZ-${var.environment_prefix}-IDT"
     domain_description        = "OCI Landing Zone ${var.environment_prefix} Identity Domain"
     domain_license_type       = var.domain_license_type
     domain_admin_user_name    = "domainadmin"

@@ -2,14 +2,14 @@ output "compartment" {
   value = module.compartment.compartments
 }
 
-output "subnets" {
-  value = module.network.subnets
-  description = "The subnet OCID"
-}
+#output "subnets" {
+#  value = module.network.subnets
+#  description = "The subnet OCID"
+#}
 
-output "vcn" {
-  value = module.network.vcn
-}
+#output "vcn" {
+#  value = module.network.vcn
+#}
 
 output "hub_public_subnet_cidr" {
   value = var.public_subnet_cidr_block
@@ -19,9 +19,9 @@ output "hub_private_subnet_cidr" {
   value = var.private_subnet_cidr_block
 }
 
-output "drg_id" {
-  value = module.network.drg_id
-}
+#output "drg_id" {
+#  value = module.network.drg_id
+#}
 
 output "identity_domain" {
   value = module.identity.domain

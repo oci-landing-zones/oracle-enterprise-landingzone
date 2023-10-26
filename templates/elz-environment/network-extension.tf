@@ -11,7 +11,7 @@ module "network-extension" {
   enable_vpn_on_environment         = var.enable_vpn_on_environment
   cpe_display_name                  = var.cpe_display_name
   ipsec_display_name                = var.ipsec_display_name
-  drg_id                            = module.network.drg_id
+  drg_id                            = "" // module.network.drg_id
   cpe_vendor                        = var.cpe_vendor
   routing                           = var.routing
   tunnel_a_display_name             = var.tunnel_a_display_name

@@ -55,13 +55,13 @@ variable "nonprod_ipsec_display_name" {
 variable "prod_ipsec_connection_static_routes" {
   type        = list(string)
   description = ""
-  default     = [ null ]
+  default     = [null]
 }
 
 variable "nonprod_ipsec_connection_static_routes" {
   type        = list(string)
   description = ""
-  default     = [ null ]
+  default     = [null]
 }
 
 variable "prod_cpe_vendor" {
@@ -257,5 +257,5 @@ variable "nonprod_enable_fastconnect" {
 
 variable "customer_onprem_ip_cidr" {
   type    = list(string)
-  default = [ null ]
+  default = [null]
 }
