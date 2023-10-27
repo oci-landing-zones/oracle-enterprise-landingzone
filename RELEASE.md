@@ -2,7 +2,7 @@
 
 ## v2.2.1 - 2023-10-27
 
-- Update the Offical Readme file with valid OELZ deployment URL.
+- Update the Official Readme file with a valid OELZ deployment URL.
 
 ## v2.2.0 - 2023-10-11
 
