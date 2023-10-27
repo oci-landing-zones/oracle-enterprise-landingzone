@@ -125,7 +125,7 @@ In the **Create Stack** page:<br />
 ![Create Stack](<../../images/oelz_create_stack.png> "Create Stack")
 
 Alternatively, you can click the button below to supply the zip file directly from GitHub without downloading it:
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v2.2.0.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/releases/tag/v2.2.0)
 
 *If you are logged in to your OCI tenancy, the button will take you directly to OCI Resource Manager, where you can proceed to deploy. If you are not logged, the button takes you to tje Oracle Cloud initial webpage, where you must enter your tenancy name and log in to OCI.*
 
