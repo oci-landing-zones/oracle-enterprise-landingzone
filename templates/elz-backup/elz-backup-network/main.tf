@@ -18,6 +18,7 @@ module "spoke" {
   workload_spoke_vcn_cidr                        = var.spoke_vcn_cidr
 
   providers = {
+    oci = oci
     oci.backup_region = oci.backup_region
   }
 }

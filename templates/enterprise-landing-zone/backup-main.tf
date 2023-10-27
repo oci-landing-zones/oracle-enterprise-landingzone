@@ -26,7 +26,7 @@ module "backup_nonprod_environment" {
 
   environment_prefix      = local.nonprod_environment.environment_prefix
   spoke_vcn_cidr          = var.backup_nonprod_workload_cidr
-  workload_compartment_id = module.prod_environment.workload_compartment_id
+  workload_compartment_id = module.nonprod_environment.workload_compartment_id
   backup_region           = var.backup_region
   tenancy_ocid            = var.tenancy_ocid
 
