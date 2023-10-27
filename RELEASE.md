@@ -1,5 +1,9 @@
 # Release Notes
 
+## v2.2.1 - 2023-10-27
+
+- Update the Offical Readme file with valid OELZ deployment URL.
+
 ## v2.2.0 - 2023-10-11
 
 - Network Firewall Feature is added.(Greenfield & Brownfield use cases)

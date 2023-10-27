@@ -20,7 +20,7 @@ at [templates/elz-workload](./templates/elz-workload). Users can use the guides 
 ## Deploy Using Oracle Resource Manager
 1. Click to deploy the stack
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v3.0.0.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v2.2.0.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
