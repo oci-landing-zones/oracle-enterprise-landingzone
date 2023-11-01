@@ -163,18 +163,18 @@ module "workload_spoke_security_list" {
 }
 
 
-#module "backup_workload_spoke_route_table" {
-# source                   = "../../../modules/route-table"
-#
-# compartment_id           = var.workload_compartment_id
-# vcn_id                   = module.backup_workload_spoke_vcn.vcn_id
-# route_table_display_name = var.route_table_display_name
-# route_rules              = local.spoke_route_rules.route_rules
-#
-#  providers = {
-#    oci = oci.backup_region
-#  }
-#}
+module "backup_workload_spoke_route_table" {
+ source                   = "../../../modules/route-table"
+
+ compartment_id           = var.workload_compartment_id
+ vcn_id                   = module.backup_workload_spoke_vcn.vcn_id
+ route_table_display_name = var.route_table_display_name
+ route_rules              = local.spoke_route_rules.route_rules
+
+  providers = {
+    oci = oci.backup_region
+  }
+}
 
 module "backup_workload_spoke_subnet" {
   source = "../../../modules/subnet"
