@@ -24,12 +24,12 @@ locals {
 
 // TODO: Add drg attachment in Hub ticket
 module "spoke" {
-  source                                         = "../elz-backup-spoke"
-  vcn_display_name                               = local.vcn_spoke.name
-  vcn_dns_label                                  = local.vcn_spoke.dns_label
-  workload_compartment_id                        = var.workload_compartment_id
-  workload_spoke_vcn_cidr                        = var.spoke_vcn_cidr
-  security_list_display_name                     = local.vcn-spoke-info.spoke_security_list_display_name
+  source                     = "../elz-backup-spoke"
+  vcn_display_name           = local.vcn_spoke.name
+  vcn_dns_label              = local.vcn_spoke.dns_label
+  workload_compartment_id    = var.workload_compartment_id
+  workload_spoke_vcn_cidr    = var.spoke_vcn_cidr
+  security_list_display_name = local.vcn-spoke-info.spoke_security_list_display_name
 
   additional_workload_subnets_cidr_blocks        = var.additional_workload_subnets_cidr_blocks
   customer_onprem_ip_cidr                        = var.customer_onprem_ip_cidr
@@ -55,7 +55,7 @@ module "spoke" {
   workload_private_spoke_subnet_web_dns_label    = local.vcn-spoke-info.subnet_web_dns_label
 
   providers = {
-    oci = oci
+    oci               = oci
     oci.backup_region = oci.backup_region
   }
 }

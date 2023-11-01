@@ -8,7 +8,7 @@ module "network" {
   environment_prefix      = var.environment_prefix
 
   providers = {
-    oci = oci
+    oci               = oci
     oci.backup_region = oci.backup_region
   }
 

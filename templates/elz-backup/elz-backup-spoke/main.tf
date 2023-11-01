@@ -3,8 +3,8 @@ locals {
   workload_nat_gw_spoke_check     = var.enable_nat_gateway_spoke == true ? var.nat_gw_spoke_check : []
   workload_service_gw_spoke_check = var.enable_service_gateway_spoke == true ? var.service_gw_spoke_check : []
 
-  ipsec_connection_static_routes = var.enable_vpn_or_fastconnect == "VPN" && var.enable_vpn_on_environment ? var.ipsec_connection_static_routes : []
-  customer_onprem_ip_cidr        = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? var.customer_onprem_ip_cidr : []
+  ipsec_connection_static_routes          = var.enable_vpn_or_fastconnect == "VPN" && var.enable_vpn_on_environment ? var.ipsec_connection_static_routes : []
+  customer_onprem_ip_cidr                 = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? var.customer_onprem_ip_cidr : []
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks != [] ? var.additional_workload_subnets_cidr_blocks : []
 
 
@@ -64,7 +64,7 @@ locals {
     }
   }
   spoke_route_rules = {
-    route_rules = merge(local.spoke_route_rules_options.route_rules_default, local.spoke_route_rules_options.route_rules_nat_spoke, local.spoke_route_rules_options.route_rules_srvc_gw_spoke, local.spoke_route_rules_options.route_rules_fastconnect, local.spoke_route_rules_options.route_rules_vpn,local.spoke_route_rules_options.route_rules_workload)
+    route_rules = merge(local.spoke_route_rules_options.route_rules_default, local.spoke_route_rules_options.route_rules_nat_spoke, local.spoke_route_rules_options.route_rules_srvc_gw_spoke, local.spoke_route_rules_options.route_rules_fastconnect, local.spoke_route_rules_options.route_rules_vpn, local.spoke_route_rules_options.route_rules_workload)
   }
   workload_expansion_subnet_map = {
     Workload-Spoke-Web-Subnet = {
@@ -142,20 +142,20 @@ module "backup_workload_spoke_vcn" {
 
 
 module "workload_spoke_security_list" {
-   source = "../../../modules/security-list"
+  source = "../../../modules/security-list"
 
-   compartment_id                        = var.workload_compartment_id
-   vcn_id                                = module.backup_workload_spoke_vcn.vcn_id
-   spoke_security_list_display_name      = var.security_list_display_name
-   security_list_egress_destination      = local.security_list_egress.destination
-   security_list_egress_protocol         = local.security_list_egress.protocol
-   security_list_egress_description      = local.security_list_egress.description
-   security_list_egress_destination_type = local.security_list_egress.destination_type
+  compartment_id                        = var.workload_compartment_id
+  vcn_id                                = module.backup_workload_spoke_vcn.vcn_id
+  spoke_security_list_display_name      = var.security_list_display_name
+  security_list_egress_destination      = local.security_list_egress.destination
+  security_list_egress_protocol         = local.security_list_egress.protocol
+  security_list_egress_description      = local.security_list_egress.description
+  security_list_egress_destination_type = local.security_list_egress.destination_type
 
-   security_list_ingress_protocol    = local.security_list_ingress.protocol
-   security_list_ingress_source      = local.security_list_ingress.source
-   security_list_ingress_description = local.security_list_ingress.description
-   security_list_ingress_source_type = local.security_list_ingress.source_type
+  security_list_ingress_protocol    = local.security_list_ingress.protocol
+  security_list_ingress_source      = local.security_list_ingress.source
+  security_list_ingress_description = local.security_list_ingress.description
+  security_list_ingress_source_type = local.security_list_ingress.source_type
 
   providers = {
     oci = oci.backup_region
@@ -177,13 +177,13 @@ module "workload_spoke_security_list" {
 #}
 
 module "backup_workload_spoke_subnet" {
- source = "../../../modules/subnet"
+  source = "../../../modules/subnet"
 
- subnet_map              = local.workload_expansion_subnet_map
- compartment_id          = var.workload_compartment_id
- vcn_id                  = module.backup_workload_spoke_vcn.vcn_id
- subnet_route_table_id   = "" // module.backup_workload_spoke_route_table.route_table_id
- subnet_security_list_id = toset([module.workload_spoke_security_list.security_list_id])
+  subnet_map              = local.workload_expansion_subnet_map
+  compartment_id          = var.workload_compartment_id
+  vcn_id                  = module.backup_workload_spoke_vcn.vcn_id
+  subnet_route_table_id   = "" // module.backup_workload_spoke_route_table.route_table_id
+  subnet_security_list_id = toset([module.workload_spoke_security_list.security_list_id])
 
   providers = {
     oci = oci.backup_region
@@ -192,12 +192,12 @@ module "backup_workload_spoke_subnet" {
 
 
 module "workload-spoke-nat-gateway" {
- source                   = "../../../modules/nat-gateway"
+  source = "../../../modules/nat-gateway"
 
- count                    = var.enable_nat_gateway_spoke ? 1 : 0
- nat_gateway_display_name = var.nat_gateway_display_name
- network_compartment_id   = var.workload_compartment_id
- vcn_id                   = module.backup_workload_spoke_vcn.vcn_id
+  count                    = var.enable_nat_gateway_spoke ? 1 : 0
+  nat_gateway_display_name = var.nat_gateway_display_name
+  network_compartment_id   = var.workload_compartment_id
+  vcn_id                   = module.backup_workload_spoke_vcn.vcn_id
 
   providers = {
     oci = oci.backup_region
@@ -206,12 +206,12 @@ module "workload-spoke-nat-gateway" {
 
 
 module "workload-spoke-service-gateway" {
- source                       = "../../../modules/service-gateway"
+  source = "../../../modules/service-gateway"
 
- count                        = var.enable_service_gateway_spoke ? 1 : 0
- network_compartment_id       = var.workload_compartment_id
- service_gateway_display_name = var.service_gateway_display_name
- vcn_id                       = module.backup_workload_spoke_vcn.vcn_id
+  count                        = var.enable_service_gateway_spoke ? 1 : 0
+  network_compartment_id       = var.workload_compartment_id
+  service_gateway_display_name = var.service_gateway_display_name
+  vcn_id                       = module.backup_workload_spoke_vcn.vcn_id
 
   providers = {
     oci = oci.backup_region
