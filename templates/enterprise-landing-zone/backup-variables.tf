@@ -22,66 +22,119 @@ variable "backup_nonprod_workload_cidr" {
 }
 
 variable "backup_prod_additional_workload_subnets_cidr_blocks" {
-  default = []
+  default     = []
+  type        = list(string)
+  description = "A list of subnets cidr blocks in additional workload stack in prod for backup region"
 }
 variable "backup_prod_enable_nat_gateway_spoke" {
-  default = true
+  default     = true
+  type        = bool
+  description = "Option to enable spoke NAT gateway for backup region in prod"
 }
 variable "backup_prod_enable_service_gateway_spoke" {
-  default = true
+  default     = true
+  type        = bool
+  description = "Option to enable spoke service gateway for backup region in prod"
+
 }
 variable "backup_prod_enable_vpn" {
-  default = false
+  default     = false
+  type        = bool
+  description = "Option to enable VPN for backup region in prod"
 }
 variable "backup_enable_vpn_or_fastconnect" {
-  default = "NONE"
+  default     = "NONE"
+  type        = string
+  description = "Option to enable VPN or FastConnect for backup region"
 }
 variable "backup_prod_ipsec_connection_static_routes" {
-  default = [null]
+  default     = [null]
+  type        = list(string)
+  description = "IPsec connection static routes for backup region in prod"
 }
 variable "backup_prod_spoke_subnet_app_cidr_block" {
-  default = "10.6.1.0/24"
+  default     = "10.6.1.0/24"
+  type        = string
+  description = "Spoke App subnet CIDR block for backup region in prod"
 }
 variable "backup_prod_spoke_subnet_db_cidr_block" {
-  default = "10.6.2.0/24"
+  default     = "10.6.2.0/24"
+  type        = string
+  description = "Spoke Database subnet CIDR block for backup region in prod"
 }
 variable "backup_prod_spoke_subnet_web_cidr_block" {
-  default = "10.6.3.0/24"
+  default     = "10.6.3.0/24"
+  type        = string
+  description = "Spoke Web subnet CIDR block for backup region in prod"
 }
 variable "backup_prod_hub_public_subnet_cidr_block" {
-  default = "10.8.1.0/24"
+  default     = "10.8.1.0/24"
+  type        = string
+  description = "Hub public subnet CIDR block for backup region in prod"
 }
 variable "backup_prod_hub_private_subnet_cidr_block" {
-  default = "10.8.2.0/24"
+  default     = "10.8.2.0/24"
+  type        = string
+  description = "Hub private subnet CIDR block for backup region in prod"
 }
 
 variable "backup_nonprod_additional_workload_subnets_cidr_blocks" {
-  default = []
+  default     = []
+  type        = list(string)
+  description = "A list of subnets cidr blocks in additional workload stack in non-prod for backup region"
+
 }
 variable "backup_nonprod_enable_nat_gateway_spoke" {
-  default = true
+  default     = true
+  type        = bool
+  description = "Option to enable spoke NAT gateway for backup region in non-prod"
+
 }
 variable "backup_nonprod_enable_service_gateway_spoke" {
-  default = true
+  default     = true
+  type        = bool
+  description = "Option to enable spoke service gateway for backup region in non-prod"
+
 }
 variable "backup_nonprod_enable_vpn" {
-  default = false
+  default     = false
+  type        = bool
+  description = "Option to enable VPN for backup region in non-prod"
+
 }
 variable "backup_nonprod_ipsec_connection_static_routes" {
-  default = [null]
+  default     = [null]
+  type        = list(string)
+  description = "IPsec connection static routes for backup region in non-prod"
+
 }
 variable "backup_nonprod_spoke_subnet_app_cidr_block" {
-  default = "10.7.1.0/24"
+  default     = "10.7.1.0/24"
+  type        = string
+  description = "Spoke App subnet CIDR block for backup region in non-prod"
+
 }
 variable "backup_nonprod_spoke_subnet_db_cidr_block" {
-  default = "10.7.2.0/24"
+  default     = "10.7.2.0/24"
+  type        = string
+  description = "Spoke Database subnet CIDR block for backup region in non-prod"
+
 }
 variable "backup_nonprod_spoke_subnet_web_cidr_block" {
-  default = "10.7.3.0/24"
+  default     = "10.7.3.0/24"
+  type        = string
+  description = "Spoke Web subnet CIDR block for backup region in non-prod"
+
 }
 variable "backup_nonprod_hub_private_subnet_cidr_block" {
-  default = "10.9.1.0/24"
+  default     = "10.9.1.0/24"
+  type        = string
+  description = "Hub public subnet CIDR block for backup region in non-prod"
+
 }
 variable "backup_nonprod_hub_public_subnet_cidr_block" {
-  default = "10.9.2.0/24"
+  default     = "10.9.2.0/24"
+  type        = string
+  description = "Hub private subnet CIDR block for backup region in non-prod"
+
 }
