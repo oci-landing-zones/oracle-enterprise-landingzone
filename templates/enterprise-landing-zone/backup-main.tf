@@ -23,6 +23,13 @@ module "backup_prod_environment" {
   private_subnet_cidr_block               = var.backup_prod_hub_private_subnet_cidr_block
   public_subnet_cidr_block                = var.backup_prod_hub_public_subnet_cidr_block
 
+  create_master_encryption_key = var.backup_prod_create_master_encryption_key
+  enable_replication           = var.backup_prod_vault_enable_replication
+  replica_region               = var.backup_prod_vault_replica_region
+  resource_label               = var.resource_label
+  security_compartment_id      = module.prod_environment.compartment.security.id
+  vault_type                   = var.backup_prod_vault_type
+
   depends_on = [module.prod_environment]
 
   providers = {
@@ -55,6 +62,13 @@ module "backup_nonprod_environment" {
   private_spoke_subnet_web_cidr_block     = var.backup_nonprod_spoke_subnet_web_cidr_block
   private_subnet_cidr_block               = var.backup_nonprod_hub_private_subnet_cidr_block
   public_subnet_cidr_block                = var.backup_nonprod_hub_public_subnet_cidr_block
+
+  create_master_encryption_key = var.backup_nonprod_create_master_encryption_key
+  enable_replication           = var.backup_nonprod_vault_enable_replication
+  replica_region               = var.backup_nonprod_vault_replica_region
+  resource_label               = var.resource_label
+  security_compartment_id      = module.nonprod_environment.compartment.security.id
+  vault_type                   = var.backup_nonprod_vault_type
 
   depends_on = [module.nonprod_environment]
 

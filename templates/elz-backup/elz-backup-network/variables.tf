@@ -27,7 +27,7 @@ variable "additional_workload_subnets_cidr_blocks" {
   description = "A list of subnets cidr blocks in additional workload stack for backup region"
 }
 variable "customer_onprem_ip_cidr" {
-  type        = string
+  type        = list(string)
   description = "IP CIDR for from customer onprem side"
 }
 variable "enable_nat_gateway_spoke" {

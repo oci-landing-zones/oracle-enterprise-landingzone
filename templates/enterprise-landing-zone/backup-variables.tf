@@ -138,3 +138,54 @@ variable "backup_nonprod_hub_public_subnet_cidr_block" {
   description = "Hub private subnet CIDR block for backup region in non-prod"
 
 }
+
+# -----------------------------------------------------------------------------
+# Security Variables
+# -----------------------------------------------------------------------------
+variable "backup_prod_create_master_encryption_key" {
+  type        = bool
+  description = "Option create master encryption key in prod for backup region"
+  default     = true
+}
+
+variable "backup_prod_vault_enable_replication" {
+  type        = bool
+  description = "Option to enable vault replication in prod for backup region"
+  default     = false
+}
+
+variable "backup_prod_vault_replica_region" {
+  type        = string
+  description = "the region to be created replica to. Required *if* prod_enable_vault_replication is true."
+  default     = ""
+}
+
+variable "backup_prod_vault_type" {
+  type        = string
+  description = "The type of vault to create in prod for backup region. "
+  default     = "DEFAULT"
+}
+
+variable "backup_nonprod_create_master_encryption_key" {
+  type        = bool
+  description = "Option create master encryption key in nonprod for backup region"
+  default     = true
+}
+
+variable "backup_nonprod_vault_enable_replication" {
+  type        = bool
+  description = "Option to enable vault replication in nonprod for backup region"
+  default     = false
+}
+
+variable "backup_nonprod_vault_replica_region" {
+  type        = string
+  description = "the region to be created replica to. Required *if* nonprod_enable_vault_replication is true."
+  default     = ""
+}
+
+variable "backup_nonprod_vault_type" {
+  type        = string
+  description = "The type of vault to create in nonprod for backup region. "
+  default     = "DEFAULT"
+}
