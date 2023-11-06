@@ -29,6 +29,7 @@ module "backup_prod_environment" {
   resource_label               = var.resource_label
   security_compartment_id      = module.prod_environment.compartment.security.id
   vault_type                   = var.backup_prod_vault_type
+  home_compartment_id          = module.home_compartment.compartment_id
 
   depends_on = [module.prod_environment]
 
@@ -36,6 +37,7 @@ module "backup_prod_environment" {
     oci               = oci
     oci.backup_region = oci.backup_region
   }
+
 }
 
 module "backup_nonprod_environment" {
@@ -69,6 +71,7 @@ module "backup_nonprod_environment" {
   resource_label               = var.resource_label
   security_compartment_id      = module.nonprod_environment.compartment.security.id
   vault_type                   = var.backup_nonprod_vault_type
+  home_compartment_id          = module.home_compartment.compartment_id
 
   depends_on = [module.nonprod_environment]
 
