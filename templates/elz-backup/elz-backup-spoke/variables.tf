@@ -62,7 +62,7 @@ variable "enable_vpn_on_environment" {
   description = "Option to enable VPN on environment level"
 }
 variable "customer_onprem_ip_cidr" {
-  type        = string
+  type        = list(string)
   description = "IP CIDR block from customer onprem side"
 }
 variable "additional_workload_subnets_cidr_blocks" {
