@@ -13,8 +13,8 @@ locals {
   create_key = var.vault_type != "NONE" && var.create_master_encryption_key
 
   key_policy = {
-    name        = "${var.resource_label}-OCI-ELZ-KEY-Policy-${var.environment_prefix}"
-    description = "OCI Enterprise Landing Zone Key Policy"
+    name        = "${var.resource_label}-OCI-ELZ-KEY-Policy-${var.environment_prefix}-BACKUP-${local.region_key[0]}"
+    description = "OCI Enterprise Landing Zone Key Policy For Backup Region"
 
     statements = local.create_key ? [
       "Allow service objectstorage-${var.backup_region} to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}",
@@ -53,4 +53,13 @@ module "key" {
   }
 
   depends_on = [module.vault]
+}
+
+module "key_policy" {
+  source              = "../../../modules/policies"
+  count               = local.create_key ? 1 : 0
+  compartment_ocid    = var.home_compartment_id
+  description         = local.key_policy.description
+  policy_name         = local.key_policy.name
+  statements          = local.key_policy.statements
 }

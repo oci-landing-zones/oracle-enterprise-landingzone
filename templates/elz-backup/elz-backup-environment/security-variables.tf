@@ -27,3 +27,8 @@ variable "vault_type" {
   type        = string
   description = "The type of vault to create. "
 }
+
+variable "home_compartment_id" {
+  type        = string
+  description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
+}

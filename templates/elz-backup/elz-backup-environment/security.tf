@@ -10,9 +10,11 @@ module "security" {
   security_compartment_id      = var.security_compartment_id
   tenancy_ocid                 = var.tenancy_ocid
   vault_type                   = var.vault_type
+  home_compartment_id          = var.home_compartment_id
 
   providers = {
     oci               = oci
     oci.backup_region = oci.backup_region
   }
+
 }
