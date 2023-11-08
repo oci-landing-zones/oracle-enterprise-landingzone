@@ -4,7 +4,7 @@
 locals {
   vcn_hub = {
     name      = "OCI-ELZ-VCN-${var.environment_prefix}-HUB-${local.region_key[0]}"
-    dns_label = "hublabel"
+    dns_label = "hubbcklabel"
   }
   vcn-hub-info = {
     hub_public_subnet_display_name   = "OCI-ELZ-SUB-${var.environment_prefix}-HUB-BACKUP-${local.region_key[0]}001"
@@ -19,10 +19,9 @@ locals {
     srv_gateway_display_name         = "OCI-ELZ-SGW-${var.environment_prefix}-HUB-BACKUP"
   }
 }
-module "hub" {
+
+module "hub_backup" {
   source                                  = "../elz-backup-hub"
-  tenancy_ocid                            = var.tenancy_ocid
-  region                                  = var.region
   environment_prefix                      = var.environment_prefix
   enable_internet_gateway_hub             = var.enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.enable_nat_gateway_hub
@@ -37,7 +36,7 @@ module "hub" {
   private_spoke_subnet_web_cidr_block     = var.private_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block     = var.private_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block      = var.private_spoke_subnet_db_cidr_block
-  add_ssh_to_security_list                = var.add_ssh_to_security_list
+  #add_ssh_to_security_list                = var.add_ssh_to_security_list
   ipsec_connection_static_routes          = var.ipsec_connection_static_routes
   enable_vpn_or_fastconnect               = var.enable_vpn_or_fastconnect
   enable_vpn_on_environment               = var.enable_vpn_on_environment
@@ -68,10 +67,9 @@ module "hub" {
   nfw_use_existing_network                = var.nfw_use_existing_network
   log_group_id                            = var.log_group_id
 
-
   providers = {
-    oci             = oci
-    oci.home_region = oci.backup_region
+    oci               = oci
+    oci.backup_region = oci.backup_region
   }
 }
 ##############################################################################

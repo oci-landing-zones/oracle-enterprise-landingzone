@@ -12,9 +12,9 @@ module "backup_prod_environment" {
   enable_internet_gateway_hub             = var.backup_prod_enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.backup_prod_enable_nat_gateway_hub
   enable_service_gateway_hub              = var.backup_prod_enable_service_gateway_hub
-  igw_hub_check                           = var.igw_hub_check
-  nat_gw_hub_check                        = var.nat_gw_hub_check
-  service_gw_hub_check                    = var.service_gw_hub_check
+  igw_hub_check                           = var.backup_igw_hub_check
+  nat_gw_hub_check                        = var.backup_nat_gw_hub_check
+  service_gw_hub_check                    = var.backup_service_gw_hub_check
   network_compartment_id                  = module.prod_environment.compartment.network.id
   vcn_cidr_block                          = var.backup_prod_hub_vcn_cidr_block
   public_subnet_cidr_block                = var.backup_prod_public_subnet_cidr_block
@@ -74,10 +74,10 @@ module "backup_nonprod_environment" {
   enable_internet_gateway_hub             = var.backup_nonprod_enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.backup_nonprod_enable_nat_gateway_hub
   enable_service_gateway_hub              = var.backup_nonprod_enable_service_gateway_hub
-  igw_hub_check                           = var.igw_hub_check
-  nat_gw_hub_check                        = var.nat_gw_hub_check
-  service_gw_hub_check                    = var.service_gw_hub_check
-  network_compartment_id                  = var.backup_nonprod_network_compartment_id
+  igw_hub_check                           = var.backup_igw_hub_check
+  nat_gw_hub_check                        = var.backup_nat_gw_hub_check
+  service_gw_hub_check                    = var.backup_service_gw_hub_check
+  network_compartment_id                  = module.nonprod_environment.compartment.network.id
   vcn_cidr_block                          = var.backup_nonprod_hub_vcn_cidr_block
   public_subnet_cidr_block                = var.backup_nonprod_public_subnet_cidr_block
   private_subnet_cidr_block               = var.backup_nonprod_private_subnet_cidr_block

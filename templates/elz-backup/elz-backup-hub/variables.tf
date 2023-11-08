@@ -6,7 +6,7 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "region" {
+variable "backup_region" {
   type        = string
   description = "The OCI region"
 }
@@ -94,7 +94,7 @@ variable "private_spoke_subnet_db_cidr_block" {
 
 variable "add_ssh_to_security_list" {
   type        = bool
-  description = "Add SSH tcpp port to Hub security list"
+  description = "Add SSH tcp port to Hub security list"
   default     = false
 }
 
