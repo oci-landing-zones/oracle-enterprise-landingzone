@@ -33,16 +33,6 @@ variable "backup_prod_enable_service_gateway_spoke" {
   description = "Option to enable spoke service gateway for backup region in prod"
 
 }
-variable "backup_prod_enable_vpn" {
-  default     = false
-  type        = bool
-  description = "Option to enable VPN for backup region in prod"
-}
-variable "backup_enable_vpn_or_fastconnect" {
-  default     = "NONE"
-  type        = string
-  description = "Option to enable VPN or FastConnect for backup region"
-}
 variable "backup_nonprod_enable_nat_gateway_spoke" {
   default     = true
   type        = bool
@@ -55,16 +45,6 @@ variable "backup_nonprod_enable_service_gateway_spoke" {
   description = "Option to enable spoke service gateway for backup region in non-prod"
 
 }
-variable "backup_nonprod_enable_vpn" {
-  default     = false
-  type        = bool
-  description = "Option to enable VPN for backup region in non-prod"
-
-}
-
-
-
-
 ###############################################################################
 ############               Network Variable                      ##############
 ###############################################################################
@@ -79,7 +59,18 @@ variable "backup_customer_onprem_ip_cidr" {
   type    = list(string)
   default = [ null ]
 }
-
+variable "backup_igw_hub_check" {
+  type    = list(string)
+  default = [""]
+}
+variable "backup_nat_gw_hub_check" {
+  type    = list(string)
+  default = [""]
+}
+variable "backup_service_gw_hub_check" {
+  type    = list(string)
+  default = [""]
+}
 ##PROD
 variable "backup_prod_enable_internet_gateway_hub" {
   default     = true
@@ -233,7 +224,7 @@ variable "backup_nonprod_spoke_subnet_web_cidr_block" {
   description = "Spoke Web subnet CIDR block for backup region in non-prod"
 
 }
-variable "backup_prod_ipsec_connection_static_routes" {
+variable "backup_nonprod_ipsec_connection_static_routes" {
   default     = [null]
   type        = list(string)
   description = "IPsec connection static routes for backup region in prod"

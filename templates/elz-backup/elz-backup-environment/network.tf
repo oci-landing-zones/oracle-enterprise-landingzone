@@ -6,11 +6,7 @@ module "network" {
   tenancy_ocid            = var.tenancy_ocid
   backup_region           = var.backup_region
   environment_prefix      = var.environment_prefix
-
-  providers = {
-    oci               = oci
-    oci.backup_region = oci.backup_region
-  }
+  
   enable_internet_gateway_hub             = var.enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.enable_nat_gateway_hub
   enable_service_gateway_hub              = var.enable_service_gateway_hub
@@ -44,4 +40,9 @@ module "network" {
 
   enable_nat_gateway_spoke                = var.enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.enable_service_gateway_spoke
+
+  providers = {
+    oci               = oci
+    oci.backup_region = oci.backup_region
+  }
 }
