@@ -126,3 +126,38 @@ variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack for backup region"
 }
+
+variable "enable_network_firewall" {
+  type        = string
+  description = "Enable Network Firewall in Prod Enviornment."
+  default     = "false"
+}
+variable "enable_traffic_threat_log" {
+  type        = bool
+  description = "Enable Network Firewall Threat and Traffic Logs in Prod Enviornment."
+  default     = false
+}
+variable "nfw_subnet_type" {
+  type        = string
+  description = "Network Firewall Subnet Type."
+  default     = "public"
+}
+variable "nfw_instance_name" {
+  type        = string
+  description = "Network Firewall Instance Name."
+  default     = ""
+}
+variable "nfw_instance_policy" {
+  type        = string
+  description = "Network Firewall Instance Policy Name."
+  default     = ""
+}
+variable "nfw_use_existing_network" {
+  type        = bool
+  description = "Use Existing VCN in place of Network Firewall VCN."
+  default     = false
+}
+#variable "log_group_id" {
+#  type        = string
+#  description = "Log Group OCID."
+#}

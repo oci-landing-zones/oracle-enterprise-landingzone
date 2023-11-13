@@ -40,7 +40,7 @@ locals {
     }
     route_rules_igw = {
       for index, route in local.igw_hub_check : "igw-rule-${index}" => {
-        network_entity_id = module.hub_internet_gateway[0].internet_gw_id
+        network_entity_id = module.hub_internet_gateway_backup[0].internet_gw_id
         destination       = "0.0.0.0/0"
         destination_type  = "CIDR_BLOCK"
       }
@@ -95,7 +95,7 @@ locals {
     }
     route_rules_igw = {
       for index, route in local.igw_hub_check : "igw-rule-${index}" => {
-        network_entity_id = module.hub_internet_gateway[0].internet_gw_id
+        network_entity_id = module.hub_internet_gateway_backup[0].internet_gw_id
         destination       = "0.0.0.0/0"
         destination_type  = "CIDR_BLOCK"
       }
@@ -157,14 +157,14 @@ locals {
     }
     route_rules_nat = {
       for index, route in local.nat_gw_hub_check : "nat-gw-rule-${index}" => {
-        network_entity_id = module.nat-gateway-hub[0].nat_gw_id
+        network_entity_id = module.nat-gateway-hub_backup[0].nat_gw_id
         destination       = "0.0.0.0/0"
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_srvc_gw = {
       for index, route in local.service_gw_hub_check : "service-gw-rule-${index}" => {
-        network_entity_id = module.service-gateway-hub[0].service_gw_id
+        network_entity_id = module.service-gateway-hub_backup[0].service_gw_id
         destination       = data.oci_core_services.service_gateway.services[0]["cidr_block"]
         destination_type  = "SERVICE_CIDR_BLOCK"
       }
@@ -221,14 +221,14 @@ locals {
     }
     route_rules_nat = {
       for index, route in local.nat_gw_hub_check : "nat-gw-rule-${index}" => {
-        network_entity_id = module.nat-gateway-hub[0].nat_gw_id
+        network_entity_id = module.nat-gateway-hub_backup[0].nat_gw_id
         destination       = "0.0.0.0/0"
         destination_type  = "CIDR_BLOCK"
       }
     }
     route_rules_srvc_gw = {
       for index, route in local.service_gw_hub_check : "service-gw-rule-${index}" => {
-        network_entity_id = module.service-gateway-hub[0].service_gw_id
+        network_entity_id = module.service-gateway-hub_backup[0].service_gw_id
         destination       = data.oci_core_services.service_gateway.services[0]["cidr_block"]
         destination_type  = "SERVICE_CIDR_BLOCK"
       }
@@ -348,10 +348,7 @@ resource "oci_core_vcn" "vcn_hub_network_backup" {
   display_name   = var.hub_vcn_name
   dns_label      = var.hub_vcn_dns_label
   is_ipv6enabled = false
-
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -359,16 +356,13 @@ resource "oci_core_vcn" "vcn_hub_network_backup" {
 ######################################################################
 
 resource "oci_core_default_security_list" "hub_default_security_list_locked_down" {
-  manage_default_resource_id = oci_core_vcn.vcn_hub_network.default_security_list_id
-
-  providers = {
-    oci = oci.backup_region
-  }
+  manage_default_resource_id = oci_core_vcn.vcn_hub_network_backup.default_security_list_id
+  provider = oci.backup_region
 }
 
 resource "oci_core_security_list" "security_list_hub_backup" {
   compartment_id  = var.network_compartment_id
-  vcn_id          = oci_core_vcn.vcn_hub_network.id
+  vcn_id          = oci_core_vcn.vcn_hub_network_backup.id
   display_name    = local.list_info.hub_display_name
 
   egress_security_rules {
@@ -396,9 +390,7 @@ resource "oci_core_security_list" "security_list_hub_backup" {
       }
     }
   }
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -415,13 +407,10 @@ resource "oci_core_subnet" "hub_private_subnet_backup" {
   dns_label                  = var.hub_private_subnet_dns_label
   compartment_id             = var.network_compartment_id
   prohibit_public_ip_on_vnic = true
-  vcn_id                     = oci_core_vcn.vcn_hub_network.id
+  vcn_id                     = oci_core_vcn.vcn_hub_network_backup.id
   #route_table_id             = oci_core_route_table.hub_private_route_table.id
-  security_list_ids          = toset([oci_core_security_list.security_list_hub.id])
-
-  providers = {
-    oci = oci.backup_region
-  }
+  security_list_ids          = toset([oci_core_security_list.security_list_hub_backup.id])
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -430,7 +419,7 @@ resource "oci_core_subnet" "hub_private_subnet_backup" {
 
 resource "oci_core_route_table" "hub_private_route_table_backup" {
   compartment_id = var.network_compartment_id
-  vcn_id         = oci_core_vcn.vcn_hub_network.id
+  vcn_id         = oci_core_vcn.vcn_hub_network_backup.id
   display_name   = local.hub_private_route_rules.route_table_display_name
   dynamic "route_rules" {
     for_each = local.hub_private_route_check_test_nfw.route_rules
@@ -441,9 +430,7 @@ resource "oci_core_route_table" "hub_private_route_table_backup" {
       destination_type  = route_rules.value.destination_type
     }
   }
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -451,12 +438,9 @@ resource "oci_core_route_table" "hub_private_route_table_backup" {
 ######################################################################
 
 resource "oci_core_route_table_attachment" "private_route_table_attachment_backup" {  
-  subnet_id      = oci_core_subnet.hub_private_subnet.id
-  route_table_id = oci_core_route_table.hub_private_route_table.id
-
-  providers = {
-    oci = oci.backup_region
-  }
+  subnet_id      = oci_core_subnet.hub_private_subnet_backup.id
+  route_table_id = oci_core_route_table.hub_private_route_table_backup.id
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -469,12 +453,10 @@ resource "oci_core_subnet" "hub_public_subnet_backup" {
   dns_label                  = var.hub_public_subnet_dns_label
   compartment_id             = var.network_compartment_id
   prohibit_public_ip_on_vnic = false
-  vcn_id                     = oci_core_vcn.vcn_hub_network.id
+  vcn_id                     = oci_core_vcn.vcn_hub_network_backup.id
   #route_table_id             = oci_core_route_table.hub_public_route_table.id
-  security_list_ids          = toset([oci_core_security_list.security_list_hub.id])
-  providers = {
-    oci = oci.backup_region
-  }
+  security_list_ids          = toset([oci_core_security_list.security_list_hub_backup.id])
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -483,7 +465,7 @@ resource "oci_core_subnet" "hub_public_subnet_backup" {
 
 resource "oci_core_route_table" "hub_public_route_table_backup" {
   compartment_id = var.network_compartment_id
-  vcn_id         = oci_core_vcn.vcn_hub_network.id
+  vcn_id         = oci_core_vcn.vcn_hub_network_backup.id
   display_name   = local.hub_public_route_rules.route_table_display_name
   dynamic "route_rules" {
     for_each = local.hub_public_route_check_test_nfw.route_rules
@@ -494,9 +476,7 @@ resource "oci_core_route_table" "hub_public_route_table_backup" {
       destination_type  = route_rules.value.destination_type
     }
   }
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -504,11 +484,9 @@ resource "oci_core_route_table" "hub_public_route_table_backup" {
 ######################################################################
 
 resource "oci_core_route_table_attachment" "public_route_table_attachment_backup" {  
-  subnet_id      = oci_core_subnet.hub_public_subnet.id
-  route_table_id = oci_core_route_table.hub_public_route_table.id
-  providers = {
-    oci = oci.backup_region
-  }
+  subnet_id      = oci_core_subnet.hub_public_subnet_backup.id
+  route_table_id = oci_core_route_table.hub_public_route_table_backup.id
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -520,7 +498,7 @@ module "hub_internet_gateway_backup" {
 
   count                         = var.enable_internet_gateway_hub == "true" ? 1 : 0
   network_compartment_id        = var.network_compartment_id
-  vcn_id                        = oci_core_vcn.vcn_hub_network.id
+  vcn_id                        = oci_core_vcn.vcn_hub_network_backup.id
   internet_gateway_display_name = var.igw_gateway_display_name
   providers = {
     oci = oci.backup_region
@@ -536,7 +514,7 @@ module "nat-gateway-hub_backup" {
   count                    = var.enable_nat_gateway_hub == "true" ? 1 : 0
   
   network_compartment_id   = var.network_compartment_id
-  vcn_id                   = oci_core_vcn.vcn_hub_network.id
+  vcn_id                   = oci_core_vcn.vcn_hub_network_backup.id
   nat_gateway_display_name = var.nat_gateway_display_name
   providers = {
     oci = oci.backup_region
@@ -552,7 +530,7 @@ module "service-gateway-hub_backup" {
   count                        = var.enable_service_gateway_hub == "true" ? 1 : 0
   
   network_compartment_id       = var.network_compartment_id
-  vcn_id                       = oci_core_vcn.vcn_hub_network.id
+  vcn_id                       = oci_core_vcn.vcn_hub_network_backup.id
   service_gateway_display_name = var.srv_gateway_display_name
   providers = {
     oci = oci.backup_region
@@ -629,8 +607,7 @@ locals {
     drg_vcn_attachments = {
       "Hub-VCN-Attachment" = {
         display_name = "Hub-Vcn-Drg-${var.environment_prefix}-Attachment"
-        #vcn_id              = module.vcn_hub_network.vcn_id
-        vcn_id               = oci_core_vcn.vcn_hub_network.id
+        vcn_id               = oci_core_vcn.vcn_hub_network_backup.id
         route_table_id       = ""
         drg_route_table_name = null
       }
@@ -666,7 +643,7 @@ locals {
     nfw_policy_action = "REJECT"
 
     ip_address_lists = {
-      "vcn-ips" = [oci_core_vcn.vcn_hub_network.id]
+      "vcn-ips" = [oci_core_vcn.vcn_hub_network_backup.id]
     }
     security_rules = {
       "reject-all-rule" = {
@@ -693,15 +670,15 @@ locals {
     log_source_type     = "OCISERVICE"
   }
   network_firewall_threat = {
-    "Threat_Log" : "oci_network_firewall_network_firewall.network_firewall[*].id"
+    "Threat_Log" : "oci_network_firewall_network_firewall.network_firewall_backup[*].id"
   }
   network_firewall_traffic = {
-    "Traffic_Log" : "oci_network_firewall_network_firewall.network_firewall[*].id"
+    "Traffic_Log" : "oci_network_firewall_network_firewall.network_firewall_backup[*].id"
   }
   #public_subnet_id  = oci_core_subnet.hub_public_subnet[var.hub_public_subnet_display_name].id
   #private_subnet_id = oci_core_subnet.hub_private_subnet[var.hub_private_subnet_display_name].id
-  public_subnet_id   = oci_core_subnet.hub_public_subnet.id
-  private_subnet_id  = oci_core_subnet.hub_private_subnet.id
+  public_subnet_id   = oci_core_subnet.hub_public_subnet_backup.id
+  private_subnet_id  = oci_core_subnet.hub_private_subnet_backup.id
   #nfw_subnet_id      = var.nfw_subnet_type == "public" ? local.public_subnet_id : local.private_subnet_id
 }
 
@@ -713,12 +690,10 @@ resource "oci_network_firewall_network_firewall" "network_firewall_backup" {
   count = var.enable_network_firewall ? 1 : 0
 
   compartment_id             = var.network_compartment_id
-  network_firewall_policy_id = oci_network_firewall_network_firewall_policy.network_firewall_policy[0].id
+  network_firewall_policy_id = oci_network_firewall_network_firewall_policy.network_firewall_policy_backup[0].id
   subnet_id                  = var.nfw_subnet_type == "public" ? local.public_subnet_id : local.private_subnet_id
   display_name               = local.network_firewall_info.network_firewall_name
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ######################################################################
@@ -740,14 +715,14 @@ resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy
       urls         = []
     }
   }
-  providers = {
-    oci = oci.backup_region
-  }
+  provider = oci.backup_region
 }
 
 ##############################################################################
 ###########     Create Firewall Firewall Threat and Traffic Log     ##########
 ##############################################################################
+// TO DO ONCE BACKUP LOGGING MODULE IS DONE
+/*
 module "firewall_threat_log_backup" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
   source = "../../../modules/service-log-nfw"
@@ -755,9 +730,10 @@ module "firewall_threat_log_backup" {
   #service_log_map     = local.network_firewall_threat
   log_display_name    = local.firewall_threat_log.log_display_name
   log_type            = local.firewall_threat_log.log_type
-  log_group_id        = var.log_group_id
+  //TO DO
+  #log_group_id        = var.log_group_id
   log_source_category = local.firewall_threat_log.log_source_category
-  log_source_resource = oci_network_firewall_network_firewall.network_firewall[0].id
+  log_source_resource = oci_network_firewall_network_firewall.network_firewall_backup[0].id
   log_source_service  = local.firewall_threat_log.log_source_service
   log_source_type     = local.firewall_threat_log.log_source_type
   providers = {
@@ -772,12 +748,14 @@ module "firewall_traffic_log_backup" {
   #service_log_map      = local.network_firewall_traffic
   log_display_name     = local.firewall_traffic_log.log_display_name
   log_type             = local.firewall_traffic_log.log_type
-  log_group_id         = var.log_group_id
+  //TO DO
+  #log_group_id         = var.log_group_id
   log_source_category  = local.firewall_traffic_log.log_source_category
-  log_source_resource  = oci_network_firewall_network_firewall.network_firewall[0].id
+  log_source_resource  = oci_network_firewall_network_firewall.network_firewall_backup[0].id
   log_source_service   = local.firewall_traffic_log.log_source_service
   log_source_type      = local.firewall_traffic_log.log_source_type
   providers = {
     oci = oci.backup_region
   }
 }
+*/

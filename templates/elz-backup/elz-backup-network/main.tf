@@ -23,9 +23,11 @@ locals {
 module "hub_backup" {
   source                                  = "../elz-backup-hub"
   environment_prefix                      = var.environment_prefix
+  backup_region                           = var.backup_region
   enable_internet_gateway_hub             = var.enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.enable_nat_gateway_hub
   enable_service_gateway_hub              = var.enable_service_gateway_hub
+  tenancy_ocid                            = var.tenancy_ocid
   igw_hub_check                           = var.igw_hub_check
   nat_gw_hub_check                        = var.nat_gw_hub_check
   service_gw_hub_check                    = var.service_gw_hub_check
@@ -65,7 +67,7 @@ module "hub_backup" {
   nfw_instance_name                       = var.nfw_instance_name
   nfw_instance_policy                     = var.nfw_instance_policy
   nfw_use_existing_network                = var.nfw_use_existing_network
-  log_group_id                            = var.log_group_id
+  #log_group_id                            = var.log_group_id
 
   providers = {
     oci               = oci
@@ -104,7 +106,7 @@ module "spoke" {
 
   additional_workload_subnets_cidr_blocks        = var.additional_workload_subnets_cidr_blocks
   customer_onprem_ip_cidr                        = var.customer_onprem_ip_cidr
-  drg_id                                         = module.elz-backup-hub.drg_id
+  drg_id                                         = module.hub_backup.drg_id
   enable_nat_gateway_spoke                       = var.enable_nat_gateway_spoke
   enable_service_gateway_spoke                   = var.enable_service_gateway_spoke
   enable_vpn_on_environment                      = var.enable_vpn_on_environment
