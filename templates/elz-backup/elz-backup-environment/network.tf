@@ -6,7 +6,7 @@ module "network" {
   tenancy_ocid            = var.tenancy_ocid
   backup_region           = var.backup_region
   environment_prefix      = var.environment_prefix
-  
+
   enable_internet_gateway_hub             = var.enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.enable_nat_gateway_hub
   enable_service_gateway_hub              = var.enable_service_gateway_hub
@@ -36,7 +36,8 @@ module "network" {
   nfw_instance_name                       = var.nfw_instance_name
   nfw_instance_policy                     = var.nfw_instance_policy
   nfw_use_existing_network                = var.nfw_use_existing_network
-  log_group_id                            = var.log_group_id
+  //TO DO
+  #log_group_id                            = var.log_group_id
 
   enable_nat_gateway_spoke                = var.enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.enable_service_gateway_spoke

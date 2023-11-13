@@ -217,3 +217,14 @@ module "workload-spoke-service-gateway" {
     oci = oci.backup_region
   }
 }
+
+######################################################################
+#          Attach Workload Spoke VCN to DRG                          #
+######################################################################
+module "workload_spoke_vcn_drg_attachment_backup" {
+  source                        = "../../../modules/drg-attachment"
+  drg_id                        = var.drg_id
+  vcn_id                        = module.backup_workload_spoke_vcn.vcn_id
+  drg_attachment_type           = "VCN"
+  drg_attachment_vcn_route_type = "VCN_CIDRS"
+}

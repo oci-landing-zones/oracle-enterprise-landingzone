@@ -1,16 +1,6 @@
 # -----------------------------------------------------------------------------
 # Common Variables
 # -----------------------------------------------------------------------------
-variable "tenancy_ocid" {
-  type        = string
-  description = "The OCID of tenancy"
-}
-
-variable "backup_region" {
-  type        = string
-  description = "The OCI region"
-}
-
 variable "environment_prefix" {
   type        = string
   description = "the 1 character string representing the environment eg. P (prod), N (non-prod), D, T, U"
@@ -24,7 +14,14 @@ variable "is_baseline_deploy" {
   type        = bool
   description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }
-
+variable "tenancy_ocid" {
+  type        = string
+  description = "The OCID of tenancy"
+}
+variable "backup_region" {
+  type        = string
+  description = "Name of the backup region"
+}
 # -----------------------------------------------------------------------------
 # Network Variables
 # -----------------------------------------------------------------------------
@@ -203,10 +200,10 @@ variable "nfw_instance_policy" {
   type        = string
   description = "Network Firewall Policy Name."
 }
-variable "log_group_id" {
-  type        = string
-  description = "Log Group OCID."
-}
+#variable "log_group_id" {
+#  type        = string
+#  description = "Log Group OCID."
+#}
 variable "nfw_subnet_type" {
   type        = string
   description = "Network Firewall Subnet Type : Public or Private Subnet."

@@ -32,12 +32,13 @@ module "backup_prod_environment" {
   is_baseline_deploy                      = var.is_baseline_deploy
 
   enable_network_firewall                 = var.backup_enable_network_firewall_prod
-  enable_traffic_threat_log               = var.backup_prod_enable_traffic_threat_log
+  enable_traffic_threat_log               = var.backup_enable_traffic_threat_log_prod
   nfw_subnet_type                         = var.backup_nfw_subnet_type_prod
   nfw_instance_name                       = var.backup_nfw_instance_name_prod
   nfw_instance_policy                     = var.backup_nfw_instance_policy_prod
   nfw_use_existing_network                = var.backup_nfw_use_existing_network_prod
-  log_group_id                            = module.prod_environment.logging.log_group_id
+  //TO DO 
+  #log_group_id                            = module.prod_environment.default_log_group
 
   enable_nat_gateway_spoke                = var.backup_prod_enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.backup_prod_enable_service_gateway_spoke
@@ -82,9 +83,9 @@ module "backup_nonprod_environment" {
   public_subnet_cidr_block                = var.backup_nonprod_public_subnet_cidr_block
   private_subnet_cidr_block               = var.backup_nonprod_private_subnet_cidr_block
   private_spoke_subnet_web_cidr_block     = var.backup_nonprod_spoke_subnet_web_cidr_block
-  private_spoke_subnet_app_cidr_block     = var.backup_nonprod_spoke_subnet_db_cidr_block
-  private_spoke_subnet_db_cidr_block      = var.backup_nonprod_private_spoke_subnet_db_cidr_block
-  add_ssh_to_security_list                = var.backup_nonprod_add_ssh_to_security_list
+  private_spoke_subnet_app_cidr_block     = var.backup_nonprod_spoke_subnet_app_cidr_block
+  private_spoke_subnet_db_cidr_block      = var.backup_nonprod_spoke_subnet_db_cidr_block
+  #add_ssh_to_security_list                = var.backup_nonprod_add_ssh_to_security_list
   ipsec_connection_static_routes          = var.backup_nonprod_ipsec_connection_static_routes
   enable_vpn_or_fastconnect               = var.backup_enable_vpn_or_fastconnect
   enable_vpn_on_environment               = var.backup_nonprod_enable_vpn
@@ -99,7 +100,8 @@ module "backup_nonprod_environment" {
   nfw_instance_name                       = var.backup_nfw_instance_name_nonprod
   nfw_instance_policy                     = var.backup_nfw_instance_policy_nonprod
   nfw_use_existing_network                = var.backup_nfw_use_existing_network_nonprod
-  log_group_id                            = module.nonprod_environment.logging.log_group_id
+  //TO DO 
+  #log_group_id                            = module.nonprod_environment.default_log_group
 
   enable_nat_gateway_spoke                = var.backup_nonprod_enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.backup_nonprod_enable_service_gateway_spoke

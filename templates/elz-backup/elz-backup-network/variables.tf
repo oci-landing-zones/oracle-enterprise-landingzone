@@ -1,4 +1,5 @@
 
+######################
 # -----------------------------------------------------------------------------
 # Common Variables
 # -----------------------------------------------------------------------------
@@ -66,14 +67,6 @@ variable "service_gw_hub_check" {
   type = list(string)
 }
 
-variable "nat_gw_spoke_check" {
-  type = list(string)
-}
-
-variable "service_gw_spoke_check" {
-  type = list(string)
-}
-
 variable "network_compartment_id" {
   type        = string
   description = "Network Compartment OCID"
@@ -84,10 +77,10 @@ variable "workload_compartment_id" {
   description = "WorkLoad Compartment OCID"
 }
 
-variable "workload_compartment_name" {
-  type        = string
-  description = "WorkLoad Compartment Name"
-}
+#variable "workload_compartment_name" {
+#  type        = string
+#  description = "WorkLoad Compartment Name"
+#}
 
 variable "vcn_cidr_block" {
   type        = string
@@ -185,13 +178,14 @@ variable "nfw_instance_policy" {
   type        = string
   description = "Network Firewall Policy Name."
 }
-variable "log_group_id" {
-  type        = string
-  description = "Log Group OCID."
-}
+#variable "log_group_id" {
+#  type        = string
+#  description = "Log Group OCID."
+#}
 variable "nfw_subnet_type"{
   type        = string
   description = "Network Firewall Subnet Type : Public or Private Subnet."
 }
+
 
 

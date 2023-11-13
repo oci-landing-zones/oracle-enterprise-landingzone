@@ -70,3 +70,4 @@ output "rpc_id" {
   value = module.network-extension.rpc_id
 }
 
+
