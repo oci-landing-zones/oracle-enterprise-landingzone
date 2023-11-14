@@ -17,8 +17,8 @@ locals {
     description = "OCI Enterprise Landing Zone Key Policy For Backup Region"
 
     statements = local.create_key ? [
-      "Allow service objectstorage-${var.backup_region} to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}",
-      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}"
+      "Allow service objectstorage-${var.backup_region} to use keys in compartment id ${var.security_compartment_id}",
+      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id}"
     ] : []
   }
 }
