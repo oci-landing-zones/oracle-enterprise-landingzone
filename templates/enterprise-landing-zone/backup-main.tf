@@ -51,6 +51,10 @@ module "backup_prod_environment" {
   vault_type                   = var.backup_prod_vault_type
   home_compartment_id          = module.home_compartment.compartment_id
 
+  logging_compartment_id              = module.prod_environment.compartment.logging.id
+  retention_policy_duration_amount    = var.backup_prod_retention_policy_duration_amount
+  retention_policy_duration_time_unit = var.backup_prod_retention_policy_duration_time_unit
+
   depends_on = [module.prod_environment]
 
   providers = {
@@ -113,6 +117,10 @@ module "backup_nonprod_environment" {
   security_compartment_id      = module.nonprod_environment.compartment.security.id
   vault_type                   = var.backup_nonprod_vault_type
   home_compartment_id          = module.home_compartment.compartment_id
+
+  logging_compartment_id              = module.nonprod_environment.compartment.logging.id
+  retention_policy_duration_amount    = var.backup_nonprod_retention_policy_duration_amount
+  retention_policy_duration_time_unit = var.backup_nonprod_retention_policy_duration_time_unit
 
   depends_on = [module.nonprod_environment]
 
