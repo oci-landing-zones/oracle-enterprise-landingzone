@@ -356,3 +356,15 @@ variable "backup_nonprod_retention_policy_duration_time_unit" {
   description = "The unit that should be used to interpret timeAmount."
   default     = "DAYS"
 }
+
+variable "backup_nonprod_bastion_client_cidr_block_allow_list" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
+}
+
+variable "backup_prod_bastion_client_cidr_block_allow_list" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
+  description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
+}
