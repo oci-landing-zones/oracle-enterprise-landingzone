@@ -32,3 +32,13 @@ variable "home_compartment_id" {
   type        = string
   description = "the OCID of the compartment where the environment will be created. In general, this should be the Landing zone parent compartment."
 }
+
+variable "environment_compartment_id" {
+  type        = string
+  description = "the OCID of the environment compartment"
+}
+
+variable "bastion_client_cidr_block_allow_list" {
+  type        = list(string)
+  description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
+}

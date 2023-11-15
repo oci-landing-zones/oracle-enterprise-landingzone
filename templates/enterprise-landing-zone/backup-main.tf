@@ -1,3 +1,4 @@
+
 module "backup_prod_environment" {
   source = "../elz-backup/elz-backup-environment"
 
@@ -54,6 +55,9 @@ module "backup_prod_environment" {
   logging_compartment_id              = module.prod_environment.compartment.logging.id
   retention_policy_duration_amount    = var.backup_prod_retention_policy_duration_amount
   retention_policy_duration_time_unit = var.backup_prod_retention_policy_duration_time_unit
+
+  bastion_client_cidr_block_allow_list = var.backup_prod_bastion_client_cidr_block_allow_list
+  environment_compartment_id           = module.prod_environment.compartment.environment.id
 
   depends_on = [module.prod_environment]
 
@@ -121,6 +125,9 @@ module "backup_nonprod_environment" {
   logging_compartment_id              = module.nonprod_environment.compartment.logging.id
   retention_policy_duration_amount    = var.backup_nonprod_retention_policy_duration_amount
   retention_policy_duration_time_unit = var.backup_nonprod_retention_policy_duration_time_unit
+
+  bastion_client_cidr_block_allow_list = var.backup_nonprod_bastion_client_cidr_block_allow_list
+  environment_compartment_id           = module.nonprod_environment.compartment.environment.id
 
   depends_on = [module.nonprod_environment]
 

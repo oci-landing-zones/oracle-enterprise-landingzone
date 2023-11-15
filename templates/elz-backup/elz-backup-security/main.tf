@@ -21,6 +21,19 @@ locals {
       "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id}"
     ] : []
   }
+
+  vss = {
+    host_scan_recipe_display_name              = "${var.resource_label}-OCI-ELZ-VSS-${var.environment_prefix}-BACKUP-${local.region_key[0]}"
+    host_scan_target_display_name              = "${var.resource_label}-OCI-ELZ-VSS-Target-${var.environment_prefix}-BACKUP-${local.region_key[0]}"
+    host_scan_recipe_agent_settings_scan_level = "STANDARD"
+    host_scan_recipe_port_settings_scan_level  = "STANDARD"
+    agent_cis_benchmark_settings_scan_level    = "STRICT"
+    vss_scan_schedule                          = "DAILY"
+  }
+
+  bastion = {
+    name = "${var.resource_label}-OCI-ELZ-BAS-${var.environment_prefix}-BACKUP-${local.region_key[0]}"
+  }
 }
 
 module "vault" {
@@ -62,4 +75,32 @@ module "key_policy" {
   description         = local.key_policy.description
   policy_name         = local.key_policy.name
   statements          = local.key_policy.statements
+}
+
+module "vss" {
+  source                                     = "../../../modules/vss"
+  recipe_compartment_ocid                    = var.security_compartment_id
+  target_compartment_ocid                    = var.environment_compartment_id
+  host_scan_recipe_agent_settings_scan_level = local.vss.host_scan_recipe_agent_settings_scan_level
+  host_scan_recipe_port_settings_scan_level  = local.vss.host_scan_recipe_port_settings_scan_level
+  agent_cis_benchmark_settings_scan_level    = local.vss.agent_cis_benchmark_settings_scan_level
+  vss_scan_schedule                          = local.vss.vss_scan_schedule
+  host_scan_recipe_display_name              = local.vss.host_scan_recipe_display_name
+  host_scan_target_display_name              = local.vss.host_scan_target_display_name
+
+  providers = {
+    oci = oci.backup_region
+  }
+}
+
+module "bastion" {
+  source                               = "../../../modules/bastion"
+  target_subnet_id                     = var.bastion_target_subnet_id
+  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
+  bastion_name                         = local.bastion.name
+  compartment_id                       = var.security_compartment_id
+
+  providers = {
+    oci = oci.backup_region
+  }
 }
