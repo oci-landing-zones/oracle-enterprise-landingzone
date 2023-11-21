@@ -52,6 +52,7 @@ module "backup_prod_environment" {
   vault_type                   = var.backup_prod_vault_type
   home_compartment_id          = module.home_compartment.compartment_id
 
+  home_compartment_name               = var.home_compartment_name
   logging_compartment_id              = module.prod_environment.compartment.logging.id
   retention_policy_duration_amount    = var.backup_prod_retention_policy_duration_amount
   retention_policy_duration_time_unit = var.backup_prod_retention_policy_duration_time_unit
@@ -122,6 +123,7 @@ module "backup_nonprod_environment" {
   vault_type                   = var.backup_nonprod_vault_type
   home_compartment_id          = module.home_compartment.compartment_id
 
+  home_compartment_name               = var.home_compartment_name
   logging_compartment_id              = module.nonprod_environment.compartment.logging.id
   retention_policy_duration_amount    = var.backup_nonprod_retention_policy_duration_amount
   retention_policy_duration_time_unit = var.backup_nonprod_retention_policy_duration_time_unit
