@@ -42,3 +42,15 @@ variable "master_encryption_key" {
   type        = string
   description = "The ocid of master encryption key"
 }
+variable "subnets_map" {
+  type        = map(string)
+  description = ""
+}
+variable "home_compartment_id" {
+  type        = string
+  description = "The name of the Landing Zone home compartment."
+}
+variable "home_compartment_name" {
+  type        = string
+  description = "The name of the Landing Zone home compartment."
+}
