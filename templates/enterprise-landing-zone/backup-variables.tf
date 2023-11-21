@@ -33,6 +33,11 @@ variable "backup_nonprod_enable_service_gateway_spoke" {
   description = "Option to enable spoke service gateway for backup region in non-prod"
 
 }
+#variable "home_compartment_name" {
+#  type        = string
+#  default     = "OCI-ELZ-CMP-HOME"
+##  description = "The name of the Landing Zone home compartment."
+#}
 ###############################################################################
 ############               Network Variable                      ##############
 ###############################################################################
