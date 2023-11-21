@@ -11,7 +11,7 @@ module "logging" {
   retention_policy_duration_time_unit = var.retention_policy_duration_time_unit
   home_compartment_name               = var.home_compartment_name
   home_compartment_id                 = var.home_compartment_id
-  subnets_map                         = module.backup-network.subnets
+  subnets_map                         = module.network.subnets
   providers = {
     oci               = oci
     oci.backup_region = oci.backup_region
