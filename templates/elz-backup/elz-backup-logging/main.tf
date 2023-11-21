@@ -108,14 +108,14 @@ locals {
   }
 }
 
-module "default_log_group" {
+module "default_log_group_backup" {
   source         = "../../../modules/log-group"
   compartment_id = var.security_compartment_id
   display_name   = local.default_log_group.name
   description    = local.default_log_group.description
 }
 
-module "service_event_stream" {
+module "service_event_stream_backup" {
   source                 = "../../../modules/stream"
   compartment_id         = var.security_compartment_id
   stream_pool_name       = local.service_event_stream.stream_pool_name
@@ -129,7 +129,7 @@ module "service_event_stream" {
   rule_is_enabled        = local.service_event_stream.rule_is_enabled
 }
 
-module "audit_log_bucket" {
+module "audit_log_bucket_backup" {
   source                              = "../../../modules/bucket"
   tenancy_ocid                        = var.tenancy_ocid
   compartment_id                      = var.logging_compartment_id
@@ -145,7 +145,7 @@ module "audit_log_bucket" {
   }
 }
 
-module "default_log_bucket" {
+module "default_log_bucket_backup" {
 
   source                              = "../../../modules/bucket"
   tenancy_ocid                        = var.tenancy_ocid
@@ -162,7 +162,7 @@ module "default_log_bucket" {
   }
 }
 
-module "service_event_log_bucket" {
+module "service_event_log_bucket_backup" {
   source                              = "../../../modules/bucket"
   tenancy_ocid                        = var.tenancy_ocid
   compartment_id                      = var.logging_compartment_id
@@ -177,7 +177,7 @@ module "service_event_log_bucket" {
     oci = oci.backup_region
   }
 }
-module "audit_log_service_connector" {
+module "audit_log_service_connector_backup" {
   #count                 = var.is_service_connector_limit   ? 0 : 1
   source                = "../../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
@@ -189,10 +189,10 @@ module "audit_log_service_connector" {
   log_group_id          = local.audit_log_service_connector.log_group_id
   target_bucket         = local.audit_log_service_connector.target_bucket
 
-  depends_on = [module.audit_log_bucket]
+  depends_on = [module.audit_log_bucket_backup]
 }
 
-module "default_log_service_connector" {
+module "default_log_service_connector_backup" {
   #count                 = var.is_service_connector_limit   ? 0 : 1
   source                = "../../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
@@ -201,7 +201,7 @@ module "default_log_service_connector" {
   display_name          = local.default_log_service_connector.display_name
   source_kind           = local.default_log_service_connector.source_kind
   target_kind           = local.default_log_service_connector.target_kind
-  log_group_id          = module.default_log_group.log_group_id
+  log_group_id          = module.default_log_group_backup.log_group_id
   target_bucket         = local.default_log_service_connector.target_bucket
   # Service connector needs at least one log on the log group, or it errors.
   # Also it takes time for it to recognize this.
@@ -209,7 +209,7 @@ module "default_log_service_connector" {
 }
 
 
-module "service_events_service_connector" {
+module "service_events_service_connector_backup" {
   source                = "../../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
   compartment_id        = var.security_compartment_id
@@ -217,7 +217,7 @@ module "service_events_service_connector" {
   display_name          = local.service_events_service_connector.display_name
   source_kind           = local.service_events_service_connector.source_kind
   target_kind           = local.service_events_service_connector.target_kind
-  stream_id             = module.service_event_stream.stream_id
+  stream_id             = module.service_event_stream_backup.stream_id
   cursor_kind           = local.service_events_service_connector.cursor_kind
   target_bucket         = local.service_events_service_connector.target_bucket
 
@@ -227,54 +227,54 @@ resource "time_sleep" "first_log_delay" {
   create_duration = "600s"
 }
 
-module "os_read_log" {
+module "os_read_log_backup" {
   source = "../../../modules/service-log"
 
   service_log_map     = local.buckets_map
   log_display_name    = local.os_read_log.log_display_name
   log_type            = local.os_read_log.log_type
-  log_group_id        = module.default_log_group.log_group_id
+  log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.os_read_log.log_source_category
   log_source_service  = local.os_read_log.log_source_service
   log_source_type     = local.os_read_log.log_source_type
 
-  depends_on = [ module.audit_log_bucket, module.default_log_bucket, module.service_event_log_bucket, module.default_log_group ]
+  depends_on = [ module.audit_log_bucket_backup, module.default_log_bucket_backup, module.service_event_log_bucket_backup, module.default_log_group_backup ]
 }
 
-module "os_write_log" {
+module "os_write_log_backup" {
   source = "../../../modules/service-log"
 
   service_log_map     = local.buckets_map
   log_display_name    = local.os_write_log.log_display_name
   log_type            = local.os_write_log.log_type
-  log_group_id        = module.default_log_group.log_group_id
+  log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.os_write_log.log_source_category
   log_source_service  = local.os_write_log.log_source_service
   log_source_type     = local.os_write_log.log_source_type
 
-  depends_on = [ module.audit_log_bucket, module.default_log_bucket, module.service_event_log_bucket, module.default_log_group ]
+  depends_on = [ module.audit_log_bucket_backup, module.default_log_bucket_backup, module.service_event_log_bucket_backup, module.default_log_group_backup ]
 }
 
 
-module "vcn_flow_log" {
+module "vcn_flow_log_backup" {
   source = "../../../modules/service-log"
 
   service_log_map     = local.subnets_map
   log_display_name    = local.vcn_flow_log.log_display_name
   log_type            = local.vcn_flow_log.log_type
-  log_group_id        = module.default_log_group.log_group_id
+  log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.vcn_flow_log.log_source_category
   log_source_service  = local.vcn_flow_log.log_source_service
   log_source_type     = local.vcn_flow_log.log_source_type
 }
 
-module "event_log" {
+module "event_log_backup" {
   source = "../../../modules/service-log"
 
   service_log_map     = local.events_map
   log_display_name    = local.event_log.log_display_name
   log_type            = local.event_log.log_type
-  log_group_id        = module.default_log_group.log_group_id
+  log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.event_log.log_source_category
   log_source_service  = local.event_log.log_source_service
   log_source_type     = local.event_log.log_source_type
