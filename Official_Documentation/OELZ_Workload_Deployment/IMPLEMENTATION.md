@@ -160,11 +160,10 @@ The Workload Expansion will create a series of monitoring alarms (11 Critical al
 
 OCI Datasafe empowers organizations to understand data sensitivity, evaluate data risks, mask sensitive data, implement and monitor security controls etc. These capabilities help to manage the day-to-day security and compliance requirements of Oracle Databases, both on-prem and in cloud.
 
-To Enable Datasafe feature on Workload Exadata, add the flag variable enable_datasafe in the tfvars file and set it to true.
-(file = oci-landing-zones/templates/elz-exadata-workload/integration.tfvars)
+To Enable Datasafe feature on Workload Exadata, add the flag variable `enable_datasafe` in the tfvars file and set it to true.
+(file = `oci-landing-zones/templates/elz-exadata-workload/integration.tfvars`)
 
 From the root of the module run the following commands to deploy terraform to have this datasafe feature in Workload Expansion for Landing Zone.
-
 
 * `terraform init`
 * `terraform plan`
