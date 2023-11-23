@@ -121,6 +121,6 @@ These are the configuration options for Workload Monitoring:
 
 These are the configuration options for Workload Expansion ExaData Datasafe: 
 
-| Name                                                                                   | Description                                           | Type   | Default | Required |
-|----------------------------------------------------------------------------------------|-------------------------------------------------------|--------|---------|:--------:|
-| <a name="enable_datasafe"></a> [enable\_datagasafe](#enable\_datasafe) | To enable datasafe feature in workload exadata module | `bool` | `false` | no |
+| Name                                                                                  | Description                                           | Type   | Default | Required |
+|---------------------------------------------------------------------------------------|-------------------------------------------------------|--------|---------|:--------:|
+| <a name="enable_datasafe"></a> [enable\_datasafe](#enable\_datasafe) | To enable datasafe feature in workload exadata module | `bool` | `false` | no |
