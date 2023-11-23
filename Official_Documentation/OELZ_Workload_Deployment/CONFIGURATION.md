@@ -116,3 +116,11 @@ These are the configuration options for Workload Monitoring:
 | <a name="input_enable_network_monitoring_alarms"></a> [enable_network_monitoring_alarms](#input\_workload\_name)                                    | Enable network alarm in workload expansion          | `bool`         | `false` | no |
 | <a name="input_enable_security_monitoring_alarms"></a> [enable_security_monitoring_alarms](#input\_workload\_name)                                    | Enable security alarm in workload expansion         | `bool`         | `false` | no |
 | <a name="input_enable_workload_monitoring_alarms"></a> [enable_enable_workload_monitoring_alarms](#input\_workload\_name)                                    | Enable workload alarm in workload expansion         | `bool`         | `false` | no |
+
+## Workload Expansion DataSafe 
+
+These are the configuration options for Workload Expansion ExaData Datasafe: 
+
+| Name                                                                                   | Description                                           | Type   | Default | Required |
+|----------------------------------------------------------------------------------------|-------------------------------------------------------|--------|---------|:--------:|
+| <a name="enable_datasafe"></a> [enable\_datagasafe](#enable\_datasafe) | To enable datasafe feature in workload exadata module | `bool` | `false` | no |

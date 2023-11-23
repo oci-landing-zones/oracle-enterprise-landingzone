@@ -149,4 +149,8 @@ As part of Workload Expansion three user groups will be created Workload Admin, 
 
 ### Workload Expansion : Monitoring
 
-The Workload Expansion will create a series of monitoring alarms (11 Critical alarms, and 6 Warning alarms) for each Workload it creates. Notifications created by these alarms being triggered will be delivered by email to a list of email addresses (The workload_topic_endpoints) specified for that Workload. 
+The Workload Expansion will create a series of monitoring alarms (11 Critical alarms, and 6 Warning alarms) for each Workload it creates. Notifications created by these alarms being triggered will be delivered by email to a list of email addresses (The workload_topic_endpoints) specified for that Workload.
+
+### Workload Expansion : ExaData Datasafe
+
+
