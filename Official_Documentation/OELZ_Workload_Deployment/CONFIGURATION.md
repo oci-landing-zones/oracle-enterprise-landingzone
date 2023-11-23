@@ -124,3 +124,6 @@ These are the configuration options for Workload Expansion ExaData Datasafe:
 | Name                                                                                  | Description                                           | Type   | Default | Required |
 |---------------------------------------------------------------------------------------|-------------------------------------------------------|--------|---------|:--------:|
 | <a name="enable_datasafe"></a> [enable\_datasafe](#enable\_datasafe) | To enable datasafe feature in workload exadata module | `bool` | `false` | no |
+
+The link provided below can give more information on overview, features etc for OCI ExaData Datasafe. 
+https://www.oracle.com/security/database-security/data-safe/
