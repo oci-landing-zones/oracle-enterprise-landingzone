@@ -170,3 +170,11 @@
 | <a name="output_workload_compartment_name"></a> [workload\_compartment\_name](#output\_workload\_compartment\_name) | n/a |
 | <a name="output_workload_subnet_cidr_blocks"></a> [workload\_subnet\_cidr\_blocks](#output\_workload\_subnet\_cidr\_blocks) | n/a |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

@@ -77,3 +77,11 @@
 |------|-------------|
 | <a name="output_domain"></a> [domain](#output\_domain) | n/a |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

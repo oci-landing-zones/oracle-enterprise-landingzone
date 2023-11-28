@@ -55,3 +55,11 @@ No modules.
 | <a name="output_budget_id"></a> [budget\_id](#output\_budget\_id) | n/a |
 | <a name="output_budget_target_name"></a> [budget\_target\_name](#output\_budget\_target\_name) | n/a |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
