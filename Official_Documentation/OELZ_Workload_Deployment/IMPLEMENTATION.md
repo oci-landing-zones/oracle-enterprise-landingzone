@@ -176,5 +176,5 @@ Copyright (c) 2022,2023 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
-See [LICENSE](https://github.com/oracle-quickstart/oci-landing-zones/blob/fb7b1187791d3abce5ee9346a0985593d04ff340/LICENSE) for more details.
+See [LICENSE](./../LICENSE) for more details.
 ```
