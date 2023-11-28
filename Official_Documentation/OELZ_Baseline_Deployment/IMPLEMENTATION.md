@@ -335,3 +335,11 @@ These are some known temporary issues that can occur while deploying the Oracle 
 By Design, OCI compartments are not deleted upon Terraform destroy by default. Deletions can be anabled in OELZ by setting enable_compartment_delete varaible to true in tfvars file. For more information check check [OCI Terraform provider documentation](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_compartment).
 * **OCI Version Upgrade**
 On Release v3.0.0, we upgrading the OCI provider version from 5.1 to 5.9. If you have previous stack deployed and local tfstate file saved, please issue **terraform init -upgrade** to resolve the provider version mismatch error.
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

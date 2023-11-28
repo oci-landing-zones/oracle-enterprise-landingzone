@@ -504,3 +504,11 @@ Three admin groups are created in the workload expansion:
 - workload admin group: User group that have access to the workload related resources inside your environment
 - application admin group: User group that have access to the application (volume family, object, file, instance, etc) resources inside your environment
 - database admin group: User group that have access to the database resources inside your environment
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

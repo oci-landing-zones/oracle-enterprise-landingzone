@@ -259,3 +259,11 @@ This section provides two deployment scenarios of the OELZ Network Firewall Feat
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfwonbaseline.out`<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfwonbaseline.out`<br />
 * Step 4) Follow the Same Step 6 defined on Greenfield Deployment if you want to deploy more Workload Spoke.<br />
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

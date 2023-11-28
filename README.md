@@ -44,4 +44,8 @@ Interested in contributing?  See our contribution [guidelines](CONTRIBUTING.md) 
 
 ## License
 
-This repository and its contents are licensed under [UPL 1.0](https://opensource.org/licenses/UPL).
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
