@@ -127,3 +127,11 @@ These are the configuration options for Workload Expansion ExaData Datasafe:
 
 The link provided below can give more information on overview, features etc for OCI ExaData Datasafe. 
 https://www.oracle.com/security/database-security/data-safe/
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
