@@ -168,3 +168,13 @@ From the root of the module run the following commands to deploy terraform to ha
 * `terraform init`
 * `terraform plan`
 * `terraform apply`
+
+```
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](LICENSE) for more details.
+```
