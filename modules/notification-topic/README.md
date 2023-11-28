@@ -42,4 +42,12 @@ No modules.
 |------|-------------|
 | <a name="output_subscription_id"></a> [subscription\_id](#output\_subscription\_id) | The subscriptions, indexed by ID. |
 | <a name="output_topic_id"></a> [topic\_id](#output\_topic\_id) | The OCID of the topic created |
-<!-- END_TF_DOCS -->    
+<!-- END_TF_DOCS -->   
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

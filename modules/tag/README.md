@@ -41,4 +41,12 @@ No modules.
 | <a name="output_namespace_id"></a> [namespace\_id](#output\_namespace\_id) | Tag NameSpace OCID |
 | <a name="output_tag"></a> [tag](#output\_tag) | Tag Values |
 | <a name="output_tag_default"></a> [tag\_default](#output\_tag\_default) | Tag Default Values |
-<!-- END_TF_DOCS -->    
+<!-- END_TF_DOCS -->   
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

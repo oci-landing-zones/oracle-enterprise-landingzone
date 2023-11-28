@@ -83,3 +83,11 @@
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | Hub & Spoke Subnet. |
 | <a name="output_vcn"></a> [vcn](#output\_vcn) | Hub VCN OCID ID. |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

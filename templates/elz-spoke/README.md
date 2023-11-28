@@ -84,3 +84,11 @@
 | <a name="output_spoke_web_subnet_ocid"></a> [spoke\_web\_subnet\_ocid](#output\_spoke\_web\_subnet\_ocid) | Spoke Web Subnet OCID. |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The Spoke Subnet OCID |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

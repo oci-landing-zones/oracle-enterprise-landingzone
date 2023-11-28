@@ -192,4 +192,11 @@ MuShop Complete is a polyglot micro-services application built to showcase a clo
 ![mushop_diagram](<./images/mushop-service.png> "mushop_diagram")
 MuShop is a showcase of several [Oracle Cloud Infrastructure][oci] services in a unified reference application. The sample application implements an e-commerce platform built as a set of micro-services. The accompanying content can be used to get started with cloud native application development on [Oracle Cloud Infrastructure][oci]. We will use Mushop 3-tier reference application is built to showcase the Oracle Cloud Infrastructure][oci] using OCI Free tier.
 
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
 

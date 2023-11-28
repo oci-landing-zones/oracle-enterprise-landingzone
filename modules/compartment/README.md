@@ -43,3 +43,11 @@ No modules.
 | <a name="output_compartment_id"></a> [compartment\_id](#output\_compartment\_id) | The OCID of the compartment created |
 | <a name="output_compartment_name"></a> [compartment\_name](#output\_compartment\_name) | The name of the compartment created |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

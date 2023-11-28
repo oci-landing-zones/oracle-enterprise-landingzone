@@ -40,3 +40,11 @@ No modules.
 | <a name="output_vcn"></a> [vcn](#output\_vcn) | n/a |
 | <a name="output_vcn_id"></a> [vcn\_id](#output\_vcn\_id) | The OCID of the VCN created |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

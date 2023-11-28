@@ -63,3 +63,11 @@
 | <a name="output_key_id"></a> [key\_id](#output\_key\_id) | n/a |
 | <a name="output_vault_id"></a> [vault\_id](#output\_vault\_id) | n/a |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

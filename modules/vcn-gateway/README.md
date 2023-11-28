@@ -47,3 +47,11 @@ No modules.
 | <a name="output_nat_gw_id"></a> [nat\_gw\_id](#output\_nat\_gw\_id) | NAT Gateway OCID Value. |
 | <a name="output_service_gw_id"></a> [service\_gw\_id](#output\_service\_gw\_id) | Service Gateway OCID Value. |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

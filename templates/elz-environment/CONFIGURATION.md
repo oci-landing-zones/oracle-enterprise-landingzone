@@ -18,3 +18,11 @@ Note that:
 * The default value of **enable_logging** and **enable_tf_state_backup** which control the creation of
 the Logging Compartment and the Backup Compartment are set to false. Those two variables need to be true
 to create the Logging Compartment and the Backup Compartment.
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

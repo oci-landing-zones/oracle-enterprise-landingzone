@@ -38,3 +38,10 @@ pytest --capture=tee-sys --tf-mod-dir=test/terraform/budget test/test_budget.py
 ```
 You can also add the `--pdb` flag to pytest to drop into the python debugger within a failed test. 
 
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

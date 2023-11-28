@@ -88,3 +88,11 @@
 | <a name="output_spoke_vcn"></a> [spoke\_vcn](#output\_spoke\_vcn) | n/a |
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The spoke subnets OCIDs |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
