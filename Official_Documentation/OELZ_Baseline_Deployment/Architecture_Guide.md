@@ -64,7 +64,7 @@ The OELZv2 creates an architectural framework that's ready for you to launch new
 
 The following diagram illustrates the OELZv2.0 reference architecture.
 
-![](./images/enterprise-landing-zone-v2.svg)
+![](../../images/enterprise-landing-zone-v2.svg)
 
 ## **_Network and Connectivity_**
 
@@ -210,7 +210,7 @@ You use compartments to organize and isolate your resources to make it easier to
 
 The OELZv2 creates a compartment structure for your organization. You control access to compartment by creating policies that specify what actions groups of users can take on the resources in those compartments. The following diagram shows the compartment structure that is created by the landing zone:
 
-![](./images/Compartment.png)
+![](../../images/Compartment.png)
 
 The compartments module only creates the compartment structure for a single environment which include the following compartments:
 
