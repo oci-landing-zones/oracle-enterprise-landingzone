@@ -38,7 +38,6 @@ module "backup_prod_environment" {
   nfw_instance_name                       = var.backup_nfw_instance_name_prod
   nfw_instance_policy                     = var.backup_nfw_instance_policy_prod
   nfw_use_existing_network                = var.backup_nfw_use_existing_network_prod
-  log_group_id                            = module.prod_environment.default_log_group
 
   enable_nat_gateway_spoke                = var.backup_prod_enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.backup_prod_enable_service_gateway_spoke
@@ -120,8 +119,6 @@ module "backup_nonprod_environment" {
   nfw_instance_name                       = var.backup_nfw_instance_name_nonprod
   nfw_instance_policy                     = var.backup_nfw_instance_policy_nonprod
   nfw_use_existing_network                = var.backup_nfw_use_existing_network_nonprod
-  //TO DO 
-  #log_group_id                            = module.nonprod_environment.default_log_group
 
   enable_nat_gateway_spoke                = var.backup_nonprod_enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.backup_nonprod_enable_service_gateway_spoke

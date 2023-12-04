@@ -263,7 +263,7 @@ module "announcement_subscription_backup" {
 
   source                    = "../../../modules/announcement-subscription"
   compartment_id            = var.security_compartment_id 
-  notification_topic_id     = var.is_create_alarms == true ? module.security_critical_topic[0].topic_id : " "
+  notification_topic_id     = var.is_create_alarms == true ? module.security_critical_topic_backup[0].topic_id : " "
   subscription_display_name = local.announcement_subscription.subscription_display_name
   filter_groups             = local.announcement_subscription.filter_groups
 }
@@ -657,7 +657,7 @@ module "security_alarms_warning" {
   source                = "../../../modules/alarms"
 
   compartment_id                   = var.security_compartment_id
-  notification_topic_id            = var.is_create_alarms == true ? module.security_warning_topic[0].topic_id : " "
+  notification_topic_id            = var.is_create_alarms == true ? module.security_warning_topic_backup[0].topic_id : " "
   is_enabled                       = local.security_alarms.is_enabled
   message_format                   = local.security_alarms.message_format
   pending_duration                 = local.security_alarms.pending_duration
@@ -671,7 +671,7 @@ module "security_alarms_critical" {
   source                = "../../../modules/alarms"
 
   compartment_id                   = var.security_compartment_id
-  notification_topic_id            = var.is_create_alarms == true ? module.security_critical_topic[0].topic_id : " "
+  notification_topic_id            = var.is_create_alarms == true ? module.security_critical_topic_backup[0].topic_id : " "
   is_enabled                       = local.security_alarms.is_enabled
   message_format                   = local.security_alarms.message_format
   pending_duration                 = local.security_alarms.pending_duration
@@ -685,7 +685,7 @@ module "network_alarms_warning" {
   source                = "../../../modules/alarms"
 
   compartment_id                   = var.network_compartment_id
-  notification_topic_id            = var.is_create_alarms == true ? module.network_warning_topic[0].topic_id : " "
+  notification_topic_id            = var.is_create_alarms == true ? module.network_warning_topic_backup[0].topic_id : " "
   is_enabled                       = local.network_alarms.is_enabled
   message_format                   = local.network_alarms.message_format
   pending_duration                 = local.network_alarms.pending_duration
@@ -698,7 +698,7 @@ module "network_alarms_critical" {
   source                = "../../../modules/alarms"
 
   compartment_id                   = var.network_compartment_id
-  notification_topic_id            = var.is_create_alarms == true ? module.network_critical_topic[0].topic_id : " "
+  notification_topic_id            = var.is_create_alarms == true ? module.network_critical_topic_backup[0].topic_id : " "
   is_enabled                       = local.network_alarms.is_enabled
   message_format                   = local.network_alarms.message_format
   pending_duration                 = local.network_alarms.pending_duration
