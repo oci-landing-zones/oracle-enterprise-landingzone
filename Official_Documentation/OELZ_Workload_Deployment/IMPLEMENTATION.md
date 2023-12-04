@@ -20,7 +20,7 @@
 3. Visit the [GitHub page](https://github.com/oracle-quickstart/oci-landing-zones) to clone the Terraform template.
 4. In the repository, cd to the `templates/elz-workload/` directory. This is the main template for the Workload Expansion.
 5. **Create a terraform.tfvars file in the directory and populate it with the required variables or override existing variables.**
-   **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](README.md#inputs)**
+   **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](./README.md#inputs)**
 
    **Note: An example tfvars file (workload_extension.tfvars) included for reference. Using this file is the preferred way to run the stack from the CLI, because of the large number of variables to manage.**
 6. From the root of the module run the following commands to deploy the terraform.
@@ -54,7 +54,7 @@
 13. For the Create in Compartment dropdown, select the compartment to store the Stack.
 14. For Terraform Version dropdown, make sure to select 1.0.x at least. Lower Terraform versions are not supported.
 
-After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](README.md#inputs)**
+After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](./README.md#inputs)**
 
 After filling in the required input variables, click next to review the stack values and create the stack.
 

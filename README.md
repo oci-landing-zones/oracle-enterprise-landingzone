@@ -6,9 +6,9 @@ This repository contains different types of Landing Zones to deploy to the Oracl
 
 The Oracle Enterprise Landing Zone v2 (OELZ v2) deploys a typical architecture used by enterprise customers. The root template for this landing zone is located at [templates/enterprise-landing-zone](./templates/enterprise-landing-zone). Users can use the guides below to get started with the Oracle Enterprise Landing Zone v2 (OELZ v2).
 
-- [Architecture Guide](./templates/enterprise-landing-zone/Architecture_Guide.md)
-- [Implementation Guide](./templates/enterprise-landing-zone/IMPLEMENTATION.md)
-- [Configuration Guide](./templates/enterprise-landing-zone/CONFIGURATION.md)
+- [Architecture Guide](./Official_Documentation/OELZ_Baseline_Deployment/Architecture_Guide.md)
+- [Implementation Guide](./Official_Documentation/OELZ_Baseline_Deployment/IMPLEMENTATION.md)
+- [Configuration Guide](./Official_Documentation/OELZ_Baseline_Deployment/CONFIGURATION.md)
 
 ### Workload Expansion
 The Oracle Enterprise Landing Zone v2 (OELZ v2) deploys a workload in each environment (Prod and Non-Prod) by default.

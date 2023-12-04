@@ -36,7 +36,7 @@ When you provision infrastructure resources with Terraform, the expectation is o
 
 # <a name="architecture"></a>3. Architecture
 
-This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments. One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
+This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments. One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](./Official_Documentation/OELZ_Baseline_Deployment/Architecture_Guide.md).
 
 ![NFW Architecture](<../../images/OCI-NFW.jpg> "NFW Architecture")
 
