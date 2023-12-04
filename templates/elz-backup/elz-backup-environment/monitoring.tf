@@ -18,7 +18,7 @@ module "monitoring" {
   secops_topic_endpoints   = var.secops_topic_endpoints
   platform_topic_endpoints = var.platform_topic_endpoints
   identity_topic_endpoints = var.identity_topic_endpoints
-  default_log_group_id     = var.log_group_id
+  default_log_group_id     = module.logging.log_group_id
 
   workload_topic_endpoints = var.workload_topic_endpoints
 

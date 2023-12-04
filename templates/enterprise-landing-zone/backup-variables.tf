@@ -388,9 +388,9 @@ variable "prod_network_topic_endpoints_backup" {
   description = "List of email addresses for Network Warning and Critical notifications."
   validation {
     condition = length(
-      [for e in var.prod_network_topic_endpoints :
+      [for e in var.prod_network_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.prod_network_topic_endpoints)
+    ) == length(var.prod_network_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -401,9 +401,9 @@ variable "prod_secops_topic_endpoints_backup" {
   description = "List of email addresses for Secops Warning and Critical notifications."
   validation {
     condition = length(
-      [for e in var.prod_secops_topic_endpoints :
+      [for e in var.prod_secops_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.prod_secops_topic_endpoints)
+    ) == length(var.prod_secops_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -414,9 +414,9 @@ variable "prod_platform_topic_endpoints_backup" {
   description = "List of email addresses for Platform notifications."
   validation {
     condition = length(
-      [for e in var.prod_platform_topic_endpoints :
+      [for e in var.prod_platform_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.prod_platform_topic_endpoints)
+    ) == length(var.prod_platform_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -427,9 +427,9 @@ variable "prod_identity_topic_endpoints_backup" {
   description = "List of email addresses for Identity notifications."
   validation {
     condition = length(
-      [for e in var.prod_identity_topic_endpoints :
+      [for e in var.prod_identity_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.prod_identity_topic_endpoints)
+    ) == length(var.prod_identity_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -439,9 +439,9 @@ variable "nonprod_network_topic_endpoints_backup" {
   description = "List of email addresses for Network Warning and Critical notifications."
   validation {
     condition = length(
-      [for e in var.nonprod_network_topic_endpoints :
+      [for e in var.nonprod_network_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.nonprod_network_topic_endpoints)
+    ) == length(var.nonprod_network_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -452,9 +452,9 @@ variable "nonprod_secops_topic_endpoints_backup" {
   description = "List of email addresses for Secops Warning and Critical notifications."
   validation {
     condition = length(
-      [for e in var.nonprod_secops_topic_endpoints :
+      [for e in var.nonprod_secops_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.nonprod_secops_topic_endpoints)
+    ) == length(var.nonprod_secops_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -465,9 +465,9 @@ variable "nonprod_platform_topic_endpoints_backup" {
   description = "List of email addresses for Platform notifications."
   validation {
     condition = length(
-      [for e in var.nonprod_platform_topic_endpoints :
+      [for e in var.nonprod_platform_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.nonprod_platform_topic_endpoints)
+    ) == length(var.nonprod_platform_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -478,9 +478,9 @@ variable "nonprod_identity_topic_endpoints_backup" {
   description = "List of email addresses for Identity notifications."
   validation {
     condition = length(
-      [for e in var.nonprod_identity_topic_endpoints :
+      [for e in var.nonprod_identity_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.nonprod_identity_topic_endpoints)
+    ) == length(var.nonprod_identity_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -491,9 +491,9 @@ variable "prod_workload_topic_endpoints_backup" {
   description = "List of email addresses for Prod Workload notifications."
   validation {
     condition = length(
-      [for e in var.prod_workload_topic_endpoints :
+      [for e in var.prod_workload_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.prod_workload_topic_endpoints)
+    ) == length(var.prod_workload_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
@@ -504,9 +504,9 @@ variable "nonprod_workload_topic_endpoints_backup" {
   description = "List of email addresses for Non Prod Workload notifications."
   validation {
     condition = length(
-      [for e in var.nonprod_workload_topic_endpoints :
+      [for e in var.nonprod_workload_topic_endpoints_backup :
       e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
-    ) == length(var.nonprod_workload_topic_endpoints)
+    ) == length(var.nonprod_workload_topic_endpoints_backup)
     error_message = "Validation failed: invalid email address."
   }
 }
