@@ -253,7 +253,7 @@ Or you can select the stack manually through the console starting from step 1.
 13. For the Create in Compartment dropdown, select the compartment to store the Stack.
 14. For Terraform Version dropdown, make sure to select 1.0.x at least. Lower Terraform versions are not supported.
 
-After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](../../Official_Documentation/OELZ_Baseline_Deployment/CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](./templates/enterprise-landing-zone/README.md#inputs)**
+After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](./templates/enterprise-landing-zone/README.md#inputs)**
 
 After filling in the required input variables, click next to review the stack values and create the stack.
 
