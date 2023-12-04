@@ -9,7 +9,7 @@ The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned
 
 ## Minimum Required Configuration
 
-Deployment of the OELZ is controlled by several Terraform [input variables](./README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ:
+Deployment of the OELZ is controlled by several Terraform [input variables](./templates/enterprise-landing-zone/README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ:
 
 ### Basic Terraform Connection Information
 The required provider variables for the OELZ:
