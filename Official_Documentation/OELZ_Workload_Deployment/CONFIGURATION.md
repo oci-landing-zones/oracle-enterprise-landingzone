@@ -9,7 +9,7 @@ Oracle Enterprise Landing Zone(OELZ) stack will be fully deployed on the OCI Ten
 
 ## Minimum Required Configuration
 
-Deployment of the OELZ is controlled by several Terraform [input variables](README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ Workload Expansion:
+Deployment of the OELZ is controlled by several Terraform [input variables](./README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ Workload Expansion:
 
 ### Basic Terraform Connection Information
 The required provider variables for the OELZ:
