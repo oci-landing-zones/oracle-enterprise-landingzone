@@ -4,7 +4,7 @@ This configuration guide will detail the required and available configurations n
 
 ## Prerequisites
 
-The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the OELZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](Implementation.md)
+The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the OELZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](/Official_Documentation/OELZ_Baseline_Deployment/Implementation.md)
 
 
 ## Minimum Required Configuration
