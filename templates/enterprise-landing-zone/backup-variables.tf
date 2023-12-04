@@ -373,3 +373,170 @@ variable "backup_prod_bastion_client_cidr_block_allow_list" {
   default     = ["0.0.0.0/0"]
   description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
 }
+
+#Monitoring
+
+variable "is_create_alarms_backup" {
+  type        = bool
+  default     = true
+  description = "Enable Alarms Creation in all Compartment"
+}
+
+variable "prod_network_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Network Warning and Critical notifications."
+  validation {
+    condition = length(
+      [for e in var.prod_network_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.prod_network_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "prod_secops_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Secops Warning and Critical notifications."
+  validation {
+    condition = length(
+      [for e in var.prod_secops_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.prod_secops_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "prod_platform_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Platform notifications."
+  validation {
+    condition = length(
+      [for e in var.prod_platform_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.prod_platform_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "prod_identity_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Identity notifications."
+  validation {
+    condition = length(
+      [for e in var.prod_identity_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.prod_identity_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+variable "nonprod_network_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Network Warning and Critical notifications."
+  validation {
+    condition = length(
+      [for e in var.nonprod_network_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.nonprod_network_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "nonprod_secops_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Secops Warning and Critical notifications."
+  validation {
+    condition = length(
+      [for e in var.nonprod_secops_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.nonprod_secops_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "nonprod_platform_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Platform notifications."
+  validation {
+    condition = length(
+      [for e in var.nonprod_platform_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.nonprod_platform_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "nonprod_identity_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Identity notifications."
+  validation {
+    condition = length(
+      [for e in var.nonprod_identity_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.nonprod_identity_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "prod_workload_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Prod Workload notifications."
+  validation {
+    condition = length(
+      [for e in var.prod_workload_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.prod_workload_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+
+variable "nonprod_workload_topic_endpoints_backup" {
+  type        = list(string)
+  default     = []
+  description = "List of email addresses for Non Prod Workload notifications."
+  validation {
+    condition = length(
+      [for e in var.nonprod_workload_topic_endpoints :
+      e if length(regexall("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", e)) > 0]
+    ) == length(var.nonprod_workload_topic_endpoints)
+    error_message = "Validation failed: invalid email address."
+  }
+}
+variable "prod_enable_security_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Security Monitoring Alarms in Production Security Compartment"
+}
+variable "prod_enable_network_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Network Monitoring Alarms in Production Network Compartment"
+}
+variable "prod_enable_workload_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Workload Monitoring Alarms in Production Workload Compartment"
+}
+variable "nonprod_enable_security_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Security Monitoring Alarms in Non-Production Security Compartment"
+}
+variable "nonprod_enable_network_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Network Monitoring Alarms in Non-Production Network Compartment"
+}
+variable "nonprod_enable_workload_monitoring_alarms_backup" {
+  type        = bool
+  default     = false
+  description = "Enable Workload Monitoring Alarms in Non-Production Workload Compartment"
+}

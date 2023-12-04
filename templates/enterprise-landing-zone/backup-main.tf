@@ -38,8 +38,7 @@ module "backup_prod_environment" {
   nfw_instance_name                       = var.backup_nfw_instance_name_prod
   nfw_instance_policy                     = var.backup_nfw_instance_policy_prod
   nfw_use_existing_network                = var.backup_nfw_use_existing_network_prod
-  //TO DO 
-  #log_group_id                            = module.prod_environment.default_log_group
+  log_group_id                            = module.prod_environment.default_log_group
 
   enable_nat_gateway_spoke                = var.backup_prod_enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.backup_prod_enable_service_gateway_spoke
@@ -59,6 +58,18 @@ module "backup_prod_environment" {
 
   bastion_client_cidr_block_allow_list = var.backup_prod_bastion_client_cidr_block_allow_list
   environment_compartment_id           = module.prod_environment.compartment.environment.id
+
+
+  is_create_alarms         = var.is_create_alarms_backup
+  network_topic_endpoints  = var.prod_network_topic_endpoints_backup
+  secops_topic_endpoints   = var.prod_secops_topic_endpoints_backup
+  platform_topic_endpoints = var.prod_platform_topic_endpoints_backup
+  identity_topic_endpoints = var.prod_identity_topic_endpoints_backup
+
+  workload_topic_endpoints          = var.prod_workload_topic_endpoints_backup
+  enable_security_monitoring_alarms = var.prod_enable_security_monitoring_alarms_backup
+  enable_network_monitoring_alarms  = var.prod_enable_network_monitoring_alarms_backup
+  enable_workload_monitoring_alarms = var.prod_enable_workload_monitoring_alarms_backup
 
   depends_on = [module.prod_environment]
 
@@ -130,6 +141,17 @@ module "backup_nonprod_environment" {
 
   bastion_client_cidr_block_allow_list = var.backup_nonprod_bastion_client_cidr_block_allow_list
   environment_compartment_id           = module.nonprod_environment.compartment.environment.id
+
+  is_create_alarms         = var.is_create_alarms_backup
+  network_topic_endpoints  = var.nonprod_network_topic_endpoints_backup
+  secops_topic_endpoints   = var.nonprod_secops_topic_endpoints_backup
+  platform_topic_endpoints = var.nonprod_platform_topic_endpoints_backup
+  identity_topic_endpoints = var.nonprod_identity_topic_endpoints_backup
+
+  workload_topic_endpoints          = var.nonprod_workload_topic_endpoints_backup
+  enable_security_monitoring_alarms = var.nonprod_enable_security_monitoring_alarms_backup
+  enable_network_monitoring_alarms  = var.nonprod_enable_network_monitoring_alarms_backup
+  enable_workload_monitoring_alarms = var.nonprod_enable_workload_monitoring_alarms_backup
 
   depends_on = [module.nonprod_environment]
 
