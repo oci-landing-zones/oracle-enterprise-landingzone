@@ -55,12 +55,12 @@ For more information, see the security design principles in [Best practices fram
 
 The OELZv2 creates an architectural framework that's ready for you to launch new projects and workloads on OCI.
 
-- [Compartments](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcompartments.htm#compartments): Use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
-- [Tags](https://docs.oracle.com/en-us/iaas/Content/Tagging/Concepts/taggingoverview.htm#tags): Use tags to organize and list resources based on your business needs.
-- [Budgets and alerts](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#budgets-alerts): Use [budgets](https://docs.oracle.com/iaas/Content/Billing/Concepts/budgetsoverview.htm) to set soft limits on your OCI spending, and use alerts to let you know when you might exceed your budget.
-- [Oracle Cloud Infrastructure Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#iam): Use IAM to control access to your cloud resources on OCI.
-- [Networking and connectivity](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#networking-connectivity): Create a virtual cloud network (VCN), subnets, and other networking and connectivity resources that are required to run your workloads and connect to the internet or your on-premises network.
-- [Security](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#security): Enable a strong security posture by enabling OCI security services such as Oracle Cloud Guard, Oracle Vulnerability Scanning Service, and Oracle Cloud Infrastructure Bastion.
+- [Compartments](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#compartments-module): Use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
+- [Tags](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#budgets-and-tagging-module): Use tags to organize and list resources based on your business needs.
+- [Budgets and alerts](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#budgets-and-tagging-module): Use [budgets](https://docs.oracle.com/iaas/Content/Billing/Concepts/budgetsoverview.htm) to set soft limits on your OCI spending, and use alerts to let you know when you might exceed your budget.
+- [Oracle Cloud Infrastructure Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#identity): Use IAM to control access to your cloud resources on OCI.
+- [Networking and connectivity](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#network-module): Create a virtual cloud network (VCN), subnets, and other networking and connectivity resources that are required to run your workloads and connect to the internet or your on-premises network.
+- [Security](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone-v2.htm#security-module): Enable a strong security posture by enabling OCI security services such as Oracle Cloud Guard, Oracle Vulnerability Scanning Service, and Oracle Cloud Infrastructure Bastion.
 
 The following diagram illustrates the OELZv2.0 reference architecture.
 
@@ -127,7 +127,7 @@ Use Oracle Cloud Infrastructure Identity and Access Management (IAM) to control 
 
 The Landing Zone creates IAM groups and policies that control access to the resources created by the Landing Zone. Optionally, you can federate with your organization's Microsoft Active Directory implementation.
 
-We recommend that you create one or more [break-glass users](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/deploy-landing-zone.htm#emergency-access-accounts) during your deployment, especially if you are using federation. Break-glass users are administrators who have emergency access to all Oracle Cloud Infrastructure services and resources in the tenancy.
+We recommend that you create one or more break_glass_users during your deployment, especially if you are using federation. Break-glass users are administrators who have emergency access to all Oracle Cloud Infrastructure services and resources in the tenancy.
 
 **Federating with Microsoft Active Directory**
 
@@ -143,7 +143,7 @@ OELZv2 includes a set of pre-built policies and guardrails that help ensure that
 
 The Center for Internet Security, Inc. (CIS®) is a community-driven non-profit, responsible for the CIS Controls® and CIS Benchmarks™, globally recognized best practices for securing IT systems and data. The goal of CIS is to prevent and mitigate new cyber threats that are identified in the industry today. For many OCI customers, this has been a go-to benchmark that guides their architecture to help them secure their workloads in Oracle Cloud Infrastructure (OCI).  Recognizing the importance of adhering to best practice guidance from both OCI teams and the industry, OCI Landing Zones continues to implement support for CIS Benchmarks today.
 
-For more information, please refer to ["CIS 1.2 Level 1"](./images/CIS1.2Level1.xlsx) for a list of security controls that are included in OELZv2.
+For more information, please refer to ["CIS 1.2 Level 1"](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/cis-1-2-level-1.htm#cis-security-controls) for a list of security controls that are included in OELZv2.
 
 # **Functional Modules**
 
@@ -310,7 +310,7 @@ In order to organize alerts in meaningful groups, multiple alerts are grouped to
 - Identity admin of a specific environment: receives alerts related IAM
 - Platform admin of a specific environment: receives alerts related Budgets
 
-In addition to this, messages are grouped into [Notification Topics](https://docs.oracle.com/en-us/iaas/Content/Notification/Tasks/managingtopicsandsubscriptions.htm) per severity (Critical and Warning) for each environment and compartment (Network, Security and Workload).
+In addition to this, messages are grouped into Notification Topics per severity (Critical and Warning) for each environment and compartment (Network, Security and Workload).
 
 | **#** | [**compartment\_id**](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/ons_notification_topic#compartment_id) | **name** |
 | --- | --- | --- |
