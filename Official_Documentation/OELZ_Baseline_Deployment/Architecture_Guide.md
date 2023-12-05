@@ -55,8 +55,8 @@ For more information, see the security design principles in [Best practices fram
 
 The OELZv2 creates an architectural framework that's ready for you to launch new projects and workloads on OCI.
 
-- [Compartments](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#compartments): Use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
-- [Tags](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#tags): Use tags to organize and list resources based on your business needs.
+- [Compartments](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingcompartments.htm#compartments): Use compartments to organize and isolate your resources to make it easier to manage and secure access to them.
+- [Tags](https://docs.oracle.com/en-us/iaas/Content/Tagging/Concepts/taggingoverview.htm#tags): Use tags to organize and list resources based on your business needs.
 - [Budgets and alerts](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#budgets-alerts): Use [budgets](https://docs.oracle.com/iaas/Content/Billing/Concepts/budgetsoverview.htm) to set soft limits on your OCI spending, and use alerts to let you know when you might exceed your budget.
 - [Oracle Cloud Infrastructure Identity and Access Management (IAM)](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#iam): Use IAM to control access to your cloud resources on OCI.
 - [Networking and connectivity](https://docs.oracle.com/en-us/iaas/Content/cloud-adoption-framework/landing-zone.htm#networking-connectivity): Create a virtual cloud network (VCN), subnets, and other networking and connectivity resources that are required to run your workloads and connect to the internet or your on-premises network.
