@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 current_user_ocid    = "ocid1.user.oc1..aaaaaaaatqpzxafhpmkl33chm5imuttp7u3cbkcccyucand45pfmnevqbk2a"
 region               = "us-ashburn-1"
 tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaqi25whyscyfdgqvz6442exv34ievd4cf7dddobb3fbmbbgmmknca"

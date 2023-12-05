@@ -182,3 +182,11 @@ Version 2 of Oracle Enterprise Landing Zone
 | <a name="output_vcn"></a> [vcn](#output\_vcn) | n/a |
 | <a name="output_workload_compartment_id"></a> [workload\_compartment\_id](#output\_workload\_compartment\_id) | n/a |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

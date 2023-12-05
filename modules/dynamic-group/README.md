@@ -40,3 +40,11 @@ No modules.
 | <a name="output_id"></a> [id](#output\_id) | The OCID of dynamic group created |
 | <a name="output_name"></a> [name](#output\_name) | The name of dynamic group created |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

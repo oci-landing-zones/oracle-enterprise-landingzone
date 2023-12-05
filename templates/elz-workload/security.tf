@@ -1,4 +1,9 @@
-locals { 
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
+locals {
   osms_dynamic_group_workload = {
     dynamic_group_name        = "OCI-${var.environment_prefix}-ELZ-${var.workload_name}-DG1"
     dynamic_group_description = "OCI ELZ Workload Dynamic Group"

@@ -59,3 +59,11 @@ The required provider variables for the OELZ:
 | <a name="prod_spoke_subnet_web_cidr_block"></a> [prod\_spoke\_subnet\_web\_cidr\_block](#prod\_spoke\_subnet\_web\_cidr\_block) | "10.2.1.0/24"   |
 | <a name="prod_spoke_subnet_app_cidr_block"></a> [prod\_spoke\_subnet\_app\_cidr\_block](#prod\_spoke\_subnet\_app\_cidr\_block) | "10.2.2.0/24"   |
 | <a name="prod_spoke_subnet_db_cidr_block"></a> [prod\_spoke\_subnet\_db\_cidr\_block](#prod\_spoke\_subnet\_db\_cidr\_block) | "10.2.3.0/24"   |
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.
