@@ -544,7 +544,7 @@ The OELZ deploys configurations for multiple security services. VSS (Vulnerabili
 
 CloudGuard can monitor for a multitude of security conditions. The OELZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
 
-By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](cloud_guard_target_tenancy) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
+By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](../../templates/enterprise-landing-zone/README.md#inputs) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
 
 Cloud Guard Target will be deployed in base compartment of both L2-Prod and L2-Non-Prod environments along with related IAM policies. All Oracle managed responder recipes will reside in L4 Security compartment of each environment.
 
