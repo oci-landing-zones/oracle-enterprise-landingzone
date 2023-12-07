@@ -41,6 +41,7 @@
 | <a name="input_customer_onprem_ip_cidr"></a> [customer\_onprem\_ip\_cidr](#input\_customer\_onprem\_ip\_cidr) | n/a | `any` | n/a | yes |
 | <a name="input_drg_id"></a> [drg\_id](#input\_drg\_id) | n/a | `string` | n/a | yes |
 | <a name="input_enable_nat_gateway_spoke"></a> [enable\_nat\_gateway\_spoke](#input\_enable\_nat\_gateway\_spoke) | n/a | `bool` | n/a | yes |
+| <a name="input_enable_network_firewall"></a> [enable\_network\_firewall](#input\_enable\_network\_firewall) | Enable Network Firewall in Enviornment. | `bool` | `"false"` | no |
 | <a name="input_enable_service_gateway_spoke"></a> [enable\_service\_gateway\_spoke](#input\_enable\_service\_gateway\_spoke) | n/a | `bool` | n/a | yes |
 | <a name="input_enable_vpn_on_environment"></a> [enable\_vpn\_on\_environment](#input\_enable\_vpn\_on\_environment) | n/a | `any` | n/a | yes |
 | <a name="input_enable_vpn_or_fastconnect"></a> [enable\_vpn\_or\_fastconnect](#input\_enable\_vpn\_or\_fastconnect) | n/a | `any` | n/a | yes |
@@ -52,6 +53,7 @@
 | <a name="input_is_baseline_deploy"></a> [is\_baseline\_deploy](#input\_is\_baseline\_deploy) | TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation. | `bool` | n/a | yes |
 | <a name="input_nat_gateway_display_name"></a> [nat\_gateway\_display\_name](#input\_nat\_gateway\_display\_name) | (Updatable) Name of NAT Gateway. Does not have to be unique. | `string` | n/a | yes |
 | <a name="input_nat_gw_spoke_check"></a> [nat\_gw\_spoke\_check](#input\_nat\_gw\_spoke\_check) | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| <a name="input_nfw_ip_address"></a> [nfw\_ip\_address](#input\_nfw\_ip\_address) | Network Firewall Forwarding IP. | `string` | `""` | no |
 | <a name="input_region"></a> [region](#input\_region) | The OCI region | `string` | n/a | yes |
 | <a name="input_route_table_display_name"></a> [route\_table\_display\_name](#input\_route\_table\_display\_name) | Workload Expansion Spoke Route Table Name Disply Name. | `string` | n/a | yes |
 | <a name="input_security_list_display_name"></a> [security\_list\_display\_name](#input\_security\_list\_display\_name) | Workload Expansion Spoke Security List Name Disly Name. | `string` | n/a | yes |
@@ -77,8 +79,8 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_spoke_app_subnet_ocid"></a> [spoke\_app\_subnet\_ocid](#output\_spoke\_app\_subnet\_ocid) | n/a |
-| <a name="output_spoke_db_subnet_ocid"></a> [spoke\_db\_subnet\_ocid](#output\_spoke\_db\_subnet\_ocid) | n/a |
-| <a name="output_spoke_web_subnet_ocid"></a> [spoke\_web\_subnet\_ocid](#output\_spoke\_web\_subnet\_ocid) | n/a |
-| <a name="output_subnets"></a> [subnets](#output\_subnets) | The subnet OCID |
+| <a name="output_spoke_app_subnet_ocid"></a> [spoke\_app\_subnet\_ocid](#output\_spoke\_app\_subnet\_ocid) | Spoke App Subnet OCID. |
+| <a name="output_spoke_db_subnet_ocid"></a> [spoke\_db\_subnet\_ocid](#output\_spoke\_db\_subnet\_ocid) | Spoke DB Subnet OCID. |
+| <a name="output_spoke_web_subnet_ocid"></a> [spoke\_web\_subnet\_ocid](#output\_spoke\_web\_subnet\_ocid) | Spoke Web Subnet OCID. |
+| <a name="output_subnets"></a> [subnets](#output\_subnets) | The Spoke Subnet OCID |
 <!-- END_TF_DOCS -->

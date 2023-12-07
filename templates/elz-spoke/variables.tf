@@ -126,3 +126,26 @@ variable "enable_vpn_or_fastconnect" {}
 variable "enable_vpn_on_environment" {}
 variable "ipsec_connection_static_routes" {}
 variable "customer_onprem_ip_cidr" {}
+
+# -----------------------------------------------------------------------------
+# Network Firewall Variables
+# -----------------------------------------------------------------------------
+
+variable "enable_network_firewall" {
+  type        = bool
+  default     = "false"
+  description = "Enable Network Firewall in Enviornment."
+}
+
+variable "nfw_ip_address" {
+  type        = string
+  default     = null
+  description = "Network Firewall Forwarding IP OCID."
+}
+# -----------------------------------------------------------------------------
+# Workload Network Variables
+# -----------------------------------------------------------------------------
+variable "additional_workload_subnets_cidr_blocks" {
+  type        = list(string)
+  description = "A list of subnets cidr blocks in additional workload stack"
+}

@@ -24,6 +24,12 @@ variable "is_baseline_deploy" {
   type        = bool
   description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }
+
+variable "resource_label" {
+  type        = string
+  description = "Prefix used to avoid naming conflict"
+}
+
 # -----------------------------------------------------------------------------
 # Domain Variables
 # -----------------------------------------------------------------------------

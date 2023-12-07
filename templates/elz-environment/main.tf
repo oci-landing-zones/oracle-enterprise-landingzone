@@ -45,6 +45,7 @@ module "identity" {
   workload_compartment_names   = var.workload_compartment_names
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
 
   providers = {
     oci             = oci
@@ -123,7 +124,7 @@ module "network" {
   environment_prefix     = var.environment_prefix
   region                 = var.region
   network_compartment_id = module.compartment.compartments.network.id
-  home_compartment_id          = var.home_compartment_id
+  home_compartment_id      = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
 
   enable_internet_gateway_hub  = var.enable_internet_gateway_hub
@@ -153,12 +154,21 @@ module "network" {
   enable_fastconnect_on_environment   = var.enable_fastconnect_on_environment
   customer_onprem_ip_cidr             = var.customer_onprem_ip_cidr
 
+  log_group_id                      = module.logging.log_group_id
+  enable_network_firewall           = var.enable_network_firewall
+  enable_traffic_threat_log         = var.enable_traffic_threat_log
+  nfw_subnet_type                   = var.nfw_subnet_type
+  nfw_instance_name                 = var.nfw_instance_name
+  nfw_instance_policy               = var.nfw_instance_policy
+  nfw_use_existing_network          = var.nfw_use_existing_network
+
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
 
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
   }
+  #depends_on = [ module.prod_environment.module.logging, module.nonprod_environment.module.logging ]
 }
 
 module "tagging" {
@@ -175,6 +185,8 @@ module "tagging" {
   geo_location_tagging         = var.geo_location_tagging
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
+
 
   providers = {
     oci             = oci

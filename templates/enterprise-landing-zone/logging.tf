@@ -14,6 +14,11 @@ locals {
     ]
   }
 
+  identity_domain = {
+    domain_display_prod_name     = "${var.resource_label}-OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
+    domain_display_non_prod_name = "${var.resource_label}-OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
+  }
+
   service_connector_archive_policy = {
     name        = "${var.resource_label}-OCI-ELZ-SC-ARC-Policy"
     description = "OCI ELZ Service Connector Policy For Archive"
@@ -91,15 +96,15 @@ locals {
   }
 
   archive_key = {
-    name = "${var.resource_label}-OCI-ELZ-ARC-KEY-${local.prod_environment.environment_prefix}"
+    name            = "${var.resource_label}-OCI-ELZ-ARC-KEY-${local.prod_environment.environment_prefix}"
     shape_algorithm = "AES"
-    shape_length = 32
+    shape_length    = 32
     protection_mode = "SOFTWARE"
   }
 
   group_names = {
     prod_platform_admin_group_name : var.prod_platform_admin_group_name != "" ? var.prod_platform_admin_group_name : "OCI-ELZ-UGP-${local.prod_environment.environment_prefix}-PLT-ADMIN",
-    nonprod_platform_admin_group_name : var.nonprod_platform_admin_group_name != "" ? var.nonprod_platform_admin_group_name : "OCI-ELZ-UGP-${local.prod_environment.environment_prefix}-PLT-ADMIN",
+    nonprod_platform_admin_group_name : var.nonprod_platform_admin_group_name != "" ? var.nonprod_platform_admin_group_name : "OCI-ELZ-UGP-${local.nonprod_environment.environment_prefix}-PLT-ADMIN",
   }
 
   prod_platform_admin_policy = {
@@ -107,8 +112,8 @@ locals {
     description = "OCI Landing Zone Platform Admin Group Policy To Manage Archive Bucket"
 
     statements = [
-      "Allow group ${local.group_names["prod_platform_admin_group_name"]} to manage buckets in compartment ${module.home_compartment.compartment_name}",
-      "Allow group ${local.group_names["prod_platform_admin_group_name"]} to manage objects in compartment ${module.home_compartment.compartment_name}"
+      "Allow group ${local.identity_domain.domain_display_prod_name}/${local.group_names["prod_platform_admin_group_name"]} to manage buckets in compartment ${module.home_compartment.compartment_name}",
+      "Allow group ${local.identity_domain.domain_display_prod_name}/${local.group_names["prod_platform_admin_group_name"]} to manage objects in compartment ${module.home_compartment.compartment_name}"
     ]
   }
 
@@ -117,8 +122,8 @@ locals {
     description = "OCI Landing Zone Platform Admin Group Policy To Manage Archive Bucket"
 
     statements = [
-      "Allow group ${local.group_names["nonprod_platform_admin_group_name"]} to manage buckets in compartment ${module.home_compartment.compartment_name}",
-      "Allow group ${local.group_names["nonprod_platform_admin_group_name"]} to manage objects in compartment ${module.home_compartment.compartment_name}"
+      "Allow group ${local.identity_domain.domain_display_non_prod_name}/${local.group_names["nonprod_platform_admin_group_name"]} to manage buckets in compartment ${module.home_compartment.compartment_name}",
+      "Allow group ${local.identity_domain.domain_display_non_prod_name}/${local.group_names["nonprod_platform_admin_group_name"]} to manage objects in compartment ${module.home_compartment.compartment_name}"
     ]
   }
 }
@@ -144,7 +149,7 @@ module "service_connector_archive_policy" {
 }
 
 module "archive_key" {
-  source = "../../modules/key"
+  source              = "../../modules/key"
   compartment_ocid    = module.prod_environment.compartment.security.id
   display_name        = local.archive_key.name
   shape_algorithm     = local.archive_key.shape_algorithm

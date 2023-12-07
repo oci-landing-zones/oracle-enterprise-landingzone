@@ -119,7 +119,7 @@ locals {
 }
 
 module "cloud_guard_root_policy" {
-  count            = var.enable_cloud_guard   ? 1 : 0
+  count            = var.enable_cloud_guard ? 1 : 0
   source           = "../../modules/policies"
   compartment_ocid = var.tenancy_ocid
   policy_name      = local.cloud_guard_policy.name
@@ -128,7 +128,7 @@ module "cloud_guard_root_policy" {
 }
 
 module "cloud_guard_target_policy" {
-  count            = var.enable_cloud_guard   ? 1 : 0
+  count            = var.enable_cloud_guard ? 1 : 0
   source           = "../../modules/policies"
   compartment_ocid = var.cloud_guard_target_tenancy ? var.tenancy_ocid : module.home_compartment.compartment_id
   policy_name      = local.cloud_guard_target_policy.name

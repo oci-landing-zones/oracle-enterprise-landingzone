@@ -492,6 +492,39 @@ On Premise Subnet route will not propagate over the RPC connection to the second
     5. Apply the new Route Tables to the Attachments
 
 
+## Network Firewall
+
+The Network Firewall service offers simple setup and deployment and gives you visibility into traffic entering your cloud environment (North-south network traffic) as well traffic between subnets (East-west network traffic). Network Firewall can be Prod or Non Prod Enviornment. 
+
+
+**Required Arguments/Parameters For Baseline Deployment on Prod**:
+
+| Descripation                       | TFVAR Variable                          |Default Value                      | 
+| :--------------------------------- | --------------------------------------- |---------------------------------- |
+| Network Firewall Deployment        | enable_network_firewall_prod            | false (bool)                      |       
+| Enable NFW Threat and Traffic Log  | enable_traffic_threat_log_prod          | false (bool)                      |
+| Enable NFW on Subnet               | nfw_subnet_type_prod                    | "public"(string)(public\|private) |
+| Network Firewall Name              | nfw_instance_name_prod                  | "" (string)                       |
+| Network Firewall Policy Name       | nfw_instance_policy_prod                | "" (string)                       |
+| Network Firewall Subnet CIDR       | nfw_subnet_cidr_block_prod              | "" (string)                       |
+
+
+
+**Required Arguments/Parameters For Baseline Deployment on Non-Prod**:
+
+
+| Descripation                       | TFVAR Variable                          |Default Value                      | 
+| :--------------------------------- | --------------------------------------- |---------------------------------- |
+| Network Firewall Deployment        | enable_network_firewall_nonprod         | false (bool)                      |       
+| Enable NFW Threat and Traffic Log  | enable_traffic_threat_log_nonprod       | false (bool)                      |
+| Enable NFW on Subnet               | nfw_subnet_type_nonprod                 | "public"(string)(public\|private) |
+| Network Firewall Name              | nfw_instance_name_nonprod               | "" (string)                       |
+| Network Firewall Policy Name       | nfw_instance_policy_nonprod             | "" (string)                       |
+| Network Firewall Subnet CIDR       | nfw_subnet_cidr_block_nonprod           | "" (string)                       |
+
+
+
+
 ## Security
 
 To provide for a secure environment, the OELZ deploys several Oracle security services, such as CloudGuard to monitor for insecure cloud resource deployments, Vulnerability Scanning Service to scan compute instances for open ports and known vulnerabilities, and OS Management Service to manage updates and patches. 

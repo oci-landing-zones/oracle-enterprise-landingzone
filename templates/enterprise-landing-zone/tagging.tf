@@ -9,7 +9,7 @@ locals {
         description      = "ArchitectureCenterTag"
         name             = "release"
         validator_type   = "ENUM"
-        validator_values = ["release", "1.0.0", "2.0.0"]
+        validator_values = ["release", "1.0.0", "2.0.0", "3.0.0"]
         is_cost_tracking = false
         is_retired       = false
       }
@@ -18,7 +18,7 @@ locals {
       architecture_tag = {
         compartment_id      = module.home_compartment.compartment_id
         tag_definition_name = "architecture_tag"
-        value               = "2.0.0"
+        value               = "3.0.0"
         is_required         = false
       }
     }

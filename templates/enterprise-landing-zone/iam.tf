@@ -5,6 +5,7 @@ locals {
   home_compartment = {
     description = "Enterprise Landing Zone Home Compartment"
   }
+
 }
 
 module "home_compartment" {

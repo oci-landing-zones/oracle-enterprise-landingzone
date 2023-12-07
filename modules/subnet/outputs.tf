@@ -4,4 +4,3 @@ output "subnets" {
   }
   description = "The subnet OCID"
 }
-
