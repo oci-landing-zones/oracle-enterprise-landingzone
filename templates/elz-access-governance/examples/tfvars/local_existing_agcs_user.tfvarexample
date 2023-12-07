@@ -1,0 +1,26 @@
+#ADMINISTRATOR
+private_key_path                    = "<path to private key pem file e.g /User/abc/admin_user.pem>"
+user_ocid                           = "<ocid1.user.oc1..xyz>"
+fingerprint                         = "<fingerprint>"
+tenancy_ocid                        = "<ocid1.tenancy.oc1..xyz>"
+region                              = "us-ashburn-1"
+
+
+# ACCESS GOVERNANCE SERVICE INSTANCE DETAILS, Optional Fields: admin_domain_name
+admin_domain_name                   = ""
+ag_license_type                     = "Access Governance for Oracle Cloud Infrastructure"
+service_instance_display_name       = "<instance_name>"
+service_instance_description        = "<description>"
+service_instance_compartment_ocid   = "<ocid1.compartment.oc1..xyz>"
+
+# ACCESS GOVERNANCE USER COMMON DETAILS
+use_existing_agcs_user              = true
+
+# ACCESS GOVERNANCE EXISTING USER
+agcs_user_private_key_path          = "<path to Access Governance User's private key pem file e.g /User/abc/agcs_user.pem>"
+agcs_user_ocid_oci_system           = "ocid1.user.oc1..xyz"
+agcs_user_fingerprint_oci_system    = "<fingerprint>"
+
+# OCI Connected System
+oci_system_name                     = "<OCI Connected System Name>"
+oci_system_description              = "<OCI Connected System Description>"
