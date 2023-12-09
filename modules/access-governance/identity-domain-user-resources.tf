@@ -51,7 +51,7 @@ resource "oci_identity_policy" "ag-access-policy" {
   name        = "${oci_identity_group.agcs_group[count.index].name}_policies"
   statements = [
     "ALLOW GROUP ${data.oci_identity_domains.ag_user_domain_data[count.index].domains[0].display_name}/${oci_identity_group.agcs_group[count.index].name} to inspect all-resources IN TENANCY",
-    "ALLOW GROUP ${data.oci_identity_domains.ag_user_domain_data[count.index].domains[0].display_name}/${oci_identity_group.agcs_group[count.index].name} to manage policies IN TENANCY where all {request.permission in ('POLICY_UPDATE', 'POLICY_DELETE'), target.policy.name !='Tenant Admin Policy'}",
+    "ALLOW GROUP ${data.oci_identity_domains.ag_user_domain_data[count.index].domains[0].display_name}/${oci_identity_group.agcs_group[count.index].name} to manage policies IN TENANCY where any {request.permission='POLICY_UPDATE' ,request.permission='POLICY_READ', request.permission='POLICY_DELETE',target.policy.name != 'Tenant Admin Policy'}",
     "Allow GROUP ${data.oci_identity_domains.ag_user_domain_data[count.index].domains[0].display_name}/${oci_identity_group.agcs_group[count.index].name} to read audit-events IN TENANCY",
     "Allow GROUP ${data.oci_identity_domains.ag_user_domain_data[count.index].domains[0].display_name}/${oci_identity_group.agcs_group[count.index].name} to manage domains IN TENANCY",
   ]
