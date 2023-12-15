@@ -3,11 +3,11 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
 ##########################################################################################################
 
-current_user_ocid    = "ocid1.user.oc1..aaaaaaaatqpzxafhpmkl33chm5imuttp7u3cbkcccyucand45pfmnevqbk2a"
-region               = "us-ashburn-1"
-tenancy_ocid         = "ocid1.tenancy.oc1..aaaaaaaaqi25whyscyfdgqvz6442exv34ievd4cf7dddobb3fbmbbgmmknca"
-api_fingerprint      = "a5:1b:7e:2c:39:b3:c8:b3:74:93:de:16:e0:5a:2c:cd"
-api_private_key_path = "/Users/kvivina/.oci/oci_api_key.pem"
+#current_user_ocid    = 
+#region               = 
+#tenancy_ocid         = 
+#api_fingerprint      = 
+#api_private_key_path = 
 
 # Backup Region
 backup_region                   = "us-phoenix-1"
