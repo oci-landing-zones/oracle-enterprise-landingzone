@@ -61,7 +61,7 @@ locals {
             "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage autonomous-container-databases in compartment ${module.workload_compartment.compartment_name}",
             "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect autonomous-vmclusters in compartment ${module.workload_compartment.compartment_name}",
             # "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect vmcluster-network in compartment ${module.workload_compartment.compartment_name}",
-            "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
+            #"Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
 
             "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to manage data-safe-assessment-family in compartment ${module.workload_compartment.compartment_name}",
             "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to read data-safe-report-definitions in compartment ${module.workload_compartment.compartment_name}",
