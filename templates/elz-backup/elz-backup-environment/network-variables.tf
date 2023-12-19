@@ -27,10 +27,10 @@ variable "tenancy_ocid" {
   type        = string
   description = "OCID of the home tenancy"
 }
-variable "customer_onprem_ip_cidr" {
-  type        = list(string)
-  description = "IP CIDR for from customer onprem side"
-}
+#variable "customer_onprem_ip_cidr" {
+#  type        = list(string)
+#  description = "IP CIDR for from customer onprem side"
+#}
 variable "enable_nat_gateway_spoke" {
   type        = bool
   description = "Option to enable NAT gateway in Spoke"
@@ -111,22 +111,22 @@ variable "private_spoke_subnet_web_cidr_block" {
   description = "Spoke Web subnet CIDR block"
 }
 
-variable "ipsec_connection_static_routes" {
-  type        = list(string)
-  description = "IPsec connection static routes for backup region "
-}
+#variable "ipsec_connection_static_routes" {
+#  type        = list(string)
+#  description = "IPsec connection static routes for backup region "
+#}
 
-variable "enable_vpn_on_environment" {
-  type        = bool
-  description = "Option to enable VPN on environment level"
-}
-variable "enable_vpn_or_fastconnect" {
-  type        = string
-  description = "Option to enable VPN or FastConnect"
-}
-variable "enable_fastconnect_on_environment" {
-  type = bool
-}
+#variable "enable_vpn_on_environment" {
+#  type        = bool
+#  description = "Option to enable VPN on environment level"
+#}
+#variable "enable_vpn_or_fastconnect" {
+#  type        = string
+#  description = "Option to enable VPN or FastConnect"
+#}
+#variable "enable_fastconnect_on_environment" {
+#  type = bool
+#}
 variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack for backup region"

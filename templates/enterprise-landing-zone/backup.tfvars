@@ -10,15 +10,15 @@
 #api_private_key_path = 
 
 # Backup Region
-backup_region                   = "us-phoenix-1"
+backup_region                   = "<region_name>"
 enable_landing_zone_replication = true
 backup_prod_workload_cidr = "10.6.0.0/16"
 backup_nonprod_workload_cidr = "10.7.0.0/16"
 
 # iam
-resource_label             = "YP"
-prod_domain_admin_email    = "yupei.yang@oracle.com"
-nonprod_domain_admin_email = "yupei.yang@oracle.com"
+resource_label             = "Resource_Label"
+prod_domain_admin_email    = "<user_name>@<domain_name>.com"
+nonprod_domain_admin_email = "<user_name>@<domain_name>.com"
 enable_compartment_delete  = false
 
 # security
@@ -33,11 +33,11 @@ nonprod_bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
 nonprod_enable_budget                = false
 prod_enable_budget                   = false
 nonprod_budget_alert_rule_message    = "test"
-nonprod_budget_alert_rule_recipients = "yupei.yang@oracle.com"
+nonprod_budget_alert_rule_recipients = "<user_name>@<domain_name>.com"
 nonprod_budget_alert_rule_threshold  = 1000000
 nonprod_budget_amount                = 10000000
 prod_budget_alert_rule_message       = "test"
-prod_budget_alert_rule_recipients    = "yupei.yang@oracle.com"
+prod_budget_alert_rule_recipients    = "<user_name>@<domain_name>.com"
 prod_budget_alert_rule_threshold     = 1000000
 prod_budget_amount                   = 10000000
 
@@ -118,3 +118,11 @@ nfw_instance_name_prod         = "nfw_p"
 nfw_instance_policy_prod       = "nfw_policy_p"
 
 is_create_alarms = false
+
+backup_enable_vpn_or_fastconnect           = "NONE"
+backup_prod_enable_vpn                     = true
+backup_prod_cpe_ip_address                 = "10.0.0.0"
+backup_prod_cpe_display_name               = "OCI-ELZ-CPE-P-HUB-001"
+backup_prod_cpe_vendor                     = 4
+backup_prod_ipsec_connection_static_routes = ["10.0.0.0/16", "11.0.0.0/16"]
+backup_nonprod_enable_vpn                  = false
