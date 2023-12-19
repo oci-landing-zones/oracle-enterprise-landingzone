@@ -3,15 +3,6 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
 ##########################################################################################################
 
-output "spoke_web_subnet_ocid" {
-  value = module.spoke.spoke_web_subnet_ocid
-  description = "Spoke Web Subnet OCID."
-}
-output "subnets" {
-  value = merge(module.hub_backup.subnets, module.spoke.subnets)
-  description = "Hub & Spoke Subnet."
-}
-output "drg_id" {
-  value = module.hub_backup.drg_id
-  description = "DRG OCID."
+output "rpc_id" {
+  value = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? oci_core_remote_peering_connection.remote_peering_connection_backup[0].id : null
 }
