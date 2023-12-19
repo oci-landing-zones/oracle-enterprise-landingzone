@@ -27,12 +27,8 @@ module "backup_prod_environment" {
   private_spoke_subnet_web_cidr_block     = var.backup_prod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block     = var.backup_prod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block      = var.backup_prod_spoke_subnet_db_cidr_block
-  #add_ssh_to_security_list                = var.backup_prod_add_ssh_to_security_list
-  ipsec_connection_static_routes          = var.backup_prod_ipsec_connection_static_routes
-  enable_vpn_or_fastconnect               = var.backup_enable_vpn_or_fastconnect
-  enable_vpn_on_environment               = var.backup_prod_enable_vpn
-  enable_fastconnect_on_environment       = var.backup_prod_enable_fastconnect
-  customer_onprem_ip_cidr                 = var.backup_customer_onprem_ip_cidr
+  #add_ssh_to_security_list               = var.backup_prod_add_ssh_to_security_list
+
   additional_workload_subnets_cidr_blocks = var.backup_prod_additional_workload_subnets_cidr_blocks
   is_baseline_deploy                      = var.is_baseline_deploy
 
@@ -74,6 +70,37 @@ module "backup_prod_environment" {
   enable_network_monitoring_alarms  = var.prod_enable_network_monitoring_alarms_backup
   enable_workload_monitoring_alarms = var.prod_enable_workload_monitoring_alarms_backup
 
+  enable_vpn_or_fastconnect         = var.backup_enable_vpn_or_fastconnect
+  cpe_ip_address                    = var.backup_prod_cpe_ip_address
+  ipsec_connection_static_routes    = var.backup_prod_ipsec_connection_static_routes
+  enable_vpn_on_environment         = var.backup_prod_enable_vpn
+  cpe_display_name                  = var.backup_prod_cpe_display_name
+  ipsec_display_name                = var.backup_prod_ipsec_display_name
+  cpe_vendor                        = var.backup_prod_cpe_vendor
+  routing                           = var.backup_prod_ipsec_routing_type
+  tunnel_a_display_name             = var.backup_prod_tunnel_a_display_name
+  customer_bgp_asn                  = var.backup_prod_customer_bgp_asn
+  bgp_cust_tunnela_ip               = var.backup_prod_bgp_cust_tunnela_ip
+  bgp_oci_tunnela_ip                = var.backup_prod_bgp_oci_tunnela_ip
+  shared_secret                     = var.backup_prod_shared_secret
+  tunnel_b_display_name             = var.backup_prod_tunnel_b_display_name
+  fastconnect_provider              = var.backup_fastconnect_provider
+  region_key                        = local.region_key[0]
+  virtual_circuit_bandwidth_shape   = format("%s %s", var.backup_virtual_circuit_bandwidth_shape, "Gbps")
+  virtual_circuit_display_name      = var.backup_virtual_circuit_display_name
+  provider_service_key_name         = var.backup_provider_service_key_name
+  fastconnect_routing_policy        = var.backup_fastconnect_routing_policy
+  virtual_circuit_type              = var.backup_virtual_circuit_type
+  customer_primary_bgp_peering_ip   = var.backup_customer_primary_bgp_peering_ip
+  oracle_primary_bgp_peering_ip     = var.backup_oracle_primary_bgp_peering_ip
+  customer_secondary_bgp_peering_ip = var.backup_customer_secondary_bgp_peering_ip
+  oracle_secondary_bgp_peering_ip   = var.backup_oracle_secondary_bgp_peering_ip
+  virtual_circuit_customer_asn      = var.backup_virtual_circuit_customer_asn
+  virtual_circuit_is_bfd_enabled    = var.backup_virtual_circuit_is_bfd_enabled
+  bgp_md5auth_key                   = var.backup_bgp_md5auth_key
+  enable_fastconnect_on_environment = var.backup_prod_enable_fastconnect
+  customer_onprem_ip_cidr           = var.backup_customer_onprem_ip_cidr
+
   depends_on = [module.prod_environment]
 
   providers = {
@@ -109,11 +136,6 @@ module "backup_nonprod_environment" {
   private_spoke_subnet_app_cidr_block     = var.backup_nonprod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block      = var.backup_nonprod_spoke_subnet_db_cidr_block
   #add_ssh_to_security_list                = var.backup_nonprod_add_ssh_to_security_list
-  ipsec_connection_static_routes          = var.backup_nonprod_ipsec_connection_static_routes
-  enable_vpn_or_fastconnect               = var.backup_enable_vpn_or_fastconnect
-  enable_vpn_on_environment               = var.backup_nonprod_enable_vpn
-  enable_fastconnect_on_environment       = var.backup_nonprod_enable_fastconnect
-  customer_onprem_ip_cidr                 = var.backup_customer_onprem_ip_cidr
   additional_workload_subnets_cidr_blocks = var.backup_nonprod_additional_workload_subnets_cidr_blocks
   is_baseline_deploy                      = var.is_baseline_deploy
 
@@ -153,6 +175,37 @@ module "backup_nonprod_environment" {
   enable_security_monitoring_alarms = var.nonprod_enable_security_monitoring_alarms_backup
   enable_network_monitoring_alarms  = var.nonprod_enable_network_monitoring_alarms_backup
   enable_workload_monitoring_alarms = var.nonprod_enable_workload_monitoring_alarms_backup
+
+  enable_vpn_or_fastconnect         = var.backup_enable_vpn_or_fastconnect
+  cpe_ip_address                    = var.backup_nonprod_cpe_ip_address
+  ipsec_connection_static_routes    = var.backup_nonprod_ipsec_connection_static_routes
+  enable_vpn_on_environment         = var.backup_nonprod_enable_vpn
+  cpe_display_name                  = var.backup_nonprod_cpe_display_name
+  ipsec_display_name                = var.backup_nonprod_ipsec_display_name
+  cpe_vendor                        = var.backup_nonprod_cpe_vendor
+  routing                           = var.backup_nonprod_ipsec_routing_type
+  tunnel_a_display_name             = var.backup_nonprod_tunnel_a_display_name
+  customer_bgp_asn                  = var.backup_nonprod_customer_bgp_asn
+  bgp_cust_tunnela_ip               = var.backup_nonprod_bgp_cust_tunnela_ip
+  bgp_oci_tunnela_ip                = var.backup_nonprod_bgp_oci_tunnela_ip
+  shared_secret                     = var.backup_nonprod_shared_secret
+  tunnel_b_display_name             = var.backup_nonprod_tunnel_b_display_name
+  fastconnect_provider              = var.backup_fastconnect_provider
+  region_key                        = local.region_key[0]
+  virtual_circuit_bandwidth_shape   = format("%s %s", var.backup_virtual_circuit_bandwidth_shape, "Gbps")
+  virtual_circuit_display_name      = var.backup_virtual_circuit_display_name
+  provider_service_key_name         = var.backup_provider_service_key_name
+  fastconnect_routing_policy        = var.backup_fastconnect_routing_policy
+  virtual_circuit_type              = var.backup_virtual_circuit_type
+  customer_primary_bgp_peering_ip   = var.backup_customer_primary_bgp_peering_ip
+  oracle_primary_bgp_peering_ip     = var.backup_oracle_primary_bgp_peering_ip
+  customer_secondary_bgp_peering_ip = var.backup_customer_secondary_bgp_peering_ip
+  oracle_secondary_bgp_peering_ip   = var.backup_oracle_secondary_bgp_peering_ip
+  virtual_circuit_customer_asn      = var.backup_virtual_circuit_customer_asn
+  virtual_circuit_is_bfd_enabled    = var.backup_virtual_circuit_is_bfd_enabled
+  bgp_md5auth_key                   = var.backup_bgp_md5auth_key
+  enable_fastconnect_on_environment = var.backup_nonprod_enable_fastconnect
+  customer_onprem_ip_cidr           = var.backup_customer_onprem_ip_cidr
 
   depends_on = [module.nonprod_environment]
 
