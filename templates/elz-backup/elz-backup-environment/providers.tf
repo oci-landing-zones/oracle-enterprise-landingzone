@@ -13,4 +13,3 @@ terraform {
       configuration_aliases = [oci, oci.backup_region]
     }
   }
-}

@@ -545,7 +545,37 @@ variable "nonprod_enable_workload_monitoring_alarms_backup" {
   default     = false
   description = "Enable Workload Monitoring Alarms in Non-Production Workload Compartment"
 }
+variable "backup_prod_hub_public_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Production Enivornment HUB Public Subnet CIDR Block."
+}
+variable "backup_nonprod_hub_public_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Production Enivornment HUB Public Subnet CIDR Block."
+}
+variable "backup_prod_hub_private_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Production Enivornment HUB Public Subnet CIDR Block."
+}
+variable "backup_nonprod_hub_private_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Production Enivornment HUB Public Subnet CIDR Block."
+}
+variable "backup_prod_spoke_vcn_cidr" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Production Enivornment Spoke VCN CIDR Block."
+}
 
+variable "backup_nonprod_spoke_vcn_cidr" {
+  default     = "0.0.0.0/0"
+  type        = string
+  description = "Non-Production Enivornment Spoke VCN CIDR Block."
+}
 #Network Extension Varibale
 
 variable "backup_enable_vpn_or_fastconnect" {

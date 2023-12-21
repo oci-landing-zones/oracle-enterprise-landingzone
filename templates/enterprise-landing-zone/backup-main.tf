@@ -112,7 +112,6 @@ module "backup_prod_environment" {
 
 module "backup_nonprod_environment" {
   source = "../elz-backup/elz-backup-environment"
-
   count = var.enable_landing_zone_replication ? 1 : 0
 
   environment_prefix      = local.nonprod_environment.environment_prefix

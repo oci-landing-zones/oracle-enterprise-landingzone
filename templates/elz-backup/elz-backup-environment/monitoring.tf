@@ -1,8 +1,7 @@
 module "monitoring" {
-  source = "../elz-backup-monitoring"
-
+  source             = "../elz-backup-monitoring"
   tenancy_ocid       = var.tenancy_ocid
-  region             = var.backup_region
+  backup_region                     = var.backup_region
   environment_prefix = var.environment_prefix
   resource_label     = var.resource_label
   home_compartment_id  = var.home_compartment_id

@@ -5,6 +5,7 @@
 
 module "network-extension-backup" {
   source                            = "../elz-backup-network-extension"
+
   tenancy_ocid                      = var.tenancy_ocid
   backup_region                     = var.backup_region
   environment_prefix                = var.environment_prefix
