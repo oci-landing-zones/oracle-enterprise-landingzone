@@ -42,6 +42,7 @@ variable "enable_service_gateway_spoke" {
 variable "is_baseline_deploy" {
   type        = bool
   description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
+  default     = false
 }
 
 #
@@ -69,14 +70,17 @@ variable "enable_service_gateway_hub" {
 
 variable "igw_hub_check" {
   type = list(string)
+  default = [""]
 }
 
 variable "nat_gw_hub_check" {
   type = list(string)
+  default = [""]
 }
 
 variable "service_gw_hub_check" {
   type = list(string)
+  default = [""]
 }
 
 variable "vcn_cidr_block" {
@@ -130,6 +134,7 @@ variable "private_spoke_subnet_web_cidr_block" {
 variable "additional_workload_subnets_cidr_blocks" {
   type        = list(string)
   description = "A list of subnets cidr blocks in additional workload stack for backup region"
+  default     = []
 }
 
 variable "enable_network_firewall" {

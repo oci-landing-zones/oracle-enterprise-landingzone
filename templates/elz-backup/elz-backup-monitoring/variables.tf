@@ -6,9 +6,9 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "region" {
+variable "backup_region" {
   type        = string
-  description = "The OCI region"
+  description = "Name of the backup region"
 }
 
 variable "environment_prefix" {
