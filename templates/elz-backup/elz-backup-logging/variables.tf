@@ -3,9 +3,9 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
 ##########################################################################################################
 
-variable "region" {
+variable "backup_region" {
   type        = string
-  description = "The OCI region"
+  description = "Name of the backup region"
 }
 
 variable "environment_prefix" {

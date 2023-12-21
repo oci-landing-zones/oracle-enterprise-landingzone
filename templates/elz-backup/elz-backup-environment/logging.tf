@@ -5,7 +5,7 @@
 
 module "logging" {
   source                              = "../elz-backup-logging"
-  region                              = var.backup_region
+  backup_region                       = var.backup_region
   environment_prefix                  = var.environment_prefix
   tenancy_ocid                        = var.tenancy_ocid
   security_compartment_id             = var.security_compartment_id
