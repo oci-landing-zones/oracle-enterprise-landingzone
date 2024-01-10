@@ -607,11 +607,11 @@ locals {
 
   }
   drg = {
-    drg_display_name             = "OCI-ELZ-DRG-${var.environment_prefix}-HUB"
-    drg_route_table_display_name = "Hub-Vcn-Drg-Route-Table-${var.environment_prefix}"
+    drg_display_name             = "OCI-ELZ-DRG-${var.environment_prefix}-HUB-BACKUP"
+    drg_route_table_display_name = "Hub-Vcn-Drg-Route-Table-${var.environment_prefix}-BACKUP"
     drg_vcn_attachments = {
       "Hub-VCN-Attachment" = {
-        display_name = "Hub-Vcn-Drg-${var.environment_prefix}-Attachment"
+        display_name = "Hub-Vcn-Drg-${var.environment_prefix}-Attachment-BACKUP"
         vcn_id               = oci_core_vcn.vcn_hub_network_backup.id
         route_table_id       = ""
         drg_route_table_name = null
