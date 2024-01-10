@@ -7,7 +7,7 @@ region                              = "us-ashburn-1"
 
 
 # ACCESS GOVERNANCE SERVICE INSTANCE DETAILS, Optional Fields: admin_domain_name
-admin_domain_name                   = ""
+admin_domain_name                   = "Default"
 ag_license_type                     = "Access Governance for Oracle Cloud Infrastructure"
 service_instance_display_name       = "<instance_name>"
 service_instance_description        = "<description>"
