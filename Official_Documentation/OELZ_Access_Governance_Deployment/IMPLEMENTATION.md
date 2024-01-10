@@ -50,16 +50,16 @@ To deploy the Oracle Enterprise Landing Zone Workload Expansion from the terrafo
 7. Click Apply.
 
 ### Via Terraform CLI
-1. Enter required variables in terraform.tfvars, for examples refer templates/elz-access-governance/examples.
+1. Enter required variables in terraform.tfvars in the directory *templates/elz-access-governance*, for examples refer templates/elz-access-governance/examples.
 2. terraform init.
 3. terraform plan.
 4. terraform apply.
 
-While using CLI mode, user have option to user existing user to add the OCI system, below snippet indicates how to use existing user
-`use_existing_agcs_user`              = `true`<br>
-`agcs_user_private_key_path`          = `"<path to Access Governance User's private key pem file>"`<br>
-`agcs_user_ocid_oci_system`           = `"ocid1.user.oc1..xyz"`<br>
-`agcs_user_fingerprint_oci_system`    = `"<fingerprint>"`<br>
+While using CLI mode, user have option to use an existing user to add the OCI system, below snippet indicates how to use existing user.<br>
+`use_existing_agcs_user`            = `true`<br>
+`agcs_user_private_key_path`        = `"<path to Access Governance User's private key pem file>"`<br>
+`agcs_user_ocid_oci_system`         = `"ocid1.user.oc1..xyz"`<br>
+`agcs_user_fingerprint_oci_system`  = `"<fingerprint>"`<br>
 
 To create new user and use it to add OCI connected system, set `use_existing_agcs_user` value to `false`.
 
