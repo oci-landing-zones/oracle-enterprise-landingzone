@@ -170,7 +170,7 @@ locals {
     route_rules_srvc_gw = {
       for index, route in local.service_gw_hub_check : "service-gw-rule-${index}" => {
         network_entity_id = module.service-gateway-hub_backup[0].service_gw_id
-        destination       = data.oci_core_services.service_gateway.services[0]["cidr_block"]
+        destination       = data.oci_core_services.service-gateway.services[0]["cidr_block"]
         destination_type  = "SERVICE_CIDR_BLOCK"
       }
     }
@@ -234,7 +234,7 @@ locals {
     route_rules_srvc_gw = {
       for index, route in local.service_gw_hub_check : "service-gw-rule-${index}" => {
         network_entity_id = module.service-gateway-hub_backup[0].service_gw_id
-        destination       = data.oci_core_services.service_gateway.services[0]["cidr_block"]
+        destination       = data.oci_core_services.service-gateway.services[0]["cidr_block"]
         destination_type  = "SERVICE_CIDR_BLOCK"
       }
     }
@@ -329,12 +329,13 @@ locals {
     }
   }
 }
-data "oci_core_services" "service_gateway" {
-  filter {
-    name   = "name"
-    values = [".*Object.*Storage"]
-    regex  = true
-  }
+data "oci_core_services" "service-gateway" {
+  #filter {
+  #  name   = "name"
+  #  values = [".*Object.*Storage"]
+  #  regex  = true
+  #}
+  provider = oci.backup_region
 }
 
 data "oci_core_subnets" "subnets" {
@@ -343,6 +344,7 @@ data "oci_core_subnets" "subnets" {
 output "nfw_ip_ocid_value" {
       value = local.nfw_ip_ocid_value
 }
+
 ######################################################################
 #                      Create  Hub VCN                               #
 ######################################################################

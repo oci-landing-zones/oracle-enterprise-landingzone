@@ -43,6 +43,7 @@ variable "logging_compartment_id" {
   description = " The ocid of the logging compartment."
 }
 
+
 variable "master_encryption_key" {
   type        = string
   description = "The ocid of master encryption key"
