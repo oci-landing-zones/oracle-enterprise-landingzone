@@ -12,15 +12,14 @@ terraform {
 }
 
 resource "oci_logging_log" "service_log" {
-  for_each = var.service_log_map
-  display_name = "${var.log_display_name}-${each.key}"
+  display_name = var.log_display_name
   log_group_id = var.log_group_id
   log_type = var.log_type
 
   configuration {
     source {
       category = var.log_source_category
-      resource = each.value
+      resource = var.log_source_resource
       service = var.log_source_service
       source_type = var.log_source_type
     }
