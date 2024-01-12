@@ -69,6 +69,7 @@ locals {
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-backup-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "serviceEvents_archive-${var.resource_label}"
     log_source_category = "read"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -76,7 +77,9 @@ locals {
 
   os_write_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-backup-${var.environment_prefix}"
+    log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "serviceEvents_archive-${var.resource_label}"
     log_source_category = "write"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -99,6 +102,7 @@ locals {
   events_map = {
     security : data.oci_events_rules.security_event_rules.rules[0].id # All event in the LZ home compartment
   }
+
   buckets_map = {
     DEFAULT : "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard_backup",
     AUDIT: "${var.resource_label}_${var.environment_prefix}_auditLogs_standard_backup",
@@ -235,11 +239,11 @@ resource "time_sleep" "first_log_delay" {
 module "os_read_log_backup" {
   source = "../../../modules/service-log"
 
-  service_log_map     = local.buckets_map
   log_display_name    = local.os_read_log.log_display_name
   log_type            = local.os_read_log.log_type
   log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.os_read_log.log_source_category
+  log_source_resource = local.os_read_log.log_source_resource
   log_source_service  = local.os_read_log.log_source_service
   log_source_type     = local.os_read_log.log_source_type
 
@@ -249,11 +253,11 @@ module "os_read_log_backup" {
 module "os_write_log_backup" {
   source = "../../../modules/service-log"
 
-  service_log_map     = local.buckets_map
   log_display_name    = local.os_write_log.log_display_name
   log_type            = local.os_write_log.log_type
   log_group_id        = module.default_log_group_backup.log_group_id
   log_source_category = local.os_write_log.log_source_category
+  log_source_resource = local.os_write_log.log_source_resource
   log_source_service  = local.os_write_log.log_source_service
   log_source_type     = local.os_write_log.log_source_type
 
@@ -262,7 +266,7 @@ module "os_write_log_backup" {
 
 
 module "vcn_flow_log_backup" {
-  source = "../../../modules/service-log"
+  source = "../../../modules/service-log-map"
 
   service_log_map     = local.subnets_map
   log_display_name    = local.vcn_flow_log.log_display_name
@@ -274,7 +278,7 @@ module "vcn_flow_log_backup" {
 }
 
 module "event_log_backup" {
-  source = "../../../modules/service-log"
+  source = "../../../modules/service-log-map"
 
   service_log_map     = local.events_map
   log_display_name    = local.event_log.log_display_name
@@ -283,4 +287,6 @@ module "event_log_backup" {
   log_source_category = local.event_log.log_source_category
   log_source_service  = local.event_log.log_source_service
   log_source_type     = local.event_log.log_source_type
+
+  depends_on = [module.service_event_stream_backup]
 }

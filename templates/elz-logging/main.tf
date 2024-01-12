@@ -82,6 +82,7 @@ locals {
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "serviceEvents_archive-${var.resource_label}"
     log_source_category = "read"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -90,6 +91,7 @@ locals {
   os_write_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "serviceEvents_archive-${var.resource_label}"
     log_source_category = "write"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -122,7 +124,6 @@ locals {
     log_source_service  = "cloudevents"
     log_source_type     = "OCISERVICE"
   }
-
 }
 
 module "default_log_group" {
@@ -172,6 +173,8 @@ module "default_log_bucket" {
   retention_policy_duration_amount    = local.default_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.default_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
+
+  depends_on = [module.key_policy]
 }
 
 module "service_event_log_bucket" {
@@ -185,6 +188,8 @@ module "service_event_log_bucket" {
   retention_policy_duration_amount    = local.service_event_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.service_event_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
+  
+  depends_on = [module.key_policy]
 }
 
 module "audit_log_service_connector" {
@@ -241,12 +246,11 @@ resource "time_sleep" "first_log_delay" {
 module "os_read_log" {
   source = "../../modules/service-log"
 
-  #service_log_map     = local.buckets_map
-  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_read_log.log_display_name
   log_type            = local.os_read_log.log_type
   log_group_id        = module.default_log_group.log_group_id
   log_source_category = local.os_read_log.log_source_category
+  log_source_resource = local.os_read_log.log_source_resource
   log_source_service  = local.os_read_log.log_source_service
   log_source_type     = local.os_read_log.log_source_type
 
@@ -256,12 +260,11 @@ module "os_read_log" {
 module "os_write_log" {
   source = "../../modules/service-log"
 
-  #service_log_map     = local.buckets_map
-  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_write_log.log_display_name
   log_type            = local.os_write_log.log_type
   log_group_id        = module.default_log_group.log_group_id
   log_source_category = local.os_write_log.log_source_category
+  log_source_resource = local.os_write_log.log_source_resource
   log_source_service  = local.os_write_log.log_source_service
   log_source_type     = local.os_write_log.log_source_type
 
@@ -270,7 +273,7 @@ module "os_write_log" {
 
 
 module "vcn_flow_log" {
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-map"
 
   service_log_map     = local.subnets_map
   log_display_name    = local.vcn_flow_log.log_display_name
@@ -282,7 +285,7 @@ module "vcn_flow_log" {
 }
 
 module "event_log" {
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-map"
 
   service_log_map     = local.events_map
   log_display_name    = local.event_log.log_display_name
@@ -291,5 +294,7 @@ module "event_log" {
   log_source_category = local.event_log.log_source_category
   log_source_service  = local.event_log.log_source_service
   log_source_type     = local.event_log.log_source_type
+
+  depends_on = [module.service_event_stream]
 }
 
