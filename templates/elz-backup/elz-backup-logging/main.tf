@@ -97,12 +97,12 @@ locals {
   }
 
   events_map = {
-    security : data.oci_events_rules.security_event_rules.rules[0].id # All event in the LZ home compartment
+    security : data.oci_events_rules.security_event_rules.rules[0].id #All event in the LZ home compartment
   }
   buckets_map = {
-    DEFAULT : "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard_backup",
-    AUDIT: "${var.resource_label}_${var.environment_prefix}_auditLogs_standard_backup",
-    SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard_backup"
+    DEFAULT : "${var.resource_label}_${var.environment_prefix}_backup_defaultLogs_standard",
+    AUDIT: "${var.resource_label}_${var.environment_prefix}_backup_auditLogs_standard",
+    SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_backup_serviceEvents_standard"
   }
   event_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-EVENT-LOG-backup-${var.environment_prefix}"
@@ -111,6 +111,15 @@ locals {
     log_source_service  = "cloudevents"
     log_source_type     = "OCISERVICE"
   }
+
+  #bucket_replication_policy = {
+  #  name        = "${var.resource_label}-OCI-ELZ-LZ-Bucket-Replication-Policy-${var.resource_label}"
+  #  description = "OELZ Landing Zone Bucket Replication Service Policy"
+
+  #  statements = [
+  #    "Allow service objectstorage-${var.region}, objectstorage-${var.backup_region} to manage object-family in compartment ${var.logging_compartment_name}-${local.region_key[0]}-${var.resource_label}"
+  #  ]
+  #}
 }
 
 module "default_log_group_backup" {
@@ -118,6 +127,9 @@ module "default_log_group_backup" {
   compartment_id = var.security_compartment_id
   display_name   = local.default_log_group.name
   description    = local.default_log_group.description
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 module "service_event_stream_backup" {
@@ -132,6 +144,9 @@ module "service_event_stream_backup" {
   rule_condition         = local.service_event_stream.rule_condition
   rule_display_name      = local.service_event_stream.rule_display_name
   rule_is_enabled        = local.service_event_stream.rule_is_enabled
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 module "audit_log_bucket_backup" {
@@ -145,10 +160,12 @@ module "audit_log_bucket_backup" {
   retention_policy_duration_amount    = local.audit_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.audit_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
+
   providers = {
     oci = oci.backup_region
   }
 }
+
 
 module "default_log_bucket_backup" {
 
@@ -162,6 +179,7 @@ module "default_log_bucket_backup" {
   retention_policy_duration_amount    = local.default_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.default_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
+  #depends_on = [module.security]
   providers = {
     oci = oci.backup_region
   }
@@ -178,6 +196,7 @@ module "service_event_log_bucket_backup" {
   retention_policy_duration_amount    = local.service_event_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.service_event_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
+  #depends_on = [module.security.module.key_policy]
   providers = {
     oci = oci.backup_region
   }
@@ -195,6 +214,9 @@ module "audit_log_service_connector_backup" {
   target_bucket         = local.audit_log_service_connector.target_bucket
 
   depends_on = [module.audit_log_bucket_backup]
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 module "default_log_service_connector_backup" {
@@ -211,6 +233,9 @@ module "default_log_service_connector_backup" {
   # Service connector needs at least one log on the log group, or it errors.
   # Also it takes time for it to recognize this.
   #depends_on = [module.default_log_bucket, module.default_log_group, time_sleep.first_log_delay]
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 
@@ -226,7 +251,10 @@ module "service_events_service_connector_backup" {
   cursor_kind           = local.service_events_service_connector.cursor_kind
   target_bucket         = local.service_events_service_connector.target_bucket
 
-  #,depends_on = [module.service_event_log_bucket]
+  depends_on = [module.service_event_log_bucket_backup]
+  providers = {
+    oci = oci.backup_region
+  }
 }
 resource "time_sleep" "first_log_delay" {
   create_duration = "600s"
@@ -244,6 +272,9 @@ module "os_read_log_backup" {
   log_source_type     = local.os_read_log.log_source_type
 
   depends_on = [ module.audit_log_bucket_backup, module.default_log_bucket_backup, module.service_event_log_bucket_backup, module.default_log_group_backup ]
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 module "os_write_log_backup" {
@@ -258,6 +289,10 @@ module "os_write_log_backup" {
   log_source_type     = local.os_write_log.log_source_type
 
   depends_on = [ module.audit_log_bucket_backup, module.default_log_bucket_backup, module.service_event_log_bucket_backup, module.default_log_group_backup ]
+  providers = {
+    oci = oci.backup_region
+  }
+
 }
 
 
@@ -271,6 +306,9 @@ module "vcn_flow_log_backup" {
   log_source_category = local.vcn_flow_log.log_source_category
   log_source_service  = local.vcn_flow_log.log_source_service
   log_source_type     = local.vcn_flow_log.log_source_type
+  providers = {
+    oci = oci.backup_region
+  }
 }
 
 module "event_log_backup" {
@@ -283,4 +321,8 @@ module "event_log_backup" {
   log_source_category = local.event_log.log_source_category
   log_source_service  = local.event_log.log_source_service
   log_source_type     = local.event_log.log_source_type
+  
+  providers = {
+    oci = oci.backup_region
+  }
 }

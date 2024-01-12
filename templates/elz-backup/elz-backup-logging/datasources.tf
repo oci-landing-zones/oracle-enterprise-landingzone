@@ -22,4 +22,5 @@ data "oci_objectstorage_namespace" "ns" {
 
 data "oci_events_rules" "security_event_rules" {
   compartment_id = var.security_compartment_id
+  provider = oci.backup_region
 }
