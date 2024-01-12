@@ -128,6 +128,7 @@ data "oci_core_services" "service_gateway" {
     values = [".*Object.*Storage"]
     regex  = true
   }
+  provider = oci.backup_region
 }
 
 module "backup_workload_spoke_vcn" {
@@ -231,4 +232,7 @@ module "workload_spoke_vcn_drg_attachment_backup" {
   vcn_id                        = module.backup_workload_spoke_vcn.vcn_id
   drg_attachment_type           = "VCN"
   drg_attachment_vcn_route_type = "VCN_CIDRS"
+  providers = {
+    oci = oci.backup_region
+  }
 }

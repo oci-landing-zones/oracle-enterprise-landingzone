@@ -15,3 +15,7 @@ output "drg_id" {
   value = module.hub_backup.drg_id
   description = "DRG OCID."
 }
+
+output "service_gateway_value" {
+      value = module.hub_backup.service_gateway_value
+}

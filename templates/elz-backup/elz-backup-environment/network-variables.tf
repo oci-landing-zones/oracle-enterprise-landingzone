@@ -22,7 +22,10 @@ variable "backup_region" {
   type        = string
   description = "Name of the backup region"
 }
-
+variable "region" {
+  type        = string
+  description = "Name of the backup region"
+}
 variable "tenancy_ocid" {
   type        = string
   description = "OCID of the home tenancy"

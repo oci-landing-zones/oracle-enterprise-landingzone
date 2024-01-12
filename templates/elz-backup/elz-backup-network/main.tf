@@ -12,10 +12,10 @@ locals {
     dns_label = "hubbcklabel"
   }
   vcn-hub-info = {
-    hub_public_subnet_display_name   = "OCI-ELZ-SUB-${var.environment_prefix}-HUB-BACKUP-001"
+    hub_public_subnet_display_name   = "OCI-ELZ-SUB-${var.environment_prefix}-HUB-${local.region_key[0]}001"
     hub_public_subnet_description    = "Hub Public Subnet Backup"  
     hub_public_subnet_dns_label      = "publabelbck"
-    hub_private_subnet_display_name  = "OCI-ELZ-SUB-${var.environment_prefix}-HUB-BACKUP-002"
+    hub_private_subnet_display_name  = "OCI-ELZ-SUB-${var.environment_prefix}-HUB-${local.region_key[0]}002"
     hub_private_subnet_description   = "Hub Private Subnet Backup"
     hub_private_subnet_dns_label     = "prilabelbck"
     hub_security_list_display_name   = "OCI-ELZ-${var.environment_prefix}-Hub-BACKUP-Security-List"
@@ -96,9 +96,9 @@ locals {
     subnet_app_dns_label             = "appdnslabel"
     subnet_db_dns_label              = "dbdnslabel"
     subnet_web_dns_label             = "webdnslabel"
-    subnet_web_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-BACKUP-001"
-    subnet_app_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-BACKUP-002"
-    subnet_db_display_name           = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-BACKUP-003"
+    subnet_web_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}001"
+    subnet_app_display_name          = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}002"
+    subnet_db_display_name           = "OCI-ELZ-SUB-${var.environment_prefix}-SPK-${local.region_key[0]}003"
   }
 }
 module "spoke" {
