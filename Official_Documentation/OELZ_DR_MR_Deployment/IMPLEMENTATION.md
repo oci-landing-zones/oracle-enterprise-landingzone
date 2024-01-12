@@ -17,7 +17,7 @@ Oracle Cloud Infrastructure (OCI) provides highly available, secure, and scalabl
 This repo is under active development. Building open-source software is a community effort. We're excited to engage with the community, and we welcome contributors.
 
 
-# <a name="Diaster Recovery"></a>2. Diaster Recovery
+# <a name="Disaster Recovery"></a>2. Disaster Recovery
 
 ## 2.1 Introduction
 
