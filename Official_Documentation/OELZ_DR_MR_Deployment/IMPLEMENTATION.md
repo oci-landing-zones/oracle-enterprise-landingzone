@@ -42,7 +42,10 @@ Multi Region Replication replicate the OELZ resources on the paired backup regio
 
 # <a name="Deployment Samples"></a>Deployment Samples
 
-## 4.1 : Deploy OELZ Feature on Primary and Paired Backup Region.
+## 4.1 : DR and MR Related New Variables
+
+
+## 4.2 : Deploy OELZ Feature on Primary and Paired Backup Region.
 
 | Variable Name      | Description| Type | Default
 | ------------------- | ----- | ----- | ----- |
