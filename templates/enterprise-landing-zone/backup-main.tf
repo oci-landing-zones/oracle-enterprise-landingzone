@@ -13,6 +13,7 @@ module "backup_prod_environment" {
   workload_compartment_id = module.prod_environment.workload_compartment_id
   backup_region           = var.backup_region
   tenancy_ocid            = var.tenancy_ocid
+  region                  = var.region
 
   enable_internet_gateway_hub             = var.backup_prod_enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.backup_prod_enable_nat_gateway_hub
@@ -107,7 +108,6 @@ module "backup_prod_environment" {
     oci               = oci
     oci.backup_region = oci.backup_region
   }
-
 }
 
 module "backup_nonprod_environment" {
@@ -119,7 +119,7 @@ module "backup_nonprod_environment" {
   workload_compartment_id = module.nonprod_environment.workload_compartment_id
   backup_region           = var.backup_region
   tenancy_ocid            = var.tenancy_ocid
-
+  region                  = var.region
 
   enable_internet_gateway_hub             = var.backup_nonprod_enable_internet_gateway_hub
   enable_nat_gateway_hub                  = var.backup_nonprod_enable_nat_gateway_hub
