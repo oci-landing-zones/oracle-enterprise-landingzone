@@ -143,7 +143,7 @@ variable "service_gw_spoke_check" {
 variable "workload_prefix" {
   type        = string
   description = "Atleast 4 Alphanumeric Charater to Describe the Workload : WRK1"
-  default     = "WRK1"
+  default     = "WRKV"
 }
 
 variable "vcn_display_name" {

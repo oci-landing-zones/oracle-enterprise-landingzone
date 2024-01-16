@@ -19,15 +19,15 @@ locals {
   }
 
   group_names = {
-    network_admin_group_name : var.network_admin_group_name != "" ? var.network_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN",
-    iam_admin_group_name : var.iam_admin_group_name != "" ? var.iam_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-IDP-ADMIN",
-    platform_admin_group_name : var.platform_admin_group_name != "" ? var.platform_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-PLT-ADMIN",
-    ops_admin_group_name : var.ops_admin_group_name != "" ? var.ops_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-OPS-ADMIN",
-    security_admin_group_name : var.security_admin_group_name != "" ? var.security_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN",
+    network_admin_group_name : var.network_admin_group_name != "" ? var.network_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.resource_label}-NET-ADMIN",
+    iam_admin_group_name : var.iam_admin_group_name != "" ? var.iam_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.resource_label}-IDP-ADMIN",
+    platform_admin_group_name : var.platform_admin_group_name != "" ? var.platform_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.resource_label}-PLT-ADMIN",
+    ops_admin_group_name : var.ops_admin_group_name != "" ? var.ops_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.resource_label}-OPS-ADMIN",
+    security_admin_group_name : var.security_admin_group_name != "" ? var.security_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.resource_label}-SEC-ADMIN",
   }
 
   network_admin_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-NET-ADMIN-POLICY"
     description = "OCI Landing Zone Network Administrators Group - manages all network resources"
 
     statements = concat([
@@ -56,7 +56,7 @@ locals {
   }
 
   iam_admin_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-IDP-ADMIN-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-IDP-ADMIN-POLICY"
     description = "OCI Landing Zone IAM Group"
 
     statements = [
@@ -90,7 +90,7 @@ locals {
   }
 
   platform_admin_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-PLT-ADMIN-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-PLT-ADMIN-POLICY"
     description = "OCI Landing Zone Platform Admin Group"
 
     statements = [
@@ -102,7 +102,7 @@ locals {
   }
 
   ops_admin_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-OPS-ADMIN-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-OPS-ADMIN-POLICY"
     description = "OCI Landing Zone Ops Admin Group"
 
     statements = [
@@ -115,7 +115,7 @@ locals {
   }
 
   security_admin_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-SEC-ADMIN-POLICY"
     description = "OCI Landing Zone Security Admin Group"
 
     statements = concat([
@@ -157,7 +157,7 @@ locals {
   }
 
   announcement_subscription_policy = {
-    name        = "OCI-ELZ-UGP-${var.environment_prefix}-ANNOUNCEMENT-POLICY"
+    name        = "${var.resource_label}-OCI-ELZ-UGP-${var.environment_prefix}-ANNOUNCEMENT-POLICY"
     description = "OCI Landing Zone Announcement Permission Policy"
 
     statements = [

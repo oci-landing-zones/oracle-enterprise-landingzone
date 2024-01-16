@@ -48,7 +48,7 @@ locals {
   }
 
   audit_log_service_connector = {
-    display_name  = "${var.resource_label}_schAuditLog_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     log_group_id  = "_Audit_Include_Subcompartment"
@@ -56,14 +56,14 @@ locals {
   }
 
   default_log_service_connector = {
-    display_name  = "${var.resource_label}_schDefaultLog_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_auditLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     target_bucket = local.default_log_bucket.name
   }
 
   service_events_service_connector = {
-    display_name  = "${var.resource_label}_schServiceEvents_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     source_kind   = "streaming"
     target_kind   = "objectStorage"
     target_bucket = local.service_event_log_bucket.name
@@ -82,7 +82,7 @@ locals {
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
-    log_source_resource = "serviceEvents_archive-${var.resource_label}"
+    log_source_resource = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     log_source_category = "read"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -91,7 +91,7 @@ locals {
   os_write_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
-    log_source_resource = "serviceEvents_archive-${var.resource_label}"
+    log_source_resource = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     log_source_category = "write"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
