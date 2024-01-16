@@ -173,8 +173,6 @@ module "default_log_bucket" {
   retention_policy_duration_amount    = local.default_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.default_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
-
-  depends_on = [module.key_policy]
 }
 
 module "service_event_log_bucket" {
@@ -188,8 +186,6 @@ module "service_event_log_bucket" {
   retention_policy_duration_amount    = local.service_event_log_bucket.retention_policy_duration_amount
   retention_policy_duration_time_unit = local.service_event_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
-  
-  depends_on = [module.key_policy]
 }
 
 module "audit_log_service_connector" {
