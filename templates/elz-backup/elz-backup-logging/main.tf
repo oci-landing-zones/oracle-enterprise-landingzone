@@ -104,7 +104,7 @@ locals {
 
   buckets_map = {
     DEFAULT : "${var.resource_label}_${var.environment_prefix}_backup_defaultLogs_standard",
-    AUDIT: "${var.resource_label}_${var.environment_prefix}_backup_auditLogs_standard"",
+    AUDIT: "${var.resource_label}_${var.environment_prefix}_backup_auditLogs_standard",
     SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_backup_serviceEvents_standard"
   }
   event_log = {
