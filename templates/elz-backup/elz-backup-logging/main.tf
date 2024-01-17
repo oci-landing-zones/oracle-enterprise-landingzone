@@ -69,7 +69,7 @@ locals {
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-backup-${var.environment_prefix}"
     log_type            = "SERVICE"
-    log_source_resource = "serviceEvents_archive-${var.resource_label}"
+    log_source_resource = "${var.resource_label}_schServiceEvents_backup_${var.environment_prefix}"
     log_source_category = "read"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -79,7 +79,7 @@ locals {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-backup-${var.environment_prefix}"
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
-    log_source_resource = "serviceEvents_archive-${var.resource_label}"
+    log_source_resource = "${var.resource_label}_schServiceEvents_backup_${var.environment_prefix}"
     log_source_category = "write"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -104,9 +104,9 @@ locals {
   }
 
   buckets_map = {
-    DEFAULT : "${var.resource_label}_${var.environment_prefix}_backup_defaultLogs_standard",
-    AUDIT: "${var.resource_label}_${var.environment_prefix}_backup_auditLogs_standard",
-    SERVICE_EVENT: "${var.resource_label}_${var.environment_prefix}_backup_serviceEvents_standard"
+    DEFAULT : "${var.resource_label}_schDefaultLog_backup_${var.environment_prefix}",
+    AUDIT: "${var.resource_label}_schAuditLog_backup_${var.environment_prefix}",
+    SERVICE_EVENT: "${var.resource_label}_schServiceEvents_backup_${var.environment_prefix}"
   }
   event_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-EVENT-LOG-backup-${var.environment_prefix}"

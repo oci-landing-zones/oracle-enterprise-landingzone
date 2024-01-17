@@ -5,7 +5,7 @@
 
 locals {
   osms_dynamic_group_workload = {
-    dynamic_group_name        = "OCI-${var.environment_prefix}-ELZ-${var.workload_name}-DG1"
+    dynamic_group_name        = "${var.resource_label}-OCI-${var.environment_prefix}-ELZ-${var.workload_name}-DG1"
     dynamic_group_description = "OCI ELZ Workload Dynamic Group"
 
     general_matching_rule = <<EOT
@@ -16,7 +16,7 @@ locals {
   }
 
   osms_dg_policy_workload = {
-    name        = "OCI-${var.environment_prefix}-ELZ-${var.workload_name}-OSMS-DG-Policy"
+    name        = "${var.resource_label}-OCI-${var.environment_prefix}-ELZ-${var.workload_name}-OSMS-DG-Policy"
     description = "Workload OCI Landing Zone OS Management Service Dynamic Group Policy"
 
     statements = [

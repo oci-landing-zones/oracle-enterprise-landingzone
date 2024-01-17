@@ -19,6 +19,7 @@ module "workload" {
   tenancy_ocid                 = var.tenancy_ocid
   region                       = var.region
   environment_prefix           = var.environment_prefix
+  resource_label               = var.resource_label
 
   workload_name                = local.workload.workload_name
   enable_compartment_delete    = local.workload.enable_compartment_delete
@@ -33,7 +34,7 @@ module "workload" {
   application_admin_group_name = var.application_admin_group_name
   database_admin_group_name    = var.database_admin_group_name
 
-  is_create_alarms         = var.is_create_alarms
+  is_create_alarms                  = var.is_create_alarms
   enable_security_monitoring_alarms = var.enable_security_monitoring_alarms
   enable_network_monitoring_alarms  = var.enable_network_monitoring_alarms
   enable_workload_monitoring_alarms = var.enable_workload_monitoring_alarms
