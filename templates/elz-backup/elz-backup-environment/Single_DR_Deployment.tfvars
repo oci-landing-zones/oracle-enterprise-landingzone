@@ -3,11 +3,16 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
 ##########################################################################################################
 
-#current_user_ocid    = 
-#region               = 
-#tenancy_ocid         = 
-#api_fingerprint      = 
-#api_private_key_path = 
+#Provide Current User OCID
+current_user_ocid    = 
+#Region Name
+region               = 
+#Tenanacy OCID
+tenancy_ocid         = 
+# API Key Fingerprint
+api_fingerprint      = 
+# API Private Key Path
+api_private_key_path = 
 
 
 # Backup Region
@@ -54,8 +59,8 @@ spoke_vcn_cidr                          = ""
 enable_nat_gateway_spoke                = true
 enable_service_gateway_spoke            = true
 
-enable_network_firewall         = true
-enable_traffic_threat_log       = true
+enable_network_firewall         = false
+enable_traffic_threat_log       = false
 nfw_subnet_type                 = "public"
 nfw_instance_name               = "nfw_name"
 nfw_instance_policy             = "nfw_policy_name"
