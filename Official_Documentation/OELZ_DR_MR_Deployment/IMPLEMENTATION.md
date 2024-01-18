@@ -55,9 +55,9 @@ Multi-Region Replication replicates the OELZ resources on the paired backup regi
 | <a name="enable_landing_zone_replication"></a> [enable\_landing\_zone\_replication](#enable\_network\_firewall\_prod)   | Enable Multi Region  Replication in Both Environment | `boolean` | `"false"`    | 
 | <a name="backup_region"></a> [backup\_region](#enable\_network\_firewall\_prod)   | Enter Paried Backup Region Name | `string` | `"<>"`    | 
 
-## 4.2 : DR and MR Related New Variables on ELZ-BACKUP TFVAR File.
+## 4.2 : DR and MR Related New Variables on ELZ-BACKUP Directory
 
-Go to Folder templates/elz-backup/elz-backup-environment/
+Go to Folder templates/elz-backup/elz-backup-environment/Single_Dr_Deployment.tfvars
 
 | Variable Name      | Description| Type | Default
 | ------------------- | ----- | ----- | ----- |
@@ -69,10 +69,13 @@ Go to Folder templates/elz-backup/elz-backup-environment/
 | <a name="workload_compartment_id"></a> [workload\_compartment\_id](#workload\_compartment\_id)   | Provide Workload Compartment OCID Value | `string` | `"<ocid.*>"`    | 
 | <a name="logging_compartment_id"></a> [logging\_compartment\_id](#logging_compartment_id)   | Provide Logging Compartment OCID Value | `string` | `"<ocid.*>"`    |
 
+Note : In OELZ, we have two environments: Prod and Non-Prod. To deploy the Prod Environment, provide the associated OCID value. In the case of Non-Prod, using the Non-Prod associated OCID value. If customers have multiple workloads, you must deploy this stack multiple times.
+
+
 ## 4.3 : DR and MR Feature Deployment.
 
 * Step 1) Go to Folder templates/elz-backup/elz-backup-environment.
-* Step 2) Provide variable values in the existing *Single_DR_Deployment.tfvars* file defined in section 4.1.
+* Step 2) Provide variable values in the existing *Single_DR_Deployment.tfvars* file defined in section 4.2.
 * Step 3) Provide the network, monitoring, identity, and security Module-related variables in the tfvars file. 
 * Step 4) Execute the Following Terraform from the CLI.
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform init`<br />
