@@ -4,12 +4,12 @@ This configuration guide will detail the required and available configurations n
 
 ## Prerequisites
 
-The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the OELZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](Implementation.md)
+The Oracle Enterprise Landing Zone is designed to be deployed to a tenancy owned by the individual Tenancy Administrator. The user deploying the OELZ must be a member of the Administrators group for the tenancy.  The tenancy must have the required Resource Limits and have the Logging Analytics feature turned on.  Detailed information on these prerequisites, and how to check that your tenancy meets them, and enable needed features can be found in the [Implementation Document](../../Official_Documentation/OELZ_Baseline_Deployment/IMPLEMENTATION.md)
 
 
 ## Minimum Required Configuration
 
-Deployment of the OELZ is controlled by several Terraform [input variables](README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ:
+Deployment of the OELZ is controlled by several Terraform [input variables](../../templates/enterprise-landing-zone/README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ:
 
 ### Basic Terraform Connection Information
 The required provider variables for the OELZ:
@@ -544,7 +544,7 @@ The OELZ deploys configurations for multiple security services. VSS (Vulnerabili
 
 CloudGuard can monitor for a multitude of security conditions. The OELZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
 
-By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](cloud_guard_target_tenancy) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
+By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](../../templates/enterprise-landing-zone/README.md#inputs) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
 
 Cloud Guard Target will be deployed in base compartment of both L2-Prod and L2-Non-Prod environments along with related IAM policies. All Oracle managed responder recipes will reside in L4 Security compartment of each environment.
 
@@ -701,3 +701,11 @@ In Prod:
 | ----------------------------------------------------------------------------------------------------------------- |----------------------------------------------------------------------------------|----------------| --------------- | :------: |
 | <a name="prod_additional_workload_subnets_cidr_blocks"></a> [prod_additional_workload_subnets_cidr_blocks](#workload\_admin\_group\_name)       | List of 3 subnets CIDR Block used in workload expansion.(Do not include the cidr blocks created in baseline)                         | `list(string)` |  |    yes    |
 | <a name="prod_workload_compartment_names"></a> [prod_workload_compartment_names](#application\_admin\_group\_name)             | Workload compartment name.  (Also include the workload name created in baseline) | `list(string)` |  |    yes    |
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

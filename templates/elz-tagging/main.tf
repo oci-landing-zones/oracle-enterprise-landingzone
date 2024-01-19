@@ -1,7 +1,12 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 locals {
   elz_tagging = {
     tag_namespace_description = "Tenancy Level Tag"
-    tag_namespace_name        = "ELZ-${var.environment_prefix}-Namespace"
+    tag_namespace_name        = "${var.resource_label}-ELZ-${var.environment_prefix}-Namespace"
     is_namespace_retired      = false
     tag_map = {
       cost_center = {

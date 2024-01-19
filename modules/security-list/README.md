@@ -40,4 +40,12 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_security_list_id"></a> [security\_list\_id](#output\_security\_list\_id) | The OCID of the Security List |
-<!-- END_TF_DOCS -->    
+<!-- END_TF_DOCS -->  
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

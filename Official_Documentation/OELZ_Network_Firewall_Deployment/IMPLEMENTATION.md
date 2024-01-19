@@ -36,7 +36,7 @@ When you provision infrastructure resources with Terraform, the expectation is o
 
 # <a name="architecture"></a>3. Architecture
 
-This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments. One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](https://github.com/oracle-quickstart/oci-landing-zones/blob/main/templates/enterprise-landing-zone/Architecture_Guide.md).
+This reference architecture helps enterprises achieve greater agility, scalability, and security in their cloud environments. One of the key features of Oracle Enterprise Landing Zone v2 is its modular architecture and the ability to implement the OCI Network Firewall natively, which allows enterprises to scale their cloud infrastructure quickly and easily. It also includes best practices for security and compliance, enabling enterprises to maintain a high level of security and meet regulatory requirements. OELZ feature information can be found [here](./Official_Documentation/OELZ_Baseline_Deployment/Architecture_Guide.md).
 
 ![NFW Architecture](<../../images/OCI-NFW.jpg> "NFW Architecture")
 
@@ -125,7 +125,7 @@ In the **Create Stack** page:<br />
 ![Create Stack](<../../images/oelz_create_stack.png> "Create Stack")
 
 Alternatively, you can click the button below to supply the zip file directly from GitHub without downloading it:
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v2.2.0.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/releases/tag/v2.2.0)
 
 *If you are logged in to your OCI tenancy, the button will take you directly to OCI Resource Manager, where you can proceed to deploy. If you are not logged, the button takes you to tje Oracle Cloud initial webpage, where you must enter your tenancy name and log in to OCI.*
 
@@ -259,3 +259,11 @@ This section provides two deployment scenarios of the OELZ Network Firewall Feat
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform plan -var-file="example.tfvars" -out oelz_nfwonbaseline.out`<br />
   &nbsp;&nbsp;&nbsp;&nbsp;`terraform apply oelz_nfwonbaseline.out`<br />
 * Step 4) Follow the Same Step 6 defined on Greenfield Deployment if you want to deploy more Workload Spoke.<br />
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

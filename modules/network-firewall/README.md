@@ -40,3 +40,11 @@ No modules.
 | <a name="output_firewall_ip"></a> [firewall\_ip](#output\_firewall\_ip) | The IP address network firewall |
 | <a name="output_firewall_ip_id"></a> [firewall\_ip\_id](#output\_firewall\_ip\_id) | The OCID of network firewall ip |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

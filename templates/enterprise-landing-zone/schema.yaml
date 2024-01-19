@@ -41,8 +41,6 @@ variableGroups:
       - nonprod_workload_admin_group_name
       - nonprod_application_admin_group_name
       - nonprod_database_admin_group_name
-      - prod_workload_compartment_names
-      - nonprod_workload_compartment_names
   - title: Security Variables
     visible: true
     variables:
@@ -92,8 +90,6 @@ variableGroups:
       - nonprod_spoke_subnet_web_cidr_block
       - nonprod_spoke_subnet_app_cidr_block
       - nonprod_spoke_subnet_db_cidr_block
-      - prod_additional_workload_subnets_cidr_blocks
-      - nonprod_additional_workload_subnets_cidr_blocks
   - title: Tagging Variables
     visible: true
     variables:
@@ -178,10 +174,27 @@ variableGroups:
       - virtual_circuit_is_bfd_enabled
       - bgp_md5auth_key
       - customer_onprem_ip_cidr
+  - title: Network Firewall Variables either Prod or Non-Prod Environment
+    visible: true
+    variables:
+      - enable_network_firewall_prod
+      - enable_traffic_threat_log_prod
+      - nfw_subnet_type_prod
+      - nfw_instance_name_prod
+      - nfw_instance_policy_prod
+      - enable_network_firewall_nonprod
+      - enable_traffic_threat_log_nonprod
+      - nfw_subnet_type_nonprod
+      - nfw_instance_name_nonprod
+      - nfw_instance_policy_nonprod
   - title: Workload Variable
     visible: true
     variables:
       - workload_name_prefix
+      - prod_workload_compartment_names
+      - prod_additional_workload_subnets_cidr_blocks
+      - nonprod_workload_compartment_names
+      - nonprod_additional_workload_subnets_cidr_blocks
   - title: Invisible Variables
     visible: false
     variables:
@@ -200,6 +213,16 @@ variableGroups:
       - prod_vault_type
       - nonprod_enable_fastconnect
       - prod_enable_fastconnect
+      - enable_datasafe
+      - is_service_connector_limit
+      - nfw_use_existing_network_prod
+      - nfw_use_existing_network_nonprod
+      - archive_external_master_encryption_key
+      - nonprod_external_master_encryption_key
+      - prod_external_master_encryption_key
+      - domain_license_type
+      - is_baseline_deploy
+      - is_create_alarms
 
 
 variables:
@@ -885,20 +908,6 @@ variables:
     required: true
     pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
     title: Database Subnet CIDR Block in Non-Prod Spoke
-  prod_additional_workload_subnets_cidr_blocks:
-    type: array
-    items:
-      type: string
-    required: false
-    title: Additional Workload Subnets CIDR Blocks in Prod
-    description: "A list of subnets cidr blocks in additional workload expansion stack in Prod"
-  nonprod_additional_workload_subnets_cidr_blocks:
-    type: array
-    items:
-      type: string
-    required: false
-    title: Additional Workload Subnets CIDR Blocks in Non-Prod
-    description: "A list of subnets cidr blocks in additional workload expansion stack in Non-Prod"
 
   # Network Extension Variables
   enable_vpn_or_fastconnect:
@@ -1209,11 +1218,74 @@ variables:
     default: [ ]
     visible: show_fastconnect_variables
     title: Customer Onprem IP CIDR
+
+# Network Firewall Variables
+  enable_network_firewall_prod:
+    type: boolean
+    description: "Enable Network Firewall on Production Environment"
+    required: true
+    default: false
+    title: Enable Network Firewall on Production Environment
+  enable_traffic_threat_log_prod:
+    type: boolean
+    description: "Option to enable network firewall traffic and threat log"
+    default: false
+    required: true
+    title: Enable network firewall Traffic and Threat log in Prod
+  nfw_subnet_type_prod:
+    type: string
+    description: "Option to select network firewall subnet type"
+    default: "private"
+    required: true
+    title: Select network firewall subnet type public or private in Prod
+  nfw_instance_name_prod:
+    type: string
+    description: "Network firewall Instance Name"
+    default: ""
+    required: false
+    title: Network firewall Instance Name in Prod 
+  nfw_instance_policy_prod:
+    type: string
+    description: "Network firewall Policy Name"
+    default: ""
+    required: false
+    title: Network firewall Policy Name in Prod 
+  enable_network_firewall_nonprod:
+    type: boolean
+    description: "Enable Network Firewall on Production Environment"
+    required: true
+    default: false
+    title: Enable Network Firewall on Non-Production Environment
+  enable_traffic_threat_log_nonprod:
+    type: boolean
+    description: "Option to enable network firewall traffic and threat log"
+    default: false
+    required: true
+    title: Enable network firewall traffic and threat log in Non-Prod 
+  nfw_subnet_type_nonprod:
+    type: string
+    description: "Option to select network firewall subnet type"
+    default: "private"
+    required: true
+    title: Select network firewall subnet type public or private in Non-Prod 
+  nfw_instance_name_nonprod:
+    type: string
+    description: "Network firewall Instance Name"
+    default: ""
+    required: false
+    title: Network firewall Instance Name in Non-Prod
+  nfw_instance_policy_nonprod:
+    type: string
+    description: "Network firewall Policy Name"
+    default: ""
+    required: false
+    title: Network firewall Policy Name in Non-Prod
+
+# Workload Related Variables
   workload_name_prefix:
     type: string
     description: "Workload Compartment Naming Prefix"
     required: true
-    visible: workload_name_prefix
     title: Workload Compartment Naming Prefix
     default: "Workload1"
   prod_workload_compartment_names:
@@ -1223,6 +1295,13 @@ variables:
     required: false
     title: Workload Compartment Name from Workload Expansion in Prod
     description: "A list of workload compartment name from Workload Expansion in Prod"
+  prod_additional_workload_subnets_cidr_blocks:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Additional Workload Subnets CIDR Blocks in Prod
+    description: "A list of subnets cidr blocks in additional workload expansion stack in Prod"
   nonprod_workload_compartment_names:
     type: array
     items:
@@ -1230,3 +1309,10 @@ variables:
     required: false
     title: Workload Compartment Name from Workload Expansion in Non-Prod
     description: "A list of workload compartment name from Workload Expansion in Non-Prod"
+  nonprod_additional_workload_subnets_cidr_blocks:
+    type: array
+    items:
+      type: string
+    required: false
+    title: Additional Workload Subnets CIDR Blocks in Non-Prod
+    description: "A list of subnets cidr blocks in additional workload expansion stack in Non-Prod"

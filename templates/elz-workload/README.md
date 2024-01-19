@@ -109,3 +109,11 @@
 | <a name="output_compartment_name"></a> [compartment\_name](#output\_compartment\_name) | Workload Compartment Name. |
 | <a name="output_subnet_cidr_blocks"></a> [subnet\_cidr\_blocks](#output\_subnet\_cidr\_blocks) | Workload Subnet OCID Information. |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 locals {
   service_connector_policy = {
     name        = "${var.resource_label}-OCI-ELZ-SC-Policy"
@@ -15,8 +20,8 @@ locals {
   }
 
   identity_domain = {
-    domain_display_prod_name     = "OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
-    domain_display_non_prod_name = "OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
+    domain_display_prod_name     = "${var.resource_label}-OCI-ELZ-${local.prod_environment.environment_prefix}-IDT"
+    domain_display_non_prod_name = "${var.resource_label}-OCI-ELZ-${local.nonprod_environment.environment_prefix}-IDT"
   }
 
   service_connector_archive_policy = {

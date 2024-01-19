@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 module "compartment" {
   source                       = "../elz-compartment"
   tenancy_ocid                 = var.tenancy_ocid
@@ -45,6 +50,7 @@ module "identity" {
   workload_compartment_names   = var.workload_compartment_names
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
 
   providers = {
     oci             = oci
@@ -184,6 +190,8 @@ module "tagging" {
   geo_location_tagging         = var.geo_location_tagging
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
+  resource_label               = var.resource_label
+
 
   providers = {
     oci             = oci

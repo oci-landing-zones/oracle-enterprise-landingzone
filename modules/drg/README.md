@@ -51,3 +51,11 @@ No modules.
 | <a name="output_drg_id"></a> [drg\_id](#output\_drg\_id) | id of drg if it is created |
 | <a name="output_drg_route_tables"></a> [drg\_route\_tables](#output\_drg\_route\_tables) | n/a |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.
