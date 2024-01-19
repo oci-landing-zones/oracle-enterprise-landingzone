@@ -1,5 +1,9 @@
 # Release Notes
 
+## v2.2.2 - 2023-1-19
+-  Added Multi-Region and Disaster Recovery Module.
+-  Cloud Guard Key Replication from the Home Region to the Backup Region or vice-verse is currently not supported(Work in Progress).
+  
 ## v2.2.0 - 2023-10-11
 
 - Network Firewall Feature is added.(Greenfield & Brownfield use cases)
