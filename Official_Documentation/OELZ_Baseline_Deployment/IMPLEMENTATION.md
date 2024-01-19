@@ -207,7 +207,7 @@ The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manag
 4. In the repository, cd to the `templates/enterprise-landing-zone/` directory. This is the main template for the Oracle Enterprise Landing Zone. (the other templates will allow you to deploy other components, such as additional Environments or Workloads, or to deploy pieces of the Oracle Enterprise Landing Zone architecture for use in your own custom infrastructure designs.)
 
 5. Create a terraform.tfvars file in the directory and populate it with the required variables or override existing variables. 
-**For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](README.md#inputs)**
+**For reference on the configuration variable values read the [Configuration Guide](../../Official_Documentation/OELZ_Baseline_Deployment/CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](../../templates/enterprise-landing-zone/README.md#inputs)**
 
     Note: An example tfvars file is included for reference. Using this file is the preferred way to run the stack from the CLI, because of the large number of variables to manage. 
 
@@ -253,9 +253,9 @@ Or you can select the stack manually through the console starting from step 1.
 13. For the Create in Compartment dropdown, select the compartment to store the Stack.
 14. For Terraform Version dropdown, make sure to select 1.0.x at least. Lower Terraform versions are not supported.
 
-After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](README.md#inputs)**
+After completing the Stack Creation Wizard, the subsequent step prompts for variables values. **For reference on the configuration variable values read the [Configuration Guide](CONFIGURATION.md). For a full list of all available configuration variables see the [Input Variables Reference in the README](../../templates/enterprise-landing-zone/README.md#inputs)**
 
-After filling in the required input variables, click next to review the stack values and create the stack.
+After filling in the required input variables, click next to review the stack values and create the stack.  
 
 In the Stack page use the appropriate buttons to plan/apply/destroy your stack.
 
@@ -335,3 +335,11 @@ These are some known temporary issues that can occur while deploying the Oracle 
 By Design, OCI compartments are not deleted upon Terraform destroy by default. Deletions can be anabled in OELZ by setting enable_compartment_delete varaible to true in tfvars file. For more information check check [OCI Terraform provider documentation](https://registry.terraform.io/providers/hashicorp/oci/latest/docs/resources/identity_compartment).
 * **OCI Version Upgrade**
 On Release v3.0.0, we upgrading the OCI provider version from 5.1 to 5.9. If you have previous stack deployed and local tfstate file saved, please issue **terraform init -upgrade** to resolve the provider version mismatch error.
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

@@ -38,3 +38,11 @@ No modules.
 |------|-------------|
 | <a name="output_break_glass_user_list"></a> [break\_glass\_user\_list](#output\_break\_glass\_user\_list) | n/a |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

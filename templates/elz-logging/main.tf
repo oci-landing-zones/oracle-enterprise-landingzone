@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 locals {
   default_log_group = {
     name        = "Default_Group"
@@ -43,7 +48,7 @@ locals {
   }
 
   audit_log_service_connector = {
-    display_name  = "${var.resource_label}_schAuditLog_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     log_group_id  = "_Audit_Include_Subcompartment"
@@ -51,14 +56,14 @@ locals {
   }
 
   default_log_service_connector = {
-    display_name  = "${var.resource_label}_schDefaultLog_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_auditLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     target_bucket = local.default_log_bucket.name
   }
 
   service_events_service_connector = {
-    display_name  = "${var.resource_label}_schServiceEvents_standard_${var.environment_prefix}"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     source_kind   = "streaming"
     target_kind   = "objectStorage"
     target_bucket = local.service_event_log_bucket.name
@@ -77,6 +82,7 @@ locals {
   os_read_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-READ-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     log_source_category = "read"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -85,6 +91,7 @@ locals {
   os_write_log = {
     log_display_name    = "${var.resource_label}-OCI-ELZ-OS-WRITE-LOG-${var.environment_prefix}"
     log_type            = "SERVICE"
+    log_source_resource = "${var.resource_label}_${var.environment_prefix}_serviceEvents_standard"
     log_source_category = "write"
     log_source_service  = "objectstorage"
     log_source_type     = "OCISERVICE"
@@ -117,7 +124,6 @@ locals {
     log_source_service  = "cloudevents"
     log_source_type     = "OCISERVICE"
   }
-
 }
 
 module "default_log_group" {
@@ -236,12 +242,11 @@ resource "time_sleep" "first_log_delay" {
 module "os_read_log" {
   source = "../../modules/service-log"
 
-  #service_log_map     = local.buckets_map
-  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_read_log.log_display_name
   log_type            = local.os_read_log.log_type
   log_group_id        = module.default_log_group.log_group_id
   log_source_category = local.os_read_log.log_source_category
+  log_source_resource = local.os_read_log.log_source_resource
   log_source_service  = local.os_read_log.log_source_service
   log_source_type     = local.os_read_log.log_source_type
 
@@ -251,12 +256,11 @@ module "os_read_log" {
 module "os_write_log" {
   source = "../../modules/service-log"
 
-  #service_log_map     = local.buckets_map
-  service_log_map     = var.is_service_connector_limit == true ? local.buckets_map_service_conector_limit : local.buckets_map
   log_display_name    = local.os_write_log.log_display_name
   log_type            = local.os_write_log.log_type
   log_group_id        = module.default_log_group.log_group_id
   log_source_category = local.os_write_log.log_source_category
+  log_source_resource = local.os_write_log.log_source_resource
   log_source_service  = local.os_write_log.log_source_service
   log_source_type     = local.os_write_log.log_source_type
 
@@ -265,7 +269,7 @@ module "os_write_log" {
 
 
 module "vcn_flow_log" {
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-map"
 
   service_log_map     = local.subnets_map
   log_display_name    = local.vcn_flow_log.log_display_name
@@ -277,7 +281,7 @@ module "vcn_flow_log" {
 }
 
 module "event_log" {
-  source = "../../modules/service-log"
+  source = "../../modules/service-log-map"
 
   service_log_map     = local.events_map
   log_display_name    = local.event_log.log_display_name
@@ -286,5 +290,7 @@ module "event_log" {
   log_source_category = local.event_log.log_source_category
   log_source_service  = local.event_log.log_source_service
   log_source_type     = local.event_log.log_source_type
+
+  depends_on = [module.service_event_stream]
 }
 

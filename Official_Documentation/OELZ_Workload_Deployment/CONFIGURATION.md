@@ -9,7 +9,7 @@ Oracle Enterprise Landing Zone(OELZ) stack will be fully deployed on the OCI Ten
 
 ## Minimum Required Configuration
 
-Deployment of the OELZ is controlled by several Terraform [input variables](README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ Workload Expansion:
+Deployment of the OELZ is controlled by several Terraform [input variables](./README.md#inputs), however most of these have sensible default values. Here are the minimum required configurations to deploy a OELZ Workload Expansion:
 
 ### Basic Terraform Connection Information
 The required provider variables for the OELZ:
@@ -116,3 +116,22 @@ These are the configuration options for Workload Monitoring:
 | <a name="input_enable_network_monitoring_alarms"></a> [enable_network_monitoring_alarms](#input\_workload\_name)                                    | Enable network alarm in workload expansion          | `bool`         | `false` | no |
 | <a name="input_enable_security_monitoring_alarms"></a> [enable_security_monitoring_alarms](#input\_workload\_name)                                    | Enable security alarm in workload expansion         | `bool`         | `false` | no |
 | <a name="input_enable_workload_monitoring_alarms"></a> [enable_enable_workload_monitoring_alarms](#input\_workload\_name)                                    | Enable workload alarm in workload expansion         | `bool`         | `false` | no |
+
+## Workload Expansion DataSafe 
+
+These are the configuration options for Workload Expansion ExaData Datasafe: 
+
+| Name                                                                                  | Description                                           | Type   | Default | Required |
+|---------------------------------------------------------------------------------------|-------------------------------------------------------|--------|---------|:--------:|
+| <a name="enable_datasafe"></a> [enable\_datasafe](#enable\_datasafe) | To enable datasafe feature in workload exadata module | `bool` | `false` | no |
+
+The link provided below can give more information on overview, features etc for OCI ExaData Datasafe. 
+https://www.oracle.com/security/database-security/data-safe/
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

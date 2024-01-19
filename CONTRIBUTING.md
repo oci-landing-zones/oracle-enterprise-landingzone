@@ -21,3 +21,11 @@ what your changes are meant to do and provide simple steps on how to validate
 your changes, ideally referencing the test. Ensure that you reference the issue
 you created as well. We will assign the pull request to 1-2 people for review
 before it is submitted internally and the PR is closed.
+
+## License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.
