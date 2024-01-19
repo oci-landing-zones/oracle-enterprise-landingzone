@@ -728,7 +728,6 @@ resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy
 ##############################################################################
 ###########     Create Firewall Firewall Threat and Traffic Log     ##########
 ##############################################################################
-// TO DO ONCE BACKUP LOGGING MODULE IS DONE
 
 module "firewall_threat_log_backup" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
