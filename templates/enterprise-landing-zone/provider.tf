@@ -58,16 +58,6 @@ provider "oci" {
   region           = local.home_region[0]
 }
 
-provider "oci" {
-  alias               = "backup_region"
-  tenancy_ocid        = var.tenancy_ocid
-  user_ocid           = var.current_user_ocid
-  fingerprint         = var.api_fingerprint
-  private_key         = var.api_private_key
-  private_key_path    = var.api_private_key_path
-  region              = var.backup_region
-}
-
 # -----------------------------------------------------------------------------
 # Provider Variables
 # -----------------------------------------------------------------------------
