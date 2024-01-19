@@ -68,4 +68,10 @@ For more information on the CIS Security Benchmark, please visit the official [O
 [v2.0.0-2]: https://www.cisecurity.org/benchmark/oracle_cloud
 
 
+## License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
 See [LICENSE](./LICENSE) for more details.
