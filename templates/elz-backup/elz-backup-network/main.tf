@@ -72,7 +72,7 @@ module "hub_backup" {
   nfw_instance_name                       = var.nfw_instance_name
   nfw_instance_policy                     = var.nfw_instance_policy
   nfw_use_existing_network                = var.nfw_use_existing_network
-  #log_group_id                           = var.log_group_id
+  log_group_id                           = var.log_group_id
 
   providers = {
     oci               = oci

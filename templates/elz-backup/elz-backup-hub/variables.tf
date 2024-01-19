@@ -205,10 +205,10 @@ variable "nfw_instance_policy" {
   type        = string
   description = "Network Firewall Policy Name."
 }
-#variable "log_group_id" {
-#  type        = string
-#  description = "Log Group OCID."
-#}
+variable "log_group_id" {
+  type        = string
+  description = "Log Group OCID."
+}
 variable "nfw_subnet_type" {
   type        = string
   description = "Network Firewall Subnet Type : Public or Private Subnet."
