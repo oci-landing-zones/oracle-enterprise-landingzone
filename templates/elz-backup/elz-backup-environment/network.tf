@@ -40,8 +40,7 @@ module "network" {
   nfw_instance_name                       = var.nfw_instance_name
   nfw_instance_policy                     = var.nfw_instance_policy
   nfw_use_existing_network                = var.nfw_use_existing_network
-  //TO DO
-  #log_group_id                            = var.log_group_id
+  log_group_id                            = module.logging.log_group_id
 
   enable_nat_gateway_spoke                = var.enable_nat_gateway_spoke
   enable_service_gateway_spoke            = var.enable_service_gateway_spoke

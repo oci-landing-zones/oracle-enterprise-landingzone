@@ -729,7 +729,7 @@ resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy
 ###########     Create Firewall Firewall Threat and Traffic Log     ##########
 ##############################################################################
 // TO DO ONCE BACKUP LOGGING MODULE IS DONE
-/*
+
 module "firewall_threat_log_backup" {
   count  = var.enable_network_firewall && var.enable_traffic_threat_log ? 1 : 0
   source = "../../../modules/service-log-nfw"
@@ -737,8 +737,7 @@ module "firewall_threat_log_backup" {
   #service_log_map     = local.network_firewall_threat
   log_display_name    = local.firewall_threat_log.log_display_name
   log_type            = local.firewall_threat_log.log_type
-  //TO DO
-  #log_group_id        = var.log_group_id
+  log_group_id        = var.log_group_id
   log_source_category = local.firewall_threat_log.log_source_category
   log_source_resource = oci_network_firewall_network_firewall.network_firewall_backup[0].id
   log_source_service  = local.firewall_threat_log.log_source_service
@@ -755,8 +754,7 @@ module "firewall_traffic_log_backup" {
   #service_log_map      = local.network_firewall_traffic
   log_display_name     = local.firewall_traffic_log.log_display_name
   log_type             = local.firewall_traffic_log.log_type
-  //TO DO
-  #log_group_id         = var.log_group_id
+  log_group_id         = var.log_group_id
   log_source_category  = local.firewall_traffic_log.log_source_category
   log_source_resource  = oci_network_firewall_network_firewall.network_firewall_backup[0].id
   log_source_service   = local.firewall_traffic_log.log_source_service
@@ -765,4 +763,3 @@ module "firewall_traffic_log_backup" {
     oci = oci.backup_region
   }
 }
-*/
