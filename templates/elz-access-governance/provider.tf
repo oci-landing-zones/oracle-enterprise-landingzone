@@ -1,17 +1,17 @@
 # -----------------------------------------------------------------------------
 # Provider Requirements if using stack as a module
 # -----------------------------------------------------------------------------
-#terraform {
-#  required_version = ">= 1.0.0"
-#
-#  required_providers {
-#    oci = {
-#      source                = "oracle/oci"
-#      version               = "5.9.0"
-#      configuration_aliases = [oci, oci.home_region]
-#    }
-#  }
-#}
+terraform {
+  required_version = ">= 1.0.0"
+
+  required_providers {
+    oci = {
+      source                = "oracle/oci"
+      version               = "5.9.0"
+      configuration_aliases = [oci, oci.home_region]
+    }
+  }
+}
 
 # # -----------------------------------------------------------------------------
 # # WARNING!
@@ -21,33 +21,33 @@
 # #
 # # -----------------------------------------------------------------------------
 
-terraform {
-  required_version = ">= 1.0.0"
-
-  required_providers {
-    oci = {
-      source  = "oracle/oci"
-      version = "5.9.0"
-    }
-  }
-}
-
-provider "oci" {
-  tenancy_ocid     = var.ag_tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = var.ag_region
-}
-
-provider "oci" {
-  alias            = "home_region"
-  tenancy_ocid     = var.ag_tenancy_ocid
-  user_ocid        = var.current_user_ocid
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = local.home_region[0]
-}
+#terraform {
+#  required_version = ">= 1.0.0"
+#
+#  required_providers {
+#    oci = {
+#      source  = "oracle/oci"
+#      version = "5.9.0"
+#    }
+#  }
+#}
+#
+#provider "oci" {
+#  tenancy_ocid     = var.ag_tenancy_ocid
+#  user_ocid        = var.current_user_ocid
+#  fingerprint      = var.api_fingerprint
+#  private_key_path = var.api_private_key_path
+#  region           = var.ag_region
+#}
+#
+#provider "oci" {
+#  alias            = "home_region"
+#  tenancy_ocid     = var.ag_tenancy_ocid
+#  user_ocid        = var.current_user_ocid
+#  fingerprint      = var.api_fingerprint
+#  private_key_path = var.api_private_key_path
+#  region           = local.home_region[0]
+#}
 
 # # -----------------------------------------------------------------------------
 # # Provider / Python SDK Auth Variables

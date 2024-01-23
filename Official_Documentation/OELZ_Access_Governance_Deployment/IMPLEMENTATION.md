@@ -11,6 +11,20 @@ To deploy the Oracle Enterprise Landing Zone Workload Expansion from the terrafo
 - [OCI Terraform provider](https://registry.terraform.io/providers/oracle/oci/latest/docs) v4.109.0 or later
 - [oci - cli](https://github.com/oracle/oci-cli)
 
+## User
+
+The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user need to have an api key entry defined as decribed [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble.
+
+```text
+[DEFAULT]
+user=ocid1.xxxxxx.xxxxxx.xxxxxx.....  #ocid of the user
+fingerprint=xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx #user api key fingerprint
+tenancy=ocid1.xxxxxx.xxxxxx.xxxxxx..... #tenancy ocid
+region=us-phoenix-1 #or desired region
+key_file=<path to your private keyfile> # TODO
+```
+
+
 ## Variables
 | Variable Name                          | Description                                                                                                                                                         | Required | Default Value |
 |----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------------|
