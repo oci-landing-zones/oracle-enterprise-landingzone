@@ -37,6 +37,7 @@ output "prod_environment" {
     workload_compartment_name   = module.prod_environment.workload_compartment_name
     workload_compartment_id     = module.prod_environment.workload_compartment_id
     workload_subnet_cidr_blocks = module.prod_environment.workload_subnet_cidr_blocks
+    access_governance_service_instance = module.prod_environment.access_governance_service_instance
   }
   description = "Production Environment Information."
 }
@@ -54,6 +55,7 @@ output "nonprod_environment" {
     workload_compartment_name   = module.nonprod_environment.workload_compartment_name
     workload_compartment_id     = module.nonprod_environment.workload_compartment_id
     workload_subnet_cidr_blocks = module.nonprod_environment.workload_subnet_cidr_blocks
+    access_governance_service_instance = module.nonprod_environment.access_governance_service_instance
   }
   description = "Non-Production Environment Information."
 }

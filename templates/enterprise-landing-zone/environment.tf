@@ -138,6 +138,33 @@ module "prod_environment" {
   workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.prod_additional_workload_subnets_cidr_blocks
 
+  # Access Governance Variables
+
+  ag_current_user_ocid              = var.current_user_ocid
+  ag_api_fingerprint                = var.api_fingerprint
+  ag_region                         = var.region
+  ag_tenancy_ocid                   = var.tenancy_ocid
+  ag_api_private_key_path           = var.api_private_key_path
+  admin_domain_name                 = var.admin_domain_name
+
+  enable_access_governance          = var.prod_enable_access_governance
+  service_instance_description      = var.prod_service_instance_description
+  service_instance_display_name     = var.prod_service_instance_display_name
+  ag_license_type                   = var.prod_ag_license_type
+  agcs_user_domain_name             = var.prod_agcs_user_domain_name
+  agcs_user_email                   = var.prod_agcs_user_email
+  agcs_user_fingerprint_oci_system  = var.prod_agcs_user_fingerprint_oci_system
+  agcs_user_group_display_name      = var.prod_agcs_user_group_display_name
+  agcs_user_name                    = var.prod_agcs_user_name
+  agcs_user_ocid_oci_system         = var.prod_agcs_user_ocid_oci_system
+  agcs_user_private_key             = var.prod_agcs_user_private_key
+  agcs_user_private_key_path        = var.prod_agcs_user_private_key_path
+  agcs_user_region_oci_system       = var.prod_agcs_user_region_oci_system
+  agcs_user_tenancy_ocid_oci_system = var.prod_agcs_user_tenancy_ocid_oci_system
+  oci_system_description            = var.prod_oci_system_description
+  oci_system_name                   = var.prod_oci_system_name
+  use_existing_agcs_user            = var.prod_use_existing_agcs_user
+
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
@@ -290,6 +317,32 @@ module "nonprod_environment" {
 
   workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
+
+  # Access Governance Variables
+  ag_current_user_ocid              = var.current_user_ocid
+  ag_api_fingerprint                = var.api_fingerprint
+  ag_region                         = var.region
+  ag_tenancy_ocid                   = var.tenancy_ocid
+  ag_api_private_key_path           = var.api_private_key_path
+  admin_domain_name                 = var.admin_domain_name
+
+  enable_access_governance          = var.nonprod_enable_access_governance
+  service_instance_description      = var.nonprod_service_instance_description
+  service_instance_display_name     = var.nonprod_service_instance_display_name
+  ag_license_type                   = var.nonprod_ag_license_type
+  agcs_user_domain_name             = var.nonprod_agcs_user_domain_name
+  agcs_user_email                   = var.nonprod_agcs_user_email
+  agcs_user_fingerprint_oci_system  = var.nonprod_agcs_user_fingerprint_oci_system
+  agcs_user_group_display_name      = var.nonprod_agcs_user_group_display_name
+  agcs_user_name                    = var.nonprod_agcs_user_name
+  agcs_user_ocid_oci_system         = var.nonprod_agcs_user_ocid_oci_system
+  agcs_user_private_key             = var.nonprod_agcs_user_private_key
+  agcs_user_private_key_path        = var.nonprod_agcs_user_private_key_path
+  agcs_user_region_oci_system       = var.nonprod_agcs_user_region_oci_system
+  agcs_user_tenancy_ocid_oci_system = var.nonprod_agcs_user_tenancy_ocid_oci_system
+  oci_system_description            = var.nonprod_oci_system_description
+  oci_system_name                   = var.nonprod_oci_system_name
+  use_existing_agcs_user            = var.nonprod_use_existing_agcs_user
 
   providers = {
     oci             = oci

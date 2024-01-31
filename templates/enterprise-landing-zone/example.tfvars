@@ -105,6 +105,12 @@ onboard_log_analytics        = false
 # Workload Expansion
 prod_additional_workload_subnets_cidr_blocks    = []
 nonprod_additional_workload_subnets_cidr_blocks = []
+prod_workload_compartment_names = []
+nonprod_workload_compartment_names = []
+
+
+
+=======
 prod_workload_compartment_names                 = []
 nonprod_workload_compartment_names              = []
 
@@ -118,3 +124,45 @@ nfw_instance_name_prod          = "nfw_name"
 nfw_instance_policy_prod        = "nfw_policy_name"
 enable_network_firewall_nonprod = "false"  
 
+####################################### Access Governance ###################################################
+prod_enable_access_governance    = false
+nonprod_enable_access_governance = false
+admin_domain_name                = "Default"
+
+# ACCESS GOVERNANCE SERVICE INSTANCE DETAILS
+prod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
+prod_service_instance_display_name = ""
+prod_service_instance_description  = "Prod OAG service instance"
+
+nonprod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
+nonprod_service_instance_display_name = ""
+nonprod_service_instance_description  = "Non Prod OAG service instance"
+
+# ACCESS GOVERNANCE USER COMMON DETAILS
+prod_use_existing_agcs_user    = false
+nonprod_use_existing_agcs_user = false
+
+# ACCESS GOVERNANCE EXISTING_USER
+#prod_agcs_user_private_key_path          = ""
+#prod_agcs_user_ocid_oci_system           = ""
+#prod_agcs_user_fingerprint_oci_system    = ""
+#
+#nonprod_agcs_user_private_key_path          = ""
+#nonprod_agcs_user_ocid_oci_system           = ""
+#nonprod_agcs_user_fingerprint_oci_system    = ""
+
+# NEW AG USER
+prod_agcs_user_group_display_name = "prod_agcs_group"
+prod_agcs_user_name               = "prod_agcs_user"
+prod_agcs_user_email              = "prod_something@example.com"
+
+nonprod_agcs_user_group_display_name = "nonprod_agcs_group"
+nonprod_agcs_user_name               = "nonprod_agcs_user"
+nonprod_agcs_user_email              = "nonprod_something@example.com"
+
+# OCI Connected System
+prod_oci_system_name        = "Prod Cloud Gateway"
+prod_oci_system_description = "Prod OCI System"
+
+nonprod_oci_system_name        = "Non Prod Cloud Gateway"
+nonprod_oci_system_description = "Non Prod OCI System"
