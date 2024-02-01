@@ -52,6 +52,7 @@ variable "admin_domain_name" {
 }
 ################################## Prod Details ###########################################
 variable "prod_ag_license_type" {
+  default     = "Access Governance for Oracle Cloud Infrastructure"
   description = "Access Governance Instance License Type."
   validation {
     condition     = can(regex("^(Access Governance Premium|Access Governance for Oracle Workloads|Access Governance for Oracle Cloud Infrastructure)$", var.prod_ag_license_type))
@@ -60,6 +61,7 @@ variable "prod_ag_license_type" {
 }
 
 variable "prod_service_instance_display_name" {
+  default     = "prod-instance"
   description = "Access Governance Instance Display Name."
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.prod_service_instance_display_name))
@@ -68,6 +70,7 @@ variable "prod_service_instance_display_name" {
 }
 
 variable "prod_service_instance_description" {
+  default     = ""
   description = "Access Governance Instance Description."
 }
 
@@ -158,6 +161,7 @@ variable "prod_agcs_user_email" {
 ################################## Non Prod Details###########################################
 variable "nonprod_ag_license_type" {
   description = "Access Governance Instance License Type."
+  default     = "Access Governance for Oracle Cloud Infrastructure"
   validation {
     condition     = can(regex("^(Access Governance Premium|Access Governance for Oracle Workloads|Access Governance for Oracle Cloud Infrastructure)$", var.nonprod_ag_license_type))
     error_message = "Please select any value among Access Governance Premium, Access Governance for Oracle Workloads, Access Governance for Oracle Cloud Infrastructure."
@@ -166,6 +170,7 @@ variable "nonprod_ag_license_type" {
 
 variable "nonprod_service_instance_display_name" {
   description = "Access Governance Instance Display Name."
+  default     = "nonprod-instance"
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.nonprod_service_instance_display_name))
     error_message = "Must be unique, start with a letter and contain only alphanumeric characters without any space. Hyphen (-) and underscore ( _ ) are allowed only."
@@ -173,6 +178,7 @@ variable "nonprod_service_instance_display_name" {
 }
 
 variable "nonprod_service_instance_description" {
+  default     = ""
   description = "Access Governance Instance Description."
 }
 
