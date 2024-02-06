@@ -10,7 +10,6 @@
 #api_fingerprint      = "## YOUR OCI API KEY FINGERPRINT ##"
 #api_private_key_path = "## YOUR OCI API PRIVATE KEY FILE ##"
 
-
 # iam
 resource_label             = "DEMO"
 prod_domain_admin_email    = "an-example-email-address@oracle.com"
@@ -98,8 +97,7 @@ nonprod_platform_topic_endpoints = []
 nonprod_identity_topic_endpoints = []
 nonprod_workload_topic_endpoints = []
 
-#Logging
-
+# Logging
 onboard_log_analytics        = false
 
 # Workload Expansion
@@ -108,13 +106,6 @@ nonprod_additional_workload_subnets_cidr_blocks = []
 prod_workload_compartment_names = []
 nonprod_workload_compartment_names = []
 
-
-
-=======
-prod_workload_compartment_names                 = []
-nonprod_workload_compartment_names              = []
-
-
 #Network Firewall can be only deployed in Prod or Non_prod Enviornment
 
 enable_network_firewall_prod    = true
@@ -122,7 +113,7 @@ enable_traffic_threat_log_prod  = true
 nfw_subnet_type_prod            = "public"
 nfw_instance_name_prod          = "nfw_name"
 nfw_instance_policy_prod        = "nfw_policy_name"
-enable_network_firewall_nonprod = "false"  
+enable_network_firewall_nonprod = "false"
 
 ####################################### Access Governance ###################################################
 prod_enable_access_governance    = false
