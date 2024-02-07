@@ -50,6 +50,11 @@ variable "admin_domain_name" {
   default     = "Default"
   description = "Administrator's Identity Domain Name."
 }
+
+variable "admin_domain_compartment_ocid" {
+  default     = ""
+  description = "Administrator's Identity Domain's Compartment."
+}
 ################################## Prod Details ###########################################
 variable "prod_ag_license_type" {
   default     = "Access Governance for Oracle Cloud Infrastructure"
@@ -124,13 +129,13 @@ variable "prod_agcs_user_region_oci_system" {
 
 variable "prod_oci_system_name" {
   type        = string
-  default     = ""
+  default     = "OCI Connected System"
   description = "OCI Connected System Name."
 }
 
 variable "prod_oci_system_description" {
   type        = string
-  default     = ""
+  default     = "OCI Connected System"
   description = "OCI Connected System Description."
 }
 

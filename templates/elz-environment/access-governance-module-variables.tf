@@ -58,6 +58,11 @@ variable "admin_domain_name" {
   description = "Administrator's Identity Domain Name."
 }
 
+variable "admin_domain_compartment_ocid" {
+  default     = ""
+  description = "Administrator's Identity Domain's Compartment."
+}
+
 variable "ag_license_type" {
   description = "Access Governance Instance License Type."
   validation {
