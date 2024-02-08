@@ -23,6 +23,7 @@ def create_instance(ag_cp_composite_client, signer):
         compartment_id=os.environ["SERVICE_INSTANCE_COMPARTMENT_OCID"],
         idcs_access_token=token)
     si_name = None
+    si_id = None
     output = None
     try:
         response = (ag_cp_composite_client
@@ -31,6 +32,7 @@ def create_instance(ag_cp_composite_client, signer):
         json_res = json.dumps(str(response.__dict__['data']), indent=2)
         output = json_res.encode()
         si_name = response.__dict__['data'].display_name
+        si_id = "-" + response.__dict__['data'].id[len(response.__dict__['data'].id) - 10:]
     # except exceptions.ServiceError as errorResponse:
     #     si_name = os.environ["SERVICE_INSTANCE_DISPLAY_NAME"]
     #     if errorResponse.code == "NotAuthorizedOrResourceAlreadyExists":
@@ -44,7 +46,7 @@ def create_instance(ag_cp_composite_client, signer):
 
     should_create_connected_system = os.environ["SHOULD_CREATE_CONNECTED_SYSTEM"]
     if should_create_connected_system == "true" and (si_name and not si_name.isspace()):
-        connected_system.execute_add_connected_system(si_name)
+        connected_system.execute_add_connected_system(si_name+si_id)
     if output and not output.isspace():
         print(base64.b64encode(output).decode())
 
