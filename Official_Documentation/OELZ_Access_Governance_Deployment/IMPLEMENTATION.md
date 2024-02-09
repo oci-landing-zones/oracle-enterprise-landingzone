@@ -26,60 +26,97 @@ key_file=<path to your private keyfile> # TODO
 
 
 ## Variables
-| Variable Name                          | Description                                                                                                                                                         | Required | Default Value |
-|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|---------------|
-| **user_ocid**                          | OCID of the Administrator.                                                                                                                                          | Yes     | None          |
-| **fingerprint**                        | Fingerprint of the Administrator.                                                                                                                                   | Yes     | None          |
-| **tenancy_ocid**                       | OCID of the Administrator's Identity Domain Tenancy.                                                                                                                | Yes     | None          |
-| **region**                             | Region of the Administrator.                                                                                                                                        | Yes     | None          |
-| **private_key_path**                   | Private Key Path of Administrator.                                                                                                                                  | Yes     | None          |
-| **admin_domain_name**                  | Administrator's Identity Domain Name.                                                                                                                               | Yes     | Default       |
-| **service_instance_compartment_ocid**  | Compartment OCID for Access Governance Instance.                                                                                                                    | Yes     | None          |
-| **service_instance_description**       | Access Governance Instance Description.                                                                                                                             | Yes     | None          |
-| **service_instance_display_name**      | Access Governance Instance Display Name.                                                                                                                            | Yes     | None          |
-| **ag_license_type**                    | Access Governance Instance License Type.  Supported license types are "Access Governance for Oracle Workloads", "Access Governance for Oracle Cloud Infrastructure" |Yes      | None          |
-| **use_existing_agcs_user**             | Set this value to either use existing Access Governance user or create new one.                                                                                     | No      | false         |
-| **agcs_user_name**                     | New Access Governance User's name.                                                                                                                                  | Yes     | None          |
-| **agcs_user_email**                    | Email address for the user.                                                                                                                                         | Yes     | None          |
-| **agcs_user_group_display_name**       | Group to create for Access Governance User.                                                                                                                         | Yes     | None          |
-| **agcs_user_ocid_oci_system**          | Access Governance User's OCID.                                                                                                                                      | Yes     | None          |
-| **agcs_user_private_key_path**         | Private Key for Access Governance User.                                                                                                                             | Yes     | None          |
-| **agcs_user_fingerprint_oci_system**   | Access Governance User's Fingerprint.                                                                                                                               | Yes     | None          |
-| **agcs_user_region_oci_system**        | Region of the Access Governance User.                                                                                                                               | Yes     | None          |
-| **agcs_user_tenancy_ocid_oci_system**  | Access Governance User's Tenancy OCID.                                                                                                                              | Yes     | None          |
-| **oci_system_description**             | OCI Connected System Description.                                                                                                                                   | Yes     | None          |
-| **oci_system_name**                    | OCI Connected System Name.                                                                                                                                          | Yes     | None          |
+| Variable Name                          | Description                                                                                                                                                         | Required | Default Value        |
+|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|----------------------|
+| **user_ocid**                          | OCID of the Administrator.                                                                                                                                          | Yes     | None                 |
+| **fingerprint**                        | Fingerprint of the Administrator.                                                                                                                                   | Yes     | None                 |
+| **tenancy_ocid**                       | OCID of the Administrator's Identity Domain Tenancy.                                                                                                                | Yes     | None                 |
+| **region**                             | Region of the Administrator.                                                                                                                                        | Yes     | None                 |
+| **private_key_path**                   | Private Key Path of Administrator.                                                                                                                                  | Yes     | None                 |
+| **admin_domain_name**                  | Administrator's Identity Domain Name.                                                                                                                               | Yes     | Default              |
+| **admin_domain_compartment_ocid**      | Compartment of Identity Domain of the Administrator.                                                                                                                | Yes     | None                 |
+| **service_instance_compartment_ocid**  | Compartment OCID for Access Governance Instance.                                                                                                                    | Yes     | None                 |
+| **service_instance_description**       | Access Governance Instance Description.                                                                                                                             | Yes     | None                 |
+| **service_instance_display_name**      | Access Governance Instance Display Name.                                                                                                                            | Yes     | None                 |
+| **ag_license_type**                    | Access Governance Instance License Type.  Supported license types are "Access Governance for Oracle Workloads", "Access Governance for Oracle Cloud Infrastructure" |Yes      | None                 |
+| **use_existing_agcs_user**             | Set this value to either use existing Access Governance user or create new one.                                                                                     | No      | false                |
+| **agcs_user_name**                     | New Access Governance User's name.                                                                                                                                  | Yes     | None                 |
+| **agcs_user_email**                    | Email address for the user.                                                                                                                                         | Yes     | None                 |
+| **agcs_user_group_display_name**       | Group to create for Access Governance User.                                                                                                                         | Yes     | None                 |
+| **agcs_user_ocid_oci_system**          | Access Governance User's OCID.                                                                                                                                      | Yes     | None                 |
+| **agcs_user_private_key_path**         | Private Key for Access Governance User.                                                                                                                             | Yes     | None                 |
+| **agcs_user_fingerprint_oci_system**   | Access Governance User's Fingerprint.                                                                                                                               | Yes     | None                 |
+| **agcs_user_region_oci_system**        | Region of the Access Governance User.                                                                                                                               | Yes     | None                 |
+| **agcs_user_tenancy_ocid_oci_system**  | Access Governance User's Tenancy OCID.                                                                                                                              | Yes     | None                 |
+| **oci_system_description**             | OCI Connected System Description.                                                                                                                                   | Yes     | OCI Connected System |
+| **oci_system_name**                    | OCI Connected System Name.                                                                                                                                          | Yes     | OCI System           |
 
 ## How to execute
 
 ## How to execute
-### Via Resource Manager
-1. [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/releases/tag/v2.2.0)
-*If you are logged into your OCI tenancy, the button will take you directly to OCI Resource Manager where you can proceed to deploy. If you are not logged, the button takes you to Oracle Cloud initial page where you must enter your tenancy name and login to OCI.*
-2. Under **Working directory** select the directory *templates/elz-access-governance*
-3. Click Next.
-4. Enter the values for required variables.
+### Via Resource Manager (Standalone Deployment)
+Use the Deploy to Oracle Cloud button which will take you directly to OCI Resource Manager if you are logged in
+<blockquote> Only new AGCS User scenario is supported via Resource Manager Deployment</blockquote>
+
+1. Under **Working directory** select the directory *templates/elz-access-governance*
+2. Click Next.
+3. Enter the values for required variables.
+4. Click Next.
 5. Click Next.
-6. Click Next.
-7. Click Apply.
+6. Click Apply.
 
-### Via Terraform CLI
-1. Enter required variables in terraform.tfvars in the directory *templates/elz-access-governance*, for examples refer templates/elz-access-governance/examples.
+### Via Terraform CLI 
+#### Deployment Scenario 1: use_existing_agcs_user = false
+1. Enter required variables in terraform.tfvars, for examples refer templates/elz-access-governance/examples/existing_agcs_user.tfvarexample
 2. terraform init.
 3. terraform plan.
 4. terraform apply.
 
-While using CLI mode, user have option to use an existing user to add the OCI system, below snippet indicates how to use existing user.<br>
+### Oracle Access Governance Deployment: Access Governance Service Instance
+An Access Governance Service instance will be deployed in security compartment
+
+### Oracle Access Governance Deployment: AGCS Group
+A group will be created called AGCS Group, which is meant to have AGCS user and policies related to Access Governance functionalities.
+
+### Oracle Access Governance Deployment: AGCS User
+AGCS User which will be created in Default domain as the user needs visibility into all domains and their resources for policy review and group review. This is the primary user used for governing the OCI IAM
+
+### Oracle Access Governance Deployment: AGCS User Group Policy statements
+1. `ALLOW GROUP <domain>/<group> to inspect all-resources IN TENANCY`
+2. `ALLOW GROUP <domain>/<group> to manage policies IN TENANCY where any {request.permission='POLICY_UPDATE' ,request.permission='POLICY_READ', request.permission='POLICY_DELETE',target.policy.name != 'Tenant Admin Policy'}`
+3. `Allow GROUP <domain>/<group> to read audit-events IN TENANCY`
+4. `Allow GROUP <domain>/<group> to manage domains IN TENANCY`
+
+### Oracle Access Governance Deployment: OCI system on Access Governance Instance
+Cloud gateway system will be added as connected system to the service instance.
+
+
+
+
+#### Deployment Scenario 2: use_existing_agcs_user = true
+1. Enter required variables in terraform.tfvars, for examples refer templates/elz-access-governance/examples/new_agcs_user.tfvarexample
+2. terraform init.
+3. terraform plan.
+4. terraform apply.
+
 `use_existing_agcs_user`            = `true`<br>
 `agcs_user_private_key_path`        = `"<path to Access Governance User's private key pem file>"`<br>
 `agcs_user_ocid_oci_system`         = `"ocid1.user.oc1..xyz"`<br>
 `agcs_user_fingerprint_oci_system`  = `"<fingerprint>"`<br>
 
-To create new user and use it to add OCI connected system, set `use_existing_agcs_user` value to `false`.
+<blockquote> The above user needs to be in <b>Default</b> domain with below policy statements.</blockquote>
 
-### Outcome of the Execution
-1. An Access Governance Service instance will be deployed in selected compartment
-2. Cloud gateway system will be added as connected system to the service instance.
+1. `ALLOW GROUP <domain>/<group> to inspect all-resources IN TENANCY`
+2. `ALLOW GROUP <domain>/<group> to manage policies IN TENANCY where any {request.permission='POLICY_UPDATE' ,request.permission='POLICY_READ', request.permission='POLICY_DELETE',target.policy.name != 'Tenant Admin Policy'}` 
+3. `Allow GROUP <domain>/<group> to read audit-events IN TENANCY`
+4. `Allow GROUP <domain>/<group> to manage domains IN TENANCY`
+
+
+### Oracle Access Governance Deployment: Access Governance Service Instance
+An Access Governance Service instance will be deployed in security compartment
+
+### Oracle Access Governance Deployment: OCI system on Access Governance Instance
+Cloud gateway system will be added as connected system to the service instance.
 
 ## License
 Copyright (c) 2023, Oracle and/or its affiliates.

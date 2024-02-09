@@ -146,6 +146,7 @@ module "prod_environment" {
   ag_tenancy_ocid                   = var.tenancy_ocid
   ag_api_private_key_path           = var.api_private_key_path
   admin_domain_name                 = var.admin_domain_name
+  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
 
   enable_access_governance          = var.prod_enable_access_governance
   service_instance_description      = var.prod_service_instance_description
@@ -325,6 +326,7 @@ module "nonprod_environment" {
   ag_tenancy_ocid                   = var.tenancy_ocid
   ag_api_private_key_path           = var.api_private_key_path
   admin_domain_name                 = var.admin_domain_name
+  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
 
   enable_access_governance          = var.nonprod_enable_access_governance
   service_instance_description      = var.nonprod_service_instance_description

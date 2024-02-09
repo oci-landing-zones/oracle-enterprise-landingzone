@@ -1,6 +1,7 @@
 # -----------------------------------------------------------------------------
 # Provider Requirements if using stack as a module
 # -----------------------------------------------------------------------------
+
 terraform {
   required_version = ">= 1.0.0"
 
@@ -15,10 +16,8 @@ terraform {
 
 # # -----------------------------------------------------------------------------
 # # WARNING!
-# # UNCOMMENT BELOW AND COMMENT EVERYTHING ABOVE IF YOU WISH TO USE THIS
+# # UNCOMMENT BELOW SECTION AND COMMENT EVERYTHING ABOVE IF YOU WISH TO USE THIS
 # # STACK AS A STANDALONE - DO NOT TOUCH IF USING THIS STACK IN A MODULE CALL
-# # Provider Requirements if using stack as standalone
-# #
 # # -----------------------------------------------------------------------------
 
 #terraform {
@@ -49,10 +48,10 @@ terraform {
 #  region           = local.home_region[0]
 #}
 
-# # -----------------------------------------------------------------------------
+# # -----------------------------DO NOT MODIFY ANY THING BEYOND HERE------------------------
 # # Provider / Python SDK Auth Variables
-# # Do not remove/comment out this line as it is required for python script authentication
-# # -----------------------------------------------------------------------------
+# # Do not remove/comment out these lines as it is required for python script authentication
+# # ----------------------------------------------------------------------------------------
 variable "current_user_ocid" {
   type        = string
   description = "The OCID of the current user"

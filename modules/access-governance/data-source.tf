@@ -1,5 +1,5 @@
 data "oci_identity_domains" "admin_domain_data" {
-  compartment_id = var.tenancy_ocid
+  compartment_id = var.admin_domain_compartment_ocid
   display_name   = var.admin_domain_name
 }
 

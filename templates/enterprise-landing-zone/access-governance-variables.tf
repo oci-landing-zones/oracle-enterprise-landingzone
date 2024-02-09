@@ -50,6 +50,11 @@ variable "admin_domain_name" {
   default     = "Default"
   description = "Administrator's Identity Domain Name."
 }
+
+variable "admin_domain_compartment_ocid" {
+  default     = ""
+  description = "Administrator's Identity Domain's Compartment."
+}
 ################################## Prod Details ###########################################
 variable "prod_ag_license_type" {
   default     = "Access Governance for Oracle Cloud Infrastructure"
@@ -61,7 +66,7 @@ variable "prod_ag_license_type" {
 }
 
 variable "prod_service_instance_display_name" {
-  default     = "prod-instance"
+  default     = "prod-access-governance-instance"
   description = "Access Governance Instance Display Name."
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.prod_service_instance_display_name))
@@ -124,13 +129,13 @@ variable "prod_agcs_user_region_oci_system" {
 
 variable "prod_oci_system_name" {
   type        = string
-  default     = ""
+  default     = "OCI Connected System"
   description = "OCI Connected System Name."
 }
 
 variable "prod_oci_system_description" {
   type        = string
-  default     = ""
+  default     = "OCI Connected System"
   description = "OCI Connected System Description."
 }
 
@@ -170,7 +175,7 @@ variable "nonprod_ag_license_type" {
 
 variable "nonprod_service_instance_display_name" {
   description = "Access Governance Instance Display Name."
-  default     = "nonprod-instance"
+  default     = "nonprod-access-governance-instance"
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.nonprod_service_instance_display_name))
     error_message = "Must be unique, start with a letter and contain only alphanumeric characters without any space. Hyphen (-) and underscore ( _ ) are allowed only."

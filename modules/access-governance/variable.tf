@@ -42,6 +42,12 @@ variable "admin_domain_name" {
   description = "Administrator's Identity Domain Name."
 }
 
+variable "admin_domain_compartment_ocid" {
+  default     = ""
+  description = "Administrator's Identity Domain's Compartment."
+}
+
+
 variable "use_existing_agcs_user" {
   type        = bool
   default     = false

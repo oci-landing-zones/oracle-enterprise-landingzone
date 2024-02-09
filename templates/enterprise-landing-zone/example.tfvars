@@ -128,6 +128,7 @@ enable_network_firewall_nonprod = "false"
 prod_enable_access_governance    = false
 nonprod_enable_access_governance = false
 admin_domain_name                = "Default"
+admin_domain_compartment_ocid    = ""
 
 # ACCESS GOVERNANCE SERVICE INSTANCE DETAILS
 prod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"

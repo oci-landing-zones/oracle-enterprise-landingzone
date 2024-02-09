@@ -7,6 +7,7 @@ module "elz-access-governance" {
   ag_tenancy_ocid                   = var.tenancy_ocid
   ag_region                         = var.ag_region
   admin_domain_name                 = var.admin_domain_name
+  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
   service_instance_compartment_ocid = module.compartment.compartments.security.id
   service_instance_description      = var.service_instance_description
   service_instance_display_name     = var.service_instance_display_name

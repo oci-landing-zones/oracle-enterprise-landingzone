@@ -1,12 +1,8 @@
-# Copyright (c) 2022 Oracle and/or its affiliates.
-# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
-title: "CIS (Center for Internet Security) OCI Landing Zone Quick Start for Access Governance"
-stackDescription: "A stack to Deploy Oracle Access Governance."
-description: "This stack deploys Oracle Access Governance."
+title: Oracle Enterprise Landing Zone 2.0
+description: Oracle Enterprise Landing Zone 2.0 developed by OCI
 schemaVersion: 1.0.0
-version: "0.0.1"
-locale: "en"
+version: "1.0.0"
+locale: en
 
 #logoUrl: "https://objectstorage.us-ashburn-1.oraclecloud.com/p/taf6kC9fSJyQDNSYbxvqxS_JsdnSu56oFZ3-1h5vI7-WfJUv77mplChopLxZPePW/n/ociateam/b/cis-landing-zone/o/landing_zone_130.png"
 
@@ -17,6 +13,7 @@ variableGroups:
 #      - "use_namespace"
       - "namespace_service_endpoint"
       - "admin_domain_name"
+      - "admin_domain_compartment_ocid"
       - "service_instance_display_name"
       - "service_instance_description"
       - "ag_license_type"
@@ -41,6 +38,7 @@ variableGroups:
       - "private_key_path"
       - "admin_ocid_service_instance"
       - "fingerprint"
+      - "private_key_password"
       - "tenancy_ocid"
       - "user_ocid"
       - "agcs_user_fingerprint_oci_system"
@@ -63,6 +61,12 @@ variables:
     type: oci:identity:compartment:id
     title: "Access Governance Service Instance Compartment"
     description: "Compartment, where Access Governance instance will be deployed."
+    required: true
+
+  admin_domain_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment of Administrator's Domain"
+    description: "The Compartment where Administrator's Domain belongs."
     required: true
 
   namespace_service_endpoint:
