@@ -66,7 +66,7 @@ variable "prod_ag_license_type" {
 }
 
 variable "prod_service_instance_display_name" {
-  default     = "prod-instance"
+  default     = "prod-access-governance-instance"
   description = "Access Governance Instance Display Name."
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.prod_service_instance_display_name))
@@ -175,7 +175,7 @@ variable "nonprod_ag_license_type" {
 
 variable "nonprod_service_instance_display_name" {
   description = "Access Governance Instance Display Name."
-  default     = "nonprod-instance"
+  default     = "nonprod-access-governance-instance"
   validation {
     condition     = can(regex("^[a-zA-Z0-9-_]+$", var.nonprod_service_instance_display_name))
     error_message = "Must be unique, start with a letter and contain only alphanumeric characters without any space. Hyphen (-) and underscore ( _ ) are allowed only."

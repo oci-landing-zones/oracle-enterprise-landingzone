@@ -6,6 +6,7 @@ module "agcs-module" {
   tenancy_ocid                      = var.ag_tenancy_ocid
   region                            = var.ag_region
   admin_domain_name                 = var.admin_domain_name
+  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
   service_instance_compartment_ocid = var.service_instance_compartment_ocid
   service_instance_description      = var.service_instance_description
   service_instance_display_name     = var.service_instance_display_name
