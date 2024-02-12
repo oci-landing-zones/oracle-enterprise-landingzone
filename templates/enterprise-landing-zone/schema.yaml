@@ -195,6 +195,29 @@ variableGroups:
       - prod_additional_workload_subnets_cidr_blocks
       - nonprod_workload_compartment_names
       - nonprod_additional_workload_subnets_cidr_blocks
+  - title: Oracle Access Governance Variables
+    visible: true
+    variables:
+      - prod_enable_access_governance
+      - nonprod_enable_access_governance
+      - admin_domain_name
+      - admin_domain_compartment_ocid
+      - prod_ag_license_type
+      - prod_service_instance_display_name
+      - prod_service_instance_description
+      - prod_agcs_user_name
+      - prod_agcs_user_group_display_name
+      - prod_agcs_user_email
+      - prod_oci_system_name
+      - prod_oci_system_description
+      - nonprod_ag_license_type
+      - nonprod_service_instance_display_name
+      - nonprod_service_instance_description
+      - nonprod_agcs_user_name
+      - nonprod_agcs_user_group_display_name
+      - nonprod_agcs_user_email
+      - nonprod_oci_system_name
+      - nonprod_oci_system_description
   - title: Invisible Variables
     visible: false
     variables:
@@ -223,6 +246,24 @@ variableGroups:
       - domain_license_type
       - is_baseline_deploy
       - is_create_alarms
+      - nonprod_use_existing_agcs_user
+      - prod_use_existing_agcs_user
+      - prod_agcs_user_private_key
+      - nonprod_agcs_user_private_key
+      - prod_agcs_user_private_key_path
+      - nonprod_agcs_user_private_key_path
+      - prod_agcs_user_ocid_oci_system
+      - nonprod_agcs_user_ocid_oci_system
+      - prod_agcs_user_tenancy_ocid_oci_system
+      - nonprod_agcs_user_tenancy_ocid_oci_system
+      - prod_agcs_user_fingerprint_oci_system
+      - nonprod_agcs_user_fingerprint_oci_system
+      - prod_agcs_user_region_oci_system
+      - nonprod_agcs_user_region_oci_system
+      - namespace_service_endpoint
+      - should_create_connected_system
+      - nonprod_agcs_user_domain_name
+      - prod_agcs_user_domain_name
 
 
 variables:
@@ -1316,3 +1357,150 @@ variables:
     required: false
     title: Additional Workload Subnets CIDR Blocks in Non-Prod
     description: "A list of subnets cidr blocks in additional workload expansion stack in Non-Prod"
+
+  # Access Governance Variables
+  prod_enable_access_governance:
+    type: boolean
+    description: "Option to enable Oracle Access Governance in Prod."
+    default: true
+    required: true
+    title: Enable Oracle Access Governance in Prod
+  nonprod_enable_access_governance:
+    type: boolean
+    description: "Option to enable Oracle Access Governance in Non-Prod."
+    default: true
+    required: true
+    title: Enable Oracle Access Governance in Non-Prod
+  admin_domain_name:
+    type: string
+    title: "Administrator's Identity Domain Name"
+    description: "Administrator's Identity Domain Name for authorizing the IDCS APIs."
+    required: true
+    pattern: ^[A-Za-z0-9_.-]+$
+    visible:
+      or:
+        - prod_enable_access_governance
+        - nonprod_enable_access_governance
+  admin_domain_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment of Administrator's Domain"
+    description: "The Compartment where Administrator's Domain belongs."
+    required: true
+    visible:
+      or:
+        - prod_enable_access_governance
+        - nonprod_enable_access_governance
+  prod_service_instance_display_name:
+    type: string
+    title: "Access Governance Instance Display Name in Prod."
+    description: "Instance name will be used in instance URL."
+    pattern: ^[a-zA-Z0-9-_]+$
+    required: true
+    visible: prod_enable_access_governance
+  prod_service_instance_description:
+    type: string
+    title: "Access Governance Instance Description in Prod."
+    description: "Description of the Access Governance Service Instance."
+    required: true
+    visible: prod_enable_access_governance
+  prod_ag_license_type:
+    type: enum
+    enum:
+      - "Access Governance Premium"
+      - "Access Governance for Oracle Workloads"
+      - "Access Governance for Oracle Cloud Infrastructure"
+    title: "Access Governance Instance License Type in Prod."
+    description: "License Type for Access Governance Instance"
+    default: "Access Governance for Oracle Cloud Infrastructure"
+    required: true
+    visible: prod_enable_access_governance
+  prod_agcs_user_email:
+    type: string
+    title: "Access Governance User's Email in Prod."
+    description: "Email of the New Access Governance User."
+    pattern: ^[^\s@]+@[^\s@]+\.[^\s@]+$
+    required: true
+    visible: prod_enable_access_governance
+  prod_agcs_user_name:
+    type: string
+    title: "Access Governance User’s Name in Prod."
+    description: "Name for creating Access Governance User"
+    required: true
+    visible: prod_enable_access_governance
+  prod_agcs_user_group_display_name:
+    type: string
+    title: "Access Governance User's Group Name in Prod."
+    description: "User will become part of this group for policy assignment."
+    required: true
+    visible: prod_enable_access_governance
+  prod_oci_system_name:
+    type: string
+    title: "OCI Connected System Name in Prod."
+    description: "Display Name for the OCI Connected System in Access Governance."
+    required: true
+    default: "Local-OCI-System-Prod"
+    visible: prod_enable_access_governance
+  prod_oci_system_description:
+    type: string
+    title: "OCI Connected System Description in Prod."
+    description: "Description of the Connected System."
+    required: true
+    default: "Prod OCI Connected System."
+    visible: prod_enable_access_governance
+  nonprod_service_instance_display_name:
+    type: string
+    title: "Access Governance Instance Display Name in Non-Prod."
+    description: "Instance name will be used in instance URL."
+    pattern: ^[a-zA-Z0-9-_]+$
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_service_instance_description:
+    type: string
+    title: "Access Governance Instance Description in Non-Prod."
+    description: "Description of the Access Governance Service Instance."
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_ag_license_type:
+    type: enum
+    enum:
+      - "Access Governance Premium"
+      - "Access Governance for Oracle Workloads"
+      - "Access Governance for Oracle Cloud Infrastructure"
+    title: "Access Governance Instance License Type in Non-Prod."
+    description: "License Type for Access Governance Instance"
+    default: "Access Governance for Oracle Cloud Infrastructure"
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_agcs_user_email:
+    type: string
+    title: "Access Governance User's Email in Non-Prod."
+    description: "Email of the New Access Governance User."
+    pattern: ^[^\s@]+@[^\s@]+\.[^\s@]+$
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_agcs_user_name:
+    type: string
+    title: "Access Governance User’s Name in Non-Prod."
+    description: "Name for creating Access Governance User"
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_agcs_user_group_display_name:
+    type: string
+    title: "Access Governance User's Group Name in Non-Prod."
+    description: "User will become part of this group for policy assignment."
+    required: true
+    visible: nonprod_enable_access_governance
+  nonprod_oci_system_name:
+    type: string
+    title: "OCI Connected System Name in Non-Prod."
+    description: "Display Name for the OCI Connected System in Access Governance."
+    required: true
+    default: "Local-OCI-System-Non-Prod"
+    visible: nonprod_enable_access_governance
+  nonprod_oci_system_description:
+    type: string
+    title: "OCI Connected System Description in Non-Prod."
+    description: "Description of the Connected System."
+    required: true
+    default: "Non-Prod OCI Connected System."
+    visible: nonprod_enable_access_governance
