@@ -75,7 +75,7 @@ variable "prod_service_instance_display_name" {
 }
 
 variable "prod_service_instance_description" {
-  default     = "Oracle Access Governance Service Instance in Prod."
+  default     = ""
   description = "Access Governance Instance Description."
 }
 
@@ -129,13 +129,13 @@ variable "prod_agcs_user_region_oci_system" {
 
 variable "prod_oci_system_name" {
   type        = string
-  default     = "Local-OCI-System-Prod"
+  default     = "OCI Connected System"
   description = "OCI Connected System Name."
 }
 
 variable "prod_oci_system_description" {
   type        = string
-  default     = "OCI Connected System in Prod."
+  default     = "OCI Connected System"
   description = "OCI Connected System Description."
 }
 
@@ -147,11 +147,11 @@ variable "prod_agcs_user_domain_name" {
 
 variable "prod_agcs_user_group_display_name" {
   description = "Group to create for Access Governance User."
-  default     = "prod_agcs_group"
+  default     = "agcs_group"
 }
 
 variable "prod_agcs_user_name" {
-  default     = "prod_agcs_user"
+  default     = "agcs_user"
   description = "New Access Governance User's name."
 }
 
@@ -183,7 +183,7 @@ variable "nonprod_service_instance_display_name" {
 }
 
 variable "nonprod_service_instance_description" {
-  default     = "Oracle Access Governance Service Instance in Non-Prod."
+  default     = ""
   description = "Access Governance Instance Description."
 }
 
@@ -237,13 +237,13 @@ variable "nonprod_agcs_user_region_oci_system" {
 
 variable "nonprod_oci_system_name" {
   type        = string
-  default     = "Local-OCI-System-Non-Prod"
+  default     = ""
   description = "OCI Connected System Name."
 }
 
 variable "nonprod_oci_system_description" {
   type        = string
-  default     = "OCI Connected System in Non-Prod."
+  default     = ""
   description = "OCI Connected System Description."
 }
 
@@ -255,11 +255,11 @@ variable "nonprod_agcs_user_domain_name" {
 
 variable "nonprod_agcs_user_group_display_name" {
   description = "Group to create for Access Governance User."
-  default     = "non_prod_agcs_group"
+  default     = "agcs_group"
 }
 
 variable "nonprod_agcs_user_name" {
-  default     = "non_prod_agcs_user"
+  default     = "agcs_user"
   description = "New Access Governance User's name."
 }
 
