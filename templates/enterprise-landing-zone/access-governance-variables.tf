@@ -135,7 +135,7 @@ variable "prod_oci_system_name" {
 
 variable "prod_oci_system_description" {
   type        = string
-  default     = "OCI Connected System in Prod"
+  default     = "OCI Connected System in Prod."
   description = "OCI Connected System Description."
 }
 

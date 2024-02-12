@@ -1,9 +1,9 @@
 # Release Notes
 
-## v2.2.1 - 2023-10-27
-
-- Update the Offical Readme file with valid OELZ deployment URL.
-
+## v2.2.2 - 2023-1-19
+-  Added Multi-Region and Disaster Recovery Module.
+-  Cloud Guard Key Replication from the Home Region to the Backup Region or vice-verse is currently not supported(Work in Progress).
+  
 ## v2.2.0 - 2023-10-11
 
 - Network Firewall Feature is added.(Greenfield & Brownfield use cases)
@@ -70,3 +70,12 @@ For more information on the CIS Security Benchmark, please visit the official [O
 
 [v2.0.0-1]: https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/usingmfa.htm
 [v2.0.0-2]: https://www.cisecurity.org/benchmark/oracle_cloud
+
+
+## License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](./LICENSE) for more details.

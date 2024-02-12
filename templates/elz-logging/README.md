@@ -69,3 +69,11 @@
 | <a name="output_log_group_id"></a> [log\_group\_id](#output\_log\_group\_id) | n/a |
 | <a name="output_stream_id"></a> [stream\_id](#output\_stream\_id) | n/a |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

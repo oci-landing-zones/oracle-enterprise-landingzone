@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 # Reference:
 #   https://docs.oracle.com/en-us/iaas/Content/API/Concepts/signingrequests.htm#seven__Python
 #   https://www.ateam-oracle.com/post/oracle-cloud-infrastructure-oci-rest-call-walkthrough-with-curl

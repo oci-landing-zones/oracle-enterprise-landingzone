@@ -48,4 +48,12 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_stream_id"></a> [stream\_id](#output\_stream\_id) | The OCID of the stream created |
-<!-- END_TF_DOCS -->    
+<!-- END_TF_DOCS -->   
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

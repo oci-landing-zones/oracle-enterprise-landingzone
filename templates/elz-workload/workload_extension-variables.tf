@@ -1,3 +1,8 @@
+##########################################################################################################
+# Copyright (c) 2022,2023 Oracle and/or its affiliates, All rights reserved.                             #
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl. #
+##########################################################################################################
+
 # -----------------------------------------------------------------------------
 # Network Variables
 # -----------------------------------------------------------------------------
@@ -138,7 +143,7 @@ variable "service_gw_spoke_check" {
 variable "workload_prefix" {
   type        = string
   description = "Atleast 4 Alphanumeric Charater to Describe the Workload : WRK1"
-  default     = "WRK1"
+  default     = "WRKV"
 }
 
 variable "vcn_display_name" {

@@ -39,3 +39,11 @@ No modules.
 |------|-------------|
 | <a name="output_bastion_ocid"></a> [bastion\_ocid](#output\_bastion\_ocid) | The OCID of the bastion created |
 <!-- END_TF_DOCS -->    
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.

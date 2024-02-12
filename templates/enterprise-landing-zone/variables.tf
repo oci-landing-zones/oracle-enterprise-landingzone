@@ -1,3 +1,5 @@
+
+
 # -----------------------------------------------------------------------------
 # Common Variables 
 # -----------------------------------------------------------------------------
@@ -424,69 +426,83 @@ variable "service_gw_spoke_check" {
 }
 
 variable "prod_hub_vcn_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment HUB VCN CIDR Block."
 }
 
 variable "nonprod_hub_vcn_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment HUB VCN CIDR Block."
 }
 
 variable "prod_hub_public_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment HUB Public Subnet CIDR Block."
 }
 
 variable "prod_hub_private_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment HUB Private Subnet CIDR Block."
 }
 
 variable "nonprod_hub_public_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment HUB Public Subnet CIDR Block."
 }
 
 variable "nonprod_hub_private_subnet_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment HUB Private Subnet CIDR Block."
 }
 
 variable "prod_spoke_subnet_web_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment Spoke Web Subnet CIDR Block."
 }
 variable "prod_spoke_subnet_app_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment Spoke App Subnet CIDR Block."
 }
 variable "prod_spoke_subnet_db_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment Spoke DB Subnet CIDR Block."
 }
 
 variable "nonprod_spoke_subnet_web_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment Spoke Web Subnet CIDR Block."
 }
 
 variable "nonprod_spoke_subnet_app_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment Spoke App Subnet CIDR Block."
 }
 
 variable "nonprod_spoke_subnet_db_cidr_block" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment Spoke DB Subnet CIDR Block."
 }
 
 variable "prod_spoke_vcn_cidr" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Production Enivornment Spoke VCN CIDR Block."
 }
 
 variable "nonprod_spoke_vcn_cidr" {
+  default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment Spoke VCN CIDR Block."
 }
@@ -506,21 +522,25 @@ variable "nonprod_enable_tagging" {
 }
 
 variable "prod_cost_center_tagging" {
+  default     = "p_cost_tag"
   type        = string
   description = "Production Cost Center."
 }
 
 variable "nonprod_cost_center_tagging" {
+  default     = "n_cost_tag"
   type        = string
   description = "Non-ProductionGeo Location."
 }
 
 variable "prod_geo_location_tagging" {
+  default     = "p_geo_tag"
   type        = string
   description = "Production Geo Center."
 }
 
 variable "nonprod_geo_location_tagging" {
+  default     = "n_geo_tag"
   type        = string
   description = "Non-Production Geo Location."
 }

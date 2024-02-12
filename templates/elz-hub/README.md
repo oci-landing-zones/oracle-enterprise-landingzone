@@ -104,3 +104,11 @@
 | <a name="output_subnets"></a> [subnets](#output\_subnets) | The Hub Subnet OCIDs |
 | <a name="output_vcn_id"></a> [vcn\_id](#output\_vcn\_id) | Hub VCN OCID. |
 <!-- END_TF_DOCS -->
+
+# License
+
+Copyright (c) 2022,2023 Oracle and/or its affiliates.
+
+Licensed under the Universal Permissive License (UPL), Version 1.0.
+
+See [LICENSE](../../LICENSE) for more details.
