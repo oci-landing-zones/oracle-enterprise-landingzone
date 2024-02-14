@@ -17,16 +17,15 @@ nonprod_domain_admin_email = "an-example-email-address@oracle.com"
 enable_compartment_delete  = false
 
 # security
-enable_cloud_guard                           = true
-cloud_guard_target_tenancy                   = false
+enable_cloud_guard                           = false
 nonprod_enable_bastion                       = true
 prod_enable_bastion                          = true
 prod_bastion_client_cidr_block_allow_list    = ["10.0.0.0/16", "10.0.0.0/24"]
 nonprod_bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
 
 # budget
-nonprod_enable_budget                = true
-prod_enable_budget                   = true
+nonprod_enable_budget                = false
+prod_enable_budget                   = false
 nonprod_budget_alert_rule_message    = "test"
 nonprod_budget_alert_rule_recipients = "an-example-email-address@oracle.com"
 nonprod_budget_alert_rule_threshold  = 1000000
@@ -98,13 +97,13 @@ nonprod_identity_topic_endpoints = []
 nonprod_workload_topic_endpoints = []
 
 # Logging
-onboard_log_analytics        = false
+onboard_log_analytics = false
 
 # Workload Expansion
 prod_additional_workload_subnets_cidr_blocks    = []
 nonprod_additional_workload_subnets_cidr_blocks = []
-prod_workload_compartment_names = []
-nonprod_workload_compartment_names = []
+prod_workload_compartment_names                 = []
+nonprod_workload_compartment_names              = []
 
 #Network Firewall can be only deployed in Prod or Non_prod Enviornment
 

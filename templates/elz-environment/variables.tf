@@ -174,7 +174,8 @@ variable "enable_cloud_guard" {
 
 variable "cloud_guard_target_tenancy" {
   type        = bool
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
+  description = "Set true to set cloud guard targets to tenancy, false to set cloud guard targets to Landing Zone home compartment"
+  default = false
 }
 
 # -----------------------------------------------------------------------------
