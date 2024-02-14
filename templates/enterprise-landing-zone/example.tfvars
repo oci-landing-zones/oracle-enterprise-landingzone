@@ -17,15 +17,15 @@ nonprod_domain_admin_email = "an-example-email-address@oracle.com"
 enable_compartment_delete  = false
 
 # security
-enable_cloud_guard                           = false
+enable_cloud_guard                           = true
 nonprod_enable_bastion                       = true
 prod_enable_bastion                          = true
 prod_bastion_client_cidr_block_allow_list    = ["10.0.0.0/16", "10.0.0.0/24"]
 nonprod_bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
 
 # budget
-nonprod_enable_budget                = false
-prod_enable_budget                   = false
+nonprod_enable_budget                = true
+prod_enable_budget                   = true
 nonprod_budget_alert_rule_message    = "test"
 nonprod_budget_alert_rule_recipients = "an-example-email-address@oracle.com"
 nonprod_budget_alert_rule_threshold  = 1000000
@@ -122,11 +122,11 @@ admin_domain_compartment_ocid    = ""
 
 # ACCESS GOVERNANCE SERVICE INSTANCE DETAILS
 prod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
-prod_service_instance_display_name = ""
+#prod_service_instance_display_name = ""
 prod_service_instance_description  = "Prod OAG service instance"
 
 nonprod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
-nonprod_service_instance_display_name = ""
+#nonprod_service_instance_display_name = ""
 nonprod_service_instance_description  = "Non Prod OAG service instance"
 
 # ACCESS GOVERNANCE USER COMMON DETAILS
