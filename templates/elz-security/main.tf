@@ -13,8 +13,6 @@ locals {
     activity_detector_recipe_display_name      = "OCI Activity Detector Recipe"
     threat_detector_recipe_display_name        = "OCI Threat Detector Recipe"
     responder_recipe_display_name              = "OCI Responder Recipe"
-    compartment_id                             = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
-    target_resource_id                         = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
   }
 
   vss = {
@@ -49,7 +47,7 @@ locals {
 
     statements = local.create_key ? [
       "Allow service objectstorage-${var.region} to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}",
-      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}"
+      "Allow service blockstorage,FssOc3Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}"
     ] : []
   }
 
@@ -62,9 +60,9 @@ module "cloud_guard" {
   tenancy_ocid                               = var.tenancy_ocid
   region                                     = var.region
   status                                     = local.cloud_guard.status
-  compartment_id                             = local.cloud_guard.compartment_id
+  compartment_id                             = var.environment_compartment_id
   display_name                               = local.cloud_guard.display_name
-  target_resource_id                         = local.cloud_guard.target_resource_id
+  target_resource_id                         = var.environment_compartment_id
   target_resource_type                       = local.cloud_guard.target_resource_type
   description                                = local.cloud_guard.description
   configuration_detector_recipe_display_name = local.cloud_guard.configuration_detector_recipe_display_name

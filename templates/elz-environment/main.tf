@@ -94,7 +94,6 @@ module "security" {
   enable_cloud_guard                   = var.enable_cloud_guard
   resource_label                       = var.resource_label
   home_compartment_id                  = var.home_compartment_id
-  cloud_guard_target_tenancy           = var.cloud_guard_target_tenancy
   tenancy_ocid                         = var.tenancy_ocid
   environment_prefix                   = var.environment_prefix
   home_compartment_name                = var.home_compartment_name
