@@ -47,7 +47,7 @@ locals {
 
     statements = local.create_key ? [
       "Allow service objectstorage-${var.region} to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}",
-      "Allow service blockstorage,FssOc3Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}"
+      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id} where target.key.id = ${module.key[0].key_ocid}"
     ] : []
   }
 
