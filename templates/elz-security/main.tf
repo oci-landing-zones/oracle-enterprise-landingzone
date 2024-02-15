@@ -13,8 +13,6 @@ locals {
     activity_detector_recipe_display_name      = "OCI Activity Detector Recipe"
     threat_detector_recipe_display_name        = "OCI Threat Detector Recipe"
     responder_recipe_display_name              = "OCI Responder Recipe"
-    compartment_id                             = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
-    target_resource_id                         = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
   }
 
   vss = {
@@ -62,9 +60,9 @@ module "cloud_guard" {
   tenancy_ocid                               = var.tenancy_ocid
   region                                     = var.region
   status                                     = local.cloud_guard.status
-  compartment_id                             = local.cloud_guard.compartment_id
+  compartment_id                             = var.environment_compartment_id
   display_name                               = local.cloud_guard.display_name
-  target_resource_id                         = local.cloud_guard.target_resource_id
+  target_resource_id                         = var.environment_compartment_id
   target_resource_type                       = local.cloud_guard.target_resource_type
   description                                = local.cloud_guard.description
   configuration_detector_recipe_display_name = local.cloud_guard.configuration_detector_recipe_display_name

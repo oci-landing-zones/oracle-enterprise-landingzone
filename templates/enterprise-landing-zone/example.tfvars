@@ -18,7 +18,6 @@ enable_compartment_delete  = false
 
 # security
 enable_cloud_guard                           = true
-cloud_guard_target_tenancy                   = false
 nonprod_enable_bastion                       = true
 prod_enable_bastion                          = true
 prod_bastion_client_cidr_block_allow_list    = ["10.0.0.0/16", "10.0.0.0/24"]
@@ -98,13 +97,13 @@ nonprod_identity_topic_endpoints = []
 nonprod_workload_topic_endpoints = []
 
 # Logging
-onboard_log_analytics        = false
+onboard_log_analytics = false
 
 # Workload Expansion
 prod_additional_workload_subnets_cidr_blocks    = []
 nonprod_additional_workload_subnets_cidr_blocks = []
-prod_workload_compartment_names = []
-nonprod_workload_compartment_names = []
+prod_workload_compartment_names                 = []
+nonprod_workload_compartment_names              = []
 
 #Network Firewall can be only deployed in Prod or Non_prod Enviornment
 
@@ -123,11 +122,11 @@ admin_domain_compartment_ocid    = ""
 
 # ACCESS GOVERNANCE SERVICE INSTANCE DETAILS
 prod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
-prod_service_instance_display_name = ""
+#prod_service_instance_display_name = ""
 prod_service_instance_description  = "Prod OAG service instance"
 
 nonprod_ag_license_type               = "Access Governance for Oracle Cloud Infrastructure"
-nonprod_service_instance_display_name = ""
+#nonprod_service_instance_display_name = ""
 nonprod_service_instance_description  = "Non Prod OAG service instance"
 
 # ACCESS GOVERNANCE USER COMMON DETAILS

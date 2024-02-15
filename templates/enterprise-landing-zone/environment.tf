@@ -45,7 +45,6 @@ module "prod_environment" {
   budget_alert_rule_message    = var.prod_budget_alert_rule_message
   budget_alert_rule_recipients = var.prod_budget_alert_rule_recipients
   enable_cloud_guard           = var.enable_cloud_guard
-  cloud_guard_target_tenancy   = var.cloud_guard_target_tenancy
   is_create_alarms             = var.is_create_alarms
   is_service_connector_limit   = var.is_service_connector_limit
   domain_license_type          = var.domain_license_type
@@ -140,13 +139,13 @@ module "prod_environment" {
 
   # Access Governance Variables
 
-  ag_current_user_ocid              = var.current_user_ocid
-  ag_api_fingerprint                = var.api_fingerprint
-  ag_region                         = var.region
-  ag_tenancy_ocid                   = var.tenancy_ocid
-  ag_api_private_key_path           = var.api_private_key_path
-  admin_domain_name                 = var.admin_domain_name
-  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
+  ag_current_user_ocid          = var.current_user_ocid
+  ag_api_fingerprint            = var.api_fingerprint
+  ag_region                     = var.region
+  ag_tenancy_ocid               = var.tenancy_ocid
+  ag_api_private_key_path       = var.api_private_key_path
+  admin_domain_name             = var.admin_domain_name
+  admin_domain_compartment_ocid = var.admin_domain_compartment_ocid
 
   enable_access_governance          = var.prod_enable_access_governance
   service_instance_description      = var.prod_service_instance_description
@@ -224,7 +223,6 @@ module "nonprod_environment" {
   is_service_connector_limit        = var.is_service_connector_limit
   domain_license_type               = var.domain_license_type
   enable_cloud_guard                = var.enable_cloud_guard
-  cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
   home_compartment_name             = var.home_compartment_name
   enable_vpn_or_fastconnect         = var.enable_vpn_or_fastconnect
   cpe_ip_address                    = var.nonprod_cpe_ip_address
@@ -320,13 +318,13 @@ module "nonprod_environment" {
   additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
 
   # Access Governance Variables
-  ag_current_user_ocid              = var.current_user_ocid
-  ag_api_fingerprint                = var.api_fingerprint
-  ag_region                         = var.region
-  ag_tenancy_ocid                   = var.tenancy_ocid
-  ag_api_private_key_path           = var.api_private_key_path
-  admin_domain_name                 = var.admin_domain_name
-  admin_domain_compartment_ocid     = var.admin_domain_compartment_ocid
+  ag_current_user_ocid          = var.current_user_ocid
+  ag_api_fingerprint            = var.api_fingerprint
+  ag_region                     = var.region
+  ag_tenancy_ocid               = var.tenancy_ocid
+  ag_api_private_key_path       = var.api_private_key_path
+  admin_domain_name             = var.admin_domain_name
+  admin_domain_compartment_ocid = var.admin_domain_compartment_ocid
 
   enable_access_governance          = var.nonprod_enable_access_governance
   service_instance_description      = var.nonprod_service_instance_description

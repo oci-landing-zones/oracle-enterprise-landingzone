@@ -45,7 +45,6 @@ variableGroups:
     visible: true
     variables:
       - enable_cloud_guard
-      - cloud_guard_target_tenancy
       - prod_enable_bastion
       - prod_bastion_client_cidr_block_allow_list
       - nonprod_enable_bastion
@@ -492,12 +491,6 @@ variables:
     default: true
     required: true
     title: Enable Cloud Guard
-  cloud_guard_target_tenancy:
-    type: boolean
-    description: "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment."
-    default: false
-    required: true
-    title: Cloud Guard Target Tenancy
   prod_enable_bastion:
     type: boolean
     description: "Option to enable bastion service in prod"

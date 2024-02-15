@@ -544,7 +544,7 @@ The OELZ deploys configurations for multiple security services. VSS (Vulnerabili
 
 CloudGuard can monitor for a multitude of security conditions. The OELZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
 
-By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](../../templates/enterprise-landing-zone/README.md#inputs) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
+By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. 
 
 Cloud Guard Target will be deployed in base compartment of both L2-Prod and L2-Non-Prod environments along with related IAM policies. All Oracle managed responder recipes will reside in L4 Security compartment of each environment.
 
@@ -563,7 +563,6 @@ For further details on CloudGuard, see the [Cloud Guard documentation](https://d
     | Name                                                                                                                   | Description                                                                                           | Type   | Default | Required |
     | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ | ------- | :------: |
     | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard)                           | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled.         | `bool` | `true`  |    no    |
-    | <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to OELZ home compartment | `bool` | `false` |    no    |
 
 ### Bastion Sub Module
 

@@ -33,11 +33,6 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
-}
-
 variable "region" {
   type        = string
   description = "The OCI region"

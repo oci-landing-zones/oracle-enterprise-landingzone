@@ -172,11 +172,6 @@ variable "enable_cloud_guard" {
   description = "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
 }
 
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
-}
-
 # -----------------------------------------------------------------------------
 # Tagging Variables
 # -----------------------------------------------------------------------------
