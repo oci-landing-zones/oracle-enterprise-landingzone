@@ -24,6 +24,12 @@ locals {
       "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to use osms-managed-instances in compartment ${module.workload_compartment.compartment_name}"
     ]
   }
+
+  bastion = {
+    name = "${var.resource_label}-OCI-ELZ-BAS-${var.environment_prefix}"
+    bastion_target_subnet_id = var.workload_expansion_flag ? module.workload_expansion_spoke[0].spoke_web_subnet_ocid : var.bastion_target_subnet_id
+  }
+
 }
 module "workload_osms_dynamic_group" {
   source        = "../../modules/dynamic-group"
@@ -40,4 +46,13 @@ module "workload_osms_dg_policy" {
   policy_name      = local.osms_dg_policy_workload.name
   description      = local.osms_dg_policy_workload.description
   statements       = local.osms_dg_policy_workload.statements
+}
+
+module "bastion" {
+  source                               = "../../modules/bastion"
+  count                                = var.enable_bastion ? 1 : 0
+  target_subnet_id                     = local.bastion.bastion_target_subnet_id
+  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
+  bastion_name                         = local.bastion.name
+  compartment_id                       = var.security_compartment_id
 }

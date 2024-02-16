@@ -50,6 +50,9 @@ module "workload" {
   workload_spoke_vcn_cidr                      = var.spoke_vcn_cidr
   enable_datasafe                              = var.enable_datasafe
   idcs_endpoint                                = module.identity.idcs_endpoint
+  enable_bastion                               = var.enable_bastion
+  bastion_target_subnet_id                     = module.network.spoke_web_subnet_ocid
+  bastion_client_cidr_block_allow_list         = var.bastion_client_cidr_block_allow_list
 
   providers = {
     oci             = oci
