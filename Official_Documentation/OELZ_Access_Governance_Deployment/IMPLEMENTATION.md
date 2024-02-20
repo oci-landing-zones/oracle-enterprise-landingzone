@@ -1,6 +1,17 @@
 # Oracle Enterprise Landing Zone Access Governance Feature
 
-## Overview
+## Feature Overview
+Oracle Access Governance is a cloud-native Identity Governance and Administration (IGA) solution that provides insights-based access reviews, identity analytics, and intelligence capabilities for businesses.
+
+Oracle Access Governance provides features including:
+
+- Visibility of enterprise compliance by providing details on who has access to what.
+- Ability for reviewers to optimize user privileges through intelligent access review campaigns.
+- Actionable identity intelligence by building deep insights into potential security violations that enable rapid remediation of identity and access challenges.
+- Continuous compliance to meet governance and compliance requirements across many applications, workloads, infrastructures, and identity platforms.
+To learn more, visit: https://docs.oracle.com/en/cloud/paas/access-governance/agoye/index.html
+
+## Deployment Overview
 
 The terraform code in this folder deploys Oracle Access Governance.  It is accomplished by deploying an Oracle Access Governance Instance, creating an Oracle Access Governance User and adding a Cloudgateway connected system. This workload supports only Identity Domain Tenancy.
 
