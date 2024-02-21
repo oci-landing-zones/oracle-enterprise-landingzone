@@ -24,10 +24,6 @@ locals {
     vss_scan_schedule                          = "DAILY"
   }
 
-  bastion = {
-    name = "${var.resource_label}-OCI-ELZ-BAS-${var.environment_prefix}"
-  }
-
   vault = {
     name = "${var.resource_label}-OCI-ELZ-VAL-${var.environment_prefix}"
   }
@@ -86,15 +82,6 @@ module "vss" {
   vss_scan_schedule                          = local.vss.vss_scan_schedule
   host_scan_recipe_display_name              = local.vss.host_scan_recipe_display_name
   host_scan_target_display_name              = local.vss.host_scan_target_display_name
-}
-
-module "bastion" {
-  source                               = "../../modules/bastion"
-  count                                = var.enable_bastion ? 1 : 0
-  target_subnet_id                     = var.bastion_target_subnet_id
-  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
-  bastion_name                         = local.bastion.name
-  compartment_id                       = var.security_compartment_id
 }
 
 module "vault" {

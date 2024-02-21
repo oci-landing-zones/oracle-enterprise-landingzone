@@ -69,5 +69,12 @@ enable_network_monitoring_alarms  = false
 enable_security_monitoring_alarms = false
 enable_workload_monitoring_alarms = false
 
+#####################################################
+# Workload Expansion Security Variables
+#####################################################
+enable_bastion                       = true
+bastion_client_cidr_block_allow_list = ["10.0.0.0/16", "10.0.0.0/24"]
+
+
 # Workload Expansion
 #baseline_spoke_subnets_cidr_blocks = []
