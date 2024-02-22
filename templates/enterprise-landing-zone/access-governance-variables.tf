@@ -11,7 +11,7 @@ variable "prod_enable_access_governance" {
 
 variable "nonprod_enable_access_governance" {
   type    = bool
-  default = true
+  default = false
 }
 
 #variable "private_key_path" {
