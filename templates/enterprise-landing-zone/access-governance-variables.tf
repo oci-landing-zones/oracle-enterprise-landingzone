@@ -12,25 +12,11 @@ variable "prod_enable_access_governance" {
 variable "nonprod_enable_access_governance" {
   type    = bool
   default = false
+  validation {
+    condition     = var.nonprod_enable_access_governance == false
+    error_message = "Access Governance Deployment is not supported in Non production environment."
+  }
 }
-
-#variable "private_key_path" {
-#  type        = string
-#  default     = ""
-#  description = "Private Key Path of Administrator."
-#}
-#
-#variable "user_ocid" {
-#  type        = string
-#  default     = ""
-#  description = "OCID of the Administrator."
-#}
-#
-#variable "fingerprint" {
-#  type        = string
-#  default     = ""
-#  description = "Fingerprint of the Administrator."
-#}
 
 variable "namespace_service_endpoint" {
   type        = string
