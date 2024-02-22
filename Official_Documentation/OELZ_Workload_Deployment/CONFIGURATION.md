@@ -117,6 +117,18 @@ These are the configuration options for Workload Monitoring:
 | <a name="input_enable_security_monitoring_alarms"></a> [enable_security_monitoring_alarms](#input\_workload\_name)                                    | Enable security alarm in workload expansion         | `bool`         | `false` | no |
 | <a name="input_enable_workload_monitoring_alarms"></a> [enable_enable_workload_monitoring_alarms](#input\_workload\_name)                                    | Enable workload alarm in workload expansion         | `bool`         | `false` | no |
 
+## Security Module
+
+Bastion service is created in the L4 Security Compartment.
+
+* **Required Arguments/Parameters Under Bastion Module**:
+
+  | Name                                                                                                                                               | Description                                                                                                     | Type           | Default | Required |
+      | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------------- | ------- | :------: |
+  | <a name="enable_bastion"></a> [enable\_bastion](#input\_enable\_bastion)                                                                           | Option to enable bastion service                                                                                | `bool`         | n/a     |   yes    |
+  | <a name="bastion_client_cidr_block_allow_list"></a> [bastion\_client\_cidr\_block\_allow\_list](#input\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a     |   yes    |
+
+
 ## Workload Expansion DataSafe 
 
 These are the configuration options for Workload Expansion ExaData Datasafe: 

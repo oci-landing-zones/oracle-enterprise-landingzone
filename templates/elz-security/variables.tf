@@ -33,11 +33,6 @@ variable "tenancy_ocid" {
   description = "The OCID of tenancy"
 }
 
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
-}
-
 variable "region" {
   type        = string
   description = "The OCI region"
@@ -51,22 +46,6 @@ variable "security_compartment_id" {
 variable "environment_compartment_id" {
   type        = string
   description = "The OCID of environment compartment"
-}
-
-// Bastion Variables
-variable "bastion_target_subnet_id" {
-  type        = string
-  description = "The OCID of the subnet that the bastion connects to"
-}
-
-variable "bastion_client_cidr_block_allow_list" {
-  type        = list(string)
-  description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
-}
-
-variable "enable_bastion" {
-  type        = bool
-  description = "Option to enable bastion service"
 }
 
 // Vault & Key Variables

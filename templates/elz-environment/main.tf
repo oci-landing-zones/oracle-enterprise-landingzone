@@ -94,16 +94,12 @@ module "security" {
   enable_cloud_guard                   = var.enable_cloud_guard
   resource_label                       = var.resource_label
   home_compartment_id                  = var.home_compartment_id
-  cloud_guard_target_tenancy           = var.cloud_guard_target_tenancy
   tenancy_ocid                         = var.tenancy_ocid
   environment_prefix                   = var.environment_prefix
   home_compartment_name                = var.home_compartment_name
   region                               = var.region
   environment_compartment_id           = module.compartment.compartments.environment.id
   security_compartment_id              = module.compartment.compartments.security.id
-  enable_bastion                       = var.enable_bastion
-  bastion_target_subnet_id             = module.network.spoke_web_subnet_ocid
-  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   vault_type                           = var.vault_type
   replica_region                       = var.vault_replica_region
   enable_replication                   = var.enable_vault_replication

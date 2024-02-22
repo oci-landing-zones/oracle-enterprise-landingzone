@@ -38,7 +38,6 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_bastion_client_cidr_block_allow_list"></a> [bastion\_client\_cidr\_block\_allow\_list](#input\_bastion\_client\_cidr\_block\_allow\_list) | A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion. | `list(string)` | n/a | yes |
 | <a name="input_bastion_target_subnet_id"></a> [bastion\_target\_subnet\_id](#input\_bastion\_target\_subnet\_id) | The OCID of the subnet that the bastion connects to | `string` | n/a | yes |
-| <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment | `bool` | n/a | yes |
 | <a name="input_create_master_encryption_key"></a> [create\_master\_encryption\_key](#input\_create\_master\_encryption\_key) | Option create master encryption key | `bool` | n/a | yes |
 | <a name="input_enable_bastion"></a> [enable\_bastion](#input\_enable\_bastion) | Option to enable bastion service | `bool` | n/a | yes |
 | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard) | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled. | `bool` | n/a | yes |

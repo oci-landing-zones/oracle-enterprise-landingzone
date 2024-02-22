@@ -37,14 +37,7 @@ locals {
     name        = "${var.resource_label}-OCI-ELZ-CGTarget-Policy"
     description = "OCI Enterprise Landing Zone Cloud Guard Target Policy"
 
-    statements = var.cloud_guard_target_tenancy ? [
-      "Allow service cloudguard to manage instance-family in tenancy",
-      "Allow service cloudguard to manage object-family in tenancy",
-      "Allow service cloudguard to manage buckets in tenancy",
-      "Allow service cloudguard to manage users in tenancy",
-      "Allow service cloudguard to manage policies in tenancy",
-      "Allow service cloudguard to manage keys in tenancy"
-      ] : [
+    statements = [
       "Allow service cloudguard to manage instance-family in compartment ${var.home_compartment_name}",
       "Allow service cloudguard to manage object-family in compartment ${var.home_compartment_name}",
       "Allow service cloudguard to manage buckets in compartment ${var.home_compartment_name}",
@@ -135,7 +128,7 @@ module "cloud_guard_root_policy" {
 module "cloud_guard_target_policy" {
   count            = var.enable_cloud_guard ? 1 : 0
   source           = "../../modules/policies"
-  compartment_ocid = var.cloud_guard_target_tenancy ? var.tenancy_ocid : module.home_compartment.compartment_id
+  compartment_ocid = module.home_compartment.compartment_id
   policy_name      = local.cloud_guard_target_policy.name
   description      = local.cloud_guard_target_policy.description
   statements       = local.cloud_guard_target_policy.statements

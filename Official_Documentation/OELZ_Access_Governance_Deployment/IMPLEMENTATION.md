@@ -13,18 +13,18 @@ To learn more, visit: https://docs.oracle.com/en/cloud/paas/access-governance/ag
 
 ## Deployment Overview
 
-The terraform code in this folder deploys Oracle Access Governance.  It is accomplished by deploying an Oracle Access Governance Instance, creating an Oracle Access Governance User and adding a Cloudgateway connected system. This workload supports only Identity Domain Tenancy.
+The Terraform code in this folder deploys Oracle Access Governance.  It is accomplished by deploying an Oracle Access Governance Instance, creating an Oracle Access Governance User and adding a Cloudgateway connected system. This workload supports only Identity Domain Tenancy.
 
 ## Prerequisites
 
-To deploy the Oracle Enterprise Landing Zone Workload Expansion from the terraform cli you will need the following prerequisites.
-- [Latest Version of Terrafom](https://developer.hashicorp.com/terraform/downloads)
+To deploy the Oracle Enterprise Landing Zone Workload Expansion from the Terraform CLI you will need the following prerequisites.
+- [Latest Version of Terraform](https://developer.hashicorp.com/terraform/downloads) v1.7.3 or later
 - [OCI Terraform provider](https://registry.terraform.io/providers/oracle/oci/latest/docs) v4.109.0 or later
 - [oci - cli](https://github.com/oracle/oci-cli)
 
 ## User
 
-The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user need to have an api key entry defined as decribed [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble.
+The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user need to have an API key entry defined as decribed [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble:
 
 ```text
 [DEFAULT]
@@ -32,7 +32,7 @@ user=ocid1.xxxxxx.xxxxxx.xxxxxx.....  #ocid of the user
 fingerprint=xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx #user api key fingerprint
 tenancy=ocid1.xxxxxx.xxxxxx.xxxxxx..... #tenancy ocid
 region=us-phoenix-1 #or desired region
-key_file=<path to your private keyfile> # TODO
+key_file=<path to your private keyfile> #your specific path
 ```
 
 
@@ -62,11 +62,10 @@ key_file=<path to your private keyfile> # TODO
 | **oci_system_description**             | OCI Connected System Description.                                                                                                                                   | Yes     | OCI Connected System.                     |
 | **oci_system_name**                    | OCI Connected System Name.                                                                                                                                          | Yes     | Local-OCI-System                          |
 
-## How to execute
 
-## How to execute
+## How to Execute
 ### Via Resource Manager
-Use the Deploy to Oracle Cloud button which will take you directly to OCI Resource Manager if you are logged in
+Use the Deploy to Oracle Cloud button which will take you directly to OCI Resource Manager if you are logged in.
 <blockquote> Only new AGCS User scenario is supported via Resource Manager Deployment</blockquote>
 
 1. Under **Working directory** select the directory *templates/enterprise-landing-zone*
@@ -84,13 +83,13 @@ Use the Deploy to Oracle Cloud button which will take you directly to OCI Resour
 4. terraform apply.
 
 ##### Oracle Access Governance Deployment: Access Governance Service Instance:
-An Access Governance Service instance will be deployed in security compartment
+An Access Governance Service instance will be deployed in security compartment.
 
 ##### Oracle Access Governance Deployment: AGCS Group:
 A group will be created called AGCS Group, which is meant to have AGCS user and policies related to Access Governance functionalities.
 
 ##### Oracle Access Governance Deployment: AGCS User:
-AGCS User which will be created in Default domain as the user needs visibility into all domains and their resources for policy review and group review. This is the primary user used for governing the OCI IAM
+AGCS User which will be created in Default domain as the user needs visibility into all domains and their resources for policy review and group review. This is the primary user used for governing the OCI IAM.
 
 ##### Oracle Access Governance Deployment: AGCS User Group Policy statements:
 1. `ALLOW GROUP <domain>/<group> to inspect all-resources IN TENANCY`
@@ -114,12 +113,12 @@ AGCS User which will be created in Default domain as the user needs visibility i
 
 1. `ALLOW GROUP <domain>/<group> to inspect all-resources IN TENANCY`
 2. `ALLOW GROUP <domain>/<group> to manage policies IN TENANCY where any {request.permission='POLICY_UPDATE' ,request.permission='POLICY_READ', request.permission='POLICY_DELETE',target.policy.name != 'Tenant Admin Policy'}` 
-3. `Allow GROUP <domain>/<group> to read audit-events IN TENANCY`
-4. `Allow GROUP <domain>/<group> to manage domains IN TENANCY`
+3. `ALLOW GROUP <domain>/<group> to read audit-events IN TENANCY`
+4. `ALLOW GROUP <domain>/<group> to manage domains IN TENANCY`
 
 
 ##### Oracle Access Governance Deployment: Access Governance Service Instance:
-An Access Governance Service instance will be deployed in security compartment
+An Access Governance Service instance will be deployed in security compartment.
 
 ##### Oracle Access Governance Deployment: OCI system on Access Governance Instance:
 Cloud gateway system will be added as connected system to the service instance.

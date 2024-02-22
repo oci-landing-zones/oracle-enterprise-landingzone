@@ -251,12 +251,6 @@ variable "enable_cloud_guard" {
   description = "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
 }
 
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  default     = false
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
-}
-
 variable "prod_bastion_client_cidr_block_allow_list" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
