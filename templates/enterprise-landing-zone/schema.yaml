@@ -263,6 +263,7 @@ variableGroups:
       - should_create_connected_system
       - nonprod_agcs_user_domain_name
       - prod_agcs_user_domain_name
+      - nonprod_enable_access_governance
 
 
 variables:
@@ -1361,8 +1362,9 @@ variables:
   nonprod_enable_access_governance:
     type: boolean
     description: "Option to enable Oracle Access Governance in Non-Prod."
-    default: true
+    default: false
     required: true
+    visible: false
     title: Enable Oracle Access Governance in Non-Prod
   admin_domain_name:
     type: string
