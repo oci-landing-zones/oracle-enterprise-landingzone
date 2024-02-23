@@ -1,0 +1,449 @@
+title: Oracle Enterprise Landing Zone v2 - DR/MR Feature
+description: Oracle Enterprise Landing Zone v2 - DR/MR Feature
+schemaVersion: 1.0.0
+version: "1.0.0"
+locale: en
+variableGroups:
+  - title: Provider Variables
+    visible: false
+    variables:
+      - api_fingerprint
+      - api_private_key_path
+      - region
+      - tenancy_ocid
+      - current_user_ocid
+  - title: Backup Region Variables
+    visible: true
+    variables:
+      - backup_region
+      - resource_label
+      - environment_prefix
+  - title: Compartment Variables
+    visible: true
+    variables:
+      - environment_compartment_id
+      - home_compartment_name
+      - home_compartment_id
+      - security_compartment_id
+      - network_compartment_id
+      - workload_compartment_id
+      - logging_compartment_id
+  - title: Monitoring Variables
+    visible: true
+    variables:
+      - network_topic_endpoints
+      - secops_topic_endpoints
+      - platform_topic_endpoints
+      - identity_topic_endpoints
+      - workload_topic_endpoints
+      - is_create_alarms
+      - enable_security_monitoring_alarms
+      - enable_network_monitoring_alarms
+      - enable_workload_monitoring_alarms
+  - title: Network Variables
+    visible: true
+    variables:
+      - enable_internet_gateway_hub
+      - enable_nat_gateway_hub
+      - enable_service_gateway_hub
+      - vcn_cidr_block
+      - public_subnet_cidr_block
+      - private_subnet_cidr_block
+      - private_spoke_subnet_web_cidr_block
+      - private_spoke_subnet_app_cidr_block
+      - private_spoke_subnet_db_cidr_block
+      - spoke_vcn_cidr
+      - enable_nat_gateway_spoke
+      - enable_service_gateway_spoke
+      - enable_network_firewall
+      - enable_traffic_threat_log
+      - nfw_subnet_type
+      - nfw_instance_name
+      - nfw_instance_policy
+  - title: Network Extension Variables
+    visible: true
+    variables:
+      - enable_vpn_or_fastconnect
+      - enable_vpn_on_environment
+      - cpe_ip_address
+      - cpe_display_name
+      - cpe_vendor
+      - ipsec_connection_static_routes
+      - remote_peering_connection_peer_id
+      - region_key
+  - title: Security Variables
+    visible: true
+    variables:
+      - bastion_client_cidr_block_allow_list
+  - title: Invisible Variables
+    visible: false
+    variables:
+      - retention_policy_duration_amount
+      - retention_policy_duration_time_unit
+      - create_master_encryption_key
+      - enable_replication
+      - replica_region
+      - vault_type
+      - igw_hub_check
+      - nat_gw_hub_check
+      - tunnel_a_display_name
+      - customer_bgp_asn
+      - bgp_cust_tunnela_ip
+      - bgp_oci_tunnela_ip
+      - shared_secret
+      - fastconnect_provider
+      - virtual_circuit_bandwidth_shape
+      - virtual_circuit_display_name
+      - provider_service_key_name
+      - fastconnect_routing_policy
+      - virtual_circuit_type
+      - customer_primary_bgp_peering_ip
+      - oracle_primary_bgp_peering_ip
+      - customer_secondary_bgp_peering_ip
+      - oracle_secondary_bgp_peering_ip
+      - virtual_circuit_customer_asn
+      - virtual_circuit_is_bfd_enabled
+      - bgp_md5auth_key
+      - enable_fastconnect_on_environment
+      - remote_peering_connection_peer_region_name
+      - customer_onprem_ip_cidr
+      - additional_workload_subnets_cidr_blocks
+      - is_baseline_deploy
+      - nfw_use_existing_network
+      - service_gw_hub_check
+      - ipsec_display_name
+      - routing
+      - tunnel_b_display_name
+      - add_ssh_to_security_list
+variables:
+  #Provider Variables
+  api_fingerprint:
+    type: string
+    description: The fingerprint of API
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Fingerprint
+  api_private_key_path:
+    type: string
+    description: The local path to the API private key
+    default: "Value not required in Oracle Resource Manager."
+    title: Api Private Key Path
+  region:
+    type: string
+    description: "the OCI region LZ is deployed to."
+    title: Region
+    required: true
+  tenancy_ocid:
+    type: string
+    description: "The OCID of tenancy"
+    title: Tenancy OCID
+  current_user_ocid:
+    type: string
+    description: "OCID of the current user"
+    title: Current User OCID
+  #Backup Region Variables
+  backup_region:
+    type: string
+    description: "The name of Backup Region."
+    title: Backup Region 
+    required: true
+    default: ""
+  resource_label:
+    type: string
+    description: "Unique Resource Identifier."
+    title: Resource Identifier
+    required: true
+    default: ""
+  environment_prefix:
+    type: string
+    description: "The unique prefix of environment compartment P or NP."
+    title: Environment Prefix
+    required: true
+    default: ""
+  #Compartment Related Variables
+  environment_compartment_id:
+    type: string
+    description: "Environment Compartment OCID Value"
+    title: Environment Compartment OCID
+    required: true
+    default: ""
+  home_compartment_name:
+    type: string
+    description: "Home Compartment Name"
+    title: Home Compartment Name
+    required: true
+    default: ""
+  home_compartment_id:
+    type: string
+    description: "Home Compartment OCID Value"
+    title: Home Compartment OCID
+    required: true
+    default: ""
+  security_compartment_id:
+    type: string
+    description: "Security Compartment OCID Value"
+    title: Security Compartment OCID
+    required: true
+    default: ""
+  network_compartment_id:
+    type: string
+    description: "Network Compartment OCID Value"
+    title: Network Compartment OCID
+    required: true
+    default: ""
+  workload_compartment_id:
+    type: string
+    description: "Workload Compartment OCID Value"
+    title: Workload Compartment OCID
+    required: true
+    default: ""
+  logging_compartment_id:
+    type: string
+    description: "Logging Compartment OCID Value"
+    title: Logging Compartment OCID
+    required: true
+    default: ""
+  #Monitoring Variables
+  network_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Network Warning and Critical notifications."
+    required: false
+    default: []
+    title: Network Warning and Critical Notification Recipient Email List"
+  secops_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Security Warning and Critical notifications."
+    required: false
+    default: []
+    title: Security Warning and Critical Notification Recipient Email List"
+  platform_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Platform Warning and Critical notifications."
+    required: false
+    default: []
+    title: Platform Warning and Critical Notification Recipient Email List"
+  identity_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Identity Warning and Critical notifications."
+    required: false
+    default: []
+    title: Identity Warning and Critical Notification Recipient Email List"
+  workload_topic_endpoints:
+    type: array
+    items:
+      type: string
+      pattern: ^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$
+    description: "List of email addresses for Workload Warning and Critical notifications."
+    required: false
+    default: []
+    title: Workload Warning and Critical Notification Recipient Email List"
+  is_create_alarms:
+    type: boolean
+    description: "Option to Enable Alarms."
+    default: true
+    required: true
+    title: Enable Alarms
+  enable_security_monitoring_alarms:
+    type: boolean
+    description: "Option to Enable Monitoring Security Alarms."
+    default: true
+    required: true
+    title: Enable Monitoring Security Alarm
+  enable_network_monitoring_alarms:
+    type: boolean
+    description: "Option to Enable Monitoring Network Alarms."
+    default: true
+    required: true
+    title: Enable Monitoring Network Alarms
+  enable_workload_monitoring_alarms:
+    type: boolean
+    description: "Option to Enable Monitoring Workload Alarms."
+    default: true
+    required: true
+    title: Enable Monitoring Workload Alarms
+  # Network Variables
+  enable_internet_gateway_hub:
+    type: boolean
+    description: "Option to enable internet gateway in Backup Region"
+    default: true
+    required: true
+    title: Enable Internet Gateway in Backup Region
+  enable_nat_gateway_hub:
+    type: boolean
+    description: "Option to enable NAT gateway in Backup Region"
+    default: true
+    required: true
+    title: Enable NAT Gateway in Backup Region
+  enable_service_gateway_hub:
+    type: boolean
+    description: "Option to enable Service gateway in Backup Region"
+    default: true
+    required: true
+    title: Enable Service Gateway in Backup Region
+  vcn_cidr_block:
+    type: string
+    description: "VCN CIDR Block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: VCN CIDR Block
+    default: ""
+  public_subnet_cidr_block:
+    type: string
+    description: "Public subnet CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Public Subnet CIDR Block
+    default: ""
+  private_subnet_cidr_block:
+    type: string
+    description: "Private subnet CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Private Subnet CIDR Block
+    default: ""
+  private_spoke_subnet_web_cidr_block:
+    type: string
+    description: "Web subnet CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Web Subnet CIDR Block
+    default: ""
+  private_spoke_subnet_app_cidr_block:
+    type: string
+    description: "App subnet CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: APP Subnet CIDR Block
+    default: ""
+  private_spoke_subnet_db_cidr_block:
+    type: string
+    description: "DB subnet CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: DB Subnet CIDR Block
+    default: ""
+  spoke_vcn_cidr:
+    type: string
+    description: "Spoke VCN CIDR block"
+    required: true
+    pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    title: Spoke VCN CIDR block
+    default: ""
+  enable_nat_gateway_spoke:
+    type: boolean
+    description: "Option to Enable NAT gateway"
+    default: true
+    required: true
+    title: Enable NAT Gateway
+  enable_service_gateway_spoke:
+    type: boolean
+    description: "Option to Enable Service Gateway"
+    default: true
+    required: true
+    title: Enable Service Gateway
+  enable_network_firewall:
+    type: boolean
+    description: "Enable Network Firewall on Backup Region"
+    required: true
+    default: false
+    title: Enable Network Firewall on Backup Region
+  enable_traffic_threat_log:
+    type: boolean
+    description: "Option to Enable Network Firewall Traffic and Threat log"
+    default: false
+    required: true
+    title: Enable Network Firewall Traffic and Threat log
+  nfw_subnet_type:
+    type: string
+    description: "Option to select network firewall subnet type"
+    default: "private"
+    required: true
+    title: Select network firewall subnet type public or private
+  nfw_instance_name:
+    type: string
+    description: "Network firewall Instance Name"
+    default: ""
+    required: false
+    title: Network firewall Instance Name in Prod 
+  nfw_instance_policy:
+    type: string
+    description: "Network firewall Policy Name"
+    default: ""
+    required: false
+    title: Network firewall Policy Name in Prod
+  #Network Extension Variables
+  enable_vpn_or_fastconnect:
+    type: enum
+    description: "Enable VPN or FASTCONNECT. Options: NONE, VPN, FASTCONNECT"
+    enum:
+      - "NONE"
+      - "VPN"
+      - "FASTCONNECT"
+    required: true
+    default: "NONE"
+    title: Enable VPN or Fastconnect
+  enable_vpn_on_environment:
+    type: boolean
+    description: "Enable VPN on Backup Region"
+    required: true
+    default: false
+    title: Enable VPN on Backup Region
+  cpe_ip_address:
+    type: string
+    description: "Customer Premises Equipment IP address"
+    required: false
+    default: ""
+    title: CPE IP Address in Backup Region
+  cpe_display_name:
+    type: string
+    description: "Customer Premises Equipment name in backup region"
+    required: false
+    default: ""
+    title: CPE Display Name in Backup Region
+  cpe_vendor:
+    type: number
+    description: "Type corresponding number as your CPE vendor: Yamaha-RTX1210 0, Other 1, Cisco-9.7.1-or-later 2, Yamaha-RTX830 3, Libreswan 4, Fortinet 5, NEC 6, Cisco-8.5+ 7, Cisco-IOS 8, WatchGuard 9, Juniper-MX 10, Juniper-SRX 11, Furukawa 12, Check_Point 13, Palo_Alto 14"
+    required: false
+    default: 4
+    title: CPE Vendor
+  ipsec_connection_static_routes:
+    type: string
+    description: "BGP dynamic routing, STATIC routing. Type BGP or STATIC"
+    required: false
+    default: STATIC
+    title: IPsec Routing Type in Backup Region
+  remote_peering_connection_peer_id:
+    type: string
+    description: "Remote Peering ID"
+    required: false
+    default: ""
+    title: Remote Peering ID
+  region_key:
+    type: string
+    description: "RPC Region key"
+    required: false
+    default: ""
+    title: RPC Region key
+  #Security Variables
+  bastion_client_cidr_block_allow_list:
+    type: array
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    description: "A list of address ranges in CIDR notation that bastion is allowed to connect"
+    required: true
+    title: Bastion Client CIDR Block Allow List
+    default: ""
+
+
