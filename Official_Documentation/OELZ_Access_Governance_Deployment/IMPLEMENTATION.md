@@ -24,7 +24,7 @@ To deploy the Oracle Enterprise Landing Zone Workload Expansion from the Terrafo
 
 ## User
 
-The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user needs to have an api key entry defined as described [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble below:
+The Oracle Enterprise Landing Zone should be deployed by a user who is a member of the Administrators group for the tenancy. This user needs to have an API key entry defined as described [here](https://docs.oracle.com/en-us/iaas/Content/API/SDKDocs/terraformproviderconfiguration.htm). Once the user and API Key are defined your oci-cli config should resemble below:
 
 ```text
 [DEFAULT]
@@ -48,7 +48,7 @@ key_file=<path to your private keyfile> #your specific path
 | **admin_domain_compartment_ocid**      | Compartment of Identity Domain of the Administrator.                                                                                                                | Yes      | None                                                               |
 | **service_instance_compartment_ocid**  | Compartment OCID for Access Governance Instance.                                                                                                                    | Yes      | OCID of the Security compartment created by baseline Landing Zone. |
 | **service_instance_description**       | Access Governance Instance Description.                                                                                                                             | Yes      | Oracle Access Governance Service Instance.                         |
-| **service_instance_display_name**      | Access Governance Instance Display Name.                                                                                                                            | Yes      | access-governance-instance                                         |
+| **service_instance_display_name**      | Unique Access Governance Instance Display Name.                                                                                                                     | Yes      | access-governance-instance                                         |
 | **ag_license_type**                    | Access Governance Instance License Type.  Supported license types are "Access Governance for Oracle Workloads", "Access Governance for Oracle Cloud Infrastructure" | Yes      | None                                                               |
 | **use_existing_agcs_user**             | Set this value to either use existing Access Governance user or create new one.                                                                                     | No       | false                                                              |
 | **agcs_user_name**                     | New Access Governance User's name.                                                                                                                                  | Yes      | prod_agcs_user                                                     |
