@@ -112,11 +112,11 @@ module "backup_prod_environment" {
 
 module "backup_nonprod_environment" {
   source = "../elz-backup/elz-backup-environment"
-  count = var.enable_landing_zone_replication ? 1 : 0
+  count = var.enable_landing_zone_replication && var.is_nonprod_env_deploy ? 1 : 0
 
   environment_prefix      = local.nonprod_environment.environment_prefix
   spoke_vcn_cidr          = var.backup_nonprod_workload_cidr
-  workload_compartment_id = module.nonprod_environment.workload_compartment_id
+  workload_compartment_id = module.nonprod_environment[0].workload_compartment_id
   backup_region           = var.backup_region
   tenancy_ocid            = var.tenancy_ocid
   region                  = var.region
@@ -127,7 +127,7 @@ module "backup_nonprod_environment" {
   igw_hub_check                           = var.backup_igw_hub_check
   nat_gw_hub_check                        = var.backup_nat_gw_hub_check
   service_gw_hub_check                    = var.backup_service_gw_hub_check
-  network_compartment_id                  = module.nonprod_environment.compartment.network.id
+  network_compartment_id                  = module.nonprod_environment[0].compartment.network.id
   vcn_cidr_block                          = var.backup_nonprod_hub_vcn_cidr_block
   public_subnet_cidr_block                = var.backup_nonprod_public_subnet_cidr_block
   private_subnet_cidr_block               = var.backup_nonprod_private_subnet_cidr_block
@@ -152,17 +152,17 @@ module "backup_nonprod_environment" {
   enable_replication           = var.backup_nonprod_vault_enable_replication
   replica_region               = var.backup_nonprod_vault_replica_region
   resource_label               = var.resource_label
-  security_compartment_id      = module.nonprod_environment.compartment.security.id
+  security_compartment_id      = module.nonprod_environment[0].compartment.security.id
   vault_type                   = var.backup_nonprod_vault_type
   home_compartment_id          = module.home_compartment.compartment_id
 
   home_compartment_name               = var.home_compartment_name
-  logging_compartment_id              = module.nonprod_environment.compartment.logging.id
+  logging_compartment_id              = module.nonprod_environment[0].compartment.logging.id
   retention_policy_duration_amount    = var.backup_nonprod_retention_policy_duration_amount
   retention_policy_duration_time_unit = var.backup_nonprod_retention_policy_duration_time_unit
 
   bastion_client_cidr_block_allow_list = var.backup_nonprod_bastion_client_cidr_block_allow_list
-  environment_compartment_id           = module.nonprod_environment.compartment.environment.id
+  environment_compartment_id           = module.nonprod_environment[0].compartment.environment.id
 
   is_create_alarms         = var.is_create_alarms_backup
   network_topic_endpoints  = var.nonprod_network_topic_endpoints_backup
@@ -206,7 +206,7 @@ module "backup_nonprod_environment" {
   enable_fastconnect_on_environment = var.backup_nonprod_enable_fastconnect
   customer_onprem_ip_cidr           = var.backup_customer_onprem_ip_cidr
 
-  depends_on = [module.nonprod_environment]
+  depends_on = [module.nonprod_environment[0]]
 
   providers = {
     oci               = oci

@@ -15,6 +15,7 @@ resource_label             = "DEMO"
 prod_domain_admin_email    = "an-example-email-address@oracle.com"
 nonprod_domain_admin_email = "an-example-email-address@oracle.com"
 enable_compartment_delete  = false
+is_nonprod_env_deploy      = true
 
 # security
 enable_cloud_guard                           = true
@@ -60,20 +61,30 @@ nonprod_enable_service_gateway_spoke = "true"
 prod_hub_vcn_cidr_block            = "10.1.0.0/16"
 prod_hub_public_subnet_cidr_block  = "10.1.1.0/24"
 prod_hub_private_subnet_cidr_block = "10.1.2.0/24"
+prod_hub_public_subnet_dns_label   = "ppublabel"
+prod_hub_private_subnet_dns_label  = "prilabel"
 
 prod_spoke_vcn_cidr              = "10.2.0.0/16"
 prod_spoke_subnet_web_cidr_block = "10.2.1.0/24"
 prod_spoke_subnet_app_cidr_block = "10.2.2.0/24"
 prod_spoke_subnet_db_cidr_block  = "10.2.3.0/24"
+prod_subnet_app_dns_label        = "papplabel"
+prod_subnet_db_dns_label         = "pdblabel"
+prod_subnet_web_dns_label        = "pweblabel"
 
 nonprod_hub_vcn_cidr_block            = "10.3.0.0/16"
 nonprod_hub_public_subnet_cidr_block  = "10.3.1.0/24"
 nonprod_hub_private_subnet_cidr_block = "10.3.2.0/24"
+nonprod_hub_public_subnet_dns_label   = "npublabel"
+nonprod_hub_private_subnet_dns_label  = "nprilabel"
 
 nonprod_spoke_vcn_cidr              = "10.4.0.0/16"
 nonprod_spoke_subnet_web_cidr_block = "10.4.1.0/24"
 nonprod_spoke_subnet_app_cidr_block = "10.4.2.0/24"
 nonprod_spoke_subnet_db_cidr_block  = "10.4.3.0/24"
+nonprod_subnet_app_dns_label        = "napplabel"
+nonprod_subnet_db_dns_label         = "ndblabel"
+nonprod_subnet_web_dns_label        = "nweblabel"
 
 # Tagging
 prod_enable_tagging          = true
