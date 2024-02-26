@@ -101,6 +101,11 @@ module "prod_environment" {
   private_spoke_subnet_web_cidr_block = var.prod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.prod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.prod_spoke_subnet_db_cidr_block
+  hub_public_subnet_dns_label         = var.prod_hub_public_subnet_dns_label
+  hub_private_subnet_dns_label        = var.prod_hub_private_subnet_dns_label
+  subnet_app_dns_label                = var.prod_subnet_app_dns_label
+  subnet_db_dns_label                 = var.prod_subnet_db_dns_label
+  subnet_web_dns_label                = var.prod_subnet_web_dns_label
 
   enable_network_firewall   = var.enable_network_firewall_prod
   enable_traffic_threat_log = var.enable_traffic_threat_log_prod
@@ -190,7 +195,8 @@ locals {
 }
 
 module "nonprod_environment" {
-  source = "../elz-environment"
+  count  =  var.is_nonprod_env_deploy   ? 1 : 0
+  source =  "../elz-environment"
 
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
@@ -275,6 +281,11 @@ module "nonprod_environment" {
   private_spoke_subnet_web_cidr_block = var.nonprod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.nonprod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.nonprod_spoke_subnet_db_cidr_block
+  hub_public_subnet_dns_label         = var.nonprod_hub_public_subnet_dns_label
+  hub_private_subnet_dns_label        = var.nonprod_hub_private_subnet_dns_label
+  subnet_app_dns_label                = var.nonprod_subnet_app_dns_label
+  subnet_db_dns_label                 = var.nonprod_subnet_db_dns_label
+  subnet_web_dns_label                = var.nonprod_subnet_web_dns_label
 
   enable_network_firewall   = var.enable_network_firewall_nonprod
   enable_traffic_threat_log = var.enable_traffic_threat_log_nonprod
@@ -309,7 +320,7 @@ module "nonprod_environment" {
   enable_workload_monitoring_alarms = var.nonprod_enable_workload_monitoring_alarms
   enable_datasafe                   = var.enable_datasafe
 
-  #workload_compartment_id             = module.nonprod_environment.workload_compartment_id
+  #workload_compartment_id             = module.nonprod_environment[0].workload_compartment_id
 
   remote_peering_connection_peer_id          = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? module.prod_environment.rpc_id : null
   remote_peering_connection_peer_region_name = var.region

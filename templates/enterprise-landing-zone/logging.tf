@@ -4,6 +4,9 @@
 ##########################################################################################################
 
 locals {
+  nonprod_sec_id     = try(module.nonprod_environment[0].compartment.security.id, "")
+  nonprod_stream_id       = try(module.nonprod_environment[0].stream_id, "")
+  nonprod_logg_id      = try(module.nonprod_environment[0].compartment.logging.id, "")
   service_connector_policy = {
     name        = "${var.resource_label}-OCI-ELZ-SC-Policy"
     description = "OCI ELZ Service Connector Policy"
@@ -11,11 +14,11 @@ locals {
       "Allow any-user to read log-content in compartment id ${module.home_compartment.compartment_id} where all {request.principal.type='serviceconnector'}",
       "Allow any-user to read log-groups in compartment id ${module.home_compartment.compartment_id} where all {request.principal.type='serviceconnector'}",
       "Allow any-user to {STREAM_READ, STREAM_CONSUME} in compartment id ${module.prod_environment.compartment.security.id} where all {request.principal.type='serviceconnector', target.stream.id='${module.prod_environment.stream_id}', request.principal.compartment.id='${module.prod_environment.compartment.security.id}'}",
-      "Allow any-user to {STREAM_READ, STREAM_CONSUME} in compartment id ${module.nonprod_environment.compartment.security.id} where all {request.principal.type='serviceconnector', target.stream.id='${module.nonprod_environment.stream_id}', request.principal.compartment.id='${module.nonprod_environment.compartment.security.id}'}",
+      "Allow any-user to {STREAM_READ, STREAM_CONSUME} in compartment id ${local.nonprod_sec_id} where all {request.principal.type='serviceconnector', target.stream.id='${local.nonprod_stream_id}', request.principal.compartment.id='${local.nonprod_sec_id}'}",
       "Allow any-user to manage objects in compartment id ${module.prod_environment.compartment.logging.id} where all {request.principal.type='serviceconnector', target.bucket.name='*_standard', request.principal.compartment.id='${module.prod_environment.compartment.security.id}'}",
-      "Allow any-user to manage objects in compartment id ${module.nonprod_environment.compartment.logging.id} where all {request.principal.type='serviceconnector', target.bucket.name='*_standard', request.principal.compartment.id='${module.nonprod_environment.compartment.security.id}'}",
+      "Allow any-user to manage objects in compartment id ${local.nonprod_logg_id} where all {request.principal.type='serviceconnector', target.bucket.name='*_standard', request.principal.compartment.id='${local.nonprod_sec_id}'}",
       "Allow any-user to manage objects in compartment id ${module.prod_environment.compartment.logging.id} where all {request.principal.type='serviceconnector', any{target.bucket.name='${var.resource_label}_${local.prod_environment.environment_prefix}_auditLogs_standard', target.bucket.name='${var.resource_label}_${local.prod_environment.environment_prefix}_defaultLogs_standard', target.bucket.name='${var.resource_label}_${local.prod_environment.environment_prefix}_serviceEvents_standard'}, request.principal.compartment.id='${module.prod_environment.compartment.security.id}'}",
-      "Allow any-user to manage objects in compartment id ${module.nonprod_environment.compartment.logging.id} where all {request.principal.type='serviceconnector', any{target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_auditLogs_standard', target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_defaultLogs_standard', target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_serviceEvents_standard'}, request.principal.compartment.id='${module.nonprod_environment.compartment.security.id}'}"
+      "Allow any-user to manage objects in compartment id ${local.nonprod_logg_id} where all {request.principal.type='serviceconnector', any{target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_auditLogs_standard', target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_defaultLogs_standard', target.bucket.name='${var.resource_label}_${local.nonprod_environment.environment_prefix}_serviceEvents_standard'}, request.principal.compartment.id='${local.nonprod_sec_id}'}"
     ]
   }
 
@@ -140,7 +143,7 @@ module "service_connector_policy" {
   description      = local.service_connector_policy.description
   statements       = local.service_connector_policy.statements
 
-  depends_on = [module.prod_environment, module.nonprod_environment, module.home_compartment]
+  depends_on = [module.prod_environment, module.nonprod_environment[0], module.home_compartment]
 }
 
 module "service_connector_archive_policy" {
@@ -150,7 +153,7 @@ module "service_connector_archive_policy" {
   description      = local.service_connector_archive_policy.description
   statements       = local.service_connector_archive_policy.statements
 
-  depends_on = [module.prod_environment, module.nonprod_environment, module.home_compartment]
+  depends_on = [module.prod_environment, module.nonprod_environment[0], module.home_compartment]
 }
 
 module "archive_key" {
@@ -172,7 +175,7 @@ module "key_archive_policy" {
   description      = local.key_archive_policy.description
   statements       = local.key_archive_policy.statements
 
-  depends_on = [module.prod_environment, module.nonprod_environment, module.home_compartment]
+  depends_on = [module.prod_environment, module.nonprod_environment[0], module.home_compartment]
 }
 
 module "archive_bucket" {
@@ -187,7 +190,7 @@ module "archive_bucket" {
   retention_policy_duration_time_unit = local.archive_log_bucket.retention_policy_duration_time_unit
   namespace                           = data.oci_objectstorage_namespace.ns.namespace
 
-  depends_on = [module.prod_environment, module.nonprod_environment, module.home_compartment, module.archive_key, module.key_archive_policy]
+  depends_on = [module.prod_environment, module.nonprod_environment[0], module.home_compartment, module.archive_key, module.key_archive_policy]
 }
 
 module "prod_archive_audit_log_service_connector" {
@@ -205,9 +208,10 @@ module "prod_archive_audit_log_service_connector" {
 }
 
 module "nonprod_archive_audit_log_service_connector" {
+  count                 =  var.is_nonprod_env_deploy   ? 1 : 0
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
+  compartment_id        = module.nonprod_environment[0].compartment.security.id
   source_compartment_id = module.home_compartment.compartment_id
   display_name          = local.nonprod_archive_audit_log_service_connector.display_name
   source_kind           = local.nonprod_archive_audit_log_service_connector.source_kind
@@ -233,14 +237,15 @@ module "prod_archive_default_log_service_connector" {
 }
 
 module "nonprod_archive_default_log_service_connector" {
+  count                 =  var.is_nonprod_env_deploy   ? 1 : 0
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
-  source_compartment_id = module.nonprod_environment.compartment.security.id
+  compartment_id        = module.nonprod_environment[0].compartment.security.id
+  source_compartment_id = module.nonprod_environment[0].compartment.security.id
   display_name          = local.nonprod_archive_default_log_service_connector.display_name
   source_kind           = local.nonprod_archive_default_log_service_connector.source_kind
   target_kind           = local.nonprod_archive_default_log_service_connector.target_kind
-  log_group_id          = module.nonprod_environment.default_group_id
+  log_group_id          = module.nonprod_environment[0].default_group_id
   target_bucket         = local.nonprod_archive_default_log_service_connector.target_bucket
 
   depends_on = [module.archive_bucket, module.service_connector_archive_policy]
@@ -262,14 +267,15 @@ module "prod_archive_service_events_service_connector" {
 }
 
 module "nonprod_archive_service_events_service_connector" {
+  count                 =  var.is_nonprod_env_deploy   ? 1 : 0
   source                = "../../modules/service-connector"
   tenancy_ocid          = var.tenancy_ocid
-  compartment_id        = module.nonprod_environment.compartment.security.id
-  source_compartment_id = module.nonprod_environment.compartment.security.id
+  compartment_id        = module.nonprod_environment[0].compartment.security.id
+  source_compartment_id = module.nonprod_environment[0].compartment.security.id
   display_name          = local.nonprod_archive_service_events_service_connector.display_name
   source_kind           = local.nonprod_archive_service_events_service_connector.source_kind
   target_kind           = local.nonprod_archive_service_events_service_connector.target_kind
-  stream_id             = module.nonprod_environment.stream_id
+  stream_id             = module.nonprod_environment[0].stream_id
   cursor_kind           = local.nonprod_archive_service_events_service_connector.cursor_kind
   target_bucket         = local.nonprod_archive_service_events_service_connector.target_bucket
 
@@ -287,6 +293,7 @@ module "prod_platform_admin_policy" {
 }
 
 module "nonprod_platform_admin_policy" {
+  count            =  var.is_nonprod_env_deploy   ? 1 : 0
   source           = "../../modules/policies"
   compartment_ocid = module.home_compartment.compartment_id
   policy_name      = local.nonprod_platform_admin_policy.name

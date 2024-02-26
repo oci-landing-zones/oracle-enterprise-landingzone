@@ -148,7 +148,12 @@ module "network" {
   private_spoke_subnet_web_cidr_block = var.private_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.private_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.private_spoke_subnet_db_cidr_block
+  hub_public_subnet_dns_label         = var.hub_public_subnet_dns_label
+  hub_private_subnet_dns_label        = var.hub_private_subnet_dns_label
   spoke_vcn_cidr                      = var.spoke_vcn_cidr
+  subnet_app_dns_label                = var.subnet_app_dns_label
+  subnet_db_dns_label                 = var.subnet_db_dns_label
+  subnet_web_dns_label                = var.subnet_web_dns_label
   ipsec_connection_static_routes      = var.ipsec_connection_static_routes
   enable_vpn_or_fastconnect           = var.enable_vpn_or_fastconnect
   enable_vpn_on_environment           = var.enable_vpn_on_environment
