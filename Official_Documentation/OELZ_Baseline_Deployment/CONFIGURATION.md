@@ -24,6 +24,13 @@ The required provider variables for the OELZ:
 | <a name="input_region"></a> [region](#input\_region)                                                 | The OCI region to deploy the OELZ resources to.      | `string` | n/a     |   yes    |
 | <a name="input_resource_label"></a> [resource\_label](#input\_resource\_label)                       | The prefix used to avoid naming conflict                     | `string` | n/a     |    no    |
 
+## Environment Module
+
+By default, OELZ will deploy both the Production and Non-Production Environments. From Release v2.3.1 onwards, if end users don't need the Non-Proudction Environment, they can use the flag "is_nonprod_env_deploy" and set it to "false".
+
+| Name                                                                                                 | Description                                                  | Type     | Default | Required |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------- | ------- | :------: |
+| <a name="is_nonprod_env_deploy"></a> [is\_nonprod\_env\_deploy](#is\_nonprod\_env\_deploy)            | Deployment of Non-Production Environment.                   | `bool` | `"true"`    |    yes (In case Non-Prod Env not needed)    |
 
 ## Compartment Module
 

@@ -421,7 +421,7 @@ The following OCI cloud-native services will be implemented by OELZv2 to help yo
 - Cloud Guard
 - Vulnerability Scanning Service (VSS)
 - Vault (Key Management)
-- Bastion
+
 
 **Cloud Guard**
 
@@ -455,19 +455,17 @@ OCI Vault is our cloud-native encryption management service that will be used in
 
 Please refer to [Vault (Key Management)](https://docs.oracle.com/en-us/iaas/Content/KeyManagement/Concepts/keyoverview.htm) for more details.
 
-**Bastion**
-
-OCI Bastions provides restricted and time-limited access to target resources that don't have public endpoints, letting authorized users connect from specific IP addresses to target resources using Secure Shell (SSH) sessions.  This Landing Zone deployment will also include the OCI Bastion service which allows privileged users to connect from specified IP Addresses to target resources over Secure Shell (SSH).   When connected via Bastion, users can interact with the target OCI resource by using any software or protocol supported by SSH. For example, you can use the Remote Desktop Protocol (RDP) to connect to a Windows host or use Oracle Net Services to connect to a database.  The Bastion Service is associated with a single VCN and there is a limit of 5 Bastions per region.
-
-For more information, please see [OCI Bastion](https://docs.oracle.com/en-us/iaas/Content/Bastion/Concepts/bastionoverview.htm).
 
 ## **_Workload Module_**
 The workload expansion module is responsible for deploying the resources for an empty workload. It will deploy following resources:
-* Compartment
-* Network (Spoke)
-* Logging
-* Monitoring
-* Policies and workload group
+
+- Compartment
+- Network (Spoke)
+- Logging
+- Monitoring
+- Policies and workload group
+- Bastion 
+
 
 **Compartment**
 
@@ -496,7 +494,13 @@ Same as the default workload, the monitoring structure contains following elemen
 - Monitor OCI service incidents and action required from OCI maintenance by subscribing to Console Announcements
 - Monitor Cloud Guard status (e.g. problemthresholdreached) by subscribing Cloud Guard events
 - Monitor VSS and Cloud Guard detected problem by subscribing Cloud Guard events
-- Enable metrics-based monitoring of Network, Security, Logging and Workload compartments by creating sample alarm rules for the deployed service metrics namespaces
+- Enable metrics-based monitoring of Network, Security, Logging and Workload compartments by creating sample alarm rules for the deployed service metrics namespaces.
+
+**Bastion**
+
+OCI Bastions provides restricted and time-limited access to target resources that don't have public endpoints, letting authorized users connect from specific IP addresses to target resources using Secure Shell (SSH) sessions.  This Landing Zone deployment will also include the OCI Bastion service which allows privileged users to connect from specified IP Addresses to target resources over Secure Shell (SSH).   When connected via Bastion, users can interact with the target OCI resource by using any software or protocol supported by SSH. For example, you can use the Remote Desktop Protocol (RDP) to connect to a Windows host or use Oracle Net Services to connect to a database.  The Bastion Service is associated with a single VCN and there is a limit of 5 Bastions per region.
+
+For more information, please see [OCI Bastion](https://docs.oracle.com/en-us/iaas/Content/Bastion/Concepts/bastionoverview.htm).
 
 **Policies and workload group**
 
