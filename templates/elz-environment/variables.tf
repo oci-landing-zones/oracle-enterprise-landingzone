@@ -172,11 +172,6 @@ variable "enable_cloud_guard" {
   description = "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
 }
 
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
-}
-
 # -----------------------------------------------------------------------------
 # Tagging Variables
 # -----------------------------------------------------------------------------
@@ -230,6 +225,27 @@ variable "create_master_encryption_key" {
 # -----------------------------------------------------------------------------
 # Network Variables
 # -----------------------------------------------------------------------------
+
+variable "hub_public_subnet_dns_label" {
+  type        = string
+  description = "Hub Public Subnet DNS Label."
+}
+variable "hub_private_subnet_dns_label" {
+  type        = string
+  description = "Hub Private Subnet DNS Label."
+}
+variable "subnet_app_dns_label" {
+  type        = string
+  description = "Spoke App Subnet DNS Label."
+}
+variable "subnet_db_dns_label" {
+  type        = string
+  description = "Spoke DB Subnet DNS Label."
+}
+variable "subnet_web_dns_label" {
+  type        = string
+  description = "Spoke Web Subnet DNS Label."
+}
 
 variable "enable_internet_gateway_hub" {
   type        = string

@@ -24,6 +24,13 @@ The required provider variables for the OELZ:
 | <a name="input_region"></a> [region](#input\_region)                                                 | The OCI region to deploy the OELZ resources to.      | `string` | n/a     |   yes    |
 | <a name="input_resource_label"></a> [resource\_label](#input\_resource\_label)                       | The prefix used to avoid naming conflict                     | `string` | n/a     |    no    |
 
+## Environment Module
+
+By default, OELZ will deploy both the Production and Non-Production Environments. From Release v2.3.1 onwards, if end users don't need the Non-Proudction Environment, they can use the flag "is_nonprod_env_deploy" and set it to "false".
+
+| Name                                                                                                 | Description                                                  | Type     | Default | Required |
+| ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | -------- | ------- | :------: |
+| <a name="is_nonprod_env_deploy"></a> [is\_nonprod\_env\_deploy](#is\_nonprod\_env\_deploy)            | Deployment of Non-Production Environment.                   | `bool` | `"true"`    |    yes (In case Non-Prod Env not needed)    |
 
 ## Compartment Module
 
@@ -544,7 +551,7 @@ The OELZ deploys configurations for multiple security services. VSS (Vulnerabili
 
 CloudGuard can monitor for a multitude of security conditions. The OELZ configures CloudGuard with several Oracle-managed security recipes for up-to-date best practice security monitoring.
 
-By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. An option is for CloudGuard to monitor the entire tenancy is there and it is controlled by the [cloud_guard_target_tenancy](../../templates/enterprise-landing-zone/README.md#inputs) variable. This is a Boolean variable that defaults to `false`. If it is set to `true` CloudGuard will be configured to monitor the entire tenancy, instead of just the OELZ Home compartment. 
+By default, CloudGuard is configured to monitor just the resources deployed in the OELZ Home compartment, and compartments within that. 
 
 Cloud Guard Target will be deployed in base compartment of both L2-Prod and L2-Non-Prod environments along with related IAM policies. All Oracle managed responder recipes will reside in L4 Security compartment of each environment.
 
@@ -563,7 +570,6 @@ For further details on CloudGuard, see the [Cloud Guard documentation](https://d
     | Name                                                                                                                   | Description                                                                                           | Type   | Default | Required |
     | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------ | ------- | :------: |
     | <a name="input_enable_cloud_guard"></a> [enable\_cloud\_guard](#input\_enable\_cloud\_guard)                           | true if you don't have cloud guard enabled, false if you've already have cloud guard enabled.         | `bool` | `true`  |    no    |
-    | <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to OELZ home compartment | `bool` | `false` |    no    |
 
 ### Bastion Sub Module
 

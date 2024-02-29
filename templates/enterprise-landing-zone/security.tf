@@ -4,6 +4,10 @@
 ##########################################################################################################
 
 locals {
+  nonprod_security_id     = try(module.nonprod_environment[0].compartment.security.id, "")
+  nonprod_network_id      = try(module.nonprod_environment[0].compartment.network.id, "")
+  nonprod_workload_cmp_id = try(module.nonprod_environment[0].workload_compartment_id, "")
+  nonprod_logging_id      = try(module.nonprod_environment[0].compartment.logging.id, "")
   cloud_guard_policy = {
     name        = "${var.resource_label}-OCI-ELZ-CG-Policy"
     description = "OCI Enterprise Landing Zone Cloud Guard Policy"
@@ -37,14 +41,7 @@ locals {
     name        = "${var.resource_label}-OCI-ELZ-CGTarget-Policy"
     description = "OCI Enterprise Landing Zone Cloud Guard Target Policy"
 
-    statements = var.cloud_guard_target_tenancy ? [
-      "Allow service cloudguard to manage instance-family in tenancy",
-      "Allow service cloudguard to manage object-family in tenancy",
-      "Allow service cloudguard to manage buckets in tenancy",
-      "Allow service cloudguard to manage users in tenancy",
-      "Allow service cloudguard to manage policies in tenancy",
-      "Allow service cloudguard to manage keys in tenancy"
-      ] : [
+    statements = [
       "Allow service cloudguard to manage instance-family in compartment ${var.home_compartment_name}",
       "Allow service cloudguard to manage object-family in compartment ${var.home_compartment_name}",
       "Allow service cloudguard to manage buckets in compartment ${var.home_compartment_name}",
@@ -83,11 +80,11 @@ locals {
       instance.compartment.id = '${module.prod_environment.compartment.security.id}',
       instance.compartment.id = '${module.prod_environment.compartment.network.id}',
       instance.compartment.id = '${module.prod_environment.workload_compartment_id}',
-      instance.compartment.id = '${module.nonprod_environment.compartment.security.id}',
-      instance.compartment.id = '${module.nonprod_environment.compartment.network.id}',
-      instance.compartment.id = '${module.nonprod_environment.workload_compartment_id}',
+      instance.compartment.id = '${local.nonprod_security_id}',
+      instance.compartment.id = '${local.nonprod_network_id}',
+      instance.compartment.id = '${local.nonprod_workload_cmp_id}',
       instance.compartment.id = '${module.prod_environment.compartment.logging.id}',
-      instance.compartment.id = '${module.nonprod_environment.compartment.logging.id}',
+      instance.compartment.id = '${local.nonprod_logging_id}',
       instance.compartment.id = '${module.home_compartment.compartment_id}'
     }
     EOT
@@ -135,7 +132,7 @@ module "cloud_guard_root_policy" {
 module "cloud_guard_target_policy" {
   count            = var.enable_cloud_guard ? 1 : 0
   source           = "../../modules/policies"
-  compartment_ocid = var.cloud_guard_target_tenancy ? var.tenancy_ocid : module.home_compartment.compartment_id
+  compartment_ocid = module.home_compartment.compartment_id
   policy_name      = local.cloud_guard_target_policy.name
   description      = local.cloud_guard_target_policy.description
   statements       = local.cloud_guard_target_policy.statements
@@ -170,7 +167,7 @@ module "osms_dynamic_group" {
   name          = local.osms_dynamic_group.dynamic_group_name
   matching_rule = local.osms_dynamic_group.general_matching_rule
 
-  depends_on = [module.prod_environment, module.nonprod_environment, module.home_compartment]
+  depends_on = [module.prod_environment, module.nonprod_environment[0], module.home_compartment]
 }
 
 module "osms_policy" {

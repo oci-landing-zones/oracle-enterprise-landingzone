@@ -25,6 +25,12 @@ variable "is_baseline_deploy" {
   description = "TagNameSpace Optimization: Set to True(if the deployment is baseline) to disable dependent module TagNameSpace Tag Creation."
 }
 
+variable "is_nonprod_env_deploy" {
+  type        = bool
+  default     = true
+  description = "Deploy Non-Production Enviornment"
+}
+
 # -----------------------------------------------------------------------------
 # Compartment Variables
 # -----------------------------------------------------------------------------
@@ -249,12 +255,6 @@ variable "enable_cloud_guard" {
   type        = bool
   default     = true
   description = "true if you don't have cloud guard enabled, false if you've already have cloud guard enabled."
-}
-
-variable "cloud_guard_target_tenancy" {
-  type        = bool
-  default     = false
-  description = "true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment"
 }
 
 variable "prod_bastion_client_cidr_block_allow_list" {
@@ -505,6 +505,60 @@ variable "nonprod_spoke_vcn_cidr" {
   default     = "0.0.0.0/0"
   type        = string
   description = "Non-Production Enivornment Spoke VCN CIDR Block."
+}
+
+variable "prod_hub_public_subnet_dns_label" {
+  default     = "ppublabel"
+  type        = string
+  description = "Production Enivornment Hub Public Subnet DNS Label."
+}
+variable "nonprod_hub_public_subnet_dns_label" {
+  default     = "npublabel"
+  type        = string
+  description = "Non-Production Enivornment Hub Public Subnet DNS Label."
+}
+variable "prod_hub_private_subnet_dns_label" {
+  default     = "pprilabel"
+  type        = string
+  description = "Production Enivornment Hub Public Subnet DNS Label."
+}
+variable "nonprod_hub_private_subnet_dns_label" {
+  default     = "nprilabel"
+  type        = string
+  description = "Non-Production Enivornment Hub Public Subnet DNS Label."
+}
+
+variable "prod_subnet_app_dns_label" {
+  default     = "papplabel"
+  type        = string
+  description = "Production Enivornment Spoke App Subnet DNS Label."
+}
+variable "nonprod_subnet_app_dns_label" {
+  default     = "napplabel"
+  type        = string
+  description = "Non-Production Enivornment Spoke App Subnet DNS Label."
+}
+
+variable "prod_subnet_db_dns_label" {
+  default     = "pdblabel"
+  type        = string
+  description = "Production Enivornment Spoke DB Subnet DNS Label."
+}
+variable "nonprod_subnet_db_dns_label" {
+  default     = "ndblabel"
+  type        = string
+  description = "Non-Production Enivornment Spoke DB Subnet DNS Label."
+}
+
+variable "prod_subnet_web_dns_label" {
+  default     = "pweblabel"
+  type        = string
+  description = "Production Enivornment Spoke Web Subnet DNS Label."
+}
+variable "nonprod_subnet_web_dns_label" {
+  default     = "nweblabel"
+  type        = string
+  description = "Non-Production Enivornment Spoke Web Subnet DNS Label."
 }
 
 #Tagging 

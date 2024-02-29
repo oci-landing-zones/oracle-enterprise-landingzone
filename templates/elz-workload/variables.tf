@@ -237,3 +237,21 @@ variable "environment_compartment_name" {
   description = "the name of the compartment where the environment was created."
   default     = ""
 }
+
+# -----------------------------------------------------------------------------
+# Bastion Variables
+# -----------------------------------------------------------------------------
+variable "bastion_target_subnet_id" {
+  type        = string
+  description = "The OCID of the subnet that the bastion connects to"
+}
+
+variable "bastion_client_cidr_block_allow_list" {
+  type        = list(string)
+  description = "A list of address ranges in CIDR notation that you want to allow to connect to sessions hosted by this bastion."
+}
+
+variable "enable_bastion" {
+  type        = bool
+  description = "Option to enable bastion service"
+}

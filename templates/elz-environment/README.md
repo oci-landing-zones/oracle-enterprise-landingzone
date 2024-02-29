@@ -50,7 +50,6 @@
 | <a name="input_budget_alert_rule_recipients"></a> [budget\_alert\_rule\_recipients](#input\_budget\_alert\_rule\_recipients) | The delimited list of email addresses to receive the alert when it triggers. Delimiter characters can be a comma, space, TAB, or semicolon | `string` | `""` | no |
 | <a name="input_budget_alert_rule_threshold"></a> [budget\_alert\_rule\_threshold](#input\_budget\_alert\_rule\_threshold) | The threshold for the budget alert. | `string` | `""` | no |
 | <a name="input_budget_amount"></a> [budget\_amount](#input\_budget\_amount) | The amount of the budget expressed as a whole number in the currency of the customer's rate card. | `string` | `""` | no |
-| <a name="input_cloud_guard_target_tenancy"></a> [cloud\_guard\_target\_tenancy](#input\_cloud\_guard\_target\_tenancy) | true if cloud guard targets to tenancy, false if cloud guard targets to Landing Zone home compartment | `bool` | n/a | yes |
 | <a name="input_cost_center_tagging"></a> [cost\_center\_tagging](#input\_cost\_center\_tagging) | Cost Center Varible | `string` | n/a | yes |
 | <a name="input_cpe_display_name"></a> [cpe\_display\_name](#input\_cpe\_display\_name) | n/a | `string` | n/a | yes |
 | <a name="input_cpe_ip_address"></a> [cpe\_ip\_address](#input\_cpe\_ip\_address) | Customer Premises Equipment (CPE) IP address | `string` | n/a | yes |

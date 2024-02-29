@@ -70,6 +70,11 @@ variableGroups:
     visible: true
     variables:
       - baseline_spoke_subnets_cidr_blocks
+  - title: Security Module
+    visible: true
+    variables:
+      - enable_basion
+      - bastion_client_cidr_block_allow_list
   - title: Invisible Variables
     visible: false
     variables:
@@ -336,3 +341,18 @@ variables:
     required: false
     title: Baseline Spoke VCN CIDR Block
     description: "A list of Baseline Spoke VCN CIDR Block"
+  enable_bastion:
+    type: boolean
+    description: "Option to enable bastion service"
+    default: true
+    required: true
+    title: Enable Bastion
+  bastion_client_cidr_block_allow_list:
+    type: array
+    items:
+      type: string
+      pattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1][0-9]|[2][0-9]))$
+    description: "A list of address ranges in CIDR notation that bastion is allowed to connect"
+    required: true
+    visible: enable_bastion
+    title: Bastion Client CIDR Block Allow List

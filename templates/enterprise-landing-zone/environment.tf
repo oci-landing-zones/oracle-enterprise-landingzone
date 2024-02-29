@@ -45,7 +45,6 @@ module "prod_environment" {
   budget_alert_rule_message    = var.prod_budget_alert_rule_message
   budget_alert_rule_recipients = var.prod_budget_alert_rule_recipients
   enable_cloud_guard           = var.enable_cloud_guard
-  cloud_guard_target_tenancy   = var.cloud_guard_target_tenancy
   is_create_alarms             = var.is_create_alarms
   is_service_connector_limit   = var.is_service_connector_limit
   domain_license_type          = var.domain_license_type
@@ -102,6 +101,11 @@ module "prod_environment" {
   private_spoke_subnet_web_cidr_block = var.prod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.prod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.prod_spoke_subnet_db_cidr_block
+  hub_public_subnet_dns_label         = var.prod_hub_public_subnet_dns_label
+  hub_private_subnet_dns_label        = var.prod_hub_private_subnet_dns_label
+  subnet_app_dns_label                = var.prod_subnet_app_dns_label
+  subnet_db_dns_label                 = var.prod_subnet_db_dns_label
+  subnet_web_dns_label                = var.prod_subnet_web_dns_label
 
   enable_network_firewall   = var.enable_network_firewall_prod
   enable_traffic_threat_log = var.enable_traffic_threat_log_prod
@@ -138,6 +142,34 @@ module "prod_environment" {
   workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.prod_additional_workload_subnets_cidr_blocks
 
+  # Access Governance Variables
+
+  ag_current_user_ocid          = var.current_user_ocid
+  ag_api_fingerprint            = var.api_fingerprint
+  ag_region                     = var.region
+  ag_tenancy_ocid               = var.tenancy_ocid
+  ag_api_private_key_path       = var.api_private_key_path
+  admin_domain_name             = var.admin_domain_name
+  admin_domain_compartment_ocid = var.admin_domain_compartment_ocid
+
+  enable_access_governance          = var.prod_enable_access_governance
+  service_instance_description      = var.prod_service_instance_description
+  service_instance_display_name     = var.prod_service_instance_display_name
+  ag_license_type                   = var.prod_ag_license_type
+  agcs_user_domain_name             = var.prod_agcs_user_domain_name
+  agcs_user_email                   = var.prod_agcs_user_email
+  agcs_user_fingerprint_oci_system  = var.prod_agcs_user_fingerprint_oci_system
+  agcs_user_group_display_name      = var.prod_agcs_user_group_display_name
+  agcs_user_name                    = var.prod_agcs_user_name
+  agcs_user_ocid_oci_system         = var.prod_agcs_user_ocid_oci_system
+  agcs_user_private_key             = var.prod_agcs_user_private_key
+  agcs_user_private_key_path        = var.prod_agcs_user_private_key_path
+  agcs_user_region_oci_system       = var.prod_agcs_user_region_oci_system
+  agcs_user_tenancy_ocid_oci_system = var.prod_agcs_user_tenancy_ocid_oci_system
+  oci_system_description            = var.prod_oci_system_description
+  oci_system_name                   = var.prod_oci_system_name
+  use_existing_agcs_user            = var.prod_use_existing_agcs_user
+
   providers = {
     oci             = oci
     oci.home_region = oci.home_region
@@ -163,7 +195,8 @@ locals {
 }
 
 module "nonprod_environment" {
-  source = "../elz-environment"
+  count  =  var.is_nonprod_env_deploy   ? 1 : 0
+  source =  "../elz-environment"
 
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
@@ -196,7 +229,6 @@ module "nonprod_environment" {
   is_service_connector_limit        = var.is_service_connector_limit
   domain_license_type               = var.domain_license_type
   enable_cloud_guard                = var.enable_cloud_guard
-  cloud_guard_target_tenancy        = var.cloud_guard_target_tenancy
   home_compartment_name             = var.home_compartment_name
   enable_vpn_or_fastconnect         = var.enable_vpn_or_fastconnect
   cpe_ip_address                    = var.nonprod_cpe_ip_address
@@ -249,6 +281,11 @@ module "nonprod_environment" {
   private_spoke_subnet_web_cidr_block = var.nonprod_spoke_subnet_web_cidr_block
   private_spoke_subnet_app_cidr_block = var.nonprod_spoke_subnet_app_cidr_block
   private_spoke_subnet_db_cidr_block  = var.nonprod_spoke_subnet_db_cidr_block
+  hub_public_subnet_dns_label         = var.nonprod_hub_public_subnet_dns_label
+  hub_private_subnet_dns_label        = var.nonprod_hub_private_subnet_dns_label
+  subnet_app_dns_label                = var.nonprod_subnet_app_dns_label
+  subnet_db_dns_label                 = var.nonprod_subnet_db_dns_label
+  subnet_web_dns_label                = var.nonprod_subnet_web_dns_label
 
   enable_network_firewall   = var.enable_network_firewall_nonprod
   enable_traffic_threat_log = var.enable_traffic_threat_log_nonprod
@@ -283,13 +320,40 @@ module "nonprod_environment" {
   enable_workload_monitoring_alarms = var.nonprod_enable_workload_monitoring_alarms
   enable_datasafe                   = var.enable_datasafe
 
-  #workload_compartment_id             = module.nonprod_environment.workload_compartment_id
+  #workload_compartment_id             = module.nonprod_environment[0].workload_compartment_id
 
   remote_peering_connection_peer_id          = var.enable_vpn_or_fastconnect == "FASTCONNECT" ? module.prod_environment.rpc_id : null
   remote_peering_connection_peer_region_name = var.region
 
   workload_name_prefix                    = var.workload_name_prefix
   additional_workload_subnets_cidr_blocks = var.nonprod_additional_workload_subnets_cidr_blocks
+
+  # Access Governance Variables
+  ag_current_user_ocid          = var.current_user_ocid
+  ag_api_fingerprint            = var.api_fingerprint
+  ag_region                     = var.region
+  ag_tenancy_ocid               = var.tenancy_ocid
+  ag_api_private_key_path       = var.api_private_key_path
+  admin_domain_name             = var.admin_domain_name
+  admin_domain_compartment_ocid = var.admin_domain_compartment_ocid
+
+  enable_access_governance          = var.nonprod_enable_access_governance
+  service_instance_description      = var.nonprod_service_instance_description
+  service_instance_display_name     = var.nonprod_service_instance_display_name
+  ag_license_type                   = var.nonprod_ag_license_type
+  agcs_user_domain_name             = var.nonprod_agcs_user_domain_name
+  agcs_user_email                   = var.nonprod_agcs_user_email
+  agcs_user_fingerprint_oci_system  = var.nonprod_agcs_user_fingerprint_oci_system
+  agcs_user_group_display_name      = var.nonprod_agcs_user_group_display_name
+  agcs_user_name                    = var.nonprod_agcs_user_name
+  agcs_user_ocid_oci_system         = var.nonprod_agcs_user_ocid_oci_system
+  agcs_user_private_key             = var.nonprod_agcs_user_private_key
+  agcs_user_private_key_path        = var.nonprod_agcs_user_private_key_path
+  agcs_user_region_oci_system       = var.nonprod_agcs_user_region_oci_system
+  agcs_user_tenancy_ocid_oci_system = var.nonprod_agcs_user_tenancy_ocid_oci_system
+  oci_system_description            = var.nonprod_oci_system_description
+  oci_system_name                   = var.nonprod_oci_system_name
+  use_existing_agcs_user            = var.nonprod_use_existing_agcs_user
 
   providers = {
     oci             = oci

@@ -1,0 +1,226 @@
+title: Oracle Enterprise Landing Zone 2.0
+description: Oracle Enterprise Landing Zone 2.0 developed by OCI
+schemaVersion: 1.0.0
+version: "1.0.0"
+locale: en
+
+#logoUrl: "https://objectstorage.us-ashburn-1.oraclecloud.com/p/taf6kC9fSJyQDNSYbxvqxS_JsdnSu56oFZ3-1h5vI7-WfJUv77mplChopLxZPePW/n/ociateam/b/cis-landing-zone/o/landing_zone_130.png"
+
+variableGroups:
+
+  - title: "Service Instance Details"
+    variables:
+#      - "use_namespace"
+      - "namespace_service_endpoint"
+      - "admin_domain_name"
+      - "admin_domain_compartment_ocid"
+      - "service_instance_display_name"
+      - "service_instance_description"
+      - "ag_license_type"
+      - "service_instance_compartment_ocid"
+
+  - title: "Details to create Access Governance User"
+    variables:
+      - "agcs_user_group_display_name"
+      - "agcs_user_name"
+      - "agcs_user_email"
+
+  - title: "OCI Connected System Details"
+    variables:
+      - "should_create_connected_system"
+      - "oci_system_name"
+      - "oci_system_description"
+
+  - title: "Hidden Variables"
+    visible: false
+    variables:
+      - "agcs_user_private_key_path"
+      - "private_key_path"
+      - "admin_ocid_service_instance"
+      - "fingerprint"
+      - "private_key_password"
+      - "tenancy_ocid"
+      - "user_ocid"
+      - "agcs_user_fingerprint_oci_system"
+      - "agcs_user_private_key"
+      - "agcs_user_ocid_oci_system"
+      - "use_existing_agcs_user"
+      - "agcs_user_given_name"
+      - "agcs_user_family_name"
+      - "agcs_user_region_oci_system"
+      - "region"
+      - "agcs_user_tenancy_ocid_oci_system"
+      - "tenancy_ocid"
+      - "admin_region_service_instance"
+      - "use_namespace"
+      - "agcs_user_username"
+      - "agcs_user_domain_name"
+
+variables:
+  service_instance_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Access Governance Service Instance Compartment"
+    description: "Compartment, where Access Governance instance will be deployed."
+    required: true
+
+  admin_domain_compartment_ocid:
+    type: oci:identity:compartment:id
+    title: "Compartment of Administrator's Domain"
+    description: "The Compartment where Administrator's Domain belongs."
+    required: true
+
+  namespace_service_endpoint:
+    type: string
+    title: "Select A Namespace"
+    description: "Namespace where AG Instance will be deployed."
+    required: true
+    visible: use_namespace
+
+  agcs_user_username:
+    type: string
+    title: "Access Governance User's User Name"
+    description: "User name for the new Access Governance User."
+    required: true
+
+  agcs_user_email:
+    type: string
+    title: "Access Governance User's Email"
+    description: "Email of the New Access Governance User."
+    pattern: ^[^\s@]+@[^\s@]+\.[^\s@]+$
+    required: true
+
+  agcs_user_name:
+    type: string
+    title: "Access Governance User’s Name"
+    description: "Name for creating Access Governance User."
+    required: true
+
+  agcs_user_group_display_name:
+    type: string
+    title: "Access Governance User's Group Name"
+    description: "User will become part of this group for policy assignment."
+    required: true
+
+  agcs_user_domain_name:
+    type: string
+    title: "Access Governance User's Domain Name"
+    description: "User will be created in this domain."
+    required: true
+    pattern: ^[A-Za-z0-9_.-]+$
+  
+  admin_domain_name:
+    type: string
+    title: "Administrator's Identity Domain Name"
+    description: "Administrator's Identity Domain Name for authorizing the IDCS APIs."
+    required: true
+    pattern: ^[A-Za-z0-9_.-]+$
+
+  service_instance_display_name:
+    type: string
+    title: "Access Governance Instance Display Name"
+    description: "Instance name will be used in instance URL."
+    pattern: ^[a-zA-Z0-9-_]+$
+    required: true
+  
+  service_instance_description:
+    type: string
+    title: "Access Governance Instance Description"
+    description: "Description of the Access Governance Service Instance."
+    required: true
+    
+  ag_license_type:
+    type: enum
+    enum:
+      - "Access Governance Premium"
+      - "Access Governance for Oracle Workloads"
+      - "Access Governance for Oracle Cloud Infrastructure"
+    title: "Access Governance Instance License Type"
+    description: "License Type for Access Governance Instance."
+    default: "Access Governance for Oracle Cloud Infrastructure"
+    required: true
+
+  oci_system_name:
+    type: string
+    title: "OCI Connected System Name"
+    description: "Display Name for the OCI Connected System in Access Governance."
+    required: true
+    visible: should_create_connected_system
+
+  should_create_connected_system:
+    type: boolean
+    title: "Add OCI connected system to Instance deployed in a Namespace ?"
+    description: "This option is required when Instance needs to be deployed in a Namespace."
+    required: true
+    visible: use_namespace
+
+  oci_system_description:
+    type: string
+    title: "OCI Connected System Description"
+    description: "Description of the Connected System."
+    required: true
+    visible: should_create_connected_system
+
+# Hidden Fields
+
+
+  agcs_user_ocid_oci_system:
+    type: string
+    title: "Access Governance User's OCID"
+    description: "OCID of Access Governance User to add Cloud gateway system."
+    required: false
+
+  agcs_user_fingerprint_oci_system:
+    type: string
+    title: "Access Governance User's Fingerprint"
+    description: "Fingerprint of the Access Governance User to add cloud gateway system."
+    required: true
+
+  agcs_user_private_key:
+    type: password
+    title: "Private Key for Access Governance User"
+    description: "Private Key of Access Governance User to add Cloud gateway system."
+    required: true
+
+  use_existing_agcs_user:
+    type: boolean
+    title: "Use Existing AG User"
+    description: "Option to use existing user for OCI System."
+    required: false
+    default: false
+
+  agcs_user_given_name:
+    type: string
+    title: "Access Governance User's Given Name"
+    description: "Given Name of the New Access Governance User."
+    required: false
+
+  agcs_user_family_name:
+    type: string
+    title: "Access Governance User's Family Name"
+    description: "Family Name of the New Access Governance User."
+    required: false
+
+  agcs_user_region_oci_system:
+    type: oci:identity:region:name
+    title: "Access Governance User Region"
+    description: "Region of the Access Governance to add cloud gateway system."
+    required: false
+
+  agcs_user_tenancy_ocid_oci_system:
+    type: string
+    title: "Access Governance User's Tenancy OCID"
+    description: "Tenancy of the Access Governance User to add Cloud gateway system."
+    required: false
+
+  admin_region_service_instance:
+    type: oci:identity:region:name
+    title: "Access Governance Service Instance Region"
+    description: "Region name for the Service URL of the AG instance."
+    required: false
+
+  use_namespace:
+    type: boolean
+    title: "Use namespace to create Access Governance Instance ?"
+    description: "Use this option if you would like to create AG instance in a namespace instead of Production."
+    required: true
+    default: false

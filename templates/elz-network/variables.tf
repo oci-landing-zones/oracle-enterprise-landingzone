@@ -135,6 +135,28 @@ variable "add_ssh_to_security_list" {
   default     = false
 }
 
+variable "hub_public_subnet_dns_label" {
+  type        = string
+  description = "Hub Public Subnet DNS Label."
+}
+variable "hub_private_subnet_dns_label" {
+  type        = string
+  description = "Hub Private Subnet DNS Label."
+}
+variable "subnet_app_dns_label" {
+  type        = string
+  description = "Spoke App Subnet DNS Label."
+}
+variable "subnet_db_dns_label" {
+  type        = string
+  description = "Spoke DB Subnet DNS Label."
+}
+variable "subnet_web_dns_label" {
+  type        = string
+  description = "Spoke Web Subnet DNS Label."
+}
+
+
 # -----------------------------------------------------------------------------
 # VPN Variables
 # -----------------------------------------------------------------------------

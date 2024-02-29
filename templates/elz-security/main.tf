@@ -13,8 +13,6 @@ locals {
     activity_detector_recipe_display_name      = "OCI Activity Detector Recipe"
     threat_detector_recipe_display_name        = "OCI Threat Detector Recipe"
     responder_recipe_display_name              = "OCI Responder Recipe"
-    compartment_id                             = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
-    target_resource_id                         = var.cloud_guard_target_tenancy ? var.tenancy_ocid : var.environment_compartment_id
   }
 
   vss = {
@@ -24,10 +22,6 @@ locals {
     host_scan_recipe_port_settings_scan_level  = "STANDARD"
     agent_cis_benchmark_settings_scan_level    = "STRICT"
     vss_scan_schedule                          = "DAILY"
-  }
-
-  bastion = {
-    name = "${var.resource_label}-OCI-ELZ-BAS-${var.environment_prefix}"
   }
 
   vault = {
@@ -62,9 +56,9 @@ module "cloud_guard" {
   tenancy_ocid                               = var.tenancy_ocid
   region                                     = var.region
   status                                     = local.cloud_guard.status
-  compartment_id                             = local.cloud_guard.compartment_id
+  compartment_id                             = var.environment_compartment_id
   display_name                               = local.cloud_guard.display_name
-  target_resource_id                         = local.cloud_guard.target_resource_id
+  target_resource_id                         = var.environment_compartment_id
   target_resource_type                       = local.cloud_guard.target_resource_type
   description                                = local.cloud_guard.description
   configuration_detector_recipe_display_name = local.cloud_guard.configuration_detector_recipe_display_name
@@ -88,15 +82,6 @@ module "vss" {
   vss_scan_schedule                          = local.vss.vss_scan_schedule
   host_scan_recipe_display_name              = local.vss.host_scan_recipe_display_name
   host_scan_target_display_name              = local.vss.host_scan_target_display_name
-}
-
-module "bastion" {
-  source                               = "../../modules/bastion"
-  count                                = var.enable_bastion ? 1 : 0
-  target_subnet_id                     = var.bastion_target_subnet_id
-  bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
-  bastion_name                         = local.bastion.name
-  compartment_id                       = var.security_compartment_id
 }
 
 module "vault" {
