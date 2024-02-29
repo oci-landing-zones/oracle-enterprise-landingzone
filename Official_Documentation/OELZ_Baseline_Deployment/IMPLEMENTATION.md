@@ -144,7 +144,7 @@ Environments are each full infrastructure deployments with their own hub-and-spo
 
 They are designed to ensure isolation between each environment. They can each contain multiple Workloads.
 
-The Oracle Enterprise Landing Zone will initially set up two Environments: `Prod` and `Nonprod`.  Infrastructure resources within each Environment will have a single letter abbreviation (such as `N` or `P`) to indicate which environment they are part of.
+The Oracle Enterprise Landing Zone will initially set up two Environments: `Prod` and `Nonprod`.  Infrastructure resources within each Environment will have a single letter abbreviation (such as `N` or `P`) to indicate which environment they are part of. From Release v2.3.1 onwards, if end users don't need the Non-Proudction Environment, they can use the flag "is_nonprod_env_deploy" and set it to "false".
 
 In the future, the `elz-environment` template will allow you to easily add new Environments to an existing Oracle Enterprise Landing Zone.
 

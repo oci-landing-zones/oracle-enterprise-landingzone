@@ -1,6 +1,13 @@
 # Release Notes
 
-## v2.2.2 - 2023-1-19
+## v2.3.1 - 2024-2-29
+-  Move Bastion resources to workload stack module.
+-  Added Flag to deploy Non-Production Environment as per customer need.
+-  Removed cloud guard target tenancy variable and changed default to Environment Home Compartment OCID.
+-  Added Access Governance Module on OELZ.
+
+
+## v2.3.0 - 2024-1-19
 -  Added Multi-Region and Disaster Recovery Module.
 -  Cloud Guard Key Replication from the Home Region to the Backup Region or vice-verse is currently not supported(Work in Progress).
   
