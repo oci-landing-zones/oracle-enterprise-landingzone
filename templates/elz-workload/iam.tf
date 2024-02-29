@@ -8,7 +8,7 @@
 # -----------------------------------------------------------------------------
 locals {
     workload_compartment = {
-        name        = var.workload_compartment_name != "" ? var.workload_compartment_name : "OCI-ELZ-${var.environment_prefix}-${var.workload_name}-${local.region_key[0]}"
+        name        = var.workload_compartment_name != "" ? var.workload_compartment_name : "OCI-ELZ-${var.environment_prefix}-${var.workload_prefix}-${local.region_key[0]}"
         description = "Workload Compartment"
 
     }
@@ -16,23 +16,22 @@ locals {
         workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-WRK-ADMIN",
         application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-APP-ADMIN",
         database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-DB-ADMIN",
-        database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DB-ADMIN",
-        datasafe_admin_group_name : var.datasafe_admin_group_name != "" ? var.datasafe_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DTSAFE-ADMIN",
-        datasafe_reports_group_name : var.datasafe_reports_group_name != "" ? var.datasafe_reports_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_name}-DTSAFE-REPORTS",
+        datasafe_admin_group_name : var.datasafe_admin_group_name != "" ? var.datasafe_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-DTSAFE-ADMIN",
+        datasafe_reports_group_name : var.datasafe_reports_group_name != "" ? var.datasafe_reports_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-DTSAFE-REPORTS",
     } : {
-        workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-WRK-ADMIN",
-        application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-APP-ADMIN",
-        database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-DB-ADMIN",
+        workload_admin_group_name : var.workload_admin_group_name != "" ? var.workload_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-WRK-ADMIN",
+        application_admin_group_name : var.application_admin_group_name != "" ? var.application_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-APP-ADMIN",
+        database_admin_group_name : var.database_admin_group_name != "" ? var.database_admin_group_name : "OCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-DB-ADMIN",
     }
 
     base_group_names = {
         network_admin_group_name : var.network_admin_group_name != "" ? var.network_admin_group_name : "OOCI-ELZ-UGP-${var.environment_prefix}-${var.workload_prefix}-NET-ADMIN",
     }
-    identity_domain_name = var.identity_domain_name != "" ? var.identity_domain_name : "OCI-ELZ-${var.environment_prefix}-IDT"
+    identity_domain_name = var.identity_domain_name != "" ? var.identity_domain_name : "OCI-ELZ-${var.environment_prefix}-${var.workload_prefix}-${local.region_key[0]}"
 
     parent_compartment_names = {
-        security_compartment_name : var.security_compartment_name != "" ? var.security_compartment_name : "OCI-ELZ-${var.environment_prefix}-SRD-SEC"
-        environment_compartment_name : var.environment_compartment_name != "" ? var.environment_compartment_name : "OCI-ELZ-${var.environment_prefix}-CMP"
+        security_compartment_name : var.security_compartment_name != "" ? var.security_compartment_name : "OCI-ELZ-${var.environment_prefix}-${var.workload_prefix}-SRD-SEC"
+        environment_compartment_name : var.environment_compartment_name != "" ? var.environment_compartment_name : "OCI-ELZ-${var.environment_prefix}-${var.workload_prefix}-CMP"
     }
 
     workload_expansion_policy = {
@@ -64,9 +63,6 @@ locals {
             "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage database-family in compartment ${module.workload_compartment.compartment_name}",
             "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage autonomous-databases in compartment ${module.workload_compartment.compartment_name}",
             "Allow group ${local.identity_domain_name}/${local.group_names["database_admin_group_name"]} to manage autonomous-container-databases in compartment ${module.workload_compartment.compartment_name}",
-            "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect autonomous-vmclusters in compartment ${module.workload_compartment.compartment_name}",
-            # "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to inspect vmcluster-network in compartment ${module.workload_compartment.compartment_name}",
-            "Allow group ${local.identity_domain_name}/${local.group_names["exadata_infra_admin_group_name"]} to manage virtual-network-family in compartment ${module.workload_compartment.compartment_name}",
 
             "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to manage data-safe-assessment-family in compartment ${module.workload_compartment.compartment_name}",
             "Allow group ${local.identity_domain_name}/${local.group_names["datasafe_reports_group_name"]} to read data-safe-report-definitions in compartment ${module.workload_compartment.compartment_name}",
