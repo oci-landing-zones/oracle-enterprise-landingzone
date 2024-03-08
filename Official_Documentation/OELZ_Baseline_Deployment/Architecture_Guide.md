@@ -137,7 +137,7 @@ Use the same group names in Oracle Cloud Infrastructure as you use for Active Di
 
 For more information about federating with Active Directory, see [Federating with Microsoft Active Directory](https://docs.oracle.com/iaas/Content/Identity/Tasks/federatingADFS.htm).
 
-For more information about federating with Active Directory with IAM Identity domain. [Federating with AD with Identity Domain](https://docs.oracle.com/en-us/iaas/Content/Identity/identityproviders/manage-identity-providers.htm#manage-identity-providers).
+For more information about federating with 3rd party Identity Providers with IAM Identity domain. [Managing Identity Providers](https://docs.oracle.com/en-us/iaas/Content/Identity/identityproviders/manage-identity-providers.htm#manage-identity-providers).
 
 
 ## _Compliance_
