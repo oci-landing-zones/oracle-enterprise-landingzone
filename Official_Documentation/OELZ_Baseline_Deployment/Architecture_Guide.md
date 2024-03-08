@@ -137,6 +137,9 @@ Use the same group names in Oracle Cloud Infrastructure as you use for Active Di
 
 For more information about federating with Active Directory, see [Federating with Microsoft Active Directory](https://docs.oracle.com/iaas/Content/Identity/Tasks/federatingADFS.htm).
 
+For more information about federating with Active Directory with IAM Identity domain. [Federating with AD with Identity Domain](https://docs.oracle.com/en-us/iaas/Content/Identity/identityproviders/manage-identity-providers.htm#manage-identity-providers).
+
+
 ## _Compliance_
 
 OELZv2 includes a set of pre-built policies and guardrails that help ensure that your OCI environment has a strong security foundation to help your organization achieve your security compliance goals.  The security controls that have been implemented in OELZv2 include recommendations that help our customers attain [CIS 1.2](https://www.cisecurity.org/benchmark/oracle_cloud) compliance Level 1.

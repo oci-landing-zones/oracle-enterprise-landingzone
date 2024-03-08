@@ -48,7 +48,7 @@ locals {
   }
 
   audit_log_service_connector = {
-    display_name  = "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_auditLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     log_group_id  = "_Audit_Include_Subcompartment"
@@ -56,7 +56,7 @@ locals {
   }
 
   default_log_service_connector = {
-    display_name  = "${var.resource_label}_${var.environment_prefix}_auditLogs_standard"
+    display_name  = "${var.resource_label}_${var.environment_prefix}_defaultLogs_standard"
     source_kind   = "logging"
     target_kind   = "objectStorage"
     target_bucket = local.default_log_bucket.name
