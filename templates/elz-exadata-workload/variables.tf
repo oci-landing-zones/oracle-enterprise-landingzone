@@ -38,8 +38,10 @@ variable "enable_fan_events" {
   description = "Security List to be enabled for ONS FAN events"
   default     = true
 }
+
 variable "is_baseline_deploy" {
   type        = bool
+  default     = false
   description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }
 

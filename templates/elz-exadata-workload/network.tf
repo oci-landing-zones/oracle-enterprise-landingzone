@@ -14,6 +14,8 @@ module "exadata_workload_expansion_spoke" {
   vcn_display_name        = var.vcn_display_name != "" ? var.vcn_display_name : "OCI-ELZ-${var.workload_prefix}-EXA-SPK-VCN-${local.region_key[0]}"
   db_port                 = var.db_port
   enable_fan_events       = var.enable_fan_events
+  is_baseline_deploy      = var.is_baseline_deploy
+  
   #Spoke VCN Subnet Variables
   workload_private_spoke_subnet_lb_display_name     = var.workload_private_spoke_subnet_lb_display_name != "" ? var.workload_private_spoke_subnet_lb_display_name : "OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-LB"
   workload_private_spoke_subnet_app_display_name    = var.workload_private_spoke_subnet_app_display_name != "" ? var.workload_private_spoke_subnet_app_display_name : "OCI-ELZ-${var.workload_prefix}-EXA-SPK-SUB-${local.region_key[0]}-APP"

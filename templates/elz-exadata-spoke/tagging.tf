@@ -20,7 +20,7 @@ locals {
     }
     tag_default_map = {
       architecture_tag = {
-        compartment_id      = module.workload_compartment.compartment_id
+        compartment_id      = var.workload_compartment_id
         tag_definition_name = "architecture_tag"
         value               = "3.0.0"
         is_required         = false
