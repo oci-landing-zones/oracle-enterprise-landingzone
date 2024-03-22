@@ -51,6 +51,7 @@ module "identity" {
   home_compartment_id          = var.home_compartment_id
   is_baseline_deploy           = var.is_baseline_deploy
   resource_label               = var.resource_label
+  oci_realm_key                = var.oci_realm_key
 
   providers = {
     oci             = oci
@@ -105,6 +106,7 @@ module "security" {
   enable_replication                   = var.enable_vault_replication
   create_master_encryption_key         = var.create_master_encryption_key
   is_baseline_deploy                   = var.is_baseline_deploy
+  oci_realm_key                        = var.oci_realm_key
 
   providers = {
     oci             = oci

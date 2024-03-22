@@ -37,7 +37,10 @@ variable "region" {
   type        = string
   description = "The OCI region"
 }
-
+variable "oci_realm_key" {
+  type        = string
+  description = "The OCI region Realm Key"
+}
 variable "security_compartment_id" {
   type        = string
   description = "The OCID of security compartment"

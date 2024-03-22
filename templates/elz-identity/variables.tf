@@ -35,6 +35,10 @@ variable "resource_label" {
   description = "Prefix used to avoid naming conflict"
 }
 
+variable "oci_realm_key" {
+  type        = string
+  description = "The OCI region Realm Key"
+}
 # -----------------------------------------------------------------------------
 # Domain Variables
 # -----------------------------------------------------------------------------

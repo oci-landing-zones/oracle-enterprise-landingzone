@@ -20,6 +20,7 @@ module "prod_environment" {
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
   resource_label = var.resource_label
+  oci_realm_key  = var.oci_realm_key
 
   home_compartment_id        = module.home_compartment.compartment_id
   environment_prefix         = local.prod_environment.environment_prefix
@@ -201,6 +202,7 @@ module "nonprod_environment" {
   tenancy_ocid   = var.tenancy_ocid
   region         = var.region
   resource_label = var.resource_label
+  oci_realm_key  = var.oci_realm_key
 
   home_compartment_id        = module.home_compartment.compartment_id
   environment_prefix         = local.nonprod_environment.environment_prefix

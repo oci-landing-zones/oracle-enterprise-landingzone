@@ -19,6 +19,7 @@ module "security" {
   bastion_client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
   bastion_target_subnet_id             = module.network.spoke_web_subnet_ocid
   environment_compartment_id           = var.environment_compartment_id
+  oci_realm_key                        = var.oci_realm_key
 
   providers = {
     oci               = oci
