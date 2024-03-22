@@ -135,7 +135,7 @@ locals {
       "Allow group ${local.identity_domain.domain_display_name}/${local.group_names["security_admin_group_name"]} to inspect keys in compartment ${var.shared_compartment_name}:${var.security_compartment_name}",
       "Allow group ${local.identity_domain.domain_display_name}/${local.group_names["security_admin_group_name"]} to read vss-family in compartment ${var.shared_compartment_name}:${var.security_compartment_name}",
       "Allow group ${local.identity_domain.domain_display_name}/${local.group_names["security_admin_group_name"]} to use bastion in compartment ${var.shared_compartment_name}:${var.security_compartment_name}",
-      "Allow service blockstorage, objectstorage-${var.region}, FssOc1Prod, oke, streaming to use keys in compartment ${var.shared_compartment_name}:${var.security_compartment_name}",
+      "Allow service blockstorage, objectstorage-${var.region}, FssOc${var.oci_realm_key}Prod, oke, streaming to use keys in compartment ${var.shared_compartment_name}:${var.security_compartment_name}",
       ],
       flatten([
         for compartment in var.workload_compartment_names :

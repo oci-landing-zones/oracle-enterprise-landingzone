@@ -34,6 +34,10 @@ variable "is_baseline_deploy" {
   type        = bool
   description = "TagNameSpace Optimization: Enable this flag to disable dependent module TagNameSpace Tag Creation."
 }
+variable "oci_realm_key" {
+  type        = string
+  description = "The OCI region Realm Key"
+}
 
 # -----------------------------------------------------------------------------
 # Compartment Variables

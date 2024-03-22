@@ -44,7 +44,7 @@ locals {
 
     statements = [
       "Allow service objectstorage-${var.region} to use keys in compartment id ${module.prod_environment.compartment.security.id}",
-      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${module.prod_environment.compartment.security.id}"
+      "Allow service blockstorage,FssOc${var.oci_realm_key}Prod, OKE, streaming to use keys in compartment id ${module.prod_environment.compartment.security.id}"
     ]
   }
 

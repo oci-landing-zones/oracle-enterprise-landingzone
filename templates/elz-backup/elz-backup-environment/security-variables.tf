@@ -31,6 +31,12 @@ variable "security_compartment_id" {
   description = "The OCID of security compartment"
 }
 
+variable "oci_realm_key" {
+  type        = string
+  default     = "1"
+  description = "The OCI region Realm Key"
+}
+
 variable "vault_type" {
   type        = string
   description = "The type of vault to create. "

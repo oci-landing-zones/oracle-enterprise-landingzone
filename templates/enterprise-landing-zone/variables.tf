@@ -30,6 +30,12 @@ variable "is_nonprod_env_deploy" {
   default     = true
   description = "Deploy Non-Production Enviornment"
 }
+variable "oci_realm_key" {
+  type        = string
+  default     = "1"
+  description = "The OCI region Realm Key"
+}
+
 
 # -----------------------------------------------------------------------------
 # Compartment Variables

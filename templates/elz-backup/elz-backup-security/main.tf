@@ -23,7 +23,7 @@ locals {
 
     statements = local.create_key ? [
       "Allow service objectstorage-${var.backup_region} to use keys in compartment id ${var.security_compartment_id}",
-      "Allow service blockstorage,FssOc1Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id}"
+      "Allow service blockstorage,FssOc${var.oci_realm_key}Prod, OKE, streaming to use keys in compartment id ${var.security_compartment_id}"
     ] : []
   }
 
