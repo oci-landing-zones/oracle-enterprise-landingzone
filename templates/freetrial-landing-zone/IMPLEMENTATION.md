@@ -104,7 +104,7 @@ The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manag
 
 ## Terraform CLI
 
-* Clone the OELZ Terraform templates from the [oelz_github](https://github.com/oci-landing-zones/oci-landing-zones/tree/master).
+* Clone the OELZ Terraform templates from the [oelz_github](https://github.com/oci-landing-zones/oracle-enterprise-landingzone/tree/master).
 *  Go to Directory landing-zones/templates/freetrial-landing-zone.
 *  Configure Variables on the file landing-zones/templates/freetrial-landing-zone/livelab.tfvars and save the file.
     - Check Configuration Guide for Variables Deceralation. 
