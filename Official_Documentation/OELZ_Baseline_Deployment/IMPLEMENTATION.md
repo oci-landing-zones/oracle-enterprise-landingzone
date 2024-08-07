@@ -245,7 +245,7 @@ Or you can select the stack manually through the console starting from step 1.
     * Server URL: https://github.com/
     * Personal Access Token: #Your Personal Access Token# 
 8. Click `Create` to create the config provider
-9. For Repository select `oci-landing-zones`
+9. For Repository select `oracle-enterprise-landingzone`
 10. For Branch select `main`
 11. for Working directory, select `templates/enterprise-landing-zone`    
 
@@ -342,4 +342,4 @@ Copyright (c) 2022,2023 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
-See [LICENSE](../../LICENSE) for more details.
+See [LICENSE](../../LICENSE.txt) for more details.
