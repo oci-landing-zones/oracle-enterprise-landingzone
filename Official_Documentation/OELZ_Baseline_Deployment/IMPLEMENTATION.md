@@ -202,7 +202,7 @@ The Oracle Enterprise Landing Zone can be launched through Oracle Resource Manag
 
 2. Set up API keys to work with your OCI account. Follow the instructions [here](https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm).
 
-3. Visit the [GitHub page](https://github.com/oracle-quickstart/oci-landing-zones) to clone the Terraform template.
+3. Visit the [GitHub page](https://github.com/oci-landing-zones/oracle-enterprise-landingzone) to clone the Terraform template.
 
 4. In the repository, cd to the `templates/enterprise-landing-zone/` directory. This is the main template for the Oracle Enterprise Landing Zone. (the other templates will allow you to deploy other components, such as additional Environments or Workloads, or to deploy pieces of the Oracle Enterprise Landing Zone architecture for use in your own custom infrastructure designs.)
 
@@ -245,7 +245,7 @@ Or you can select the stack manually through the console starting from step 1.
     * Server URL: https://github.com/
     * Personal Access Token: #Your Personal Access Token# 
 8. Click `Create` to create the config provider
-9. For Repository select `oci-landing-zones`
+9. For Repository select `oracle-enterprise-landingzone`
 10. For Branch select `main`
 11. for Working directory, select `templates/enterprise-landing-zone`    
 
@@ -342,4 +342,4 @@ Copyright (c) 2022,2023 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
-See [LICENSE](../../LICENSE) for more details.
+See [LICENSE](../../LICENSE.txt) for more details.

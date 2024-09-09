@@ -1,5 +1,7 @@
 # Landing Zones
 
+Welcome to the [OCI Landing Zones (OLZ) Community](https://github.com/oci-landing-zones)! OCI Landing Zones simplify onboarding and running on OCI by providing design guidance, best practices, and pre-configured Terraform deployment templates for various architectures and use cases. These enable customers to easily provision a secure tenancy foundation in the cloud along with all required services, and reliably scale as workloads expand.
+
 This repository contains different types of Landing Zones to deploy to the Oracle Cloud Infrastructure platform. The landing zones are assembled from modules and templates that users can use in their default configuration or fork this repo and customize for your own scenarios.
 
 ## Oracle Enterprise Landing Zone v2 (OELZ v2)
@@ -22,7 +24,7 @@ at [Official_Documentation/OELZ_Workload_Deployment](./Official_Documentation/OE
 ## Deploy Using Oracle Resource Manager
 1. Click to deploy the stack
 
-[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oracle-quickstart/oci-landing-zones/archive/refs/tags/v2.3.1.zip)
+[![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?zipUrl=https://github.com/oci-landing-zones/oracle-enterprise-landingzone/archive/refs/tags/v2.3.1.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials. Review and accept the terms and conditions.
 
@@ -50,4 +52,4 @@ Copyright (c) 2022,2023 Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License (UPL), Version 1.0.
 
-See [LICENSE](./LICENSE) for more details.
+See [LICENSE](./LICENSE.txt) for more details.

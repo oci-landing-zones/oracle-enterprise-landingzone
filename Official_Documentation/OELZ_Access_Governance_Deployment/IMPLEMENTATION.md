@@ -65,7 +65,7 @@ key_file=<path to your private keyfile> #your specific path
 
 ## How to Execute
 
-<blockquote> Currently only <b>production</b> deployment is supported via stack deployment, to deploy in <b>non-production</b> environment, run the Access Governance Module as standalone deployment. Please change the working directory to <i>oci-landing-zones/modules/access-governance</i> and enable the provider lines and disable remaining lines, fill the terraform.tfvars and follow terraform CLI commands</blockquote>
+<blockquote> Currently only <b>production</b> deployment is supported via stack deployment, to deploy in <b>non-production</b> environment, run the Access Governance Module as standalone deployment. Please change the working directory to <i>oracle-enterprise-landingzone/modules/access-governance</i> and enable the provider lines and disable remaining lines, fill the terraform.tfvars and follow terraform CLI commands</blockquote>
 
 ### Via Resource Manager
 Deployment via Resource Manager is currently not supported.
@@ -123,7 +123,7 @@ Copyright (c) 2023, Oracle and/or its affiliates.
 
 Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-See [LICENSE](../../LICENSE) for more details.
+See [LICENSE](../../LICENSE.txt) for more details.
 
 ## Known Issues
 None.
