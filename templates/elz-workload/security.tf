@@ -21,7 +21,7 @@ locals {
 
     statements = [
       "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to read instance-family in compartment ${module.workload_compartment.compartment_name}",
-      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to use osms-managed-instances in compartment ${module.workload_compartment.compartment_name}"
+      "Allow dynamic-group ${module.workload_osms_dynamic_group.name} to manage osmh-family in compartment ${module.workload_compartment.compartment_name}"
     ]
   }
 
