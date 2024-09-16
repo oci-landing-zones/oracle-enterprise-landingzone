@@ -32,3 +32,7 @@ variable "budget_alert_rule_recipients" {
   type        = string
   default     = "example@example.com"
 }
+variable "home_compartment_id" {
+  type        = string
+  description = "Home Compartment ID"
+}

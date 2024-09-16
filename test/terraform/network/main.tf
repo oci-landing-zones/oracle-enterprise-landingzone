@@ -92,6 +92,7 @@ module "network" {
   workload_compartment_id = module.workload_compartment.compartment_id
   additional_workload_subnets_cidr_blocks = var.additional_workload_subnets_cidr_blocks
   workload_compartment_name = local.workload_compartment_name
+  home_compartment_id = module.home_compartment.compartment_id
 
   providers = {
     oci             = oci

@@ -20,6 +20,7 @@ module "budget" {
   budget_alert_rule_threshold  = var.budget_alert_rule_threshold
   budget_alert_rule_message    = var.budget_alert_rule_message
   budget_alert_rule_recipients = var.budget_alert_rule_recipients
+  compartment_id               = var.home_compartment_id
 
   providers = {
     oci             = oci
