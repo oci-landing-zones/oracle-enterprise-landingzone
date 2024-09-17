@@ -42,9 +42,13 @@ at [Official_Documentation/OELZ_Workload_Deployment](./Official_Documentation/OE
 
 This repository is developed and supported by the Oracle OCI Landing Zones team.
 
-## How to Contribute
+## Contributing
 
 Interested in contributing?  See our contribution [guidelines](CONTRIBUTING.md) for details.
+
+## Security
+
+Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
 
 ## License
 
