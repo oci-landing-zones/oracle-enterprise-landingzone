@@ -4,6 +4,8 @@ Welcome to the [OCI Landing Zones (OLZ) Community](https://github.com/oci-landin
 
 This repository contains different types of Landing Zones to deploy to the Oracle Cloud Infrastructure platform. The landing zones are assembled from modules and templates that users can use in their default configuration or fork this repo and customize for your own scenarios.
 
+### This repository is deprecated in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [OCI Core Landing Zone](https://github.com/oci-landing-zones/terraform-oci-core-landingzone).
+
 ## Oracle Enterprise Landing Zone v2 (OELZ v2)
 
 The Oracle Enterprise Landing Zone v2 (OELZ v2) deploys a typical architecture used by enterprise customers. The root template for this landing zone is located at [Official_Documentation](./Official_Documentation/OELZ_Baseline_Deployment). Users can use the guides below to get started with the Oracle Enterprise Landing Zone v2 (OELZ v2).
