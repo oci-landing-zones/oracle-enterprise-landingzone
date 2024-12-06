@@ -1076,7 +1076,7 @@
 <g id="Icon Text Label_33">
 <text id="IconLabel_48" fill="black" xml:space="preserve" style="white-space: pre" font-family="Oracle Sans" font-size="16" letter-spacing="0em"><tspan x="1046.42" y="342.816">IAM</tspan></text>
 <text id="IconLabel_49" fill="black" xml:space="preserve" style="white-space: pre" font-family="Oracle Sans" font-size="16" letter-spacing="0em"><tspan x="1032.5" y="358.816">Domain</tspan></text>
-<text id="IconLabel_50" fill="black" xml:space="preserve" style="white-space: pre" font-family="Oracle Sans" font-size="16" letter-spacing="0em"><tspan x="1022.1" y="374.816">(L2_PROD)</tspan></text>
+<text id="IconLabel_50" fill="black" xml:space="preserve" style="white-space: pre" font-family="Oracle Sans" font-size="16" letter-spacing="0em"><tspan x="1022.1" y="374.816">(L2_NON-PROD)</tspan></text>
 </g>
 </g>
 <g id="Cloud Guard">
@@ -1800,3 +1800,4 @@
 </clipPath>
 </defs>
 </svg>
+
