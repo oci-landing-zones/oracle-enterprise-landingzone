@@ -1,3 +1,5 @@
+### This repository is deprecated in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [OCI Core Landing Zone](https://github.com/oci-landing-zones/terraform-oci-core-landingzone).
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
