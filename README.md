@@ -2,6 +2,8 @@
 
 ### This repository is deprecated in favor of the current release available from the OCI Landing Zones GitHub Organization. Please use [OCI Core Landing Zone](https://github.com/oci-landing-zones/terraform-oci-core-landingzone).
 
+**Below is the OLD documentation for the deprecated landing zones for Issues only. For new deployment, please use Core landing zone - built using the revamped standardized framework for OCI landing zones.**
+
 Welcome to the [OCI Landing Zones (OLZ) Community](https://github.com/oci-landing-zones)! OCI Landing Zones simplify onboarding and running on OCI by providing design guidance, best practices, and pre-configured Terraform deployment templates for various architectures and use cases. These enable customers to easily provision a secure tenancy foundation in the cloud along with all required services, and reliably scale as workloads expand.
 
 This repository contains different types of Landing Zones to deploy to the Oracle Cloud Infrastructure platform. The landing zones are assembled from modules and templates that users can use in their default configuration or fork this repo and customize for your own scenarios.
