@@ -4,7 +4,7 @@ terraform {
   required_providers {
     oci = {
       source                = "oracle/oci"
-      version               = "4.96.0" # October 05, 2022 Release
+      version               = "5.1.0"
       configuration_aliases = [oci, oci.home_region]
     }
   }
